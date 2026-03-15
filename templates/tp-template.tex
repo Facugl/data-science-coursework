@@ -1,0 +1,346 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% TIPOGRAFÍA (estilo académico clásico)
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+
+% Entornos de teorema en español
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{proposicion}[teorema]{Proposición}
+\newtheorem{corolario}[teorema]{Corolario}
+\theoremstyle{definition}
+\newtheorem{definicion}[teorema]{Definición}
+\newtheorem{ejemplo}[teorema]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{observacion}[teorema]{Observación}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{float}  % control de posición de figuras [H]
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}   % \toprule, \midrule, \bottomrule
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Colores para el resaltado de sintaxis
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+% Estilo base de listings
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+% Estilos por lenguaje
+\lstdefinestyle{python}{
+    style=estilo_base,
+    language=Python,
+}
+\lstdefinestyle{r}{
+    style=estilo_base,
+    language=R,
+}
+\lstdefinestyle{bash}{
+    style=estilo_base,
+    language=bash,
+}
+
+% Comando corto para código inline
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% ============================================================
+% NUMERACIÓN DE EJERCICIOS
+% ============================================================
+\usepackage{enumitem}
+
+% Contador de ejercicios (se resetea por sección si se desea)
+\newcounter{ejercicio}[section]
+
+\newenvironment{ejercicio}[1][]{%
+    \refstepcounter{ejercicio}%
+    \par\vspace{0.8em}%
+    \noindent\textbf{Ejercicio \theejercicio%
+        \ifx&#1&\else\ — #1\fi}%
+    \par\vspace{0.3em}%
+    \noindent
+}{%
+    \par\vspace{0.5em}%
+}
+
+\newenvironment{resolucion}{%
+    \par\vspace{0.3em}%
+    \noindent\textit{Resolución.}\quad
+}{%
+    \par\vspace{0.8em}%
+}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small \materia}
+\fancyhead[R]{\small \trabajo}
+\fancyfoot[L]{\small \alumno}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO  ← completar para cada TP
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Nombre de la Materia}
+\newcommand{\trabajo}{Trabajo Práctico N°}
+\newcommand{\profesor}{Nombre del Profesor}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+% Ruta al logo de la universidad (reemplazar con la ruta real, ej: logo.png)
+% Comentar \logoincluido y descomentar \logoomitido si no hay logo disponible.
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}  % espacio de reemplazo sin logo
+
+% Cambiar \logoincluido por \logoomitido en la portada si no tenés el archivo
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    % Logo (comentar la línea si no tenés el archivo)
+    \logoportada
+
+    % Línea superior
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    % Datos en tabla alineada
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    % Línea inferior
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+
+% ======================== CUERPO ============================
+
+\newpage
+
+\section{Ejercicio 1}
+
+\begin{ejercicio}[Título opcional del ejercicio]
+Enunciado del ejercicio. Puede contener fórmulas inline como $f(x) = x^2$
+o en bloque:
+\[
+    x^2 + 5x + 6 = 0
+\]
+\end{ejercicio}
+
+\begin{resolucion}
+Desarrollo de la resolución.
+\[
+    x = \frac{-5 \pm \sqrt{25 - 24}}{2} = \frac{-5 \pm 1}{2}
+    \implies x_1 = -2,\quad x_2 = -3
+\]
+\end{resolucion}
+
+\volverindice
+\newpage
+
+% ---- Ejemplo: código fuente ----
+\section{Ejercicio 2}
+
+\begin{ejercicio}
+Escribir una función en Python que calcule la media de una lista.
+\end{ejercicio}
+
+\begin{resolucion}
+
+\begin{lstlisting}[style=python, caption={Media aritmética en Python}]
+def media(valores: list[float]) -> float:
+    """Devuelve la media aritmética de una lista de valores."""
+    if not valores:
+        raise ValueError("La lista no puede estar vacía.")
+    return sum(valores) / len(valores)
+
+print(media([1, 2, 3, 4, 5]))  # 3.0
+\end{lstlisting}
+
+\end{resolucion}
+
+\volverindice
+\newpage
+
+% ---- Ejemplo: gráfico con pgfplots ----
+\section{Ejercicio 3}
+
+\begin{ejercicio}
+Graficar la función $f(x) = \sin(x)$ en el intervalo $[0, 2\pi]$.
+\end{ejercicio}
+
+\begin{resolucion}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=10cm, height=6cm,
+            xlabel={$x$},
+            ylabel={$f(x)$},
+            title={$f(x) = \sin(x)$},
+            grid=major,
+            domain=0:6.28,
+            samples=100,
+            xmin=0, xmax=6.28,
+            xtick={0, 1.5708, 3.1416, 4.7124, 6.2832},
+            xticklabels={$0$, $\frac{\pi}{2}$, $\pi$, $\frac{3\pi}{2}$, $2\pi$},
+        ]
+            \addplot[blue, thick] {sin(deg(x))};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Gráfico de $\sin(x)$ en $[0, 2\pi]$.}
+    \label{fig:seno}
+\end{figure}
+
+\end{resolucion}
+
+\volverindice
+\newpage
+
+% ---- Ejemplo: tabla con booktabs ----
+\section{Ejercicio 4}
+
+\begin{ejercicio}
+Presentar en una tabla los estadísticos descriptivos del siguiente conjunto de datos.
+\end{ejercicio}
+
+\begin{resolucion}
+
+\begin{table}[H]
+    \centering
+    \caption{Estadísticos descriptivos}
+    \label{tab:estadisticos}
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Variable} & \textbf{Media} & \textbf{Desv. Est.} & \textbf{Mín.} & \textbf{Máx.} \\
+        \midrule
+        Variable 1 & 3.50 & 1.29 & 1 & 5 \\
+        Variable 2 & 7.20 & 2.10 & 3 & 12 \\
+        Variable 3 & 0.85 & 0.30 & 0 & 1 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\end{resolucion}
+
+\volverindice
+
+\end{document}
