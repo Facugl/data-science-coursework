@@ -1,0 +1,864 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}  % Interlineado 1.15 (entre simple y 1.5)
+
+% Espaciado entre párrafos
+\setlength{\parskip}{0.5em}  % Espacio entre párrafos
+\setlength{\parindent}{0pt}  % Sin sangría (más moderno)
+
+% ============================================================
+% TIPOGRAFÍA (estilo académico clásico)
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+% Formato de secciones
+\titleformat{\section}
+  {\Large\bfseries}  % Tamaño y negrita
+  {\thesection.}     % Número
+  {0.5em}            % Espacio después del número
+  {}                 % Antes del título
+  
+% Más espacio antes de cada sección
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS (por si acaso)
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}  % control de posición de figuras [H]
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}   % \toprule, \midrule, \bottomrule
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Colores para el resaltado de sintaxis
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+% Estilo base de listings
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+% Estilos por lenguaje
+\lstdefinestyle{python}{
+    style=estilo_base,
+    language=Python,
+}
+\lstdefinestyle{java}{
+    style=estilo_base,
+    language=Java,
+}
+\lstdefinestyle{c}{
+    style=estilo_base,
+    language=C,
+}
+
+% Comando corto para código inline
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N° 1 - Programación I},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Programación I}
+\fancyhead[R]{\small Trabajo Práctico N° 1}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Programación I}
+\newcommand{\trabajo}{Trabajo Práctico N° 1}
+\newcommand{\profesor}{Ing. Mario Martínez}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+% Logo de la universidad
+% Si tenés el logo en ../../assets/ucasal-logo.png, usar \logoincluido
+% Si no, usar \logoomitido
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+
+% Elegir cuál usar:
+\newcommand{\logoportada}{\logoincluido}  % Cambiar a \logoomitido si no tenés el logo
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    % Logo
+    \logoportada
+
+    % Línea superior
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    % Datos en tabla alineada
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    % Línea inferior
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}  % Solo muestra hasta subsecciones
+
+% ======================== CUERPO ============================
+
+\newpage
+
+\section*{Introducción}
+\addcontentsline{toc}{section}{Introducción}
+
+El actual trabajo práctico tiene preguntas introductorias conceptuales a la materia, algunas a modo diagnóstico, otras a modo nivelación y otras ya específicos del contenido de la unidad 1 de la materia. También podrá encontrar respuestas a ciertas consultas en las unidades posteriores del módulo, con la intención de que vaya avanzando en la lectura de estos.
+
+Puede consultarse el material de estudio y también investigar otras fuentes de información a su gusto, como ser sitios de internet, publicaciones, bibliografía deseada, etc.
+
+Todos los trabajos prácticos son de presentación \textbf{individual}. Presentar el trabajo en un documento Word o Pdf. Se valorará (en todos los prácticos) la prolijidad, el contenido, el trabajo investigativo, las opiniones/aportes personales y la presentación en tiempo y forma según la fecha de entrega, lo que con el correr de los TP derivará en la posibilidad de regularizar y/o promocionar la materia.
+
+% ======================== PREGUNTAS =========================
+
+\newpage
+\section{Lenguajes de programación más demandados}
+
+Investigar de varias fuentes y realizar su propio informe sobre cuáles son los 5 lenguajes de programación más demandados en el mercado laboral argentino. Indicar año de creación, creadores, principal campo de aplicación, a qué nivel corresponde según la abstracción del procesador. Debe incluir un comentario final, que incluya su apreciación, sobre cuál cree que será el campo de aplicación de la programación en los próximos 10 años.
+
+\subsection{Metodología de investigación}
+
+Para realizar este informe se consultaron diversas fuentes especializadas en tecnología y empleo IT, incluyendo portales de búsqueda laboral argentinos, índices internacionales como TIOBE y PYPL, y artículos de medios especializados en tecnología. Se analizaron las tendencias de ofertas laborales en Argentina durante 2024-2025 y se identificaron los lenguajes con mayor demanda en el mercado local.
+
+\subsection{Los 5 lenguajes más demandados en Argentina}
+
+\subsubsection{1. Python}
+
+\begin{itemize}
+    \item \textbf{Año de creación:} 1991
+    \item \textbf{Creador:} Guido van Rossum (Países Bajos)
+    \item \textbf{Nivel de abstracción:} Alto nivel (muy alejado del lenguaje máquina)
+    \item \textbf{Campo de aplicación principal:} Ciencia de datos, inteligencia artificial, machine learning, automatización, desarrollo web backend, análisis de datos
+    \item \textbf{Por qué es demandado:} Sintaxis clara y legible, versatilidad, amplio ecosistema de bibliotecas (TensorFlow, Pandas, NumPy), ideal para IA y análisis de datos
+\end{itemize}
+
+\subsubsection{2. JavaScript}
+
+\begin{itemize}
+    \item \textbf{Año de creación:} 1995
+    \item \textbf{Creador:} Brendan Eich (Netscape Communications)
+    \item \textbf{Nivel de abstracción:} Alto nivel
+    \item \textbf{Campo de aplicación principal:} Desarrollo web frontend (interfaces interactivas), desarrollo backend (Node.js), aplicaciones móviles (React Native), aplicaciones de escritorio
+    \item \textbf{Por qué es demandado:} Lenguaje esencial para desarrollo web, se ejecuta en navegadores, frameworks populares (React, Angular, Vue), permite desarrollo Full-Stack
+\end{itemize}
+
+\subsubsection{3. Java}
+
+\begin{itemize}
+    \item \textbf{Año de creación:} 1995
+    \item \textbf{Creador:} James Gosling (Sun Microsystems, ahora Oracle)
+    \item \textbf{Nivel de abstracción:} Alto nivel
+    \item \textbf{Campo de aplicación principal:} Aplicaciones empresariales, sistemas bancarios, aplicaciones Android, sistemas de gran escala, backend de aplicaciones web
+    \item \textbf{Por qué es demandado:} Portabilidad multiplataforma (``write once, run anywhere''), robustez, fuerte presencia en sector financiero y empresas grandes, gran cantidad de sistemas legacy
+\end{itemize}
+
+\subsubsection{4. C\# (C Sharp)}
+
+\begin{itemize}
+    \item \textbf{Año de creación:} 2000
+    \item \textbf{Creador:} Microsoft (Anders Hejlsberg)
+    \item \textbf{Nivel de abstracción:} Alto nivel
+    \item \textbf{Campo de aplicación principal:} Desarrollo de aplicaciones Windows, desarrollo de videojuegos (Unity), aplicaciones empresariales con .NET, desarrollo web con ASP.NET
+    \item \textbf{Por qué es demandado:} Integración con ecosistema Microsoft, usado en Unity (motor de videojuegos muy popular), aplicaciones empresariales, desarrollo multiplataforma con .NET Core
+\end{itemize}
+
+\subsubsection{5. SQL (Structured Query Language)}
+
+\begin{itemize}
+    \item \textbf{Año de creación:} 1974
+    \item \textbf{Creadores:} Donald D. Chamberlin y Raymond F. Boyce (IBM)
+    \item \textbf{Nivel de abstracción:} Lenguaje de consulta de alto nivel (no es de programación general, sino especializado en bases de datos)
+    \item \textbf{Campo de aplicación principal:} Gestión y consulta de bases de datos relacionales, análisis de datos, reporting, administración de datos
+    \item \textbf{Por qué es demandado:} Indispensable para trabajar con bases de datos, usado en prácticamente todas las aplicaciones que manejan datos, complementa cualquier otro lenguaje de programación
+\end{itemize}
+
+\subsection{Comparación de niveles de abstracción}
+
+Todos los lenguajes mencionados son de \textbf{alto nivel}, lo que significa que están muy alejados del lenguaje máquina y cercanos al lenguaje humano. Esto los hace más fáciles de aprender y escribir, aunque requieren compiladores o intérpretes para ejecutarse. SQL es un caso especial: es un lenguaje de consulta, no de programación general.
+
+\subsection{Apreciación personal: El futuro de la programación}
+
+Considero que en los próximos 10 años (2026-2036), el campo de aplicación de la programación estará dominado por tres áreas principales:
+
+\textbf{1. Inteligencia Artificial y Automatización:} La programación se enfocará cada vez más en desarrollar sistemas inteligentes que automatizan tareas complejas. Python seguirá siendo dominante en este campo, pero surgirán nuevos lenguajes especializados en IA. Los programadores no solo escribirán código, sino que entrenarán y supervisarán modelos de IA.
+
+\textbf{2. Internet de las Cosas (IoT) y Computación en la Nube:} Con miles de millones de dispositivos conectados (desde electrodomésticos hasta sensores industriales), la programación se centrará en gestionar esta red masiva de dispositivos, procesar datos en tiempo real y garantizar la seguridad. Lenguajes como JavaScript, Python y Go ganarán terreno.
+
+\textbf{3. Realidad Aumentada/Virtual y Metaverso:} El desarrollo de experiencias inmersivas requerirá programadores especializados en gráficos 3D, física simulada e interacción en tiempo real. C\# (Unity), C++ (Unreal Engine) y nuevos frameworks de realidad extendida serán cruciales.
+
+Además, creo que surgirá una nueva necesidad: \textbf{programación ética y responsable}. Con la IA tomando decisiones que afectan vidas humanas, los programadores deberán considerar aspectos éticos, sesgos algorítmicos y transparencia en sus sistemas.
+
+En Argentina específicamente, veo un gran potencial en el desarrollo de soluciones tecnológicas para Latinoamérica, aprovechando el talento local para crear software adaptado a las necesidades regionales en áreas como fintech, agtech (tecnología agrícola) y healthtech (tecnología médica).
+
+El futuro de la programación no será solo escribir código más eficiente, sino crear sistemas que mejoren genuinamente la calidad de vida de las personas, manteniendo siempre un equilibrio entre innovación y responsabilidad.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 2 ========================
+
+\section{¿Qué es una computadora?}
+
+Una computadora es un dispositivo electrónico, utilizado para procesar información y obtener resultados, capaz de ejecutar cálculos y tomar decisiones a velocidades millones o cientos de millones más rápidas que puedan hacerlo los seres humanos. En el sentido más simple una computadora es ``un dispositivo'' para realizar cálculos o computar. El término sistema de computadora o simplemente computadora se utiliza para enfatizar que, en realidad, son dos partes distintas: hardware y software. El hardware es la computadora en sí misma. El software es el conjunto de programas que indican a la computadora las tareas que debe realizar. Las computadoras procesan datos bajo el control de un conjunto de instrucciones denominadas programas de computadora. Estos programas controlan y dirigen a la computadora para que realice un conjunto de acciones (instrucciones) especificadas por personas especializadas, llamadas programadores de computadoras.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 3 ========================
+
+\section{¿Qué es la lógica? Ejemplos de la vida real donde aplique la lógica}
+
+El término «lógica» proviene de la palabra griega \textit{logos}, que a veces se traduce como «sentencia», «discurso», «regla» y «razón». Podríamos definirla como el estudio de los principios del razonamiento correcto. Analiza cómo llegamos a conclusiones correctas a partir de ciertas premisas.
+
+\textbf{Ejemplo de la vida real:} "Si estudio, apruebo."
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 4 ========================
+
+\section{¿Un Programa tiene relación con la lógica? Justificar}
+
+Sí, están relacionados. En un programa se evalúan condiciones y se toman decisiones todo el tiempo, las cuales están basadas en la lógica.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 5 ========================
+
+\section{¿Qué es un lenguaje? Dar ejemplos reales}
+
+Un lenguaje es un sistema de comunicación formado por signos, símbolos o reglas que permite expresar ideas, pensamientos, información o instrucciones entre individuos o sistemas.
+
+\textbf{Ejemplos:}
+\begin{enumerate}
+    \item \textbf{Lenguaje natural (humano):} Son los que usamos diariamente para comunicarnos.
+    \item \textbf{Lenguaje matemático:} Utiliza símbolos y números para representar ideas.
+    \item \textbf{Lenguaje de programación:} Permite comunicarnos con una computadora.
+    \item \textbf{Lenguaje corporal:} Se comunica mediante gestos y expresiones.
+\end{enumerate}
+
+Por lo tanto, un lenguaje es cualquier sistema estructurado que permite comunicar información. Puede ser:
+
+\begin{itemize}
+    \item Verbal (español)
+    \item Simbólico (matemática)
+    \item Técnico (programación)
+    \item No verbal (gestos)
+\end{itemize}
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 6 ========================
+
+\section{¿Cómo se relaciona la matemática con la informática?}
+
+La informática se apoya directamente en la matemática: no solo como herramienta, sino como fundamento teórico. Gran parte de lo que hace un programa —calcular, decidir, optimizar— está basado en estructuras y principios matemáticos.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 7 ========================
+
+\section{¿Qué operadores aritméticos y lógicos conoce?}
+
+Los operadores son símbolos que permiten realizar operaciones sobre valores y variables. A continuación se presentan los operadores aritméticos y lógicos más comunes en programación:
+
+\subsection{Operadores Aritméticos}
+
+Los operadores aritméticos se utilizan para realizar operaciones matemáticas básicas.
+
+\begin{table}[H]
+    \centering
+    \caption{Operadores Aritméticos}
+    \label{tab:operadores_aritmeticos}
+    \small
+    \begin{tabular}{clp{5cm}l}
+        \toprule
+        \textbf{Operador} & \textbf{Nombre} & \textbf{Descripción} & \textbf{Ejemplo} \\
+        \midrule
+        \codigo{+} & Suma & Suma dos valores & \codigo{5 + 3 = 8} \\
+        \codigo{-} & Resta & Resta el segundo valor del primero & \codigo{5 - 3 = 2} \\
+        \codigo{*} & Multiplicación & Multiplica dos valores & \codigo{5 * 3 = 15} \\
+        \codigo{/} & División & Divide el primer valor por el segundo & \codigo{15 / 3 = 5} \\
+        \codigo{\%} & Módulo & Devuelve el resto de la división & \codigo{5 \% 3 = 2} \\
+        \codigo{**} o \codigo{\^{}} & Potencia & Eleva un número a una potencia & \codigo{5 ** 2 = 25} \\
+        \codigo{//} & División entera & División que retorna solo la parte entera & \codigo{5 // 2 = 2} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Operadores Lógicos}
+
+Los operadores lógicos se utilizan para realizar operaciones booleanas y evaluar condiciones.
+
+\begin{table}[H]
+    \centering
+    \caption{Operadores Lógicos}
+    \label{tab:operadores_logicos}
+    \small
+    \begin{tabular}{clp{6cm}l}
+        \toprule
+        \textbf{Operador} & \textbf{Nombre} & \textbf{Descripción} & \textbf{Ejemplo} \\
+        \midrule
+        \codigo{AND} o \codigo{\&\&} & Y lógico & Verdadero si ambas condiciones son verdaderas & \codigo{(5 > 3) AND (2 < 4)} \\
+        \codigo{OR} o \codigo{||} & O lógico & Verdadero si al menos una condición es verdadera & \codigo{(5 > 3) OR (2 > 4)} \\
+        \codigo{NOT} o \codigo{!} & Negación & Invierte el valor de verdad & \codigo{NOT (5 > 3)} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Operadores Relacionales}
+
+Además, existen operadores relacionales que se utilizan para comparar valores:
+
+\begin{table}[H]
+    \centering
+    \caption{Operadores Relacionales}
+    \label{tab:operadores_relacionales}
+    \small
+    \begin{tabular}{clp{5.5cm}l}
+        \toprule
+        \textbf{Operador} & \textbf{Nombre} & \textbf{Descripción} & \textbf{Ejemplo} \\
+        \midrule
+        \codigo{==} & Igualdad & Verdadero si ambos valores son iguales & \codigo{5 == 5} \\
+        \codigo{!=} o \codigo{<>} & Diferente & Verdadero si los valores son diferentes & \codigo{5 != 3} \\
+        \codigo{>} & Mayor que & Verdadero si el primero es mayor & \codigo{5 > 3} \\
+        \codigo{<} & Menor que & Verdadero si el primero es menor & \codigo{3 < 5} \\
+        \codigo{>=} & Mayor o igual & Verdadero si es mayor o igual & \codigo{5 >= 5} \\
+        \codigo{<=} & Menor o igual & Verdadero si es menor o igual & \codigo{3 <= 5} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 8 ========================
+
+\section{¿Sabe de qué hablamos con la jerarquía de las operaciones?}
+
+La \textbf{jerarquía de operaciones} (también llamada prioridad o precedencia de operadores) es el conjunto de reglas que determinan el orden en que se deben realizar las operaciones en una expresión matemática o de programación.
+
+\subsection{Reglas de jerarquía}
+
+Las operaciones se evalúan en el siguiente orden de mayor a menor prioridad:
+
+\begin{enumerate}
+    \item \textbf{Paréntesis \codigo{( )}}: Las expresiones dentro de paréntesis se evalúan primero. Si hay paréntesis anidados (unos dentro de otros), se evalúan desde los más internos hacia los más externos.
+    
+    \item \textbf{Exponenciación \codigo{\^{}} o \codigo{**}}: Potencias y raíces.
+    
+    \item \textbf{Multiplicación \codigo{*} y División \codigo{/}}: Tienen la misma prioridad entre sí.
+    
+    \item \textbf{Suma \codigo{+} y Resta \codigo{-}}: Tienen la misma prioridad entre sí, y son las de menor precedencia.
+\end{enumerate}
+
+\subsection{Regla de asociatividad}
+
+Cuando en una expresión coinciden varios operadores con la \textbf{misma prioridad}, se evalúan \textbf{de izquierda a derecha}.
+
+\textbf{Ejemplo:}
+\[
+8 \div 4 \times 2 = (8 \div 4) \times 2 = 2 \times 2 = 4
+\]
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 9 ========================
+
+\section{¿Cómo se puede alterar la jerarquía natural de las operaciones?}
+
+La jerarquía natural de las operaciones se puede alterar utilizando \textbf{paréntesis}. Los paréntesis tienen la máxima prioridad en cualquier expresión, por lo que todo lo que esté dentro de ellos se evalúa primero, sin importar qué operadores contenga.
+
+\textbf{Ejemplo sin paréntesis:}
+\[
+5 + 3 \times 2 = 5 + 6 = 11
+\]
+Aquí la multiplicación se ejecuta primero (jerarquía natural).
+
+\textbf{Ejemplo con paréntesis:}
+\[
+(5 + 3) \times 2 = 8 \times 2 = 16
+\]
+Aquí los paréntesis fuerzan que la suma se ejecute primero, alterando la jerarquía natural.
+
+\textbf{Regla práctica:} Cuando queremos que una operación de menor prioridad (como suma o resta) se ejecute antes que una de mayor prioridad (como multiplicación o división), usamos paréntesis para indicarlo explícitamente.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 10 =======================
+
+\section{¿Qué es un algoritmo?}
+
+Un algoritmo es un método para resolver un problema mediante una serie de pasos precisos, definidos y finitos.
+
+\begin{itemize}
+    \item \textbf{Preciso:} Indica el orden de realización en cada paso.
+    \item \textbf{Definido:} Si se sigue dos veces, se obtiene el mismo resultado cada vez.
+    \item \textbf{Finito:} Tiene fin; un número determinado de pasos.
+\end{itemize}
+
+Un algoritmo debe producir un resultado en un tiempo finito. Los métodos que utilizan algoritmos se denominan métodos algorítmicos, en oposición a los métodos que implican algún juicio o interpretación que se denominan métodos heurísticos. Los algoritmos se pueden expresar por fórmulas, diagramas de flujo y pseudocódigos.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 11 =======================
+
+\section{¿En dónde encontramos algoritmos en la vida real?}
+
+Ejemplos de algoritmos en la vida real puden ser: instrucciones para armar una bicicleta, hacer una receta de cocina, obtener el máximo común divisor de dos números, etc.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 12 =======================
+
+\section{Realizar el algoritmo de despertar y levantarse diariamente}
+
+A continuación se presenta el algoritmo de la rutina diaria de despertar y levantarse.
+
+\begin{lstlisting}[style=python, caption={Algoritmo de despertar y levantarse diariamente (PSeInt)}, language=Pascal]
+Algoritmo DespertarDiario
+
+    Definir dia Como Entero
+    
+    // Este ciclo representa que se repite cada día
+    Para dia <- 1 Hasta 7 Con Paso 1 Hacer
+        Escribir "=== DÍA ", dia, " ==="
+        
+        Escribir "1. Suena la alarma"
+        
+        Escribir "2. Apagar la alarma"
+        
+        Escribir "3. Abrir los ojos"
+        
+        Escribir "4. Estirar el cuerpo"
+        
+        Escribir "5. Levantarse de la cama"
+        
+        Escribir ""
+    FinPara
+    
+    Escribir "=== FIN DE LA SEMANA ==="
+    
+FinAlgoritmo
+\end{lstlisting}
+
+\subsection{Descripción del algoritmo}
+
+El algoritmo refleja la naturaleza \textbf{repetitiva} de la rutina matutina utilizando una estructura \codigo{Para}:
+
+\begin{itemize}
+    \item \textbf{Estructura de repetición:} El ciclo \codigo{Para} simula que la rutina se ejecuta cada día (del día 1 al 7, representando una semana)
+    \item \textbf{Pasos secuenciales:} Dentro de cada día, los pasos se ejecutan en orden:
+    \begin{enumerate}
+        \item Suena la alarma
+        \item Apagar la alarma
+        \item Abrir los ojos
+        \item Estirar el cuerpo
+        \item Levantarse de la cama
+    \end{enumerate}
+\end{itemize}
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 13 =======================
+
+\section{¿Qué es un programa? ¿Qué es un lenguaje de programación? ¿Y qué tarea es la que hace un programador?}
+
+\textbf{¿Qué es un programa?}
+
+Definimos programa como un conjunto de instrucciones y sus tipos. Un programa de computadora es un conjunto de instrucciones -órdenes dadas a la máquina- que producirán la ejecución de una determinada tarea. En esencia, un programa es un medio para conseguir un fin. El fin será probablemente definido como la información necesaria para solucionar un problema.
+
+\textbf{¿Qué es un lenguaje de programación?}
+
+Los lenguajes de programación son todos los símbolos, caracteres y reglas de uso que permiten a las personas "comunicarse" con las computadoras.
+Un lenguaje de programación es un sistema estructurado y diseñado principalmente para que las computadoras se entiendan entre sí y con nosotros, los humanos. Contiene un conjunto de acciones consecutivas que el ordenador debe ejecutar.
+
+\textbf{¿Qué tarea hace un programador?}
+
+Un programador es la persona encargada de diseñar, escribir, probar y mantener programas de computadora. Sus principales tareas incluyen:
+
+\begin{itemize}
+    \item \textbf{Analizar problemas:} Entender qué problema necesita resolverse y cómo la computadora puede ayudar a solucionarlo.
+    \item \textbf{Diseñar soluciones:} Crear algoritmos y planificar la estructura del programa antes de escribir código.
+    \item \textbf{Escribir código:} Traducir los algoritmos a un lenguaje de programación específico que la computadora pueda ejecutar.
+    \item \textbf{Probar y depurar:} Ejecutar el programa para encontrar y corregir errores (bugs).
+    \item \textbf{Mantener y actualizar:} Mejorar programas existentes, agregar nuevas funcionalidades o adaptarlos a nuevas necesidades.
+\end{itemize}
+
+En resumen, el programador actúa como traductor entre las necesidades humanas y el lenguaje que entiende la computadora, transformando problemas del mundo real en soluciones computacionales.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 14 =======================
+
+\section{¿A qué se denomina un programador Full-Stack?}
+
+Un programador \textbf{Full-Stack} (o de ``pila completa``) es un desarrollador que tiene conocimientos y habilidades tanto en el \textbf{frontend} (la parte visible de una aplicación) como en el \textbf{backend} (el servidor y la lógica de negocio).
+
+\textbf{Frontend:} Es lo que el usuario ve e interactúa directamente. Incluye:
+\begin{itemize}
+    \item Diseño de interfaces (HTML, CSS)
+    \item Interactividad y comportamiento (JavaScript)
+    \item Experiencia de usuario (UX/UI)
+\end{itemize}
+
+\textbf{Backend:} Es la parte del servidor que procesa datos y lógica. Incluye:
+\begin{itemize}
+    \item Servidores y APIs
+    \item Bases de datos
+    \item Lógica de negocio y seguridad
+    \item Lenguajes como Python, Java, Node.js, PHP
+\end{itemize}
+
+Un programador Full-Stack puede trabajar en todas las capas de una aplicación web, desde el diseño de la interfaz hasta la gestión de bases de datos, lo que le permite desarrollar aplicaciones completas de forma independiente. Esta versatilidad lo hace muy valioso en equipos pequeños o startups, aunque en proyectos grandes suele especializarse en alguna de las dos áreas.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 15 =======================
+
+\section{¿Qué fases en la ``resolución de problemas'' conoce? Mencionelas, seleccione la que le parezca más le llame la atención explicando su importancia y sumando un ejemplo}
+
+El proceso de resolución de un problema con una computadora conduce a la escritura de un programa y a su ejecución en la misma. Aunque el proceso de diseñar programas es, esencialmente, un proceso creativo, se puede considerar una serie de fases o pasos comunes que generalmente deben seguir todos los programadores.
+
+\subsection{Fases de la resolución de problemas}
+
+Las fases principales son:
+
+\begin{enumerate}
+    \item \textbf{Análisis del problema}: Se analiza el problema teniendo presente la especificación de los requisitos dados por quien encarga el programa.
+    
+    \item \textbf{Diseño del algoritmo}: Una vez analizado el problema, se diseña una solución que conducirá a un algoritmo que lo resuelva.
+    
+    \item \textbf{Codificación (implementación)}: La solución se escribe en la sintaxis del lenguaje de alto nivel elegido (por ejemplo, Python, Java o C) y se obtiene un programa fuente.
+    
+    \item \textbf{Compilación y ejecución}: El programa se traduce a lenguaje máquina y se ejecuta.
+    
+    \item \textbf{Verificación}: Se comprueba rigurosamente que el programa funcione correctamente.
+    
+    \item \textbf{Depuración}: Se eliminan todos los errores (denominados ``bugs'') que puedan aparecer.
+    
+    \item \textbf{Mantenimiento}: El programa se actualiza y modifica cada vez que sea necesario, de modo que se cumplan todas las necesidades de cambio de sus usuarios.
+    
+    \item \textbf{Documentación}: Escritura de las diferentes fases del ciclo de vida del software, manuales de usuario y de referencia, así como normas para el mantenimiento.
+\end{enumerate}
+
+\subsection{Fase que más me interesa: Análisis y Diseño}
+
+Las fases que considero más importantes son las \textbf{dos primeras}: el \textbf{análisis} y el \textbf{diseño del algoritmo}. Estas etapas son donde realmente se resuelve el problema de forma conceptual y lógica.
+
+Una vez que se tiene claro \textit{qué} hay que hacer y \textit{cómo} hacerlo (el algoritmo), la codificación es relativamente sencilla: se trata simplemente de traducir esa solución a la sintaxis del lenguaje de programación elegido. Es decir, la parte difícil no es programar, sino \textbf{pensar la solución}.
+
+Si el análisis y diseño están bien hechos, el código prácticamente ``se escribe solo''. En cambio, si estas fases se hacen mal, por más que se domine la sintaxis del lenguaje, el programa no resolverá correctamente el problema.
+
+\subsection{Ejemplo práctico}
+
+\textbf{Problema:} Calcular el promedio de calificaciones de un estudiante y determinar si aprobó (promedio $\geq$ 6).
+
+\textbf{1. Análisis del problema:}
+\begin{itemize}
+    \item \textit{Entrada:} Lista de calificaciones del estudiante
+    \item \textit{Proceso:} Sumar todas las calificaciones y dividir por la cantidad
+    \item \textit{Salida:} Promedio y mensaje de ``Aprobado'' o ``Desaprobado''
+    \item \textit{Condición:} Si promedio $\geq$ 6 entonces aprobó
+\end{itemize}
+
+\textbf{2. Diseño del algoritmo:}
+\begin{enumerate}
+    \item Leer la cantidad de calificaciones ($n$)
+    \item Inicializar suma en 0
+    \item Para cada calificación:
+    \begin{itemize}
+        \item Leer la calificación
+        \item Sumarla al total
+    \end{itemize}
+    \item Calcular promedio = suma / $n$
+    \item Si promedio $\geq$ 6:
+    \begin{itemize}
+        \item Mostrar ``Aprobado''
+    \end{itemize}
+    \item Si no:
+    \begin{itemize}
+        \item Mostrar ``Desaprobado''
+    \end{itemize}
+    \item Mostrar el promedio
+\end{enumerate}
+
+\textbf{3. Codificación} (en este punto, ya solo traducimos el algoritmo):
+
+\begin{lstlisting}[style=python, caption={Ejemplo en Python}]
+# La logica ya esta resuelta, ahora solo escribimos sintaxis
+n = int(input("Cantidad de calificaciones: "))
+suma = 0
+
+for i in range(n):
+    calificacion = float(input(f"Calificacion {i+1}: "))
+    suma += calificacion
+
+promedio = suma / n
+
+if promedio >= 6:
+    print("Aprobado")
+else:
+    print("Desaprobado")
+    
+print(f"Promedio: {promedio}")
+\end{lstlisting}
+
+Como se puede observar, una vez que se completaron las fases de análisis y diseño, la codificación fue directa: simplemente se tradujo la lógica ya pensada a la sintaxis de Python. El verdadero trabajo intelectual ocurrió en las dos primeras fases.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 16 =======================
+
+\section{¿Qué es una variable y qué es una constante?}
+
+\textbf{Constante:}
+
+Una constante es un espacio en memoria cuyo valor \textbf{no puede cambiar} durante la ejecución del programa. Se define una vez y permanece fija.
+
+\textbf{Ejemplo:} \codigo{PI = 3.1415926}, \codigo{IVA = 0.21}
+
+\textbf{Variable:}
+
+Una variable es un espacio en memoria identificado por un nombre simbólico, cuyo valor \textbf{puede cambiar} durante la ejecución del programa.
+
+\textbf{Ejemplo:} \codigo{edad = 20}, luego \codigo{edad = 21}
+
+\textbf{Diferencia clave:} Las constantes mantienen su valor fijo, mientras que las variables pueden modificarse cuantas veces sea necesario durante la ejecución del programa.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 17 =======================
+
+\section{¿Qué es Software y qué es Hardware?}
+
+\textbf{Hardware:}
+
+El hardware es la parte \textbf{física y tangible} de una computadora. Son todos los componentes que se pueden tocar.
+
+\textbf{Ejemplos:} Procesador (CPU), memoria RAM, disco duro, teclado, mouse, monitor, placa madre.
+
+\textbf{Software:}
+
+El software es la parte \textbf{lógica e intangible} de una computadora. Son los programas e instrucciones que le indican al hardware qué hacer.
+
+\textbf{Ejemplos:} Sistema operativo (Windows, Linux), navegadores web, Microsoft Word, videojuegos, aplicaciones móviles.
+
+\textbf{Relación:} El hardware es el ``cuerpo'' de la computadora y el software es el ``cerebro''. Ambos son necesarios: el hardware sin software no puede hacer nada útil, y el software necesita hardware para ejecutarse.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 18 =======================
+
+\section{¿Qué es la memoria RAM y la memoria ROM?}
+
+\textbf{Memoria RAM (Random Access Memory - Memoria de Acceso Aleatorio):}
+
+Es una memoria \textbf{volátil} y \textbf{temporal}. Almacena datos y programas que se están ejecutando en ese momento. Cuando se apaga la computadora, toda la información en la RAM se pierde.
+
+\textbf{Características:} Lectura y escritura rápida, se borra al apagar el equipo, mayor capacidad (4GB, 8GB, 16GB, etc.).
+
+\textbf{Memoria ROM (Read Only Memory - Memoria de Solo Lectura):}
+
+Es una memoria \textbf{no volátil} y \textbf{permanente}. Almacena instrucciones básicas necesarias para iniciar la computadora (BIOS). Su contenido no se borra al apagar el equipo.
+
+\textbf{Características:} Solo lectura (no se puede modificar fácilmente), mantiene información sin energía, menor capacidad.
+
+\textbf{Diferencia principal:} La RAM es rápida pero temporal (se borra sin energía), mientras que la ROM es permanente pero más lenta (conserva la información sin energía).
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 19 =======================
+
+\section{¿Qué son los dispositivos de entrada y salida? Dé 5 ejemplos de cada uno}
+
+\textbf{Dispositivos de Entrada:}
+
+Son aquellos que permiten \textbf{ingresar información} desde el exterior hacia la computadora. El usuario envía datos al sistema.
+
+\textbf{5 ejemplos:}
+\begin{enumerate}
+    \item Teclado
+    \item Mouse (ratón)
+    \item Micrófono
+    \item Escáner
+    \item Cámara web
+\end{enumerate}
+
+\textbf{Dispositivos de Salida:}
+
+Son aquellos que permiten \textbf{mostrar o extraer información} desde la computadora hacia el exterior. El sistema envía datos al usuario.
+
+\textbf{5 ejemplos:}
+\begin{enumerate}
+    \item Monitor (pantalla)
+    \item Impresora
+    \item Parlantes (altavoces)
+    \item Auriculares
+    \item Proyector
+\end{enumerate}
+
+\textbf{Nota:} Existen también dispositivos de \textbf{entrada/salida} (mixtos) como pantallas táctiles, impresoras multifunción o discos duros, que pueden tanto recibir como enviar información.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 20 =======================
+
+\section{Nombrar las unidades principales de un procesador}
+
+Un procesador (CPU - Unidad Central de Procesamiento) está compuesto por tres unidades principales:
+
+\begin{enumerate}
+    \item \textbf{Unidad de Control (UC):} Se encarga de controlar y coordinar todas las operaciones del procesador. Interpreta las instrucciones del programa y genera las señales necesarias para ejecutarlas.
+    
+    \item \textbf{Unidad Aritmético-Lógica (ALU):} Realiza todas las operaciones aritméticas (suma, resta, multiplicación, división) y lógicas (comparaciones, AND, OR, NOT).
+    
+    \item \textbf{Registros:} Son pequeñas unidades de memoria de alta velocidad dentro del procesador que almacenan temporalmente datos e instrucciones que se están procesando en ese momento.
+\end{enumerate}
+
+Estas tres unidades trabajan en conjunto para ejecutar las instrucciones de los programas: la UC coordina, la ALU calcula, y los registros almacenan datos temporales durante el procesamiento.
+
+\volverindice
+
+\end{document}
