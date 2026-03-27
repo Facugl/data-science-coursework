@@ -1,0 +1,680 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}  % Interlineado 1.15 (entre simple y 1.5)
+
+% Espaciado entre párrafos
+\setlength{\parskip}{0.5em}  % Espacio entre párrafos
+\setlength{\parindent}{0pt}  % Sin sangría (más moderno)
+
+% ============================================================
+% TIPOGRAFÍA (estilo académico clásico)
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+% Formato de secciones
+\titleformat{\section}
+  {\Large\bfseries}  % Tamaño y negrita
+  {\thesection.}     % Número
+  {0.5em}            % Espacio después del número
+  {}                 % Antes del título
+  
+% Más espacio antes de cada sección
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS (por si acaso)
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}  % control de posición de figuras [H]
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}   % \toprule, \midrule, \bottomrule
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Colores para el resaltado de sintaxis
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+% Estilo base de listings
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+% Estilos por lenguaje
+\lstdefinestyle{python}{
+    style=estilo_base,
+    language=Python,
+}
+\lstdefinestyle{java}{
+    style=estilo_base,
+    language=Java,
+}
+\lstdefinestyle{c}{
+    style=estilo_base,
+    language=C,
+}
+
+% Comando corto para código inline
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Álgebra Lineal - Trabajo Práctico N° 1},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Álgebra Lineal}
+\fancyhead[R]{\small Trabajo Práctico N° 1}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Álgebra Lineal}
+\newcommand{\trabajo}{Trabajo Práctico N° 1}
+\newcommand{\profesor}{Lic. Mauro vacía}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+% Logo de la universidad
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+
+% Elegir cuál usar:
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    % Logo
+    \logoportada
+
+    % Línea superior
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    % Datos en tabla alineada
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    % Línea inferior
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== PREGUNTAS =========================
+
+\newpage
+\section[Proposiciones y valor de verdad]{Analiza cuáles de las siguientes expresiones son proposiciones y establece -cuando sea posible- su valor de verdad.}
+
+\begin{enumerate}[label=\roman*)]
+    \item $-5$ es un número primo. $\rightarrow$ Es una proposición. $V(p) = F$
+    \item Java es un lenguaje de programación. $\rightarrow$ Es una proposición. $V(p) = V$
+    \item $3 + x = 10$. No es una proposición, es una forma proposicional. No se puede determinar $V(p(x))$.
+    \item $3 + 6 = 10$. Es una proposición. $V(p) = F$
+    \item El editor de texto es un software del sistema. $\rightarrow$ Es una proposición. $V(p) = V$
+    \item ¿A qué hora salimos? No es una proposición, es una oración interrogativa.
+    \item El número 57 es múltiplo de 3. $\rightarrow$ Es una proposición. $V(p) = V$
+    \item ¡Arriba las manos! Es una oración imperativa, no es una proposición.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Negación de proposiciones]{Escribe la negación de las siguientes proposiciones y determina el valor de verdad de la proposición resultante.}
+
+\textbf{a.-}
+\begin{enumerate}[label=\roman*)]
+    \item $p$: D es un dígito del sistema hexadecimal.\\
+          $\sim p$: NO es cierto que D es un dígito del sistema hexadecimal.\\
+          $V(\sim p) = F$
+
+    \item $q$: 0 no es par.\\
+          $\sim q$: 0 es par. $\quad V(\sim q) = V$
+
+    \item $r$: $-11$ es mayor que $-4$.\\
+          $\sim r$: $-11$ es menor que $-4$. $\quad V(\sim r) = V$
+
+    \item $s$: $\sqrt{6}$ no existe.\\
+          $\sim s$: $\sqrt{6}$ existe. $\quad V(\sim s) = V$
+
+    \item $t$: $2 + 4 = 6$ \quad $\sim t$: $2 + 4 \neq 6$ $\quad V(\sim t) = F$
+
+    \item $u$: Es falso que Skype sea un software de aplicación.\\
+          $\sim u$: Skype es un software de aplicación. $\quad V(\sim u) = V$
+\end{enumerate}
+
+\textbf{b.-} Escribe la negación de las siguientes proposiciones:
+
+\begin{enumerate}[label=\roman*)]
+    \item $r \vee (\sim s)$
+
+    \begin{center}
+    \begin{tabular}{cc|c|cc|c}
+        \toprule
+        $r$ & $s$ & $\sim s$ & $r \vee (\sim s)$ & & $\sim(r \vee (\sim s))$ \\
+        \midrule
+        V & V & F & V & & F \\
+        V & F & V & V & & F \\
+        F & V & F & F & & V \\
+        F & F & V & V & & F \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    Es una \textbf{contingencia} (no siempre V ni siempre F).
+
+    \item $\sim q \Rightarrow p$
+
+    \begin{center}
+    \begin{tabular}{cc|c|c|c}
+        \toprule
+        $p$ & $q$ & $\sim q$ & $\sim q \Rightarrow p$ & $\sim(\sim q \Rightarrow p)$ \\
+        \midrule
+        V & F & V & V & F \\
+        V & V & F & V & F \\
+        F & V & F & V & F \\
+        F & F & V & F & V \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    Es una \textbf{contingencia}.
+
+    \item $(q \Rightarrow p) \vee p$
+
+    \begin{center}
+    \begin{tabular}{cc|c|c|c}
+        \toprule
+        $q$ & $p$ & $q \Rightarrow p$ & $(q \Rightarrow p) \vee p$ & $\sim((q \Rightarrow p) \vee p)$ \\
+        \midrule
+        V & F & F & F & V \\
+        V & V & V & V & F \\
+        F & F & V & V & F \\
+        F & V & V & V & F \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    Es una \textbf{contingencia}.
+
+    \item $(\sim p \vee q) \Rightarrow q$
+
+    \begin{center}
+    \begin{tabular}{cc|c|c|c|c}
+        \toprule
+        $p$ & $q$ & $\sim p$ & $\sim p \vee q$ & $(\sim p \vee q) \Rightarrow q$ & $\sim((\sim p \vee q) \Rightarrow q)$ \\
+        \midrule
+        V & V & F & V & V & F \\
+        V & F & F & F & V & F \\
+        F & V & V & V & V & F \\
+        F & F & V & V & F & V \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    Es una \textbf{contingencia}.
+
+    \item $(p \wedge q) \Rightarrow p$
+
+    \begin{center}
+    \begin{tabular}{cc|c|c|c}
+        \toprule
+        $p$ & $q$ & $p \wedge q$ & $(p \wedge q) \Rightarrow p$ & $\sim((p \wedge q) \Rightarrow p)$ \\
+        \midrule
+        V & F & F & V & F \\
+        V & V & V & V & F \\
+        F & F & F & V & F \\
+        F & V & F & V & F \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    Es una \textbf{tautología} (siempre verdadera), por lo tanto su negación es una \textbf{contradicción}.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Forma simbólica y valor de verdad]{Escribe en forma simbólica cada una de las siguientes proposiciones y determina su valor de verdad.}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $-2$ es un número primo o es par.\\
+          $p$: $-2$ es un número primo. \quad $q$: $-2$ es par.\\
+          $p \vee q$: $-2$ es un número primo o es par.\\
+          $V(p) = F$, \quad $V(q) = V$, \quad $V(p \vee q) = V$
+
+    \item Si 36 es divisible por 6, es divisible por 3.\\
+          $p$: 36 es divisible por 6. \quad $q$: 36 es divisible por 3.\\
+          $p \Rightarrow q$: Si 36 es divisible por 6, entonces es divisible por 3.\\
+          $V(p) = V$, \quad $V(q) = V$, \quad $V(p \Rightarrow q) = V$
+
+    \item 143 es múltiplo de 11 y de 13, pero no de 3 y de 2, entonces no es múltiplo de 6.\\
+          $p$: 143 es múltiplo de 11.\\
+          $q$: 143 es múltiplo de 13.\\
+          $r$: 143 es múltiplo de 3.\\
+          $s$: 143 es múltiplo de 2.\\
+          $t$: 143 es múltiplo de 6.\\
+          $((p \wedge q) \wedge (\sim r \wedge \sim s)) \Rightarrow \sim t$\\
+          $V(p) = V$, \quad $V(q) = V$, \quad $V(r) = F$, \quad $V(s) = F$, \quad $V(t) = F$\\
+          $V(((p \wedge q) \wedge (\sim r \wedge \sim s)) \Rightarrow \sim t) = V$
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Lenguaje coloquial desde fórmulas]{Sean $p$, $q$ y $r$ los siguientes enunciados:}
+
+$p$: Un bit es un código binario.\\
+$q$: La CPU no es un elemento del software.\\
+$r$: La memoria RAM es una memoria a corto plazo.
+
+Expresa cada una de las siguientes fórmulas en lenguaje coloquial:
+
+\begin{enumerate}[label=\alph*.-]
+    \item $p \wedge q$: Un bit es un código binario y la CPU no es un elemento del software.
+
+    \item $q \Rightarrow \sim r$: Si la CPU no es un elemento del software, entonces la memoria RAM no es una memoria a corto plazo.
+
+    \item $p \Leftrightarrow r$: Un bit es un código binario sí y solo sí la memoria RAM es una memoria a corto plazo.
+
+    \item $\sim r \Rightarrow (q \vee \sim p)$: Si la memoria RAM es una memoria a largo plazo, entonces la CPU no es un elemento del software o un bit no es un código binario.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Valor de verdad con valores dados]{Suponiendo que $v(p) = V$, $v(q) = F$, $v(r) = F$, $v(s) = V$ y $v(t) = V$, determina en cada caso el valor de verdad de cada proposición.}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $(\sim s \wedge q) \Rightarrow s$\\
+          $(\sim V \wedge F) \Rightarrow V$\\
+          $(F \wedge F) \Rightarrow V$\\
+          $F \Rightarrow V = V$
+
+    \item $t \Leftrightarrow (\sim q \vee r)$\\
+          $V \Leftrightarrow (\sim F \vee F)$\\
+          $V \Leftrightarrow (V \vee F)$\\
+          $V \Leftrightarrow V = V$
+
+    \item $(\sim r \wedge t) \vee \sim p$\\
+          $(\sim F \wedge V) \vee \sim V$\\
+          $(V \wedge V) \vee F$\\
+          $V \vee F = V$
+
+    \item $\sim(p \wedge t) \Rightarrow (s \vee r)$\\
+          $\sim(V \wedge V) \Rightarrow (V \vee F)$\\
+          $\sim V \Rightarrow V$\\
+          $F \Rightarrow V = V$
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Tautologías, contradicciones y contingencias]{Decide si las siguientes proposiciones son tautologías, contradicciones o contingencias, mediante tablas de verdad.}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\sim p \vee (q \wedge \sim r)$ \quad $2^3 = 8$ combinaciones
+
+    \begin{center}
+    \begin{tabular}{ccc|c|c|c|c}
+        \toprule
+        $p$ & $q$ & $r$ & $\sim p$ & $\sim r$ & $q \wedge \sim r$ & $\sim p \vee (q \wedge \sim r)$ \\
+        \midrule
+        V & V & V & F & F & F & F \\
+        V & V & F & F & V & V & V \\
+        V & F & V & F & F & F & F \\
+        V & F & F & F & V & F & F \\
+        F & V & V & V & F & F & V \\
+        F & V & F & V & V & V & V \\
+        F & F & V & V & F & F & V \\
+        F & F & F & V & V & F & V \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    \textbf{Conclusión: Es una contingencia} (hay valores V y F).
+
+    \item $[\sim(p \Rightarrow q) \wedge q] \wedge \sim p$ \quad $2^2 = 4$ combinaciones
+
+    \begin{center}
+    \begin{tabular}{cc|c|c|c|c}
+        \toprule
+        $p$ & $q$ & $p \Rightarrow q$ & $\sim(p \Rightarrow q)$ & $\sim(p \Rightarrow q) \wedge q$ & $[\sim(p \Rightarrow q) \wedge q] \wedge \sim p$ \\
+        \midrule
+        V & V & V & F & F & F \\
+        V & F & F & V & F & F \\
+        F & V & V & F & F & F \\
+        F & F & V & F & F & F \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+    \textbf{Conclusión: Es una contradicción} (siempre F).
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Proposiciones y formas proposicionales]{}
+
+\textbf{a.-} Establezca mediante un ejemplo, la diferencia entre una proposición y una forma proposicional.
+
+Sea la siguiente expresión:
+\[p: 2 + 2 = 4\]
+Podemos decir que $p$ es una proposición y además que su valor de verdad es verdadero, esto se denota $V(p) = V$. Por otro lado, si consideramos la siguiente expresión:
+\[p(x): 2x + 1 = 2\]
+No podemos determinar el valor de verdad, el cual depende de los valores que tome la variable $x$. Esto es lo que conocemos como \textbf{forma proposicional}, y lo denotamos como $p(x)$. Si quisiéramos convertir una forma proposicional a una proposición, deberíamos asignarle a $x$ un valor o utilizar cuantificadores.
+
+\textbf{b.-} Decide en cada caso, si la expresión corresponde a una forma proposicional o a una proposición:
+
+\begin{enumerate}[label=\roman*)]
+    \item $x + 2 = 5$ $\rightarrow$ Forma proposicional.
+    \item $\exists x \in \mathbb{N}: 2x = 3x$ $\rightarrow$ Proposición falsa.
+    \item $\forall x \in \mathbb{Z}: x + 3 > x$ $\rightarrow$ Proposición verdadera.
+    \item $x$ es el día del parcial $\rightarrow$ Forma proposicional.
+\end{enumerate}
+
+\textbf{c.-} Para las formas proposicionales $p(x)$: $x$ es divisor de 20 \quad y \quad $q(x)$: $x$ es par.
+
+\begin{enumerate}[label=\roman*)]
+    \item Para que $V(p(x) \wedge q(x)) = V$, ambas proposiciones deben serlo. Por ejemplo:\\
+    $p(2)$: 2 es divisor de 20, se tiene $V(p(2)) = V$\\
+    $q(2)$: 2 es par, luego $V(q(2)) = V$\\[0.3em]
+    Por otro lado, para que la conjunción entre $p(x)$ y $q(x)$ resulte falsa basta con que al menos una de las dos proposiciones resulte falsa. Por ejemplo:\\
+    $p(3)$: 3 es divisor de 20, con lo que se tiene $V(p(3)) = F$
+
+    \item ¿Cuál es el valor de verdad de $p(6)$ y de $q(11^2)$?\\
+    $p(6)$: 6 es divisor de 20 \quad $\wedge$ \quad $q(11^2)$: $11^2$ es par\\
+    Se observa que $V(p(6)) = F$ y $V(q(11^2)) = F$\\
+    Debido a que ambas proposiciones son $F$, se tiene que $V(p(6) \wedge q(11^2)) = F$
+
+    \item Para que $V(p(x) \wedge q(x)) = V$, tanto $p(x)$ como $q(x)$ deben serlo, por lo que debemos encontrar los valores de $x$ que cumplan con ambas condiciones: ser divisor de 20 y además par.\\[0.3em]
+    Tenemos que los divisores de 20 son: $\{1, 2, 4, 5, 10, 20\}$. Este es el conjunto de valores para los cuales $V(p(x)) = V$. Pero como además se debe cumplir que sean pares, el conjunto de valores posibles para $x$ se reduce a:
+    \[A = \{2, 4, 10, 20\}\]
+    Siendo $A$ el conjunto de verdad, habiendo considerado el conjunto universo como los números naturales $\{1, 2, 3, 4, 5, \ldots\}$.
+
+    \item Determina el valor de verdad considerando como universo los números enteros: $\exists x: p(x)$ y $\forall x: q(x)$.\\[0.3em]
+    $\exists x \in \mathbb{Z}: p(x)$: $x$ es divisor de 20.\\
+    Como analizamos antes, el conjunto de verdad de $p(x)$: ``$x$ es divisor de 20'' es $\{1, 2, 4, 5, 10, 20\}$, el cual es un subconjunto del conjunto de los números enteros. Por lo tanto se tiene que:
+    \[p(x): \exists x \in \mathbb{Z}: x \text{ es divisor de 20 es } V\]
+    Por otro lado, analizando la segunda proposición:\\
+    $q(x)$: $\forall x \in \mathbb{Z}: x$ es par.\\
+    Se tiene que su valor de verdad es $F$. Esto es debido a que no es cierto que cualquier valor de $x$ que pertenezca al conjunto de los enteros convierta a $q(x)$ en $V$, ya que los enteros incluyen a los números impares.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Valor de verdad de proposiciones cuantificadas]{Determina el valor de verdad de las siguientes proposiciones:}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\forall x \in \mathbb{Z}: x^2 = 4 \Rightarrow x = -2$
+
+    Si $x^2 = 4$, entonces $x = 2$ o $x = -2$. Dado que $x = 2$ cumple con $x^2 = 4$, es decir, antecedente $V$, pero $x \neq -2$, es decir consecuente $F$, se tiene que la implicación es $F$.
+
+    \item $\forall x \in \mathbb{Z}: (x+1)(x-3) = 0 \Rightarrow x = 3$
+
+    Para que $(x+1)(x-3) = 0$, $(x+1) = 0$ o $(x-3) = 0$, luego $x$ debe ser $-1$ o $3$.\\
+    $(-1+1)(-1-3) = 0 \therefore V, \quad x = 3 \text{ es } F \quad (F)$\\
+    $(3+1)(3-3) = 0 \therefore V, \quad x = 3 \text{ es } V \quad (V)$\\
+    Si $x = 1$, se tiene $(-1+1)(-1-3) = 0$, lo cual es $V$, pero con esto $x$ resulta $\neq 3$. Es decir antecedente $V$ y consecuente $F$, por lo que la implicación resulta $F$.
+
+    \item $\forall x \in \mathbb{Z}: x + 5 = 7 \Rightarrow x^2 = 4$
+
+    Si $x + 5 = 7$, entonces $x = 2$, luego $x^2 = 2^2 = 4$ $\therefore$ antecedente $V$ y consecuente $V$, la implicación es $V$.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Traducción simbólica y negación]{Dadas las siguientes proposiciones:}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Todos los números pares son no negativos.
+
+    $p(x)$: $x$ es par \quad $q(x)$: $x$ es no negativo. \quad Universo: $\mathbb{Z}$
+
+    \textbf{i) Forma simbólica y valor de verdad:}
+
+    $\forall x \in \mathbb{Z}: p(x) \Rightarrow q(x)$
+
+    $V(\forall x \in \mathbb{Z}: p(x) \Rightarrow q(x)) = F$, ya que existen números pares negativos (por ejemplo $-2$), lo que da antecedente $V$ y consecuente $F$.
+
+    \textbf{ii) Negación:}
+
+    $\sim\left[\forall x \in \mathbb{Z}: p(x) \Rightarrow q(x)\right] = \exists x \in \mathbb{Z}: \sim(p(x) \Rightarrow q(x)) = \exists x \in \mathbb{Z}: p(x) \wedge \sim q(x)$ \quad (negación de la implicación)
+
+    Coloquialmente: ``Existe al menos un número par que es negativo.''
+
+    \item Ningún número racional es negativo.
+
+    $q(x)$: $x$ es negativo. \quad Universo: $\mathbb{Q}$
+
+    \textbf{i) Forma simbólica y valor de verdad:}
+
+    $\forall x \in \mathbb{Q}: \sim q(x)$
+
+    $V(\forall x \in \mathbb{Q}: \sim q(x)) = F$, ya que existen números racionales negativos (por ejemplo $-\frac{1}{2}$).
+
+    \textbf{ii) Negación:}
+
+    $\sim\left[\forall x \in \mathbb{Q}: \sim q(x)\right] = \exists x \in \mathbb{Q}: q(x)$
+
+    Coloquialmente: ``Existe al menos un número racional que es negativo.''
+
+    \item Existen números primos negativos.
+
+    Por definición, un número primo es $> 1$, $\therefore$ no puede ser negativo.
+
+    $p(x)$: $x$ es primo \quad $q(x)$: $x$ es negativo. \quad Universo: $\mathbb{Z}$
+
+    \textbf{i) Forma simbólica y valor de verdad:}
+
+    $\exists x \in \mathbb{Z}: p(x) \wedge q(x)$
+
+    $V(\exists x \in \mathbb{Z}: p(x) \wedge q(x)) = F$, ya que ningún número primo es negativo por definición.
+
+    \textbf{ii) Negación:}
+
+    $\sim\left[\exists x \in \mathbb{Z}: p(x) \wedge q(x)\right] = \forall x \in \mathbb{Z}: \sim p(x) \vee \sim q(x)$ \quad (Ley de De Morgan)
+
+    Coloquialmente: ``Todo número o no es primo o no es negativo.''
+
+    \item Algunos números enteros no son pares ni impares.
+
+    $p(x)$: $x$ es par \quad $q(x)$: $x$ es impar. \quad Universo: $\mathbb{Z}$
+
+    \textbf{i) Forma simbólica y valor de verdad:}
+
+    $\exists x \in \mathbb{Z}: \sim p(x) \wedge \sim q(x)$
+
+    $V(\exists x \in \mathbb{Z}: \sim p(x) \wedge \sim q(x)) = F$, ya que todo número entero es par o impar, no existe ninguno que no sea ninguna de las dos cosas.
+
+    \textbf{ii) Negación:}
+
+    $\sim\left[\exists x \in \mathbb{Z}: \sim p(x) \wedge \sim q(x)\right] = \forall x \in \mathbb{Z}: \sim(\sim p(x)) \vee \sim(\sim q(x)) = \forall x \in \mathbb{Z}: p(x) \vee q(x)$ \quad (Ley de De Morgan)
+
+    Coloquialmente: ``Todos los números enteros son pares o impares.''
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Implicaciones: análisis y equivalencias]{Para las siguientes implicaciones, considera como universo el conjunto de los números enteros.}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Cualquier número cumple que si es par, su cuadrado es par.
+    \item Si un número es divisible por 3, su cuadrado es divisible por 9.
+    \item $x^2 - 16 = 0$ si $x - 4 = 0$.
+    \item $x^2 = 1$ sólo si $x + 1 = 0$ o $x - 1 = 0$.
+\end{enumerate}
+
+\begin{enumerate}[label=\roman*)]
+    \item Identifica antecedente y consecuente y escríbelas en forma simbólica.
+    \item Determina el valor de verdad de las implicaciones dadas y de sus recíprocas.
+    \item Escribe las implicaciones contraria y contrarrecíproca de las dadas y determina su valor de verdad. Comprueba la equivalencia de los valores de verdad obtenidos en las implicaciones asociadas.
+    \item Para cada una de las implicaciones dadas indica si el antecedente de la proposición es suficiente o necesario para el consecuente.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Demostración y refutación de implicaciones]{Para las implicaciones dadas, demuestra las verdaderas y refuta las falsas. Aplica el método que creas conveniente.}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Si un número es múltiplo de 2 entonces su cubo es múltiplo de 4.
+    \item La suma de dos números es par, sólo si los sumandos son impares.
+    \item El consecutivo de un número que es par, es un número impar.
+    \item Si el cuadrado de un número es par, el número es par.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% -------------------------------------------------------
+
+\section[Inducción completa]{Demuestra por inducción completa los siguientes enunciados}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $3 + 7 + 11 + \cdots + (4n-1) = n(2n+1)$
+    \item $1 + 2 + 3 + \cdots + n = \dfrac{n(n+1)}{2}$
+    \item $1^2 + 3^2 + 5^2 + \cdots + (2n-1)^2 = \dfrac{n(2n-1)(2n+1)}{3}$
+    \item $1^2 + 2^2 + 3^2 + \cdots + n^2 = \dfrac{n(n+1)(2n+1)}{6}$
+\end{enumerate}
+
+\volverindice
+\newpage
+
+\end{document}
