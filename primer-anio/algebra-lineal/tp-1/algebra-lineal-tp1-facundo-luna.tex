@@ -153,7 +153,7 @@
 \newcommand{\carrera}{Licenciatura en Ciencia de Datos}
 \newcommand{\materia}{Álgebra Lineal}
 \newcommand{\trabajo}{Trabajo Práctico N° 1}
-\newcommand{\profesor}{Lic. Mauro vacía}
+\newcommand{\profesor}{Lic. Mauro vaca}
 \newcommand{\alumno}{Facundo Luna}
 \newcommand{\fecha}{\today}
 
@@ -235,6 +235,8 @@
     \item El número 57 es múltiplo de 3. $\rightarrow$ Es una proposición. $V(p) = V$
     \item ¡Arriba las manos! Es una oración imperativa, no es una proposición.
 \end{enumerate}
+
+De los ocho enunciados analizados, los ítems i), ii), iv), v), vii) son proposiciones con valor de verdad determinable. Los ítems iii) y viii) no son proposiciones (forma proposicional y oración imperativa respectivamente), y el ítem vi) tampoco lo es por tratarse de una oración interrogativa.
 
 \volverindice
 \newpage
@@ -348,6 +350,8 @@
     Es una \textbf{tautología} (siempre verdadera), por lo tanto su negación es una \textbf{contradicción}.
 \end{enumerate}
 
+En la parte \textbf{b)}, los ítems i) al iv) resultan \textbf{contingencias}: su negación puede ser verdadera o falsa según los valores de las variables. El ítem v) es un caso especial: al ser tautología, su negación es siempre falsa, es decir, una contradicción.
+
 \volverindice
 \newpage
 
@@ -377,6 +381,8 @@
           $V(((p \wedge q) \wedge (\sim r \wedge \sim s)) \Rightarrow \sim t) = V$
 \end{enumerate}
 
+En los tres casos fue posible expresar cada proposición en forma simbólica y determinar su valor de verdad. Cabe destacar que el ítem c) requirió la introducción de cinco proposiciones atómicas para representar fielmente la estructura lógica del enunciado.
+
 \volverindice
 \newpage
 
@@ -399,6 +405,8 @@ Expresa cada una de las siguientes fórmulas en lenguaje coloquial:
 
     \item $\sim r \Rightarrow (q \vee \sim p)$: Si la memoria RAM es una memoria a largo plazo, entonces la CPU no es un elemento del software o un bit no es un código binario.
 \end{enumerate}
+
+En todos los casos la traducción al lenguaje coloquial respeta fielmente la estructura lógica de cada fórmula, identificando correctamente el tipo de conector utilizado (conjunción, implicación, bicondicional y disyunción).
 
 \volverindice
 \newpage
@@ -428,6 +436,8 @@ Expresa cada una de las siguientes fórmulas en lenguaje coloquial:
           $\sim V \Rightarrow V$\\
           $F \Rightarrow V = V$
 \end{enumerate}
+
+En los cuatro casos, la sustitución directa de los valores dados permite determinar el valor de verdad sin necesidad de construir tablas. Todos los resultados son $V$.
 
 \volverindice
 \newpage
@@ -473,6 +483,8 @@ Expresa cada una de las siguientes fórmulas en lenguaje coloquial:
     \end{center}
     \textbf{Conclusión: Es una contradicción} (siempre F).
 \end{enumerate}
+
+En resumen: el ítem a) es una \textbf{contingencia} ya que su valor de verdad depende de las variables; el ítem b) es una \textbf{contradicción} ya que es siempre falsa independientemente de los valores que tomen $p$ y $q$.
 
 \volverindice
 \newpage
@@ -526,6 +538,8 @@ No podemos determinar el valor de verdad, el cual depende de los valores que tom
     Se tiene que su valor de verdad es $F$. Esto es debido a que no es cierto que cualquier valor de $x$ que pertenezca al conjunto de los enteros convierta a $q(x)$ en $V$, ya que los enteros incluyen a los números impares.
 \end{enumerate}
 
+En conclusión, la diferencia fundamental entre proposición y forma proposicional radica en la determinabilidad del valor de verdad: una proposición siempre tiene un valor de verdad definido, mientras que una forma proposicional solo lo adquiere cuando se fija el valor de la variable libre o se aplica un cuantificador.
+
 \volverindice
 \newpage
 
@@ -543,12 +557,14 @@ No podemos determinar el valor de verdad, el cual depende de los valores que tom
     Para que $(x+1)(x-3) = 0$, $(x+1) = 0$ o $(x-3) = 0$, luego $x$ debe ser $-1$ o $3$.\\
     $(-1+1)(-1-3) = 0 \therefore V, \quad x = 3 \text{ es } F \quad (F)$\\
     $(3+1)(3-3) = 0 \therefore V, \quad x = 3 \text{ es } V \quad (V)$\\
-    Si $x = 1$, se tiene $(-1+1)(-1-3) = 0$, lo cual es $V$, pero con esto $x$ resulta $\neq 3$. Es decir antecedente $V$ y consecuente $F$, por lo que la implicación resulta $F$.
+    Si $x = -1$, se tiene $(-1+1)(-1-3) = 0$, lo cual es $V$, pero con esto $x$ resulta $\neq 3$. Es decir antecedente $V$ y consecuente $F$, por lo que la implicación resulta $F$.
 
     \item $\forall x \in \mathbb{Z}: x + 5 = 7 \Rightarrow x^2 = 4$
 
     Si $x + 5 = 7$, entonces $x = 2$, luego $x^2 = 2^2 = 4$ $\therefore$ antecedente $V$ y consecuente $V$, la implicación es $V$.
 \end{enumerate}
+
+En resumen: los ítems a) y b) son \textbf{falsos} ya que en ambos casos existe al menos un valor de $x$ que hace verdadero el antecedente y falso el consecuente. El ítem c) es \textbf{verdadero} ya que el único valor que satisface el antecedente también satisface el consecuente.
 
 \volverindice
 \newpage
@@ -608,6 +624,8 @@ No podemos determinar el valor de verdad, el cual depende de los valores que tom
 
     Coloquialmente: ``Todo número o no es primo o no es negativo.''
 
+    \newpage
+
     \item Algunos números enteros no son pares ni impares.
 
     $p(x)$: $x$ es par \quad $q(x)$: $x$ es impar. \quad Universo: $\mathbb{Z}$
@@ -633,17 +651,252 @@ No podemos determinar el valor de verdad, el cual depende de los valores que tom
 \section[Implicaciones: análisis y equivalencias]{Para las siguientes implicaciones, considera como universo el conjunto de los números enteros.}
 
 \begin{enumerate}[label=\alph*.-]
-    \item Cualquier número cumple que si es par, su cuadrado es par.
-    \item Si un número es divisible por 3, su cuadrado es divisible por 9.
-    \item $x^2 - 16 = 0$ si $x - 4 = 0$.
-    \item $x^2 = 1$ sólo si $x + 1 = 0$ o $x - 1 = 0$.
-\end{enumerate}
 
-\begin{enumerate}[label=\roman*)]
-    \item Identifica antecedente y consecuente y escríbelas en forma simbólica.
-    \item Determina el valor de verdad de las implicaciones dadas y de sus recíprocas.
-    \item Escribe las implicaciones contraria y contrarrecíproca de las dadas y determina su valor de verdad. Comprueba la equivalencia de los valores de verdad obtenidos en las implicaciones asociadas.
-    \item Para cada una de las implicaciones dadas indica si el antecedente de la proposición es suficiente o necesario para el consecuente.
+    % ---- a) ----
+    \item Cualquier número cumple que si es par, su cuadrado es par.
+
+    $p(x)$: $x$ es par \quad $q(x)$: $x^2$ es par.
+
+    \textbf{i) Forma simbólica:}
+    \[\forall x \in \mathbb{Z}: p(x) \Rightarrow q(x)\]
+    Siendo $p(x)$ el antecedente y $q(x)$ el consecuente.
+
+    \textbf{ii) Valor de verdad:}
+
+    Pruebo por método directo. Asumo $V(p(x)) = V$, es decir $x = 2n$ con $n \in \mathbb{Z}$, y pruebo $V(q(x)) = V$:
+    \[x^2 = (2n)^2 = 4n^2 = 2(2n^2)\]
+    Sea $m = 2n^2 \in \mathbb{Z}$, entonces $x^2 = 2m$ es par. $\therefore V(p(x) \Rightarrow q(x)) = V$.
+
+    \textbf{Recíproca:} $\forall x \in \mathbb{Z}: q(x) \Rightarrow p(x)$: ``Si $x^2$ es par, entonces $x$ es par.''
+
+    Pruebo por reducción al absurdo (contradicción). Asumo que $x^2$ es par y que $x$ es impar, es decir $x = 2k+1$ con $k \in \mathbb{Z}$:
+    \[x^2 = (2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1\]
+    Esto implica que $x^2$ es impar, lo cual contradice nuestra hipótesis de que $x^2$ es par. $\bot$ 
+    
+    $\therefore$ el supuesto de que $x$ es impar es falso, luego $x$ debe ser par. La recíproca es $V$.
+
+    \textbf{iii) Implicación contraria y contrarrecíproca:}
+
+    $2^2 = 4$ posibles combinaciones.
+
+    \begin{center}
+    \begin{tabular}{cc|c|c|c}
+        \toprule
+        $p$ & $q$ & $p \Rightarrow q$ & $\sim p \Rightarrow \sim q$ & $\sim q \Rightarrow \sim p$ \\
+        \midrule
+        V & V & V & V & V \\
+        V & F & F & V & F \\
+        F & V & V & F & V \\
+        F & F & V & V & V \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    Confirmamos la equivalencia entre la implicación directa ($p \Rightarrow q$) y la contrarrecíproca ($\sim q \Rightarrow \sim p$): ambas tienen los mismos valores de verdad.
+
+    \textbf{iv)} Dado que $V(p \Rightarrow q) = V$ y $V(q \Rightarrow p) = V$, $p$ es condición \textbf{necesaria y suficiente} para $q$.
+
+    \newpage
+
+    % ---- b) ----
+    \item Si un número es divisible por 3, su cuadrado es divisible por 9.
+
+    $p(x)$: $x$ es divisible por 3 \quad $q(x)$: $x^2$ es divisible por 9.
+
+    \textbf{i) Forma simbólica:}
+    \[\forall x \in \mathbb{Z}: p(x) \Rightarrow q(x)\]
+    Siendo $p(x)$ el antecedente y $q(x)$ el consecuente.
+
+    \textbf{ii) Valor de verdad:}
+
+    Pruebo por método directo. Asumo $V(p(x)) = V$, es decir $x = 3k$ con $k \in \mathbb{Z}$ (3 divide a $x$), y pruebo $V(q(x)) = V$:
+    \[x^2 = (3k)^2 = 9k^2\]
+    $\therefore x^2$ es divisible por 9 (es decir, $9 \mid x^2$). Luego $V(p(x) \Rightarrow q(x)) = V$.
+
+    \textbf{Recíproca:} $\forall x \in \mathbb{Z}: q(x) \Rightarrow p(x)$: ``Si $x^2$ es divisible por 9, entonces $x$ es divisible por 3.''
+
+    Pruebo por reducción al absurdo. Asumo que $x^2$ es divisible por 9 y que $x$ no es divisible por 3. 
+    
+    Si $x$ no es divisible por 3, entonces $x = 3k + r$ con $r \in \{1, 2\}$ y $k \in \mathbb{Z}$:
+    \[x^2 = (3k+r)^2 = 9k^2 + 6kr + r^2\]
+    Como $r \in \{1,2\}$, tenemos que $r^2 \in \{1, 4\}$. En ambos casos, $r^2$ no es divisible por 9, por lo tanto $x^2 = 9k^2 + 6kr + r^2$ tampoco es divisible por 9. $\bot$ 
+    
+    Esto contradice nuestra hipótesis. $\therefore$ la recíproca es $V$.
+
+    \textbf{iii) Implicación contraria y contrarrecíproca:}
+
+    Implicación contraria: $\forall x \in \mathbb{Z}: \sim p(x) \Rightarrow \sim q(x)$: ``Si $x$ no es divisible por 3, entonces $x^2$ no es divisible por 9.''
+
+    Pruebo por método directo. Asumo $x$ no es divisible por 3, es decir $x = 3k + r$ con $r \in \{1, 2\}$ y $k \in \mathbb{Z}$:
+    \[x^2 = (3k+r)^2 = 9k^2 + 6kr + r^2\]
+    Como $r^2 \in \{1, 4\}$, $x^2$ no es divisible por 9. $\therefore$ la implicación contraria es $V$.
+
+    Implicación contrarrecíproca: $\forall x \in \mathbb{Z}: \sim q(x) \Rightarrow \sim p(x)$: ``Si $x^2$ no es divisible por 9, entonces $x$ no es divisible por 3.''
+
+    Pruebo por método directo. Asumo $x^2$ no es divisible por 9. Si $x$ fuera divisible por 3, es decir $x = 3k$, entonces $x^2 = 9k^2$ sería divisible por 9. $\bot$ 
+    
+    $\therefore x$ no puede ser divisible por 3, la contrarrecíproca es $V$.
+
+    Para confirmar la equivalencia entre las cuatro implicaciones, construyo la tabla de verdad con $2^2 = 4$ combinaciones:
+
+    \begin{center}
+    \begin{tabular}{cc|c|c|c|c}
+        \toprule
+        $p$ & $q$ & $p \Rightarrow q$ & $q \Rightarrow p$ & $\sim p \Rightarrow \sim q$ & $\sim q \Rightarrow \sim p$ \\
+        \midrule
+        V & V & V & V & V & V \\
+        V & F & F & V & V & F \\
+        F & V & V & F & F & V \\
+        F & F & V & V & V & V \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    Confirmamos que $p \Rightarrow q$ y $\sim q \Rightarrow \sim p$ (contrarrecíproca) tienen idénticos valores de verdad en toda la tabla, verificando su equivalencia lógica. Lo mismo ocurre entre $q \Rightarrow p$ (recíproca) y $\sim p \Rightarrow \sim q$ (contraria).
+
+    \textbf{iv)} Dado que $V(p \Rightarrow q) = V$ y $V(q \Rightarrow p) = V$, $p$ es condición \textbf{necesaria y suficiente} para $q$.
+
+    % ---- c) ----
+    \item $x^2 - 16 = 0$ si $x - 4 = 0$.
+
+    \textbf{i) Forma simbólica:}
+    \[\forall x \in \mathbb{Z}: x - 4 = 0 \Rightarrow x^2 - 16 = 0\]
+    Siendo $x - 4 = 0$ el antecedente y $x^2 - 16 = 0$ el consecuente.
+
+    \textbf{ii) Valor de verdad y recíproca:}
+
+    Pruebo por método directo. Asumo $x - 4 = 0$ es $V$ y demuestro $x^2 - 16 = 0$ es $V$:
+    \begin{align*}
+        x - 4 &= 0 \\
+        x &= 4 \\
+        x^2 &= 4^2 \\
+        x^2 &= 16 \\
+        x^2 - 16 &= 0
+    \end{align*}
+    $\therefore x - 4 = 0 \Rightarrow x^2 - 16 = 0$ es $V$. Queda demostrada la implicación directa.
+
+    \textbf{Recíproca:} $\forall x \in \mathbb{Z}: x^2 - 16 = 0 \Rightarrow x - 4 = 0$
+
+    Pruebo por método directo. Asumo $x^2 - 16 = 0$ e intento demostrar $x - 4 = 0$:
+    \begin{align*}
+        x^2 - 16 &= 0 \\
+        x^2 &= 16 \Rightarrow x = \pm 4
+    \end{align*}
+    Como $x$ puede ser $-4$, $x - 4 = 0$ no siempre se cumple. $\therefore$ la recíproca es $F$.
+
+    \textbf{iii) Implicación contraria y contrarrecíproca:}
+
+    Implicación directa: $\forall x \in \mathbb{Z}: x - 4 = 0 \Rightarrow x^2 - 16 = 0$ \quad $V$
+
+    Implicación contraria: $\forall x \in \mathbb{Z}: x - 4 \neq 0 \Rightarrow x^2 - 16 \neq 0$
+
+    Busco un contraejemplo: $x = -4 \Rightarrow x - 4 = -8 \neq 0$ (antecedente $V$), pero $(-4)^2 - 16 = 0$ (consecuente $F$). $\therefore$ la implicación contraria es $F$.
+
+    Implicación contrarrecíproca: $\forall x \in \mathbb{Z}: x^2 - 16 \neq 0 \Rightarrow x - 4 \neq 0$
+
+    Pruebo por método directo. Asumo $x^2 - 16 \neq 0$, es decir $x \neq \pm 4$, en particular $x \neq 4$, $\therefore x - 4 \neq 0$. La contrarrecíproca es $V$.
+
+    Para verificar la equivalencia entre las cuatro implicaciones, construyo la tabla de verdad con $2^2 = 4$ combinaciones:
+
+    \begin{center}
+    \begin{tabular}{cc|c|c|c|c}
+        \toprule
+        $p$ & $q$ & $p \Rightarrow q$ & $q \Rightarrow p$ & $\sim p \Rightarrow \sim q$ & $\sim q \Rightarrow \sim p$ \\
+        \midrule
+        V & V & V & V & V & V \\
+        V & F & F & V & V & F \\
+        F & V & V & F & F & V \\
+        F & F & V & V & V & V \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    Confirmamos: $V(\text{directa}) = V(\text{contrarrecíproca}) = V$ y $V(\text{recíproca}) = V(\text{contraria}) = F$, verificando la equivalencia lógica entre pares.
+
+    \textbf{iv)} Dado que $V(p \Rightarrow q) = V$ y $V(q \Rightarrow p) = F$, $p$ es condición \textbf{suficiente pero no necesaria} para $q$.
+
+    % ---- d) ----
+    \item $x^2 = 1$ sólo si $x + 1 = 0$ o $x - 1 = 0$.
+
+    \textbf{i) Forma simbólica:}
+
+    Considero:
+    \begin{align*}
+        p(x) &= x + 1 = 0 \\
+        q(x) &= x - 1 = 0 \\
+        r(x) &= x^2 - 1
+    \end{align*}
+    \[\forall x \in \mathbb{Z}: (x+1=0 \vee x-1=0) \Rightarrow x^2 = 1\]
+    Siendo $(x+1=0 \vee x-1=0)$ el antecedente y $x^2=1$ el consecuente.
+
+    \textbf{ii) Forma directa y recíproca:}
+
+    Forma directa: $\forall x \in \mathbb{Z}: (x+1=0 \vee x-1=0) \Rightarrow x^2=1$
+
+    Asumo antecedente $V$:
+    \begin{align*}
+        x + 1 = 0 &\Rightarrow x = -1 \Rightarrow x^2 = 1 \\
+        x - 1 = 0 &\Rightarrow x = 1 \Rightarrow x^2 = 1
+    \end{align*}
+    $\therefore$ concluyo que $x^2 = 1$ es $V$. Luego la implicación directa resulta $V$.
+
+    Forma recíproca: $\forall x \in \mathbb{Z}: x^2 = 1 \Rightarrow (x+1=0 \vee x-1=0)$
+
+    Pruebo por método directo. Asumo $r(x) = x^2 - 1 = 0$ es $V$:
+    \[x^2 = 1 \Rightarrow x = \pm 1\]
+    Es decir $x = 1$ ó $x = -1$, concluyo $q(x): (x+1=0 \vee x-1=0) = V$.
+
+    Entonces la implicación recíproca es $V$.
+
+    \textbf{iii) Implicación contraria y contrarrecíproca:}
+
+    $\sim(x+1=0 \vee x-1=0) \equiv \sim(x+1=0) \wedge \sim(x-1=0)$ \quad (Ley de De Morgan)
+
+    Forma directa: $\forall x \in \mathbb{Z}: (x+1=0 \vee x-1=0) \Rightarrow x^2=1$
+
+    Implicación contraria: $\forall x \in \mathbb{Z}: (x+1\neq 0 \wedge x-1\neq 0) \Rightarrow x^2 \neq 1$
+    \begin{align*}
+        x + 1 &\neq 0 \wedge x - 1 \neq 0 \\
+        x &\neq -1 \wedge x \neq 1 \\
+        x^2 &\neq 1 \wedge x^2 \neq 1 \Rightarrow \text{concluyo que } q(x): x^2 \neq 1 \text{ es } V
+    \end{align*}
+    Luego $p(x): (x+1\neq 0 \wedge x-1\neq 0)$ es $V$ y $q(x): x^2\neq 1$ es $V$. La implicación contraria es $V$.
+
+    Implicación contrarrecíproca: $\forall x \in \mathbb{Z}: x^2 \neq 1 \Rightarrow (x+1\neq 0 \wedge x-1\neq 0)$
+
+    Pruebo por método directo. Asumo $x^2 \neq 1$:
+    \begin{align*}
+        x^2 &\neq 1 \\
+        x &\neq \pm 1 \quad \text{(es decir, } x \neq 1 \text{ y } x \neq -1\text{)}\\
+        x + 1 &\neq 0 \quad \wedge \quad x - 1 \neq 0
+    \end{align*}
+    $\therefore$ el consecuente $(x+1\neq 0 \wedge x-1\neq 0)$ es $V$. La contrarrecíproca es $V$.
+
+    Para verificar la equivalencia entre las cuatro implicaciones, construyo la tabla de verdad con $2^2 = 4$ combinaciones:
+
+    \begin{center}
+    \begin{tabular}{cc|c|c|c|c}
+        \toprule
+        $p$ & $q$ & $p \Rightarrow q$ & $q \Rightarrow p$ & $\sim p \Rightarrow \sim q$ & $\sim q \Rightarrow \sim p$ \\
+        \midrule
+        V & V & V & V & V & V \\
+        V & F & F & V & V & F \\
+        F & V & V & F & F & V \\
+        F & F & V & V & V & V \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    Confirmamos: $V(\text{directa}) = V(\text{contrarrecíproca}) = V$ y $V(\text{recíproca}) = V(\text{contraria}) = V$, verificando la equivalencia lógica entre pares. En este caso particular todas resultan $V$ por ser condición necesaria y suficiente.
+
+    \textbf{iv)} Dada la implicación:
+    \[\forall x \in \mathbb{Z}: (x+1=0 \vee x-1=0) \Rightarrow x^2=1\]
+    Cuyo valor de verdad es $V$. Además considerando la implicación recíproca:
+    \[\forall x \in \mathbb{Z}: x^2=1 \Rightarrow (x+1=0 \vee x-1=0)\]
+    Cuyo valor de verdad es $V$.
+
+    Se concluye que el antecedente $(x+1=0 \vee x-1=0)$ es condición necesaria y suficiente para $x^2=1$.
+
 \end{enumerate}
 
 \volverindice
@@ -654,10 +907,92 @@ No podemos determinar el valor de verdad, el cual depende de los valores que tom
 \section[Demostración y refutación de implicaciones]{Para las implicaciones dadas, demuestra las verdaderas y refuta las falsas. Aplica el método que creas conveniente.}
 
 \begin{enumerate}[label=\alph*.-]
+    
+    % ---- a) ----
     \item Si un número es múltiplo de 2 entonces su cubo es múltiplo de 4.
+
+    $p(x)$: $x$ es múltiplo de 2 \quad $q(x)$: $x^3$ es múltiplo de 4
+
+    Donde la notación $a \mid b$ significa ``$a$ divide a $b$'', es decir, el resto de dividir $b$ por $a$ es cero.
+
+    \[\forall x \in \mathbb{Z}: 2 \mid x \Rightarrow 4 \mid x^3\]
+
+    Es decir: para todo entero $x$, si 2 divide a $x$, entonces 4 divide a $x^3$.
+
+    \textbf{Pruebo usando método directo:}
+
+    Sea $x = 2n$ con $n \in \mathbb{Z}$, entonces:
+    \begin{align*}
+        x^3 &= (2n)^3 \\
+        x^3 &= 8n^3 \\
+        x^3 &= 4(2n^3)
+    \end{align*}
+
+    Sea $m = 2n^3$ con $m \in \mathbb{Z}$, luego $x^3 = 4m$, es decir $4 \mid x^3$ (4 divide a $x^3$).
+
+    \textbf{Entonces se concluye que} $\forall x \in \mathbb{Z}: 2 \mid x \Rightarrow 4 \mid x^3$ es $V$, es decir, si un número es múltiplo de 2, su cubo es múltiplo de 4.
+
+    % ---- b) ----
     \item La suma de dos números es par, sólo si los sumandos son impares.
+
+    \textbf{Parece falsa, entonces busco un contraejemplo:}
+
+    La proposición afirma que $x + y$ es par \textbf{solo si} ambos sumandos son impares. Para refutarla basta encontrar un caso donde la suma sea par pero los sumandos no sean impares.
+
+    Supongo ambos números pares, con $x = 2n$ y $y = 2m$ con $n, m \in \mathbb{Z}$:
+    \[x + y = 2n + 2m = 2(n+m)\]
+    Como $(n+m) \in \mathbb{Z}$, la suma es par. Sin embargo $x = 2n$ es par (no impar) y $y = 2m$ es par (no impar).
+
+    $\therefore$ encontramos un caso donde la suma es par pero los sumandos no son impares. \textbf{La implicación es $F$.}
+
+    \newpage
+
+    % ---- c) ----
     \item El consecutivo de un número que es par, es un número impar.
+
+    $p(x)$: $x$ es par \quad $q(x)$: $x+1$ es impar
+
+    \[\forall x \in \mathbb{Z}: x = 2n \Rightarrow x+1 = 2m+1 \quad \text{con } n,m \in \mathbb{Z}\]
+
+    \textbf{Pruebo por método directo:}
+
+    Sea $x = 2n$ con $n \in \mathbb{Z}$:
+    \begin{align*}
+        x + 1 &= 2n + 1
+    \end{align*}
+
+    Siendo $m = n$ con $m \in \mathbb{Z}$, entonces $x + 1 = 2m + 1$.
+
+    \textbf{Entonces se concluye que} $\forall x \in \mathbb{Z}: x = 2n \Rightarrow x+1 = 2n+1$ es $V$.
+
+    % ---- d) ----
     \item Si el cuadrado de un número es par, el número es par.
+
+    $p(x)$: $x^2$ es par \quad $q(x)$: $x$ es par
+
+    \[\forall x \in \mathbb{Z}: x^2 = 2n \Rightarrow x = 2m \quad \text{con } n,m \in \mathbb{Z}\]
+
+    \textbf{Pruebo por contradicción (reducción al absurdo):}
+
+    Considero que $p(x)$ es $V$ y $q(x)$ es $F$:
+    \begin{align*}
+        x^2 &= 2n \\
+        x &= 2m + 1 \quad \text{(asumo que $x$ es impar)}
+    \end{align*}
+
+    Entonces:
+    \begin{align*}
+        x^2 &= (2m+1)^2 \\
+        x^2 &= 4m^2 + 4m + 1 \\
+        x^2 &= 2(2m^2 + 2m) + 1
+    \end{align*}
+
+    Sea $k = 2m^2 + 2m$ con $k \in \mathbb{Z}$, entonces $x^2 = 2k + 1$, lo cual es impar. Pero habíamos asumido que $x^2$ es par. $\bot$
+
+    Llegamos a una contradicción, por lo tanto el supuesto de que $x$ es impar es falso. $\therefore$ si $x^2$ es par, entonces $x$ debe ser par.
+
+    \textbf{Entonces la implicación es $V$.}
+
 \end{enumerate}
 
 \volverindice
@@ -668,10 +1003,145 @@ No podemos determinar el valor de verdad, el cual depende de los valores que tom
 \section[Inducción completa]{Demuestra por inducción completa los siguientes enunciados}
 
 \begin{enumerate}[label=\alph*.-]
+
     \item $3 + 7 + 11 + \cdots + (4n-1) = n(2n+1)$
+
+    \textbf{1. Verificación para $n = 1$:}
+
+    $P(1)$: $3 = 1 \cdot (2 \cdot 1 + 1) = 1 \cdot 3 = 3$ \quad $\therefore P(1)$ es $V$.
+
+    \textbf{2. Hipótesis inductiva} — Suponemos verdadero para $n = k$ con $k \geq 1$:
+
+    $P(k)$: $3 + 7 + 11 + \cdots + (4k-1) = k(2k+1)$
+
+    \textbf{3. Probamos $P(k+1)$:}
+
+    Queremos demostrar que:
+    \[P(k+1): 3 + 7 + 11 + \cdots + (4k-1) + (4(k+1)-1) = (k+1)(2(k+1)+1)\]
+
+    Partimos del lado izquierdo y usamos la hipótesis inductiva $P(k)$:
+    \begin{align*}
+        3 + 7 + \cdots + (4k-1) + (4k+3) &= k(2k+1) + (4k+3) \\
+        &= 2k^2 + k + 4k + 3 \\
+        &= 2k^2 + 5k + 3
+    \end{align*}
+
+    Factorizamos $2k^2 + 5k + 3$ usando la fórmula cuadrática:
+    \[k_{1,2} = \frac{-5 \pm \sqrt{25 - 24}}{4} = \frac{-5 \pm 1}{4} \quad \therefore k_1 = -1, \quad k_2 = -\frac{3}{2}\]
+
+    $\therefore 2k^2 + 5k + 3 = 2(k+1)\left(k + \frac{3}{2}\right) = (k+1)(2k+3)$
+
+    Por otro lado, el lado derecho de $P(k+1)$ resulta:
+    \[(k+1)(2(k+1)+1) = (k+1)(2k+3)\]
+
+    Ambos lados son iguales. $\therefore P(k+1)$ es $V$, y la proposición queda demostrada para todo $n \geq 1$.
+
     \item $1 + 2 + 3 + \cdots + n = \dfrac{n(n+1)}{2}$
+
+    \textbf{1. Verificación para $n = 1$:}
+
+    $P(1)$: $1 = \dfrac{1 \cdot 2}{2} = 1$ \quad $\therefore P(1)$ es $V$.
+
+    \textbf{2. Hipótesis inductiva} — Suponemos verdadero para $n = k$ con $k \geq 1$:
+
+    $P(k)$: $1 + 2 + 3 + \cdots + k = \dfrac{k(k+1)}{2}$
+
+    \newpage
+    
+    \textbf{3. Probamos $P(k+1)$:}
+
+    Queremos demostrar que:
+    \[P(k+1): 1 + 2 + 3 + \cdots + k + (k+1) = \frac{(k+1)(k+2)}{2}\]
+
+    Partimos del lado izquierdo y usamos la hipótesis inductiva $P(k)$:
+    \begin{align*}
+        1 + 2 + \cdots + k + (k+1) &= \frac{k(k+1)}{2} + (k+1) \\
+        &= \frac{k(k+1) + 2(k+1)}{2} \\
+        &= \frac{(k+1)(k+2)}{2} \\
+        &= \frac{k^2 + 3k + 2}{2}
+    \end{align*}
+
+    Factorizamos $k^2 + 3k + 2$ usando la fórmula cuadrática:
+    \[k_{1,2} = \frac{-3 \pm \sqrt{9 - 8}}{2} = \frac{-3 \pm 1}{2} \quad \therefore k_1 = -1, \quad k_2 = -2\]
+
+    $\therefore k^2 + 3k + 2 = (k+1)(k+2)$
+
+    Sustituyendo:
+    \[\frac{(k+1)(k+2)}{2}\]
+
+    Que es exactamente el lado derecho de $P(k+1)$. $\therefore P(k+1)$ es $V$, y la proposición queda demostrada para todo $n \geq 1$.
+
     \item $1^2 + 3^2 + 5^2 + \cdots + (2n-1)^2 = \dfrac{n(2n-1)(2n+1)}{3}$
+
+    \textbf{1. Verificación para $n = 1$:}
+
+    $P(1)$: $1^2 = 1 = \dfrac{1 \cdot 1 \cdot 3}{3} = 1$ \quad $\therefore P(1)$ es $V$.
+
+    \textbf{2. Hipótesis inductiva} — Suponemos verdadero para $n = k$ con $k \geq 1$:
+
+    $P(k)$: $1^2 + 3^2 + 5^2 + \cdots + (2k-1)^2 = \dfrac{k(2k-1)(2k+1)}{3}$
+
+    \textbf{3. Probamos $P(k+1)$:}
+
+    Queremos demostrar que:
+    \[P(k+1): 1^2 + 3^2 + \cdots + (2k-1)^2 + (2(k+1)-1)^2 = \frac{(k+1)(2(k+1)-1)(2(k+1)+1)}{3}\]
+
+    es decir:
+    \[P(k+1): 1^2 + 3^2 + \cdots + (2k-1)^2 + (2k+1)^2 = \frac{(k+1)(2k+1)(2k+3)}{3}\]
+
+    Partimos del lado izquierdo y usamos la hipótesis inductiva $P(k)$:
+    \begin{align*}
+        1^2 + 3^2 + \cdots + (2k-1)^2 + (2k+1)^2 &= \frac{k(2k-1)(2k+1)}{3} + (2k+1)^2 \\
+        &= \frac{k(2k-1)(2k+1) + 3(2k+1)^2}{3} \\
+        &= \frac{(2k+1)\left[k(2k-1) + 3(2k+1)\right]}{3} \\
+        &= \frac{(2k+1)(2k^2 - k + 6k + 3)}{3} \\
+        &= \frac{(2k+1)(2k^2 + 5k + 3)}{3}
+    \end{align*}
+
+    Factorizamos $2k^2 + 5k + 3$ usando la fórmula cuadrática:
+    \[k_{1,2} = \frac{-5 \pm \sqrt{25 - 24}}{4} = \frac{-5 \pm 1}{4} \quad \therefore k_1 = -1, \quad k_2 = -\frac{3}{2}\]
+
+    $\therefore 2k^2 + 5k + 3 = 2(k+1)\left(k + \frac{3}{2}\right) = (k+1)(2k+3)$
+
+    Sustituyendo:
+    \[\frac{(2k+1)(k+1)(2k+3)}{3} = \frac{(k+1)(2k+1)(2k+3)}{3}\]
+
+    Que es exactamente el lado derecho de $P(k+1)$. $\therefore P(k+1)$ es $V$, y la proposición queda demostrada para todo $n \geq 1$.
+
     \item $1^2 + 2^2 + 3^2 + \cdots + n^2 = \dfrac{n(n+1)(2n+1)}{6}$
+
+    \textbf{1. Verificación para $n = 1$:}
+
+    $P(1)$: $1^2 = 1 = \dfrac{1 \cdot 2 \cdot 3}{6} = 1$ \quad $\therefore P(1)$ es $V$.
+
+    \textbf{2. Hipótesis inductiva} — Suponemos verdadero para $n = k$ con $k \geq 1$:
+
+    $P(k)$: $1^2 + 2^2 + 3^2 + \cdots + k^2 = \dfrac{k(k+1)(2k+1)}{6}$
+
+    \textbf{3. Probamos $P(k+1)$:}
+
+    Queremos demostrar que:
+    \[P(k+1): 1^2 + 2^2 + \cdots + k^2 + (k+1)^2 = \frac{(k+1)(k+2)(2k+3)}{6}\]
+
+    Partimos del lado izquierdo y usamos la hipótesis inductiva $P(k)$:
+    \begin{align*}
+        1^2 + 2^2 + \cdots + k^2 + (k+1)^2 &= \frac{k(k+1)(2k+1)}{6} + (k+1)^2 \\
+        &= \frac{k(k+1)(2k+1) + 6(k+1)^2}{6} \\
+        &= \frac{(k+1)\left[k(2k+1) + 6(k+1)\right]}{6} \\
+        &= \frac{(k+1)(2k^2 + k + 6k + 6)}{6} \\
+        &= \frac{(k+1)(2k^2 + 7k + 6)}{6}
+    \end{align*}
+
+    Factorizamos $2k^2 + 7k + 6$ usando la fórmula cuadrática:
+    \[k_{1,2} = \frac{-7 \pm \sqrt{49 - 48}}{4} = \frac{-7 \pm 1}{4} \quad \therefore k_1 = -\frac{3}{2}, \quad k_2 = -2\]
+
+    $\therefore 2k^2 + 7k + 6 = 2\left(k + \frac{3}{2}\right)(k+2) = (2k+3)(k+2)$
+
+    Sustituyendo:
+    \[\frac{(k+1)(2k+3)(k+2)}{6} = \frac{(k+1)(k+2)(2k+3)}{6}\]
+
+    Que es exactamente el lado derecho de $P(k+1)$. $\therefore P(k+1)$ es $V$, y la proposición queda demostrada para todo $n \geq 1$.
+
 \end{enumerate}
 
 \volverindice
