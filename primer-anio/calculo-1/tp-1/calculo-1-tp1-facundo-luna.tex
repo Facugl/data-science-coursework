@@ -246,9 +246,9 @@
     Tenemos que:
     \[16 - x^2 \geq 0\]
     \[x^2 \leq 16\]
-    \[x \leq |4|\]
+    \[|x| \leq 4\]
     
-    Luego $D_h = \mathbb{R} \mid x \leq |4|$
+    Luego $D_h = \mathbb{R} \mid |x| \leq 4$
     
     Expresado en intervalo: $D_h = [-4, 4]$
     
@@ -263,7 +263,7 @@
     
     Entonces:
     \[4 - x^2 \neq 0\]
-    \[x \neq |2|\]
+    \[x^2 \neq 4 \implies x \neq 2 \quad \text{y} \quad x \neq -2\]
     
     Entonces $D_u = \mathbb{R} - \{-2, 2\}$
     
@@ -359,7 +359,7 @@
     \item $m(x) = (x+1)^2 - 2$: Se desplaza $-1$ unidad en el eje $x$. Luego se desplaza $-2$ unidades en el eje $y$.
     
     % item d.-
-    \item $q(x) = -2(x-1)^2 + 1$: Se desplaza $1$ unidad en el eje $x$. Luego sufre un estrechamiento de 2 unidades. Luego dado el signo $-$ se refleja en $x$. Finalmente se desplaza $1$ unidad en el eje $y$.
+    \item $q(x) = -2(x-1)^2 + 1$: Se desplaza $1$ unidad en el eje $x$. Luego sufre un estiramiento vertical por un factor de 2 unidades. Luego dado el signo $-$ se refleja en $x$. Finalmente se desplaza $1$ unidad en el eje $y$.
 \end{enumerate}
 
 \begin{figure}[H]
@@ -1499,7 +1499,7 @@ $D_F = \mathbb{R}$ \quad e \quad $I_F = (-\infty, -2)$
 
             % d) F(x) = -2^{x+1} - 2
             \addplot[purple, thick, domain=-4:4, samples=100] {-(2^(x+1)) - 2};
-            \node[purple] at (axis cs:-2.3,-3.2) {$-2^{x+1} + 2$};
+            \node[purple] at (axis cs:-2.3,-3.2) {$-2^{x+1} - 2$};
 
             % Asíntotas
             \addplot[gray, dashed, domain=-4:4, samples=2] {0};
@@ -1572,9 +1572,7 @@ $D_F = (2, +\infty)$ \quad e \quad $I_F = \mathbb{R}$
             % b) F(x) = log2(x+1)
             \addplot[orange, thick, domain=-2:9, samples=200] {ln(x+1)/ln(2)};
             \node[orange] at (axis cs:1.1,1.9) {$\log_2 (x+1)$};
-            % asíntota x = -1
-            \addplot[green!60!black, thick, domain=-2:9, samples=200] {ln(x)/ln(2) - 2};
-            
+
             % c) F(x) = log2(x) - 2
             \addplot[green!60!black, thick, domain=-2:9, samples=200] {ln(x)/ln(2) - 2};
             \node[green!60!black] at (axis cs:6,1) {$\log_2 (x)-2$};
