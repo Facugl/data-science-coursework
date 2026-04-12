@@ -1,0 +1,489 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish, es-noshorthands]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% TIPOGRAFÍA
+% ============================================================
+% lmodern no disponible en este sistema
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{proposicion}[teorema]{Proposición}
+\newtheorem{corolario}[teorema]{Corolario}
+\theoremstyle{definition}
+\newtheorem{definicion}[teorema]{Definición}
+\newtheorem{ejemplo}[teorema]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{observacion}[teorema]{Observación}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{float}
+\usetikzlibrary{arrows.meta, positioning}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+\lstdefinestyle{python}{
+    style=estilo_base,
+    language=Python,
+}
+\lstdefinestyle{java}{
+    style=estilo_base,
+    language=Java,
+}
+\lstdefinestyle{c}{
+    style=estilo_base,
+    language=C,
+}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+\newenvironment{resolucion}{%
+    \par\vspace{0.3em}%
+    \noindent\textit{Resolución.}\quad
+}{%
+    \par\vspace{0.8em}%
+}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°1},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small \materia}
+\fancyhead[R]{\small \trabajo}
+\fancyfoot[L]{\small \alumno}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Introducción a la Estructura de Datos}
+\newcommand{\trabajo}{Trabajo Práctico N°1}
+\newcommand{\profesor}{Ing. Carlos Pastrana}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+% ============================================================
+% CONFIGURACIÓN DEL LOGO
+% ============================================================
+
+\newcommand{\logoincluido}{
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== CUERPO ============================
+
+\newpage
+
+% ============================================================
+% EJERCICIO 1
+% ============================================================
+
+\section[Grafos con 5 nodos]{Dibuje dos grafos distintos con cinco nodos, siete arcos, por lo menos un nodo maximal y un nodo minimal, y sin ciclos.}
+
+\begin{resolucion}
+
+A continuación se presentan dos grafos distintos que cumplen con las condiciones solicitadas.
+
+\textbf{Grafo 1:}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    every node/.style={circle, draw, minimum size=0.8cm},
+    every edge/.style={draw, -{Stealth}, thick}
+]
+    \node (A) at (0, 2)    {A};
+    \node (B) at (2, 2)    {B};
+    \node (C) at (4, 2)    {C};
+    \node (D) at (1, 0)    {D};
+    \node (E) at (3, 0)    {E};
+
+    \draw[->] (A) -- (D);
+    \draw[->] (A) -- (E);
+    \draw[->] (B) -- (D);
+    \draw[->] (B) -- (E);
+    \draw[->] (C) -- (D);
+    \draw[->] (C) -- (E);
+    \draw[->] (A) -- (B);
+\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+    \item \textbf{Nodo minimal:} A (no tiene arcos entrantes)
+    \item \textbf{Nodos maximales:} D, E (no tienen arcos salientes)
+    \item \textbf{Número de arcos:} 7
+\end{itemize}
+
+\textbf{Grafo 2:}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    every node/.style={circle, draw, minimum size=0.8cm},
+    every edge/.style={draw, -{Stealth}, thick}
+]
+    \node (F) at (0, 2)    {F};
+    \node (G) at (2, 3)    {G};
+    \node (H) at (2, 1)    {H};
+    \node (I) at (4, 2)    {I};
+    \node (J) at (6, 2)    {J};
+
+    \draw[->] (F) -- (G);
+    \draw[->] (F) -- (H);
+    \draw[->] (G) -- (I);
+    \draw[->] (H) -- (I);
+    \draw[->] (G) -- (J);
+    \draw[->] (H) -- (J);
+    \draw[->] (I) -- (J);
+\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+    \item \textbf{Nodo minimal:} F (no tiene arcos entrantes)
+    \item \textbf{Nodo maximal:} J (no tiene arcos salientes)
+    \item \textbf{Número de arcos:} 7
+\end{itemize}
+
+Ambos grafos satisfacen las condiciones del enunciado: cinco nodos, siete arcos, al menos un nodo minimal y uno maximal, y ausencia de ciclos. La diferencia estructural entre ellos radica en la distribución de los arcos: el Grafo 1 tiene múltiples nodos fuente convergiendo hacia dos destinos, mientras que el Grafo 2 presenta una estructura en cadena con un único nodo fuente y un único nodo sumidero.
+
+\end{resolucion}
+
+\volverindice
+\newpage
+
+% ============================================================
+% EJERCICIO 2
+% ============================================================
+
+\section[Grafo de divisibilidad]{Considerando un grafo $G = (P, E)$ donde $P = \{1, 2, \ldots, 8\}$ y $E = \{(x, y) \mid x \text{ divide exactamente a } y\}$:}
+
+\begin{enumerate}[label=\alph*)]
+\item dibuje su representación e indique los arcos extras para la clausura transitiva completa.
+
+\item represente el grafo con su matriz de adyacencia.
+\end{enumerate}
+
+\begin{resolucion}
+
+\subsection*{a) Representación del grafo}
+
+Primero identificamos el conjunto $P$ y la relación $E$:
+
+\[
+P = \{1, 2, 3, 4, 5, 6, 7, 8\}
+\]
+\[
+E = \{(x, y) \mid x \text{ divide exactamente a } y\}
+\]
+
+Las relaciones que cumple $E$ son:
+\begin{align*}
+E = \{&(1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (1,7), (1,8),\\
+      &(2,2), (2,4), (2,6), (2,8),\\
+      &(3,3), (3,6),\\
+      &(4,4), (4,8),\\
+      &(5,5),\ (6,6),\ (7,7),\ (8,8)\}
+\end{align*}
+
+\textbf{Grafo G:}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={circle, draw, minimum size=0.8cm},
+    every edge/.style={draw, -{Stealth}}
+]
+    \node (1) at (0,  3)    {1};
+    \node (2) at (-2, 1.5)  {2};
+    \node (3) at (2,  1.5)  {3};
+    \node (4) at (-3, 0)    {4};
+    \node (5) at (0,  0)    {5};
+    \node (6) at (3,  0)    {6};
+    \node (7) at (-1.5,-1.5){7};
+    \node (8) at (1.5,-1.5) {8};
+
+    % Arcos desde 1
+    \draw[->] (1) to[bend right=10] (2);
+    \draw[->] (1) to[bend left=10]  (3);
+    \draw[->] (1) to[bend right=20] (4);
+    \draw[->] (1) -- (5);
+    \draw[->] (1) to[bend left=20]  (6);
+    \draw[->] (1) to[bend right=25] (7);
+    \draw[->] (1) to[bend left=25]  (8);
+
+    % Arcos desde 2
+    \draw[->] (2) to[bend right=10] (4);
+    \draw[->] (2) to[bend left=30]  (6);
+    \draw[->] (2) to[bend right=15] (8);
+
+    % Arcos desde 3
+    \draw[->] (3) to[bend left=10]  (6);
+
+    % Arcos desde 4
+    \draw[->] (4) to[bend right=10] (8);
+
+    % Auto-lazos (relaciones reflexivas)
+    \draw[->] (1) to[loop above] (1);
+    \draw[->] (2) to[loop left]  (2);
+    \draw[->] (3) to[loop right] (3);
+    \draw[->] (4) to[loop left]  (4);
+    \draw[->] (5) to[loop below] (5);
+    \draw[->] (6) to[loop right] (6);
+    \draw[->] (7) to[loop below] (7);
+    \draw[->] (8) to[loop below] (8);
+\end{tikzpicture}
+\end{center}
+
+\newpage
+\textbf{Clausura transitiva completa:}
+
+No es necesario agregar arcos extras porque la relación de divisibilidad ya incluye directamente todas las conexiones transitivas. Por ejemplo, aunque el camino $1 \to 2 \to 4$ existe, el arco $1 \to 4$ ya forma parte de $E$. En todos los casos análogos ocurre lo mismo. Por lo tanto:
+\[G = G^+ \quad \text{(el grafo ya es su propia clausura transitiva)}\]
+
+\subsection*{b) Matriz de adyacencia del grafo G}
+
+La matriz de adyacencia $M$ de dimensión $8 \times 8$ es:
+
+\[
+M = \begin{bmatrix}
+    & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+1   & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+2   & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
+3   & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 \\
+4   & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 \\
+5   & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+6   & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+7   & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+8   & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+\end{bmatrix}
+\]
+
+Donde $M[i][j] = 1$ si $i$ divide exactamente a $j$, y $M[i][j] = 0$ en caso contrario. Se observa que la diagonal principal contiene todos unos (cada número se divide a sí mismo), la fila 1 contiene todos unos (el 1 divide a todos los números), y las filas 5, 6, 7 y 8 solo tienen un 1 en su diagonal, lo que indica que esos números no son divisores propios de ningún otro elemento del conjunto.
+
+\end{resolucion}
+
+\volverindice
+\newpage
+
+% ============================================================
+% EJERCICIO 3
+% ============================================================
+
+\section[Potencias de matriz y nodos minimales/maximales]{Para el grafo del ejercicio anterior:}
+\begin{enumerate}[label=\alph*)]
+\item encuentre los caminos utilizando las potencias de la matriz de adyacencia.
+\item indique las características que debe cumplir la matriz para que un nodo sea minimal o maximal.
+\end{enumerate}
+\begin{resolucion}
+
+\subsection*{a) Caminos de longitud 2 mediante $M^2$}
+
+Para encontrar los caminos de longitud 2 calculamos $M^2 = M \times M$. A continuación se listan todos los caminos indirectos de longitud 2 y se verifica si ya existía un arco directo equivalente:
+
+\textbf{Desde el nodo 1:}
+\begin{itemize}
+    \item $1 \to 2 \to 4$: ya existe el arco directo $1 \to 4$.
+    \item $1 \to 2 \to 6$: ya existe el arco directo $1 \to 6$.
+    \item $1 \to 2 \to 8$: ya existe el arco directo $1 \to 8$.
+    \item $1 \to 3 \to 6$: ya existe el arco directo $1 \to 6$.
+\end{itemize}
+
+\textbf{Desde el nodo 2:}
+\begin{itemize}
+    \item $2 \to 2 \to 4$: ya existe el arco directo $2 \to 4$.
+    \item $2 \to 4 \to 8$: ya existe el arco directo $2 \to 8$.
+\end{itemize}
+
+\textbf{Desde el nodo 3:}
+\begin{itemize}
+    \item $3 \to 3 \to 6$: ya existe el arco directo $3 \to 6$.
+\end{itemize}
+
+\textbf{Conclusión:} ningún camino de longitud 2 genera una conexión nueva, por lo que $M^2 = M$. Esto es consistente con el resultado del ejercicio anterior: el grafo ya es su propia clausura transitiva.
+
+\newpage
+\subsection*{b) Características de la matriz para nodos minimales y maximales}
+
+\textbf{Nodo minimal:}
+
+Un nodo $i$ es \textbf{minimal} si no recibe arcos de ningún otro nodo (no tiene predecesores). En términos de la matriz de adyacencia, la columna $i$ debe contener únicamente ceros, salvo en la posición diagonal $(i, i)$:
+\[M[j][i] = 0 \quad \text{para todo } j \neq i\]
+
+En el grafo de divisibilidad, el nodo minimal es el \textbf{1}, ya que ningún otro número del conjunto lo divide.
+
+\textbf{Nodo maximal:}
+
+Un nodo $j$ es \textbf{maximal} si no tiene arcos salientes hacia ningún otro nodo (no tiene sucesores). En términos de la matriz de adyacencia, la fila $j$ debe contener únicamente ceros, salvo en la posición diagonal $(j, j)$:
+\[M[j][k] = 0 \quad \text{para todo } k \neq j\]
+
+En el grafo de divisibilidad, los \textbf{nodos maximales} son \textbf{5, 6, 7 y 8}, ya que ninguno de ellos divide a otro número del conjunto distinto de sí mismo. Esto se verifica directamente en la matriz: las filas 5, 6, 7 y 8 tienen un único valor 1, ubicado en la diagonal.
+
+En resumen, la condición minimal se lee sobre las \textit{columnas} de la matriz, mientras que la condición maximal se lee sobre las \textit{filas}.
+
+\end{resolucion}
+
+\volverindice
+
+\end{document}

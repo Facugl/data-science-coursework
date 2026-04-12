@@ -1,0 +1,366 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{hyperref}
+
+\usetikzlibrary{arrows.meta, positioning, shapes}
+
+\title{\textbf{Estructuras de Datos y Archivos}\\
+\large Resumen Unidad 1: Modelos Matemáticos y Representaciones}
+\author{Universidad Católica de Salta}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{¿Qué es una Estructura de Datos?}
+
+Una \textbf{estructura de datos} es simplemente una forma de organizar información en la computadora.
+
+\subsection{Ejemplos Cotidianos}
+\begin{itemize}
+    \item \textbf{Agenda telefónica}: nombres y teléfonos organizados
+    \item \textbf{Árbol genealógico}: muestra quién es hijo/padre de quién
+    \item \textbf{Organigrama de empresa}: muestra quién es jefe de quién
+\end{itemize}
+
+\subsection{Ejemplo Visual: Organigrama}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm and 2cm,
+    every node/.style={rectangle, draw, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center}
+]
+    \node (pres) {Presidente};
+    \node (gerA) [below left=of pres] {Gerente A};
+    \node (gerB) [below right=of pres] {Gerente B};
+    \node (emp1) [below=of gerA] {Empleado 1};
+    \node (emp2) [below=of gerB] {Empleado 2};
+    
+    \draw[-{Latex[length=3mm]}] (pres) -- (gerA);
+    \draw[-{Latex[length=3mm]}] (pres) -- (gerB);
+    \draw[-{Latex[length=3mm]}] (gerA) -- (emp1);
+    \draw[-{Latex[length=3mm]}] (gerB) -- (emp2);
+\end{tikzpicture}
+\end{center}
+
+\section{Grafos: El Modelo Matemático Básico}
+
+Un \textbf{grafo} es como un mapa de conexiones. Tiene dos partes:
+
+\begin{enumerate}
+    \item \textbf{Puntos (P)} = ``Nodos'' = lugares/elementos
+    \item \textbf{Flechas (E)} = ``Arcos'' = conexiones entre lugares
+\end{enumerate}
+
+\subsection{Ejemplo Visual de un Grafo}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2.5cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (A) {A};
+    \node (B) [right=of A] {B};
+    \node (C) [below=of A] {C};
+    \node (D) [right=of C] {D};
+    
+    \draw[-{Latex[length=3mm]}] (A) -- (B);
+    \draw[-{Latex[length=3mm]}] (A) -- (C);
+    \draw[-{Latex[length=3mm]}] (B) -- (C);
+    \draw[-{Latex[length=3mm]}] (C) -- (D);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Notación matemática:}
+\begin{align*}
+G &= (P, E) \\
+P &= \{A, B, C, D\} \\
+E &= \{(A,B), (A,C), (B,C), (C,D)\}
+\end{align*}
+
+\begin{itemize}
+    \item Desde A puedes ir a B
+    \item Desde A puedes ir a C
+    \item Desde B puedes ir a C
+    \item Desde C puedes ir a D
+\end{itemize}
+
+\section{Conceptos Importantes}
+
+\subsection{Minimal (Nodo de Entrada)}
+
+Un nodo es \textbf{minimal} cuando nadie apunta hacia él (excepto posiblemente él mismo).
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (A) {A};
+    \node (B) [right=of A] {B};
+    \node (C) [right=of B] {C};
+    
+    \draw[-{Latex[length=3mm]}] (A) -- (B);
+    \draw[-{Latex[length=3mm]}] (B) -- (C);
+    
+    \node[below=0.3cm of A, draw=none] {\textcolor{red}{MINIMAL}};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Maximal (Nodo Final)}
+
+Un nodo es \textbf{maximal} cuando él no apunta a nadie (excepto posiblemente a sí mismo).
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (A) {A};
+    \node (B) [right=of A] {B};
+    \node (C) [right=of B] {C};
+    
+    \draw[-{Latex[length=3mm]}] (A) -- (B);
+    \draw[-{Latex[length=3mm]}] (B) -- (C);
+    
+    \node[below=0.3cm of C, draw=none] {\textcolor{red}{MAXIMAL}};
+\end{tikzpicture}
+\end{center}
+
+\newpage
+\subsection{Lazo}
+
+Una flecha que vuelve al mismo punto.
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (A) {A};
+    \node (B) [right=of A] {B};
+    \node (C) [below=of B] {C};
+    
+    \draw[-{Latex[length=3mm]}] (A) -- (B);
+    \draw[-{Latex[length=3mm]}] (B) -- (C);
+    \draw[-{Latex[length=3mm]}] (A) to [out=135, in=225, looseness=5] (A);
+    
+    \node[left=0.3cm of A, draw=none] {\textcolor{red}{LAZO}};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Right(x) - ¿A quiénes apunto desde X?}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (A) {A};
+    \node (B) [above right=of A] {B};
+    \node (C) [below right=of A] {C};
+    
+    \draw[-{Latex[length=3mm]}] (A) -- (B);
+    \draw[-{Latex[length=3mm]}] (A) -- (C);
+\end{tikzpicture}
+\end{center}
+
+$$\text{Right}(A) = R(A) = \{B, C\}$$
+
+\subsection{Left(x) - ¿Quiénes apuntan hacia X?}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (C) {C};
+    \node (A) [above left=of C] {A};
+    \node (B) [below left=of C] {B};
+    
+    \draw[-{Latex[length=3mm]}] (A) -- (C);
+    \draw[-{Latex[length=3mm]}] (B) -- (C);
+\end{tikzpicture}
+\end{center}
+
+$$\text{Left}(C) = L(C) = \{A, B\}$$
+
+\subsection{Input Degree - Flechas que LLEGAN}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (C) {C};
+    \node (A) [above left=of C] {A};
+    \node (B) [below left=of C] {B};
+    
+    \draw[-{Latex[length=3mm]}] (A) -- (C);
+    \draw[-{Latex[length=3mm]}] (B) -- (C);
+\end{tikzpicture}
+\end{center}
+
+$$\text{Input degree}(C) = |L(C)| = 2$$
+
+\subsection{Output Degree - Flechas que SALEN}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (A) {A};
+    \node (B) [above right=of A] {B};
+    \node (C) [below right=of A] {C};
+    
+    \draw[-{Latex[length=3mm]}] (A) -- (B);
+    \draw[-{Latex[length=3mm]}] (A) -- (C);
+\end{tikzpicture}
+\end{center}
+
+$$\text{Output degree}(A) = |R(A)| = 2$$
+
+\newpage
+\section{Conceptos de Camino/Paso}
+
+\subsection{Paso - Un camino de un nodo a otro}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (A) {A};
+    \node (B) [right=of A] {B};
+    \node (C) [right=of B] {C};
+    \node (D) [right=of C] {D};
+    
+    \draw[-{Latex[length=3mm]}, thick, red] (A) -- (B);
+    \draw[-{Latex[length=3mm]}, thick, red] (B) -- (C);
+    \draw[-{Latex[length=3mm]}, thick, red] (C) -- (D);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Paso de A a D:} $A \rightarrow B \rightarrow C \rightarrow D$
+
+\textbf{Longitud del paso:} 3 (tres flechas)
+
+\subsection{Ciclo - Camino que vuelve al inicio}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2.5cm,
+    every node/.style={circle, draw, minimum size=1cm}
+]
+    \node (A) {A};
+    \node (B) [right=of A] {B};
+    \node (C) [below right=of A] {C};
+    
+    \draw[-{Latex[length=3mm]}, thick, blue] (A) -- (B);
+    \draw[-{Latex[length=3mm]}, thick, blue] (B) -- (C);
+    \draw[-{Latex[length=3mm]}, thick, blue] (C) -- (A);
+\end{tikzpicture}
+\end{center}
+
+\textbf{Ciclo:} $A \rightarrow B \rightarrow C \rightarrow A$
+
+\section{Representaciones en la Computadora}
+
+\subsection{Representación Secuencial (con arrays)}
+
+\textbf{Matriz de Adyacencia} para el grafo: $A \rightarrow B \rightarrow C$
+
+$$
+\begin{array}{c|ccc}
+  & A & B & C \\
+\hline
+A & 0 & 1 & 0 \\
+B & 0 & 0 & 1 \\
+C & 0 & 0 & 0 \\
+\end{array}
+$$
+
+\begin{itemize}
+    \item 1 = hay flecha
+    \item 0 = no hay flecha
+\end{itemize}
+
+\subsection{Representación Linkeada (con punteros)}
+
+Cada nodo guarda la dirección del siguiente:
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=0.5cm,
+    box/.style={rectangle, draw, minimum width=1.5cm, minimum height=0.8cm}
+]
+    \node[box] (A1) {A};
+    \node[box, right=of A1] (A2) {$\bullet$};
+    \node[box, right=1.5cm of A2] (B1) {B};
+    \node[box, right=of B1] (B2) {$\bullet$};
+    \node[box, right=1.5cm of B2] (C1) {C};
+    \node[box, right=of C1] (C2) {NULL};
+    
+    \draw[-{Latex[length=3mm]}] (A2) -- (B1);
+    \draw[-{Latex[length=3mm]}] (B2) -- (C1);
+    
+    \node[below=0.1cm of A1] {\tiny dato};
+    \node[below=0.1cm of A2] {\tiny ptr};
+    \node[below=0.1cm of B1] {\tiny dato};
+    \node[below=0.1cm of B2] {\tiny ptr};
+    \node[below=0.1cm of C1] {\tiny dato};
+    \node[below=0.1cm of C2] {\tiny ptr};
+\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+    \item $\bullet$ = puntero (dirección de memoria)
+    \item NULL = no apunta a nada
+\end{itemize}
+
+\section{Ejemplo Práctico: Red de Ciudades}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=3cm,
+    every node/.style={rectangle, draw, rounded corners, minimum width=2cm, minimum height=1cm}
+]
+    \node (S) {Salta};
+    \node (T) [right=of S] {Tucumán};
+    \node (St) [below right=of S] {Santiago};
+    
+    \draw[-{Latex[length=3mm]}] (S) -- node[above] {300km} (T);
+    \draw[-{Latex[length=3mm]}] (S) -- node[left] {400km} (St);
+    \draw[-{Latex[length=3mm]}] (T) -- node[right] {200km} (St);
+\end{tikzpicture}
+\end{center}
+
+\begin{align*}
+P &= \{\text{Salta}, \text{Tucumán}, \text{Santiago}\} \\
+E &= \{(\text{Salta}, \text{Tucumán}, 300), \\
+  &\quad (\text{Salta}, \text{Santiago}, 400), \\
+  &\quad (\text{Tucumán}, \text{Santiago}, 200)\}
+\end{align*}
+
+\textbf{Análisis:}
+\begin{itemize}
+    \item Right(Salta) = \{Tucumán, Santiago\}
+    \item Left(Santiago) = \{Salta, Tucumán\}
+    \item Paso directo Salta $\rightarrow$ Santiago = 400km
+    \item Paso Salta $\rightarrow$ Tucumán $\rightarrow$ Santiago = 500km
+\end{itemize}
+
+\end{document}
