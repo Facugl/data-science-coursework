@@ -451,13 +451,13 @@ Recordemos las siguientes leyes de los límites. Sean $f(x)$ y $g(x)$ funciones 
     \begin{align*}
         \lim_{x \to 3}(5x^3 - 3x^2 + x - 6)
         &= \lim_{x\to3}(5x^3) - \lim_{x\to3}(3x^2) + \lim_{x\to3}x - \lim_{x\to3}6 && \text{(leyes 1 y 2)}\\
-        &= 5\lim_{x\to3}x^3 - \lim_{x\to3}x - 3\lim_{x\to3}x^2 - \lim_{x\to3}6 && \text{(ley 3)}\\
-        &= 5\cdot 3^3 - 3\cdot 3^2 - 3 - 6 && \text{(leyes 7, 8 y 9)}\\
-        &= 5\cdot 27 - 3\cdot 9 - 3 - 6\\
-        &= 135 - 27 - 9 = 99
+        &= 5\lim_{x\to3}x^3 + \lim_{x\to3}x - 3\lim_{x\to3}x^2 - \lim_{x\to3}6 && \text{(ley 3)}\\
+        &= 5\cdot 3^3 - 3\cdot 3^2 + 3 - 6 && \text{(leyes 7, 8 y 9)}\\
+        &= 5\cdot 27 - 3\cdot 9 + 3 - 6\\
+        &= 135 - 27 +3 - 6 = 105
     \end{align*}
     \[
-        \therefore\quad \lim_{x \to 3}(5x^3 - 3x^2 + x - 6) = 99
+        \therefore\quad \lim_{x \to 3}(5x^3 - 3x^2 + x - 6) = 105
     \]
 
     \newpage
@@ -519,29 +519,59 @@ Recordemos las siguientes leyes de los límites. Sean $f(x)$ y $g(x)$ funciones 
 \section[Límites que requieren simplificación]{Encuentre cada uno de los siguientes límites si éstos existen. Si el límite no existe, explique por qué.}
 
 \begin{enumerate}[label=\alph*)]
-    % ======================== item a ========================
+% ======================== item a ========================
     \item $\lim_{x \to 3} (2x + |x - 3|)$
 
     \solucion
 
     Recordamos que:
     \[
-        |x-3| = \begin{cases} x-3 & \text{si } x \geq 3 \\ -(x-3) & \text{si } x < 3 \end{cases}
+    |x-3|=
+    \begin{cases}
+    x-3 & \text{si } x\ge 3 \\
+    -(x-3) & \text{si } x<3
+    \end{cases}
     \]
 
-    \textbf{Límite por derecha} ($x > 3$, luego $|x-3| = x-3$):
-    \begin{align*}
-        \lim_{x\to3^+}(2x+|x-3|) &= \lim_{x\to3^+}(2x+x-3) = 2\cdot3+3-3 = 6
-    \end{align*}
+    Analizamos los límites laterales.
 
-    \textbf{Límite por izquierda} ($x < 3$, luego $|x-3| = 3-x$):
-    \begin{align*}
-        \lim_{x\to3^-}(2x+|x-3|) &= \lim_{x\to3^-}(2x+3-x) = 2\cdot3+3-3 = 6
-    \end{align*}
-
-    Debido a que el valor de los límites laterales coinciden:
+    Por derecha:
     \[
-        \lim_{x\to3}(2x+|x-3|) = 6
+    \lim_{x\to3^+}(2x+|x-3|)
+    =
+    \lim_{x\to3^+}(2x+x-3)
+    \]
+
+    \[
+    =
+    \lim_{x\to3^+}(3x-3)
+    =
+    3(3)-3
+    =
+    6
+    \]
+
+    Por izquierda:
+    \[
+    \lim_{x\to3^-}(2x+|x-3|)
+    =
+    \lim_{x\to3^-}(2x-(x-3))
+    \]
+
+    \[
+    =
+    \lim_{x\to3^-}(x+3)
+    =
+    3+3
+    =
+    6
+    \]
+
+    Como los límites laterales coinciden, el límite existe y vale:
+    \[
+    \boxed{
+    \lim_{x\to3}(2x+|x-3|)=6
+    }
     \]
 
     % ======================== item b ========================
@@ -551,22 +581,56 @@ Recordemos las siguientes leyes de los límites. Sean $f(x)$ y $g(x)$ funciones 
 
     Recordamos que:
     \[
-        |x+6| = \begin{cases} x+6 & \text{si } x > -6 \\ -(x+6) & \text{si } x < -6 \end{cases}
+    |x+6|=
+    \begin{cases}
+    x+6 & \text{si } x\ge -6 \\
+    -(x+6) & \text{si } x<-6
+    \end{cases}
     \]
 
-    \textbf{Límite por derecha} ($x > -6$, luego $|x+6| = x+6$):
+    Analizamos los límites laterales.
+
+    Por derecha:
     \[
-        \lim_{x\to-6^+}\frac{2x+12}{x+6} = \lim_{x\to-6^+}\frac{2(x+6)}{x+6} = 2
+    \lim_{x\to-6^+}\frac{2x+12}{|x+6|}
+    =
+    \lim_{x\to-6^+}\frac{2x+12}{x+6}
     \]
 
-    \textbf{Límite por izquierda} ($x < -6$, luego $|x+6| = -(x+6)$):
     \[
-        \lim_{x\to-6^-}\frac{2x+12}{-x-6} = \lim_{x\to-6^-}\frac{2(x+6)}{-(x+6)} = \frac{2}{-1} = -2
+    =
+    \lim_{x\to-6^+}\frac{2(x+6)}{x+6}
+    =
+    2
     \]
 
-    Luego podemos concluir que el límite \textbf{no existe}:
+    Por izquierda:
     \[
-        \lim_{x\to-6^-}\frac{2x+12}{|x+6|} \neq \lim_{x\to-6^+}\frac{2x+12}{|x+6|}
+    \lim_{x\to-6^-}\frac{2x+12}{|x+6|}
+    =
+    \lim_{x\to-6^-}\frac{2x+12}{-(x+6)}
+    \]
+
+    \[
+    =
+    \lim_{x\to-6^-}\frac{2(x+6)}{-(x+6)}
+    =
+    -2
+    \]
+
+    Como los límites laterales no coinciden:
+    \[
+    \lim_{x\to-6^-}\frac{2x+12}{|x+6|}
+    \neq
+    \lim_{x\to-6^+}\frac{2x+12}{|x+6|}
+    \]
+
+    entonces el límite no existe:
+    \[
+    \boxed{
+    \lim_{x\to-6}\frac{2x+12}{|x+6|}
+    \text{ no existe}
+    }
     \]
 
     % ======================== item c ========================
@@ -574,19 +638,40 @@ Recordemos las siguientes leyes de los límites. Sean $f(x)$ y $g(x)$ funciones 
 
     \solucion
 
-    Analizamos el límite por izquierda y por derecha. Para $x > 2$ se tiene $|x| = x$, entonces:
+    Como $2>0$, para valores de $x$ suficientemente cercanos a $2$ se cumple que $x>0$, y por lo tanto:
     \[
-        \lim_{x\to2^+}\left(\frac{1}{x}-\frac{1}{|x|}\right) = \lim_{x\to2^+}\left(\frac{1}{x}-\frac{1}{x}\right) = \lim_{x\to2^+}0 = 0
+    |x|=x
     \]
 
-    Para $x < 2$ también $|x| = x$ (ya que $x > 0$), entonces:
+    Analizamos los límites laterales.
+
+    Por derecha:
     \[
-        \lim_{x\to2^-}\left(\frac{1}{x}-\frac{1}{|x|}\right) = \lim_{x\to2^-}\left(\frac{1}{x}-\frac{1}{x}\right) = \lim_{x\to2^-}0 = 0
+    \lim_{x\to2^+}\left(\frac{1}{x}-\frac{1}{|x|}\right)
+    =
+    \lim_{x\to2^+}\left(\frac{1}{x}-\frac{1}{x}\right)
+    =
+    \lim_{x\to2^+}0
+    =
+    0
     \]
 
-    Luego el límite existe:
+    Por izquierda:
     \[
-        \lim_{x\to2}\left(\frac{1}{x}-\frac{1}{|x|}\right) = 0
+    \lim_{x\to2^-}\left(\frac{1}{x}-\frac{1}{|x|}\right)
+    =
+    \lim_{x\to2^-}\left(\frac{1}{x}-\frac{1}{x}\right)
+    =
+    \lim_{x\to2^-}0
+    =
+    0
+    \]
+
+    Como los límites laterales coinciden, el límite existe y vale:
+    \[
+    \boxed{
+    \lim_{x\to2}\left(\frac{1}{x}-\frac{1}{|x|}\right)=0
+    }
     \]
 \end{enumerate}
 
@@ -1007,13 +1092,13 @@ Recordemos las siguientes leyes de los límites. Sean $f(x)$ y $g(x)$ funciones 
     Sea $y = -\dfrac{2}{3}x$, entonces $x = -\dfrac{3}{2}y$. Cuando $x\to0$, $y\to0$:
     \begin{align*}
         \lim_{x\to0}\left(1-\frac{2}{3}x\right)^{\frac{1}{x}}
-        &= \lim_{y\to0}(1+y)^{-\frac{3}{2y}}
-        = \left[\lim_{y\to0}(1+y)^{\frac{1}{y}}\right]^{-\frac{3}{2}}
-        = e^{-\frac{3}{2}}
-        = \frac{1}{\sqrt{e^3}}
+        &= \lim_{y\to0}(1+y)^{-\frac{2}{3y}}
+        = \left[\lim_{y\to0}(1+y)^{\frac{1}{y}}\right]^{-\frac{2}{3}}
+        = e^{-\frac{2}{3}}
+        = \frac{1}{\sqrt[3]{e^2}}
     \end{align*}
     \[
-        \therefore\quad \lim_{x\to0}\left(1-\frac{2}{3}x\right)^{\frac{1}{x}} = \frac{1}{\sqrt{e^3}}
+        \therefore\quad \lim_{x\to0}\left(1-\frac{2}{3}x\right)^{\frac{1}{x}} = \frac{1}{\sqrt[3]{e^2}}
     \]
 
     \newpage
@@ -1317,22 +1402,40 @@ Recordemos las siguientes leyes de los límites. Sean $f(x)$ y $g(x)$ funciones 
     \]
 
     % ======================== item f ========================
-    \item $\lim_{x \to \infty} \left(x + \sqrt{x^2 + 2x}\right)$
+    \item $\lim_{x \to -\infty} \left(x + \sqrt{x^2 + 2x}\right)$
 
     \solucion
 
-    Reescribimos $\sqrt{x^2+2x} = \sqrt{x^2\!\left(1+\dfrac{2}{x}\right)} = x\sqrt{1+\dfrac{2}{x}}$ (para $x > 0$):
+    Hacemos el cambio de variable $t = -x$. Cuando $x \to -\infty$, entonces $t \to +\infty$ y $x = -t$:
     \begin{align*}
-        \lim_{x\to\infty}\left(x+\sqrt{x^2+2x}\right)
-        &= \lim_{x\to\infty}\left(x + x\sqrt{1+\frac{2}{x}}\right)
-        = \lim_{x\to\infty} x\left(1+\sqrt{1+\frac{2}{x}}\right)
+        \lim_{x\to -\infty}\left(x + \sqrt{x^2+2x}\right) 
+        &= \lim_{t\to +\infty}\left(-t + \sqrt{(-t)^2+2(-t)}\right) \\
+        &= \lim_{t\to +\infty}\left(-t + \sqrt{t^2-2t}\right)
     \end{align*}
-    Cuando $x\to\infty$: $\sqrt{1+\dfrac{2}{x}} \to 1$, por lo tanto:
+
+    Racionalizamos multiplicando y dividiendo por el conjugado:
+    \begin{align*}
+        &= \lim_{t\to +\infty}\left(-t + \sqrt{t^2-2t}\right) \cdot \frac{-t - \sqrt{t^2-2t}}{-t - \sqrt{t^2-2t}} \\[0.5em]
+        &= \lim_{t\to +\infty} \frac{(-t)^2 - (t^2-2t)}{-t - \sqrt{t^2-2t}} \\[0.5em]
+        &= \lim_{t\to +\infty} \frac{t^2 - t^2 + 2t}{-t - \sqrt{t^2-2t}} \\[0.5em]
+        &= \lim_{t\to +\infty} \frac{2t}{-t - \sqrt{t^2-2t}}
+    \end{align*}
+
+    Dividimos numerador y denominador por $t$ (con $t > 0$):
+    \begin{align*}
+        &= \lim_{t\to +\infty} \frac{\dfrac{2t}{t}}{\dfrac{-t - \sqrt{t^2-2t}}{t}} \\[0.8em]
+        &= \lim_{t\to +\infty} \frac{2}{-1 - \dfrac{\sqrt{t^2-2t}}{t}} \\[0.8em]
+        &= \lim_{t\to +\infty} \frac{2}{-1 - \sqrt{\dfrac{t^2-2t}{t^2}}} \\[0.8em]
+        &= \lim_{t\to +\infty} \frac{2}{-1 - \sqrt{1-\dfrac{2}{t}}}
+    \end{align*}
+
+    Cuando $t \to +\infty$: $\dfrac{2}{t} \to 0$, por lo tanto $\sqrt{1-\dfrac{2}{t}} \to 1$:
     \[
-        \lim_{x\to\infty} x\left(1+\sqrt{1+\frac{2}{x}}\right) = \lim_{x\to\infty} x \cdot (1+1) = 2\cdot\infty = +\infty
+        = \frac{2}{-1-1} = \frac{2}{-2} = -1
     \]
+
     \[
-        \therefore\quad \lim_{x\to\infty}\left(x+\sqrt{x^2+2x}\right) = +\infty
+        \therefore\quad \lim_{x\to -\infty}\left(x + \sqrt{x^2+2x}\right) = -1
     \]
 \end{enumerate}
 
