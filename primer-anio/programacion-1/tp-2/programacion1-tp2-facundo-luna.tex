@@ -1,0 +1,73 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% CONFIGURACION: paquetes, comandos y estilos
+% ============================================================
+\input{config/paquetes}
+\input{config/pseudocodigo}
+\input{config/comandos}
+
+% ============================================================
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== INDICE ============================
+
+\newpage
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+% ======================== EJERCICIOS ========================
+
+\newpage
+% \section{Ejercicios a desarrollar}
+
+% Ejercicios 1 al 15: Secuencial y condicional (sin subtitulo)
+\input{grupos/grupo1}
+
+% Ejercicios 16 al 29: Mientras
+\subsection*{Utilizando ``Mientras''}
+\addcontentsline{toc}{subsection}{Utilizando ``Mientras''}
+\input{grupos/grupo2}
+
+% Ejercicios 30 al 36: Repetir-Hasta que
+\subsection*{Utilizando ``Repetir-Hasta que''}
+\addcontentsline{toc}{subsection}{Utilizando ``Repetir-Hasta que''}
+\input{grupos/grupo3}
+
+% Ejercicios 37 al 50: Para
+\subsection*{Utilizando ``Para''}
+\addcontentsline{toc}{subsection}{Utilizando ``Para''}
+\input{grupos/grupo4}
+
+% ============================================================
+\end{document}

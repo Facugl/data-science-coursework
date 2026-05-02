@@ -1,0 +1,98 @@
+% ============================================================
+% IDIOMA Y CODIFICACION
+% ============================================================
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MARGENES Y GEOMETRIA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% TIPOGRAFIA
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% FORMATO DE TITULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+\titleformat{\subsection}
+  {\large\bfseries}
+  {\thesubsection.}
+  {0.5em}
+  {}
+\titlespacing*{\subsection}{0pt}{1em}{0.5em}
+
+% ============================================================
+% MATEMATICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRAFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CODIGO FUENTE
+% ============================================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+% ============================================================
+% LISTAS
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Practico N 2 - Programacion I},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PAGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Programaci\'on I}
+\fancyhead[R]{\small Trabajo Pr\'actico N\textdegree{} 2}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}

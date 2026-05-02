@@ -1,0 +1,75 @@
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+\newcommand{\universidad}{Universidad Cat\'olica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Programaci\'on I}
+\newcommand{\trabajo}{Trabajo Pr\'actico N\textdegree{} 2}
+\newcommand{\profesor}{Ing. Mario Mart\'inez}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+% ============================================================
+% LOGO DE LA UNIVERSIDAD
+% ============================================================
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% VOLVER AL INDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al \'indice}%
+    \end{flushright}%
+}
+
+% ============================================================
+% COMANDO EJERCICIO
+% Uso: \ejercicio{Titulo del ejercicio}
+% ============================================================
+\newcommand{\ejercicio}[1]{%
+    \subsection{#1}%
+}
+
+% ============================================================
+% COMANDO PSEUDOCODIGO
+% Muestra el pseudocodigo desde un archivo .psc
+% Uso: \pseudocodigo{ruta/al/archivo/solucion.psc}
+% ============================================================
+\newcommand{\pseudocodigo}[1]{%
+    \vspace{1em}%
+    \textbf{Pseudoc\'odigo:}%
+    \vspace{0.5em}%
+    \lstinputlisting[style=pseint]{#1}%
+}
+
+% ============================================================
+% COMANDO DIAGRAMA
+% Muestra el diagrama de flujo desde un archivo .png
+% Uso: \diagrama{ruta/al/archivo/diagrama.png}
+% ============================================================
+\newcommand{\diagrama}[1]{%
+    \vspace{1em}%
+    \textbf{Diagrama de flujo:}%
+    \vspace{0.5em}%
+    \begin{figure}[H]%
+        \centering%
+        \includegraphics[width=0.85\textwidth]{#1}%
+    \end{figure}%
+}
+
+% ============================================================
+% COMANDO EXPLICACION
+% Encabezado para la seccion de explicacion
+% ============================================================
+\newcommand{\explicacion}{%
+    \vspace{1em}%
+    \textbf{Explicaci\'on:}%
+    \vspace{0.5em}%
+    \par%
+}
