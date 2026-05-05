@@ -1,0 +1,689 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish, es-noshorthands]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, shapes, positioning}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+\lstdefinestyle{pseudocodigo}{
+    style=estilo_base,
+    morekeywords={ALGORITMO, FIN, SI, ENTONCES, FIN_SI, PARA, CADA, EN,
+                  HACER, FIN_PARA, MIENTRAS, FIN_MIENTRAS, RETORNAR,
+                  ESTRUCTURA, FIN_ESTRUCTURA, PUSH, POP, NULO, Y, O,
+                  INICIO, CREAR, VERDADERO, FALSO, ERROR},
+}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Introducción a la Estructura de Datos - Trabajo Práctico N° 2},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Introducción a la Estructura de Datos}
+\fancyhead[R]{\small Trabajo Práctico N° 2}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Introducción a la Estructura de Datos}
+\newcommand{\trabajo}{Trabajo Práctico N° 2}
+\newcommand{\profesor}{Ing. Carlos Pastrana}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== EJERCICIOS ========================
+
+% ======================== EJERCICIO 1 ========================
+\newpage
+\section[Algoritmo con pila --- cadena inversa]{Escribir la secuencia de pasos básicos de un algoritmo, para determinar con el uso de una \textbf{pila} si una cadena $x$ de entrada es válida, tal que conste de las letras `A' y `B', y genere una cadena inversa $w$ de salida.}
+
+\solucion
+
+\subsection*{Descripción del algoritmo}
+
+El algoritmo debe validar que la cadena de entrada $X$ contenga únicamente los caracteres `A' y `B'. Posteriormente, utiliza una \textbf{pila} (estructura LIFO --- \textit{Last In First Out}) para generar la cadena inversa $W$.
+
+\textbf{Pasos del algoritmo:}
+
+\begin{enumerate}
+    \item \textbf{Validación:} Recorrer cada carácter de $X$ verificando que sea `A' o `B'. Si se encuentra un carácter inválido, retornar error.
+    
+    \item \textbf{Apilado:} Una vez validada la cadena, recorrerla nuevamente apilando cada carácter en orden de aparición.
+    
+    \item \textbf{Desapilado:} Construir la cadena inversa $W$ desapilando todos los caracteres. Debido a la naturaleza LIFO de la pila, los caracteres salen en orden inverso al que fueron insertados.
+\end{enumerate}
+
+\newpage
+\subsection*{Pseudocódigo}
+
+\begin{lstlisting}[style=pseudocodigo]
+ALGORITMO generarCadenaInversa(X)
+    // Validacion
+    PARA CADA caracter c EN X HACER
+        SI c != 'A' Y c != 'B' ENTONCES
+            RETORNAR ERROR
+        FIN_SI
+    FIN_PARA
+    
+    // Apilar caracteres
+    CREAR pila
+    PARA CADA caracter c EN X HACER
+        pila.PUSH(c)
+    FIN_PARA
+    
+    // Desapilar para formar W
+    W = cadena vacia
+    MIENTRAS pila NO este vacia HACER
+        W = W + pila.POP()
+    FIN_MIENTRAS
+    
+    RETORNAR W
+FIN_ALGORITMO
+\end{lstlisting}
+
+\newpage
+\subsection*{Implementación en Java}
+
+\begin{lstlisting}[style=estilo_base, language=Java]
+import java.util.Stack;
+
+public class ReverseString {
+    
+    public static String reverseWithStack(String input) {
+        // Validacion: solo 'A' y 'B'
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c != 'A' && c != 'B') {
+                return null; // Cadena invalida
+            }
+        }
+        
+        // Apilar todos los caracteres
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
+        }
+        
+        // Desapilar para formar la cadena inversa
+        StringBuilder reversed = new StringBuilder();
+        while (!stack.isEmpty()) {
+            reversed.append(stack.pop());
+        }
+        
+        return reversed.toString();
+    }
+}
+\end{lstlisting}
+
+\subsection*{Ejemplo de ejecución}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Entrada (X)} & \textbf{Salida (W)} \\
+\midrule
+AABBA & ABBAA \\
+BABA  & ABAB \\
+AAA   & AAA \\
+AB    & BA \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection*{Análisis de complejidad}
+
+\begin{itemize}
+    \item \textbf{Complejidad temporal:} $O(n)$
+    \begin{itemize}
+        \item Validación: $O(n)$ --- un recorrido completo
+        \item Apilado: $O(n)$ --- inserción de $n$ elementos
+        \item Desapilado: $O(n)$ --- extracción de $n$ elementos
+        \item Total: $O(n) + O(n) + O(n) = O(n)$
+    \end{itemize}
+    
+    \item \textbf{Complejidad espacial:} $O(n)$
+    \begin{itemize}
+        \item Pila: almacena los $n$ caracteres de la cadena
+        \item Cadena resultado: $O(n)$
+        \item Total: $O(n)$
+    \end{itemize}
+\end{itemize}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 2 ========================
+\section[Algoritmos sobre listas linkeadas]{Escribir la secuencia de pasos básicos de un algoritmo para:}
+
+\begin{enumerate}[label=\alph*.]
+    \item Concatenar dos listas linkeadas.
+    \item Invertir una lista, de tal manera que el último elemento pase a ser el primero, y así sucesivamente.
+    \item Retornar la suma de los números enteros que contiene los elementos de una lista.
+\end{enumerate}
+
+\solucion
+
+\subsection*{Estructura del nodo}
+
+Todos los algoritmos asumen la siguiente definición de nodo:
+
+\begin{lstlisting}[style=estilo_base, language=Java]
+class Node {
+    int value;      // Dato almacenado
+    Node next;      // Referencia al siguiente nodo
+    
+    public Node(int value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+\end{lstlisting}
+
+% ----------- a) -----------
+\subsection*{a) Concatenar dos listas linkeadas}
+
+\textbf{Descripción:} El algoritmo recorre la primera lista hasta encontrar el último nodo (aquel cuyo campo \codigo{next} es \codigo{null}), y enlaza ese nodo con el primer nodo de la segunda lista.
+
+\textbf{Casos especiales:}
+\begin{itemize}
+    \item Si \codigo{list1} es \codigo{null}, retornar \codigo{list2}
+    \item Si \codigo{list2} es \codigo{null}, retornar \codigo{list1}
+\end{itemize}
+
+\newpage
+\subsubsection*{Pseudocódigo}
+
+\begin{lstlisting}[style=pseudocodigo]
+ALGORITMO concatenar(list1, list2)
+    // Casos especiales
+    SI list1 == NULO ENTONCES
+        RETORNAR list2
+    FIN_SI
+    SI list2 == NULO ENTONCES
+        RETORNAR list1
+    FIN_SI
+
+    // Recorrer hasta el ultimo nodo de list1
+    current = list1
+    MIENTRAS current.next != NULO HACER
+        current = current.next
+    FIN_MIENTRAS
+
+    // Enlazar con list2
+    current.next = list2
+
+    RETORNAR list1
+FIN_ALGORITMO
+\end{lstlisting}
+
+\subsubsection*{Implementación en Java}
+
+\begin{lstlisting}[style=estilo_base, language=Java]
+public static Node concatenate(Node list1, Node list2) {
+    // Casos especiales:
+    if (list1 == null) {
+        return list2;
+    }
+    if (list2 == null) {
+        return list1;
+    }
+    
+    // Buscar el ultimo nodo de list1
+    Node current = list1;
+    while (current.next != null) {
+        current = current.next;
+    }
+    
+    current.next = list2;
+    
+    return list1;
+}
+\end{lstlisting}
+
+\textbf{Complejidad:}
+\begin{itemize}
+    \item \textbf{Temporal:} $O(n)$ donde $n$ es la longitud de la primera lista
+    \item \textbf{Espacial:} $O(1)$ --- no se crean nodos nuevos, solo se modifican referencias
+\end{itemize}
+
+\newpage
+
+% ----------- b) -----------
+\subsection*{b) Invertir una lista linkeada}
+
+\textbf{Descripción:} El algoritmo invierte los enlaces de la lista \textit{in-place} (sin crear nodos nuevos). Utiliza tres referencias que avanzan simultáneamente:
+
+\begin{itemize}
+    \item \codigo{previous}: apunta al nodo anterior (inicialmente \codigo{null})
+    \item \codigo{current}: apunta al nodo actual que se está procesando
+    \item \codigo{next}: guarda temporalmente el siguiente nodo antes de modificar el enlace
+\end{itemize}
+
+\textbf{Idea clave:} En cada iteración, se invierte el enlace del nodo actual para que apunte hacia atrás, luego se avanzan las tres referencias.
+
+\subsubsection*{Pseudocódigo}
+
+\begin{lstlisting}[style=pseudocodigo]
+ALGORITMO invertir(head)
+    previous = NULO
+    current = head
+
+    MIENTRAS current != NULO HACER
+        // Guardar referencia al siguiente nodo
+        next = current.next
+
+        // Invertir el enlace
+        current.next = previous
+
+        // Avanzar las referencias
+        previous = current
+        current = next
+    FIN_MIENTRAS
+
+    // 'previous' es ahora el nuevo primer nodo
+    RETORNAR previous
+FIN_ALGORITMO
+\end{lstlisting}
+
+\newpage
+\subsubsection*{Implementación en Java}
+
+\begin{lstlisting}[style=estilo_base, language=Java]
+public static Node reverse(Node head) {
+    Node previous = null;
+    Node current = head;
+    Node next = null;
+    
+    while (current != null) {
+        // Guardar el siguiente nodo
+        next = current.next;
+        
+        // Invertir el enlace
+        current.next = previous;
+        
+        // Avanzar las referencias
+        previous = current;
+        current = next;
+    }
+    
+    // 'previous' ahora apunta al nuevo primer nodo
+    return previous;
+}
+\end{lstlisting}
+
+\textbf{Visualización del proceso:}
+
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm,
+    nodo/.style={rectangle, draw, minimum width=1cm, minimum height=0.8cm},
+    >=Stealth
+]
+    % Lista original
+    \node[nodo] (n1) {A};
+    \node[nodo, right of=n1] (n2) {B};
+    \node[nodo, right of=n2] (n3) {C};
+    \node[nodo, right of=n3] (n4) {D};
+    
+    \draw[->] (n1) -- (n2);
+    \draw[->] (n2) -- (n3);
+    \draw[->] (n3) -- (n4);
+    \draw[->] (n4) -- ++(1,0) node[right] {null};
+    
+    \node[above of=n1, node distance=1cm] {Original};
+    
+    % Lista invertida
+    \node[nodo, below of=n1, node distance=2.5cm] (i4) {D};
+    \node[nodo, right of=i4] (i3) {C};
+    \node[nodo, right of=i3] (i2) {B};
+    \node[nodo, right of=i2] (i1) {A};
+    
+    \draw[->] (i4) -- (i3);
+    \draw[->] (i3) -- (i2);
+    \draw[->] (i2) -- (i1);
+    \draw[->] (i1) -- ++(1,0) node[right] {null};
+    
+    \node[above of=i4, node distance=1cm] {Invertida};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Complejidad:}
+\begin{itemize}
+    \item \textbf{Temporal:} $O(n)$ --- un solo recorrido de la lista
+    \item \textbf{Espacial:} $O(1)$ --- solo se usan tres referencias auxiliares
+\end{itemize}
+
+\newpage
+
+% ----------- c) -----------
+\subsection*{c) Suma de números enteros en una lista}
+
+\textbf{Descripción:} El algoritmo recorre toda la lista acumulando el valor entero de cada nodo en una variable \codigo{sum}.
+
+\subsubsection*{Pseudocódigo}
+
+\begin{lstlisting}[style=pseudocodigo]
+ALGORITMO sumarLista(head)
+    sum = 0
+    current = head
+
+    MIENTRAS current != NULO HACER
+        sum = sum + current.value
+        current = current.next
+    FIN_MIENTRAS
+
+    RETORNAR sum
+FIN_ALGORITMO
+\end{lstlisting}
+
+\subsubsection*{Implementación en Java}
+
+\begin{lstlisting}[style=estilo_base, language=Java]
+public static int sumList(Node head) {
+    int sum = 0;
+    Node current = head;
+    
+    while (current != null) {
+        sum += current.value;
+        current = current.next;
+    }
+    
+    return sum;
+}
+\end{lstlisting}
+
+\textbf{Ejemplo:}
+
+Si la lista contiene: $5 \rightarrow 3 \rightarrow 8 \rightarrow 2 \rightarrow$ null
+
+El resultado será: $5 + 3 + 8 + 2 = 18$
+
+\textbf{Complejidad:}
+\begin{itemize}
+    \item \textbf{Temporal:} $O(n)$ --- se visita cada nodo exactamente una vez
+    \item \textbf{Espacial:} $O(1)$ --- solo se usa una variable acumuladora
+\end{itemize}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 3 ========================
+\section[Planilla de cálculo con listas linkeadas]{Indicar cómo representar, con el uso de listas linkeadas, una planilla de cálculo electrónica de $999 \times 999$ celdas. ¿Cuál sería la característica estructural de los elementos que corresponden a cada celda no nula de la planilla, suponiendo que puede almacenar números enteros, fórmulas o textos como cadenas?}
+ 
+\solucion
+ 
+\subsection*{Representación: Matriz Dispersa (Sparse Matrix)}
+ 
+Para una planilla de $999 \times 999$ celdas donde la mayoría están vacías, se utiliza una \textbf{matriz dispersa} que almacena únicamente las celdas no nulas mediante listas enlazadas bidimensionales.
+ 
+\subsection*{Estructura del Nodo de Celda}
+ 
+Cada celda no nula se representa con un nodo que contiene:
+ 
+\begin{lstlisting}[style=estilo_base, language=Java]
+class CellNode {
+    // Coordenadas
+    int row;        // 0 a 998
+    int column;     // 0 a 998
+    
+    // Tipo y contenido
+    DataType type;  // ENTERO | FORMULA | TEXTO
+    Object value;   // Numero entero, formula o texto
+    
+    // Punteros bidimensionales
+    CellNode nextRow;     // Siguiente celda en la misma fila
+    CellNode nextCol;     // Siguiente celda en la misma columna
+}
+ 
+enum DataType {
+    ENTERO,   // Numero entero
+    FORMULA,  // Formula (cadena que empieza con '=')
+    TEXTO     // Cadena de texto
+}
+\end{lstlisting}
+ 
+\subsection*{Características Estructurales}
+ 
+\begin{enumerate}
+    \item \textbf{Dos punteros por celda:} \codigo{nextRow} y \codigo{nextCol} permiten navegación eficiente tanto horizontal (por filas) como vertical (por columnas).
+    
+    \item \textbf{Arrays de cabeceras:} 
+    \begin{itemize}
+        \item \codigo{rowHeaders[999]}: Apunta al primer nodo no nulo de cada fila
+        \item \codigo{colHeaders[999]}: Apunta al primer nodo no nulo de cada columna
+    \end{itemize}
+    
+    \item \textbf{Tipo polimórfico:} El campo \codigo{value} almacena diferentes tipos de datos según \codigo{type}:
+    \begin{itemize}
+        \item \codigo{ENTERO}: Un número entero
+        \item \codigo{FORMULA}: Cadena representando la fórmula (ej: ``=A1+B2'')
+        \item \codigo{TEXTO}: Cadena de caracteres
+    \end{itemize}
+\end{enumerate}
+ 
+\subsection*{Visualización de la Estructura}
+ 
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2.5cm,
+    celda/.style={rectangle, draw, minimum width=1.8cm, minimum height=1.5cm, align=center, font=\tiny},
+    >=Stealth
+]
+    % Cabeceras
+    \node (h0) at (0,0) {\footnotesize row[0]};
+    \node (h1) at (0,-1.8) {\footnotesize row[1]};
+    \node (v0) at (2.5,1.2) {\footnotesize col[0]};
+    \node (v1) at (5,1.2) {\footnotesize col[1]};
+    
+    % Celdas
+    \node[celda, right of=h0] (c00) {(0,0)\\ENTERO\\100};
+    \node[celda, right of=c00] (c01) {(0,1)\\TEXTO\\``A''};
+    \node[celda, right of=h1] (c10) {(1,0)\\FORMULA\\``=A1*2''};
+    
+    % Enlaces horizontales (nextRow)
+    \draw[->] (h0) -- (c00);
+    \draw[->] (c00) -- (c01);
+    \draw[->] (h1) -- (c10);
+    
+    % Enlaces verticales (nextCol)
+    \draw[->, blue] (v0) -- (c00);
+    \draw[->, blue] (c00) -- (c10);
+    \draw[->, blue] (v1) -- (c01);
+\end{tikzpicture}
+\end{center}
+ 
+\subsection*{Ventajas}
+ 
+\begin{itemize}
+    \item \textbf{Eficiencia espacial:} Solo almacena las $k$ celdas no nulas, en lugar de $999 \times 999 = 998{,}001$ espacios.
+    
+    \item \textbf{Navegación eficiente:} Recorrido rápido por filas o columnas específicas.
+    
+    \item \textbf{Inserción/eliminación eficiente:} Solo requiere ajustar punteros.
+\end{itemize}
+ 
+\textbf{Ejemplo:} Para una planilla con solo 3 celdas ocupadas, la matriz dispersa usa $1{,}998$ cabeceras $+ 3$ nodos $= 2{,}001$ elementos, comparado con $998{,}001$ en una matriz completa. \textbf{Ahorro:} $99.8\%$ de memoria.
+ 
+\volverindice
+
+\end{document}
