@@ -1,0 +1,459 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish, es-noshorthands]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% TIPOGRAFÍA
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, trees, shapes.geometric}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Introducción a las Estructuras de Datos - Trabajo Práctico N° 3},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Introducción a las Estructuras de Datos}
+\fancyhead[R]{\small Trabajo Práctico N° 3}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Introducción a las Estructuras de Datos}
+\newcommand{\trabajo}{Trabajo Práctico N° 3}
+\newcommand{\profesor}{Ing. Carlos Pastrana}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== ACTIVIDADES =======================
+
+% ======================== ACTIVIDAD 1 ========================
+\newpage
+\section{Indique cuál es el máximo número de nodos de nivel n en un árbol binario, y un árbol n-ario.}
+
+\solucion
+
+\subsection*{Árbol Binario}
+
+En un árbol binario, cada nodo tiene como máximo 2 hijos. El máximo número de nodos en el nivel $n$ está dado por:
+
+\[
+N_{\text{nivel}}(n) = 2^n
+\]
+
+donde $n \geq 0$ representa el nivel del árbol (la raíz está en el nivel 0).
+
+\textbf{Ejemplos:}
+\begin{itemize}[leftmargin=2em]
+    \item Nivel 0: $2^0 = 1$ nodo
+    \item Nivel 1: $2^1 = 2$ nodos
+    \item Nivel 2: $2^2 = 4$ nodos
+    \item Nivel 3: $2^3 = 8$ nodos
+\end{itemize}
+
+\subsection*{Árbol n-ario}
+
+En un árbol n-ario, cada nodo tiene como máximo $n$ hijos, donde $n$ es el grado del árbol. El máximo número de nodos en el nivel $k$ está dado por:
+
+\[
+N_{\text{nivel}}(k) = n^k
+\]
+
+donde $k \geq 0$ representa el nivel del árbol y $n > 0$ es el número máximo de hijos por nodo.
+
+\textbf{Ejemplos para $n=3$ (árbol ternario):}
+\begin{itemize}[leftmargin=2em]
+    \item Nivel 0: $3^0 = 1$ nodo
+    \item Nivel 1: $3^1 = 3$ nodos
+    \item Nivel 2: $3^2 = 9$ nodos
+    \item Nivel 3: $3^3 = 27$ nodos
+\end{itemize}
+
+\volverindice
+
+% ======================== ACTIVIDAD 2 ========================
+\newpage
+\section{Indique cuál es la cantidad de árboles que se pueden formar con n nodos, y un nivel máximo m.}
+
+\solucion
+
+\subsection*{Árboles Binarios con n Nodos (sin restricción de altura)}
+
+El número de árboles binarios distintos que se pueden formar con $n$ nodos está dado por el \textbf{n-ésimo número de Catalan}:
+
+\[
+C_n = \frac{1}{n+1}\binom{2n}{n} = \frac{(2n)!}{(n+1)! \cdot n!}
+\]
+
+Este número surge porque al construir un árbol binario con $n$ nodos, debemos decidir cómo distribuir los nodos entre el subárbol izquierdo y el derecho. Si la raíz tiene $i$ nodos en su subárbol izquierdo, entonces tendrá $n-1-i$ nodos en el derecho, y cada configuración se puede combinar de diferentes formas.
+
+\textbf{Ejemplos de los primeros valores:}
+\begin{itemize}[leftmargin=2em]
+    \item $n=1$: $C_1 = 1$ árbol (solo la raíz)
+    \item $n=2$: $C_2 = 2$ árboles posibles
+    \item $n=3$: $C_3 = 5$ árboles posibles
+    \item $n=4$: $C_4 = 14$ árboles posibles
+    \item $n=5$: $C_5 = 42$ árboles posibles
+\end{itemize}
+
+\subsection*{Árboles Binarios con n Nodos y Altura Máxima m}
+
+Cuando se añade la restricción de altura máxima $m$, el número de árboles posibles disminuye, ya que se eliminan las configuraciones muy desbalanceadas (como los árboles que crecen solo hacia un lado).
+
+No existe una fórmula simple para este caso, pero se puede calcular observando que:
+
+\begin{itemize}[leftmargin=2em]
+    \item Cada subárbol (izquierdo y derecho) debe tener altura máxima $m-1$
+    \item Debemos distribuir los $n-1$ nodos restantes (sin contar la raíz) entre ambos subárboles respetando esta restricción
+\end{itemize}
+
+\newpage
+\textbf{Ejemplo ilustrativo con $n=3$ nodos:}
+\begin{itemize}[leftmargin=2em]
+    \item Sin restricción de altura: $C_3 = 5$ árboles posibles
+    \item Con altura máxima $m=1$: Solo 1 árbol posible (raíz con dos hijos)
+    \item Con altura máxima $m=2$: 4 árboles posibles (se permiten algunas configuraciones desbalanceadas)
+\end{itemize}
+
+La restricción de altura actúa como un filtro que descarta los árboles que "crecen demasiado" en una dirección.
+
+\volverindice
+
+% ======================== ACTIVIDAD 3 ========================
+\newpage
+\section{Indique como implementaría el juego ta-te-ti con el uso de la estructura de datos árbol. ¿Por qué se puede considerar que haya programas para jugar ta-te-ti de una forma perfecta, pero no para el juego de ajedrez o de damas?}
+
+\solucion
+
+\subsection*{Implementación del Ta-Te-Ti con Árbol de Juego}
+
+El ta-te-ti se puede implementar mediante un \textbf{árbol de decisión}, donde cada nodo representa un estado completo del tablero.
+
+\subsubsection*{Estructura del Nodo}
+
+Cada nodo del árbol contiene:
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Estado del tablero:} Una matriz de $3 \times 3$ que representa las posiciones ocupadas por 'X', 'O' o vacías.
+    \item \textbf{Coordenadas del último movimiento:} Par $(i, j)$ que indica la posición del movimiento que generó este estado.
+    \item \textbf{Turno actual:} Jugador que debe mover ('X' u 'O').
+    \item \textbf{Evaluación del estado:} Indica si el estado es ganador, perdedor, empate o está en juego.
+    \item \textbf{Lista de hijos:} Referencias a todos los estados alcanzables desde el estado actual mediante un movimiento legal.
+\end{itemize}
+
+\newpage
+\subsubsection*{Construcción del Árbol}
+
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Raíz:} Representa el tablero vacío (estado inicial del juego).
+    \item \textbf{Nivel 1:} Contiene los 9 posibles estados resultantes de la primera jugada de 'X' (una jugada en cada casilla).
+    \item \textbf{Nivel 2:} Cada nodo del nivel 1 genera hasta 8 hijos (las casillas restantes donde 'O' puede jugar).
+    \item \textbf{Niveles subsiguientes:} Se continúa expandiendo el árbol alternando entre 'X' y 'O' hasta alcanzar estados terminales (victoria, derrota o empate).
+\end{enumerate}
+
+\textbf{Representación visual simplificada:}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    level distance=2cm,
+    level 1/.style={sibling distance=5cm},
+    level 2/.style={sibling distance=2cm},
+    every node/.style={
+        circle, 
+        draw=blue!60!black,
+        fill=blue!10,
+        thick,
+        minimum size=1.2cm, 
+        font=\small\sffamily,
+        align=center
+    },
+    edge from parent/.style={
+        draw=blue!50!black,
+        thick,
+        -latex
+    }
+]
+\node[fill=green!20, draw=green!60!black] {Tablero\\Vacío}
+    child {node {X\\(1,1)}
+        child {node[fill=orange!15, draw=orange!60!black] {O\\(1,2)}}
+        child {node[fill=orange!15, draw=orange!60!black] {O\\(2,1)}}
+        child {node[fill=gray!15, draw=gray!60!black, dashed] {$\cdots$}}
+    }
+    child {node {X\\(1,2)}
+        child {node[fill=gray!15, draw=gray!60!black, dashed] {$\cdots$}}
+    }
+    child {node[fill=gray!15, draw=gray!60!black, dashed] {$\cdots$}};
+\end{tikzpicture}
+\caption{Representación parcial del árbol de juego del ta-te-ti. La raíz representa el tablero vacío, los nodos del primer nivel muestran las jugadas iniciales de 'X', y los del segundo nivel las respuestas de 'O'. Los puntos suspensivos indican ramas no mostradas por simplicidad.}
+\label{fig:arbol-tateti}
+\end{figure}
+
+\subsubsection*{Algoritmo Minimax}
+
+Para determinar la jugada óptima en cada estado, se utiliza el algoritmo \textbf{Minimax}:
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Maximizador ('X'):} Busca maximizar su puntuación (victoria = +1, empate = 0, derrota = -1).
+    \item \textbf{Minimizador ('O'):} Busca minimizar la puntuación de 'X' (equivalente a maximizar la suya propia).
+    \item Se evalúan recursivamente todos los estados hijos y se propaga el valor óptimo hacia arriba.
+\end{itemize}
+
+\newpage
+\subsection*{¿Por qué el Ta-Te-Ti es Resoluble Perfectamente?}
+
+El ta-te-ti puede ser resuelto de forma perfecta porque:
+
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Espacio de estados finito y pequeño:}
+    \begin{itemize}
+        \item Máximo teórico: $9! = 362{,}880$ estados (considerando el orden de las jugadas).
+        \item En la práctica: Aproximadamente $5{,}478$ estados únicos (eliminando simetrías y estados imposibles).
+    \end{itemize}
+    
+    \item \textbf{Profundidad limitada:}
+    \begin{itemize}
+        \item Máximo 9 movimientos (5 de 'X' y 4 de 'O').
+        \item El árbol completo tiene altura máxima 9.
+    \end{itemize}
+    
+    \item \textbf{Exploración completa factible:}
+    \begin{itemize}
+        \item Es computacionalmente viable explorar \textbf{todos} los estados posibles.
+        \item Se puede precalcular el árbol completo y almacenarlo en memoria.
+    \end{itemize}
+    
+    \item \textbf{Determinismo total:}
+    \begin{itemize}
+        \item No hay aleatoriedad ni información oculta.
+        \item Dado un estado, se conocen exactamente todos los estados futuros posibles.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Resultado del análisis completo:} Con juego perfecto de ambos jugadores, el ta-te-ti \textbf{siempre termina en empate}.
+
+\subsection*{¿Por qué el Ajedrez y las Damas NO Son Resolubles Perfectamente?}
+
+\subsubsection*{Complejidad del Ajedrez}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Número de Shannon:} Aproximadamente $10^{43}$ posiciones legales.
+    \item \textbf{Árbol de juego:} Estimado en $10^{120}$ nodos (más que átomos en el universo observable: $\sim 10^{80}$).
+    \item \textbf{Profundidad promedio:} Una partida típica dura 40 movimientos (80 medios movimientos), pero puede extenderse indefinidamente.
+    \item \textbf{Factor de ramificación:} Promedio de 35 movimientos legales por posición.
+    \item \textbf{Imposibilidad práctica:} Incluso con las computadoras más potentes, es \textbf{físicamente imposible} explorar todo el árbol de juego.
+\end{itemize}
+
+\subsubsection*{Complejidad de las Damas}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Espacio de estados:} Aproximadamente $10^{20}$ posiciones posibles.
+    \item \textbf{Resolución parcial:} En 2007, Jonathan Schaeffer y su equipo \textbf{resolvieron} las damas inglesas (8x8) usando 200 computadoras durante 18 años.
+    \item \textbf{Resultado:} Con juego perfecto, las damas inglesas siempre terminan en \textbf{empate}.
+    \item \textbf{Diferencia clave:} Aunque resuelto, requirió recursos computacionales masivos y décadas de trabajo, a diferencia del ta-te-ti que puede resolverse en milisegundos.
+\end{itemize}
+
+\subsection*{Comparación de Complejidad}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Característica} & \textbf{Ta-Te-Ti} & \textbf{Damas} & \textbf{Ajedrez} \\ 
+\midrule
+Estados posibles & $\sim 5{,}500$ & $\sim 10^{20}$ & $\sim 10^{43}$ \\
+Árbol de juego & $\sim 10^5$ & $\sim 10^{31}$ & $\sim 10^{120}$ \\
+Profundidad máxima & 9 & $\sim 100$ & Ilimitada \\
+¿Resoluble? & Sí (trivial) & Sí (costoso) & No (imposible) \\
+Tiempo de resolución & Milisegundos & 18 años & --- \\
+\bottomrule
+\end{tabular}
+\caption{Comparación de complejidad entre juegos}
+\end{table}
+
+\textbf{Conclusión:} La diferencia fundamental radica en la \textbf{complejidad combinatoria}. Mientras el ta-te-ti tiene un espacio de estados tan pequeño que permite su exploración completa, el ajedrez tiene un espacio tan vasto que supera cualquier capacidad computacional imaginable, haciendo imposible su resolución perfecta mediante fuerza bruta.
+
+\volverindice
+\end{document}
