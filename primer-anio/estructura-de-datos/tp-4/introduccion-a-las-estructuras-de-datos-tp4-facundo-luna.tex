@@ -1,0 +1,900 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish, es-noshorthands]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% COLOR Y TABLAS CON COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+\usepackage{colortbl}   % necesario para \rowcolor en tablas
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% TIPOGRAFÍA
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}{\thesection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+\titleformat{\subsection}
+  {\large\bfseries}{\thesubsection.}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{1em}{0.5em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS Y ÁRBOLES
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage[edges]{forest}
+\usetikzlibrary{arrows.meta, trees, shapes.geometric}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeframe}{RGB}{200,200,200}
+\definecolor{codecomment}{RGB}{106,153,85}
+\definecolor{codekeyword}{RGB}{86,156,214}
+\definecolor{codestring}{RGB}{206,145,120}
+\definecolor{codenumber}{RGB}{181,206,168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left, numbersep=8pt,
+    breaklines=true, breakatwhitespace=true,
+    tabsize=4, showstringspaces=false, captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+% ============================================================
+% ESTILOS DE ÁRBOLES (forest)
+% ============================================================
+
+% --- Estilo AVL (árbol binario balanceado) ---
+\forestset{
+  avl/.style={
+    for tree={
+      draw, rounded corners=2pt,
+      minimum width=1.6cm, minimum height=0.6cm,
+      inner sep=3pt, font=\small\ttfamily,
+      edge={thin},
+      s sep=0.3cm, l sep=0.9cm,
+      anchor=center, align=center,
+    },
+  },
+  root node/.style={fill=teal!30,   draw=teal!70!black,   thick},
+  lvl1/.style=     {fill=violet!20, draw=violet!60!black},
+  lvl2/.style=     {fill=blue!15,   draw=blue!50!black},
+  lvl3/.style=     {fill=gray!15,   draw=gray!60},
+  lvl4/.style=     {fill=orange!15, draw=orange!60!black},
+}
+
+% --- Estilo Árbol B ---
+\forestset{
+  btree/.style={
+    for tree={
+      draw, rounded corners=3pt,
+      minimum width=1.5cm, minimum height=0.6cm,
+      inner sep=4pt, font=\small\ttfamily,
+      edge={thin},
+      s sep=0.6cm, l sep=0.9cm,
+      anchor=center, align=center,
+    },
+  },
+  root b/.style= {fill=teal!30,   draw=teal!70!black,   font=\small\bfseries\ttfamily},
+  inner b/.style={fill=violet!15, draw=violet!50!black},
+  leaf b/.style= {fill=gray!12,   draw=gray!50},
+}
+
+% ============================================================
+% COLORES PARA TABLAS
+% ============================================================
+\definecolor{splitred}{RGB}{255,220,220}
+
+% ============================================================
+% LISTAS
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, linkcolor=black,
+    urlcolor=blue!60!black, citecolor=black,
+    pdftitle={Introducción a las Estructuras de Datos - Trabajo Práctico N° 4},
+    pdfauthor={Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Introducción a las Estructuras de Datos}
+\fancyhead[R]{\small Trabajo Práctico N° 4}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Introducción a las Estructuras de Datos}
+\newcommand{\trabajo}{Trabajo Práctico N° 4}
+\newcommand{\profesor}{Ing. Carlos Pastrana}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDOS AUXILIARES
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}\textbf{Solución:}\par\vspace{0.4em}%
+}
+
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+\begin{titlepage}
+    \centering
+    \logoportada
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+    \vfill
+    \rule{\linewidth}{1.5pt}
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+\newpage
+\hypertarget{indice}{}
+\tableofcontents
+\setcounter{tocdepth}{2}
+
+% ==============================================================
+% ACTIVIDAD 1
+% ==============================================================
+\newpage
+\section{Árbol BST desbalanceado e inserción de claves}
+
+\textit{Dibuje el árbol binario de búsqueda desbalanceado que se obtiene al ingresar
+las siguientes claves en el orden indicado: vida, computadora, muy, pizza, algún,
+todos, mujer, soy, las, ver, matemáticas, una, profesor, grande, binario, de,
+universidad, rojo, antes, estudio, después, hombre. Indique la longitud de paso
+promedio en este árbol.}
+
+\solucion
+
+\subsection*{Construcción del árbol BST desbalanceado}
+
+El árbol se construye aplicando la regla BST: claves menores a la izquierda,
+claves mayores a la derecha. El orden de inserción determina la forma del árbol.
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    every node/.style={
+        rectangle, draw, rounded corners=2pt,
+        font=\scriptsize, inner sep=4pt,
+        minimum height=0.6cm, fill=white
+    },
+    edge from parent/.style={draw, -},
+    level 1/.style={sibling distance=100mm, level distance=12mm},
+    level 2/.style={sibling distance=52mm,  level distance=12mm},
+    level 3/.style={sibling distance=28mm,  level distance=12mm},
+    level 4/.style={sibling distance=20mm,  level distance=12mm},
+    level 5/.style={sibling distance=16mm,  level distance=12mm},
+    level 6/.style={sibling distance=14mm,  level distance=12mm},
+    level 7/.style={sibling distance=12mm,  level distance=12mm},
+    level 8/.style={sibling distance=10mm,  level distance=12mm},
+    grow=down
+]
+\node {vida}
+    child { node {computadora}
+        child { node {alg\'un}
+            child[missing]
+            child { node {binario}
+                child { node {antes} }
+                child[missing]
+            }
+        }
+        child { node {muy}
+            child { node {mujer}
+                child { node {las}
+                    child { node {grande}
+                        child { node {de}
+                            child[missing]
+                            child { node {estudio}
+                                child { node {despu\'es} }
+                                child[missing]
+                            }
+                        }
+                        child { node {hombre} }
+                    }
+                    child { node {matem\'aticas} }
+                }
+                child[missing]
+            }
+            child { node {pizza}
+                child[missing]
+                child { node {todos}
+                    child { node {soy}
+                        child { node {profesor}
+                            child[missing]
+                            child { node {rojo} }
+                        }
+                        child[missing]
+                    }
+                    child { node {ver}
+                        child { node {una}
+                            child[missing]
+                            child { node {universidad} }
+                        }
+                        child[missing]
+                    }
+                }
+            }
+        }
+    }
+    child[missing];
+\end{tikzpicture}
+}%
+\caption{Árbol binario de búsqueda desbalanceado (22 claves).}
+\label{fig:bst}
+\end{figure}
+
+\newpage
+\subsection*{Cálculo de la longitud de paso promedio (LPA)}
+
+La longitud de paso promedio se calcula sumando las profundidades de todos los nodos
+y dividiendo por la cantidad total (la raíz se encuentra en el nivel~0):
+
+\[
+\text{LPA} = \frac{\displaystyle\sum_{i=1}^{n} \text{profundidad}(i)}{n}
+\]
+
+\textbf{Profundidades calculadas:}
+
+\begin{center}
+\begin{tabular}{clcc}
+\toprule
+\textbf{Nivel} & \textbf{Nodos} & \textbf{Cantidad} & \textbf{Contribución} \\
+\midrule
+0 & vida                                            & 1 & $1 \times 0 = 0$  \\
+1 & computadora                                     & 1 & $1 \times 1 = 1$  \\
+2 & algún, muy                                      & 2 & $2 \times 2 = 4$  \\
+3 & binario, mujer, pizza                           & 3 & $3 \times 3 = 9$  \\
+4 & antes, las, todos                               & 3 & $3 \times 4 = 12$ \\
+5 & grande, matemáticas, soy, ver                   & 4 & $4 \times 5 = 20$ \\
+6 & de, hombre, profesor, una                       & 4 & $4 \times 6 = 24$ \\
+7 & estudio, rojo, universidad                      & 3 & $3 \times 7 = 21$ \\
+8 & después                                         & 1 & $1 \times 8 = 8$  \\
+\midrule
+  & \textbf{Total}                                  & \textbf{22} & \textbf{99} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\[
+\text{LPA}_{\text{BST}} = \frac{99}{22} = 4{,}50
+\]
+
+En promedio se necesitan \textbf{4,50 comparaciones} para encontrar una clave
+en este árbol desbalanceado.
+
+\volverindice
+
+% ==============================================================
+% ACTIVIDAD 2
+% ==============================================================
+\newpage
+\section{Árbol AVL balanceado}
+
+\textit{Dibuje el árbol binario de búsqueda balanceado AVL para la misma secuencia
+de claves del ejercicio anterior. Indique la longitud de paso promedio en este árbol.}
+
+\solucion
+
+\subsection*{Construcción del árbol AVL}
+
+Se insertan las 22 claves en el orden indicado y se aplican las rotaciones AVL
+(LL, RR, LR, RL) necesarias para mantener el factor de balance $|fb| \leq 1$
+en cada nodo tras cada inserción.
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{forest}
+  for tree={
+    draw, rounded corners=2pt,
+    minimum width=1.6cm, minimum height=0.6cm,
+    inner sep=3pt, font=\small\ttfamily,
+    edge={thin},
+    s sep=0.15cm,
+    l sep=0.85cm,
+    anchor=center, align=center,
+  },
+  [muy, root node
+    [estudio, lvl1
+      [computadora, lvl2
+        [antes, lvl3
+          [alg\'un, lvl4]
+          [binario, lvl4]
+        ]
+        [de, lvl3
+          [{\ }, draw=none, no edge]
+          [despu\'es, lvl4]
+        ]
+      ]
+      [las, lvl2
+        [grande, lvl3
+          [{\ }, draw=none, no edge]
+          [hombre, lvl4]
+        ]
+        [matem., lvl3
+          [{\ }, draw=none, no edge]
+          [mujer, lvl4]
+        ]
+      ]
+    ]
+    [todos, lvl1
+      [profesor, lvl2
+        [pizza, lvl3]
+        [soy, lvl3
+          [rojo, lvl4]
+          [{\ }, draw=none, no edge]
+        ]
+      ]
+      [ver, lvl2
+        [una, lvl3
+          [{\ }, draw=none, no edge]
+          [univ., lvl4]
+        ]
+        [vida, lvl3]
+      ]
+    ]
+  ]
+\end{forest}
+}%
+\caption{Árbol AVL balanceado con 22 claves. Raíz: \texttt{muy}. Altura: 5.}
+\label{fig:avl}
+\end{figure}
+
+% ============================================================
+%  Fragmento para incluir en Actividad 2 — Árbol AVL
+%  Rotaciones aplicadas durante la inserción
+%  Requiere: forest, booktabs, colortbl, xcolor (ya en el preámbulo)
+% ============================================================
+
+% ---------------------------------------------------------------
+\subsection*{Rotaciones aplicadas durante la construcción}
+% ---------------------------------------------------------------
+
+Durante la inserción de las 22 claves se aplicaron \textbf{7 rotaciones AVL}.
+La regla general es: al retornar de la inserción se recalcula el factor de
+equilibrio $fb = h_{\text{izq}} - h_{\text{der}}$ en cada ancestro;
+si $|fb| = 2$ se corrige con la rotación correspondiente:
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+\textbf{$fb$ del nodo} & \textbf{$fb$ del hijo} & \textbf{Caso} & \textbf{Acción} \\
+\midrule
+$+2$ & $+1$ ó $0$ & LL & Rotación derecha simple \\
+$-2$ & $-1$ ó $0$ & RR & Rotación izquierda simple \\
+$+2$ & $-1$       & LR & Rot.\ izq.\ en hijo, luego rot.\ der.\ en nodo \\
+$-2$ & $+1$       & RL & Rot.\ der.\ en hijo, luego rot.\ izq.\ en nodo \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Las rotaciones producidas en este árbol fueron:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{clll}
+\toprule
+\textbf{Paso} & \textbf{Clave insertada} & \textbf{Nodo desbalanceado} & \textbf{Rotación} \\
+\midrule
+ 3  & \texttt{muy}          & \texttt{vida}          & LR \\
+ 6  & \texttt{todos}        & \texttt{vida}          & LR \\
+11  & \texttt{matemáticas}  & \texttt{mujer}         & LR \\
+12  & \texttt{una}          & \texttt{vida}          & RR (izquierda simple) \\
+13  & \texttt{profesor}     & \texttt{pizza}         & RL \\
+14  & \texttt{grande}       & \texttt{computadora}   & RL \\
+19  & \texttt{antes}        & \texttt{algún}         & RL \\
+20  & \texttt{estudio}      & \texttt{grande}        & LR \\
+21  & \texttt{después}      & \texttt{las}           & LR \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ---------------------------------------------------------------
+\subsection*{Detalle: rotación LR al insertar \texttt{después} (paso 21)}
+% ---------------------------------------------------------------
+
+Este paso ilustra bien el caso LR porque el desbalance se detecta lejos
+del punto de inserción.
+
+\medskip
+\noindent\textbf{Situación previa a la inserción.}
+El subárbol izquierdo de \texttt{muy} tiene raíz \texttt{las}
+con $fb = +1$ (aún válido):
+
+\begin{center}
+\begin{forest}
+  btree,
+  [{las}, root b, name=las
+    [{computadora}, inner b, name=comp
+      [{antes}, leaf b
+        [{algún}, leaf b]
+        [{binario}, leaf b]
+      ]
+      [{estudio}, leaf b, name=est
+        [{de}, leaf b, name=de]
+        [{grande}, leaf b]
+      ]
+    ]
+    [{matem.}, inner b
+      [,phantom]
+      [{mujer}, leaf b]
+    ]
+  ]
+\end{forest}
+\end{center}
+
+\medskip
+\noindent\textbf{Inserción de \texttt{después}.}
+La clave se ubica como hijo derecho de \texttt{de}
+(ruta: $\texttt{las} \to \texttt{computadora} \to \texttt{estudio}
+\to \texttt{de} \to \texttt{después}$).
+
+Al recalcular $fb$ en el camino de vuelta:
+
+\begin{itemize}[noitemsep]
+  \item \texttt{de}: $h_{\text{izq}}=0,\ h_{\text{der}}=1
+        \Rightarrow fb = -1$ \checkmark
+  \item \texttt{estudio}: $h_{\text{izq}}=2,\ h_{\text{der}}=1
+        \Rightarrow fb = +1$ \checkmark
+  \item \texttt{computadora}: $h_{\text{izq}}=2,\ h_{\text{der}}=3
+        \Rightarrow fb = -1$ \checkmark
+  \item \textbf{\texttt{las}}: $h_{\text{izq}}=4,\ h_{\text{der}}=2
+        \Rightarrow fb = +2$ \quad\textbf{DESBALANCE}
+\end{itemize}
+
+El nodo desbalanceado es \texttt{las} ($fb=+2$, pesa a la izquierda) y su
+hijo izquierdo \texttt{computadora} tiene $fb=-1$ (pesa a la \emph{derecha}).
+Los pesos forman un \textbf{zig-zag}: \texttt{las $\to$ computadora $\to$ estudio}
+$\Rightarrow$ caso \textbf{LR}.
+
+\medskip
+\noindent\textbf{Paso A — rotación izquierda en \texttt{computadora}.}
+
+\texttt{estudio} sube a donde estaba \texttt{computadora};
+\texttt{computadora} baja como hijo izquierdo de \texttt{estudio};
+el antiguo subárbol izquierdo de \texttt{estudio} (\texttt{de}) pasa a ser
+hijo derecho de \texttt{computadora}:
+
+\begin{center}
+\begin{forest}
+  btree,
+  [{las}, root b
+    [{estudio}, inner b
+      [{computadora}, inner b
+        [{antes}, leaf b
+          [{algún}, leaf b]
+          [{binario}, leaf b]
+        ]
+        [{de}, leaf b
+          [,phantom]
+          [{después}, leaf b]
+        ]
+      ]
+      [{grande}, leaf b]
+    ]
+    [{matem.}, inner b
+      [,phantom]
+      [{mujer}, leaf b]
+    ]
+  ]
+\end{forest}
+\end{center}
+
+\medskip
+\noindent\textbf{Paso B — rotación derecha en \texttt{las}.}
+
+\texttt{estudio} sube a donde estaba \texttt{las};
+\texttt{las} baja como hijo derecho de \texttt{estudio};
+el antiguo subárbol derecho de \texttt{estudio} (\texttt{grande}) pasa a ser
+hijo izquierdo de \texttt{las}:
+
+\begin{center}
+\begin{forest}
+  btree,
+  [{estudio}, root b
+    [{computadora}, inner b
+      [{antes}, leaf b
+        [{algún}, leaf b]
+        [{binario}, leaf b]
+      ]
+      [{de}, leaf b
+        [,phantom]
+        [{después}, leaf b]
+      ]
+    ]
+    [{las}, inner b
+      [{grande}, leaf b]
+      [{matem.}, leaf b
+        [,phantom]
+        [{mujer}, leaf b]
+      ]
+    ]
+  ]
+\end{forest}
+\end{center}
+
+\texttt{estudio} queda como nueva raíz del subárbol con $fb = 0$,
+y todos los nodos recuperan $|fb| \leq 1$. \checkmark
+
+\subsection*{Propiedades del árbol resultante}
+
+\begin{itemize}
+  \item \textbf{Raíz:} \texttt{muy}
+  \item \textbf{Altura:} 5 \quad (el árbol BST desbalanceado tenía altura 8)
+  \item \textbf{Factor de balance} en cada nodo: $|fb| \leq 1$ \checkmark
+  \item \textbf{Altura mínima teórica} para $n = 22$ nodos:
+        $\lfloor \log_2(22) \rfloor + 1 = 5$ \checkmark
+\end{itemize}
+
+\newpage
+\subsection*{Distribución por niveles}
+
+\begin{center}
+\begin{tabular}{clcc}
+\toprule
+\textbf{Nivel} & \textbf{Nodos} & \textbf{Cantidad} & \textbf{Contribución} \\
+\midrule
+0 & muy                                                             & 1 & $1 \times 0 = 0$  \\
+1 & estudio, todos                                                  & 2 & $2 \times 1 = 2$  \\
+2 & computadora, las, profesor, ver                                 & 4 & $4 \times 2 = 8$  \\
+3 & antes, de, grande, matemáticas, pizza, soy, una, vida          & 8 & $8 \times 3 = 24$ \\
+4 & algún, binario, después, hombre, mujer, rojo, universidad       & 7 & $7 \times 4 = 28$ \\
+\midrule
+  & \textbf{Total}                                                  & \textbf{22} & \textbf{62} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\[
+\text{LPA}_{\text{AVL}} = \frac{62}{22} \approx 2{,}82
+\]
+
+\subsection*{Comparación con el árbol desbalanceado}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Estructura} & \textbf{Altura} & \textbf{LPA} \\
+\midrule
+BST desbalanceado   & 8               & 4,50 \\
+AVL balanceado      & 5               & 2,82 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+El árbol AVL reduce la longitud de paso promedio en un
+$\approx 37\%$ respecto al árbol desbalanceado.
+
+\volverindice
+
+% ==============================================================
+% ACTIVIDAD 3
+% ==============================================================
+\newpage
+\section{Método hash de división con $m = 100$}
+
+\textit{Por el método hash de división con $m=100$, obtener los valores hash
+de los siguientes conjuntos de claves: `Mendoza', `Catamarca', `Formosa', `Tucumán'.}
+
+\solucion
+
+\subsection*{Función de hash por división}
+
+El método de hash por división define la función:
+\[
+  h(k) = \left(\sum_{i=1}^{|k|} \text{ASCII}(k_i)\right) \bmod m
+\]
+donde la suma recorre todos los caracteres de la clave $k$ y $m = 100$.
+
+\subsection*{Cálculo para cada clave}
+
+\begin{center}
+\begin{tabular}{lp{6cm}ccc}
+\toprule
+\textbf{Clave} & \textbf{Valores ASCII de cada carácter} & \textbf{Suma} & $\bmod\ 100$ & \textbf{Hash} \\
+\midrule
+\texttt{Mendoza}
+  & $77 + 101 + 110 + 100 + 111 + 122 + 97$
+  & $718$ & $718 \bmod 100$ & $\mathbf{18}$ \\[6pt]
+\texttt{Catamarca}
+  & $67 + 97 + 116 + 97 + 109 + 97 + 114 + 99 + 97$
+  & $893$ & $893 \bmod 100$ & $\mathbf{93}$ \\[6pt]
+\texttt{Formosa}
+  & $70 + 111 + 114 + 109 + 111 + 115 + 97$
+  & $727$ & $727 \bmod 100$ & $\mathbf{27}$ \\[6pt]
+\texttt{Tucum\'an}
+  & $84 + 117 + 99 + 117 + 109 + 225 + 110$
+  & $861$ & $861 \bmod 100$ & $\mathbf{61}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Resultado final}
+
+Todos los valores hash son distintos, por lo que \textbf{no se producen colisiones}
+en esta tabla de tamaño $m = 100$:
+
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+\textbf{Clave} & \textbf{Posición en la tabla hash} \\
+\midrule
+\texttt{Mendoza}   & 18 \\
+\texttt{Catamarca} & 93 \\
+\texttt{Formosa}   & 27 \\
+\texttt{Tucum\'an} & 61 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\volverindice
+
+% ==============================================================
+% ACTIVIDAD 4
+% ==============================================================
+\newpage
+\section{Árbol B de orden 2 --- claves 1 a 12}
+
+\textit{Suponiendo que se insertan las claves $1, 2, 3, \ldots, 12$ en un árbol B
+de orden~2, indique qué claves originan divisiones de página y qué claves hacen
+que la profundidad del árbol crezca.}
+
+\solucion
+
+\subsection*{Definición: árbol B de orden 2}
+
+Un \textbf{árbol B de orden 2} (definición de Knuth) admite como máximo
+\textbf{2 claves} por nodo y como máximo \textbf{3 hijos}.
+Cuando un nodo acumula 3 claves se produce una \textbf{división de página}
+(\textit{split}): la clave del medio asciende al nodo padre y el nodo se
+divide en dos. Si la raíz se divide, la profundidad del árbol aumenta en~1.
+
+\subsection*{Inserción paso a paso}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{cll}
+\toprule
+\textbf{Clave insertada} & \textbf{División de página} & \textbf{Profundidad} \\
+\midrule
+1  & ---                              & 0 \\
+2  & ---                              & 0 \\
+\rowcolor{splitred}
+3  & \textbf{Sí} --- sube el 2       & \textbf{aumenta a 1} \\
+4  & ---                              & 1 \\
+\rowcolor{splitred}
+5  & \textbf{Sí} --- sube el 4       & 1 \\
+6  & ---                              & 1 \\
+\rowcolor{splitred}
+7  & \textbf{Sí} --- sube el 6       & \textbf{aumenta a 2} \\
+8  & ---                              & 2 \\
+\rowcolor{splitred}
+9  & \textbf{Sí} --- sube el 8       & 2 \\
+10 & ---                              & 2 \\
+\rowcolor{splitred}
+11 & \textbf{Sí} --- sube el 10      & 2 \\
+12 & ---                              & 2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+  \item \textbf{Claves que originan una división de página:}
+        $3,\ 5,\ 7,\ 9,\ 11$
+  \item \textbf{Claves que aumentan la profundidad del árbol:}
+        $3$ (profundidad $0 \to 1$) y $7$ (profundidad $1 \to 2$)
+\end{itemize}
+
+\subsection*{Evolución de la estructura}
+
+\subsubsection*{Tras insertar 3 --- primera división (profundidad $\to 1$)}
+
+\begin{center}
+\begin{forest}
+  btree
+  [{2}, root b
+    [{1}, leaf b]
+    [{3}, leaf b]
+  ]
+\end{forest}
+\end{center}
+
+\subsubsection*{Tras insertar 5 --- segunda división}
+
+\begin{center}
+\begin{forest}
+  btree
+  [{2,\ 4}, root b
+    [{1}, leaf b]
+    [{3}, leaf b]
+    [{5}, leaf b]
+  ]
+\end{forest}
+\end{center}
+
+\subsubsection*{Tras insertar 7 --- tercera división (profundidad $\to 2$)}
+
+\begin{center}
+\begin{forest}
+  btree
+  [{4}, root b
+    [{2}, inner b
+      [{1}, leaf b]
+      [{3}, leaf b]
+    ]
+    [{6}, inner b
+      [{5}, leaf b]
+      [{7}, leaf b]
+    ]
+  ]
+\end{forest}
+\end{center}
+
+\subsubsection*{Tras insertar 9 --- cuarta división}
+
+\begin{center}
+\begin{forest}
+  btree
+  [{4}, root b
+    [{2}, inner b
+      [{1}, leaf b]
+      [{3}, leaf b]
+    ]
+    [{6,\ 8}, inner b
+      [{5}, leaf b]
+      [{7}, leaf b]
+      [{9}, leaf b]
+    ]
+  ]
+\end{forest}
+\end{center}
+
+\subsubsection*{Tras insertar 11 --- quinta división}
+
+\begin{center}
+\begin{forest}
+  btree
+  [{4,\ 8}, root b
+    [{2}, inner b
+      [{1}, leaf b]
+      [{3}, leaf b]
+    ]
+    [{6}, inner b
+      [{5}, leaf b]
+      [{7}, leaf b]
+    ]
+    [{10}, inner b
+      [{9}, leaf b]
+      [{11}, leaf b]
+    ]
+  ]
+\end{forest}
+\end{center}
+
+\subsubsection*{Estado final tras insertar 12}
+
+\begin{figure}[H]
+\centering
+\begin{forest}
+  btree
+  [{4,\ 8}, root b
+    [{2}, inner b
+      [{1}, leaf b]
+      [{3}, leaf b]
+    ]
+    [{6}, inner b
+      [{5}, leaf b]
+      [{7}, leaf b]
+    ]
+    [{10}, inner b
+      [{9}, leaf b]
+      [{11,\ 12}, leaf b]
+    ]
+  ]
+\end{forest}
+\caption{Árbol B de orden 2 con las claves 1--12 insertadas. Profundidad final: 2.}
+\label{fig:btree_final}
+\end{figure}
+
+\volverindice
+
+\end{document}
