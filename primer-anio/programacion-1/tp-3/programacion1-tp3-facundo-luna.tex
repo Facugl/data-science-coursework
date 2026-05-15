@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% CONFIGURACION: paquetes, comandos y estilos
+% ============================================================
+\input{config/paquetes}
+\input{config/java}
+\input{config/comandos}
+
+% ============================================================
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== INDICE ============================
+
+\newpage
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+% ======================== EJERCICIOS ========================
+
+\newpage
+\input{ejercicios/ej01/enunciado}
+\input{ejercicios/ej02/enunciado}
+\input{ejercicios/ej03/enunciado}
+\input{ejercicios/ej04/enunciado}
+\input{ejercicios/ej05/enunciado}
+\input{ejercicios/ej06/enunciado}
+\input{ejercicios/ej07/enunciado}
+\input{ejercicios/ej08/enunciado}
+\input{ejercicios/ej09/enunciado}
+\input{ejercicios/ej10/enunciado}
+\input{ejercicios/ej11/enunciado}
+\input{ejercicios/ej12/enunciado}
+\input{ejercicios/ej13/enunciado}
+\input{ejercicios/ej14/enunciado}
+\input{ejercicios/ej15/enunciado}
+\input{ejercicios/ej16/enunciado}
+\input{ejercicios/ej17/enunciado}
+\input{ejercicios/ej18/enunciado}
+\input{ejercicios/ej19/enunciado}
+\input{ejercicios/ej20/enunciado}
+
+% ============================================================
+\end{document}

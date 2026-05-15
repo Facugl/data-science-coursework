@@ -1,0 +1,57 @@
+% ============================================================
+% COLORES PARA SINTAXIS JAVA
+% ============================================================
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+\definecolor{codeannotation}{RGB}{187, 181, 41}
+
+% ============================================================
+% PALABRAS CLAVE DE JAVA
+% ============================================================
+\lstdefinelanguage{Java}{
+    keywords={
+        abstract, assert, boolean, break, byte, case, catch, char, class,
+        const, continue, default, do, double, else, enum, extends, final,
+        finally, float, for, goto, if, implements, import, instanceof, int,
+        interface, long, native, new, package, private, protected, public,
+        return, short, static, strictfp, super, switch, synchronized, this,
+        throw, throws, transient, try, void, volatile, while, true, false, null
+    },
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]',
+}
+
+% ============================================================
+% ESTILO JAVA
+% ============================================================
+\lstdefinestyle{java}{
+    language=Java,
+    inputencoding=utf8,
+    extendedchars=true,
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1
+        {Á}{{\'{A}}}1 {É}{{\'{E}}}1 {Í}{{\'{I}}}1 {Ó}{{\'{O}}}1 {Ú}{{\'{U}}}1
+        {ñ}{{\~{n}}}1 {Ñ}{{\~{N}}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
