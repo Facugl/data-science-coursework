@@ -1,3 +1,20 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 6
+ * Solicitar al usuario los datos de inicio de sesión, como lo son Nombre de Usuario y Contraseña.
+ * Luego validar los datos ingresados.
+ * - Si el nombre es 'Franco' y la contraseña '2022', mostrar 'Bienvenido Franco!
+ * Inicio de sesión válido!''.
+ * - Si alguno de los datos es incorrecto, mostrar el mensaje que corresponda: 'Nombre
+ * de usuario incorrecto, no se puede iniciar sesión!' o 'Contraseña incorrecta, no se
+ * puede iniciar sesión!'.
+ * - Si ambos datos sin incorrectos, mostrar el mensaje 'Usuario totalmente
+ * desconocido! Fuera hacker!!''.
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

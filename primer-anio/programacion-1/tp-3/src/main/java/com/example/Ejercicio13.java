@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 13
+ *  Mostrar la tabla de multiplicar del 6 (Ej. 6x1=6; 6x2=12; 6x3=18, etc.)
+ * ==================================================
+ */
+
 package com.example;
 
 public class Ejercicio13 {

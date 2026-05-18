@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 3
+ * Solicitar al usuario el ingreso de la BASE y la ALTURA de un triángulo, calcular y mostrar el área del triángulo. 
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

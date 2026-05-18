@@ -1,3 +1,13 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 5
+ * Solicitar al usuario el ingreso de la nota del Examen. Luego mostrar 'Promocionado' (7 a 10),
+ * 'Regular' (4 a 6) o 'Libre' (0 a 3) según la nota ingresada.
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

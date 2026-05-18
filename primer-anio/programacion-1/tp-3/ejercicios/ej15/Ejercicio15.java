@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 15
+ * Solicitar 5 números al usuario. Luego mostrar: la suma total de todos los números y el producto de todos los números. 
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

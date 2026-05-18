@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 8
+ * Escribir un programa que solicite un número entero y luego muestre por pantalla si el número es par o no. Recordar que un número es par si al dividirlo por 2, su resto es igual 0.
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

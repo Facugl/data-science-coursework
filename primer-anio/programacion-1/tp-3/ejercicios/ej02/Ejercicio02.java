@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 2
+ * Solicitar al usuario el ingreso de dos números, calcular y mostrar el promedio de ambos valores.
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

@@ -1,3 +1,14 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 4
+ * Solicitar al usuario el ingreso de su edad.
+ * Luego mostrar por pantalla: 'Eres mayor de edad' o 'No eres mayor de edad' según la edad ingresada
+ * (18 años cumplidos para ser mayor de edad) 
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

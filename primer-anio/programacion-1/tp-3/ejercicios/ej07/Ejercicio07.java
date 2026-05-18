@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 7
+ * Escribir un programa que solicite un número, luego le reste el 15%, almacenando todo en una única variable. A continuación, mostrar el resultado final por pantalla.
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

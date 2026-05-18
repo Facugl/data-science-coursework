@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 9
+ * Mostrar los números del 1 al 30 en forma ascendente.
+ * ==================================================
+ */
+
 package com.example;
 
 public class Ejercicio09 {

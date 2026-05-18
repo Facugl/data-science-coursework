@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 1
+ * Solicitar al usuario el ingreso de dos números, calcular y mostrar la suma de los dos valores.
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

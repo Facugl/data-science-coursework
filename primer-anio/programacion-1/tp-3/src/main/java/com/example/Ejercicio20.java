@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 20
+ * Desde un número N y otro P ingresados por el usuario, mostrar todos los números desde P hasta N. (suponer que P es mayor que N)
+ * ==================================================
+ */
+
 package com.example;
 
 import java.util.Scanner;

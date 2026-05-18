@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 18
+ * Mostrar los números impares del 60 al 30 en forma descendente.
+ * ==================================================
+ */
+
 package com.example;
 
 public class Ejercicio18 {

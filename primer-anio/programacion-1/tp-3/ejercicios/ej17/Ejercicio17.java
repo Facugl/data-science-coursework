@@ -1,3 +1,12 @@
+/*
+ * UCASAL - PROGRAMACION I
+ * Autor: Luna Facundo
+ * ==========================
+ * EJERCICIO 17
+ * Mostrar los números del 30 al 1 en forma descendente.
+ * ==================================================
+ */
+
 package com.example;
 
 public class Ejercicio17 {
