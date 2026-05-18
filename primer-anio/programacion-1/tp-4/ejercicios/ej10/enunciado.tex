@@ -1,0 +1,62 @@
+\ejercicio{Investigaci\'on: Clase \texttt{Scanner} en Java}
+
+Investigue la clase \texttt{Scanner} en el lenguaje Java, e int\'egrela en un ejercicio que lo aplique.
+
+\subsection*{Documentaci\'on oficial}
+
+Seg\'un la documentaci\'on oficial de Oracle (Java SE 17):
+
+\begin{quote}
+\textit{``A simple text scanner which can parse primitive types and strings using
+regular expressions. A Scanner breaks its input into tokens using a delimiter
+pattern, which by default matches whitespace. The resulting tokens may then be
+converted into values of different types using the various \texttt{next} methods.''}
+\end{quote}
+
+\textbf{Fuente:} \href{https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html}{\texttt{docs.oracle.com --- java.util.Scanner}}
+
+\subsection*{Caracter\'isticas principales}
+
+\begin{itemize}[itemsep=0.3em]
+    \item Pertenece al paquete \texttt{java.util} e implementa las interfaces
+          \texttt{Iterator<String>} y \texttt{Closeable}.
+    \item Se instancia apuntando a una fuente de entrada:
+          \texttt{Scanner sc = new Scanner(System.in);}
+    \item Principales m\'etodos de lectura:
+    \begin{itemize}[itemsep=0.2em]
+        \item \texttt{nextLine()} --- lee una l\'inea completa como \texttt{String}
+        \item \texttt{next()} --- lee una sola palabra (hasta el espacio)
+        \item \texttt{nextInt()} --- lee un n\'umero entero
+        \item \texttt{nextDouble()} --- lee un n\'umero decimal
+        \item \texttt{hasNextInt()} --- verifica si el pr\'oximo token es un entero v\'alido
+    \end{itemize}
+    \item Siempre debe cerrarse al terminar: \texttt{sc.close();}
+\end{itemize}
+
+\subsection*{Advertencia: problema del buffer}
+
+Al mezclar \texttt{nextInt()} o \texttt{nextDouble()} con \texttt{nextLine()}, el salto de
+l\'inea (\texttt{\textbackslash n}) queda en el buffer y la siguiente lectura de texto
+resulta vac\'ia. La soluci\'on es agregar un \texttt{scanner.nextLine()} de limpieza
+inmediatamente despu\'es de leer un n\'umero.
+
+\newpage
+\subsection*{Aplicaci\'on pr\'actica: Adivina el n\'umero}
+
+Se desarrolla un juego interactivo de consola donde el usuario dispone de 7 intentos
+para adivinar un n\'umero secreto. El ejercicio aplica \texttt{nextInt()} para leer
+los intentos del usuario y \texttt{hasNextInt()} para validar que la entrada sea un
+entero antes de procesarla, evitando una excepci\'on \texttt{InputMismatchException}.
+
+\codigojava{ejercicios/ej10/Ejercicio10.java}
+
+\vspace{1em}
+\textbf{Salida del programa:}
+\vspace{0.5em}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{ejercicios/ej10/captura.png}
+\end{figure}
+
+\volverindice
+\newpage

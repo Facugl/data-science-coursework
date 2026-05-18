@@ -1,0 +1,125 @@
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+\newcommand{\universidad}{Universidad Cat\'olica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Programaci\'on I}
+\newcommand{\trabajo}{Trabajo Pr\'actico N\textdegree{} 4}
+\newcommand{\profesor}{Ing. Mario Mart\'inez}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+% ============================================================
+% LOGO DE LA UNIVERSIDAD
+% ============================================================
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% VOLVER AL INDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al \'indice}%
+    \end{flushright}%
+}
+
+% ============================================================
+% COMANDO EJERCICIO
+% Uso: \ejercicio{Titulo del ejercicio}
+% ============================================================
+\newcommand{\ejercicio}[1]{%
+    \section{#1}%
+}
+
+% ============================================================
+% COMANDO CODIGOJAVA
+% Muestra el codigo Java desde un archivo .java
+% Uso: \codigojava{ruta/al/archivo/Solucion.java}
+% ============================================================
+\newcommand{\codigojava}[1]{%
+    \vspace{1em}%
+    \textbf{C\'odigo Java:}%
+    \vspace{0.5em}%
+    \lstinputlisting[style=java]{#1}%
+}
+
+% ============================================================
+% COMANDO CODIGOJAVA MULTIPLE
+% Para mostrar múltiples archivos Java (clase + ejecutable)
+% Uso: \codigojavaclase{Persona.java}{MainApp.java}
+% ============================================================
+\newcommand{\codigojavaclase}[2]{%
+    \vspace{1em}%
+    \textbf{Clase Persona:}%
+    \vspace{0.5em}%
+    \lstinputlisting[style=java]{#1}%
+    \vspace{1em}%
+    \textbf{Clase Ejecutable:}%
+    \vspace{0.5em}%
+    \lstinputlisting[style=java]{#2}%
+}
+
+% ============================================================
+% COMANDO PARA CLASE PROFESOR
+% Para ejercicios 7-9
+% ============================================================
+\newcommand{\codigoprofesor}[3]{%
+    \vspace{1em}%
+    \textbf{Clase Persona:}%
+    \vspace{0.5em}%
+    \lstinputlisting[style=java]{#1}%
+    \vspace{1em}%
+    \textbf{Clase Profesor (hereda de Persona):}%
+    \vspace{0.5em}%
+    \lstinputlisting[style=java]{#2}%
+    \vspace{1em}%
+    \textbf{Clase Ejecutable:}%
+    \vspace{0.5em}%
+    \lstinputlisting[style=java]{#3}%
+}
+
+% ============================================================
+% COMANDO CAPTURA
+% Muestra la captura de pantalla con la salida del programa
+% Uso: \captura{ruta/al/archivo/captura.png}
+% ============================================================
+\newcommand{\captura}[1]{%
+    \vspace{1em}%
+    \textbf{Salida del programa:}%
+    \vspace{0.5em}%
+    \begin{figure}[H]%
+        \centering%
+        \includegraphics[width=0.9\textwidth]{#1}%
+    \end{figure}%
+}
+
+% ============================================================
+% COMANDO CAPTURA CON ANCHO PERSONALIZADO
+% Uso: \capturacustom{ruta/al/archivo/captura.png}{0.5}
+% El segundo parámetro es el ancho (0.5 = 50%, 1.0 = 100%)
+% ============================================================
+\newcommand{\capturacustom}[2]{%
+    \vspace{1em}%
+    \textbf{Salida del programa:}%
+    \vspace{0.5em}%
+    \begin{figure}[H]%
+        \centering%
+        \includegraphics[width=#2\textwidth]{#1}%
+    \end{figure}%
+}
+
+% ============================================================
+% COMANDO EXPLICACION
+% Encabezado para la seccion de explicacion
+% ============================================================
+\newcommand{\explicacion}{%
+    \vspace{1em}%
+    \textbf{Explicaci\'on:}%
+    \vspace{0.5em}%
+    \par%
+}
