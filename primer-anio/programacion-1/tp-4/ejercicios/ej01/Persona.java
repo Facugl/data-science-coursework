@@ -1,6 +1,6 @@
 package com.facundoluna;
 
-public class Ejercicio01 {
+public class Persona {
     private int IdPersona;
     private int Dni;
     private String Apellido;
@@ -11,7 +11,7 @@ public class Ejercicio01 {
     private double Altura;
     private String Domicilio;
 
-    public Ejercicio01(int idPersona, int dni, String apellido, String nombre, int edad, String genero, double peso,
+    public Persona(int idPersona, int dni, String apellido, String nombre, int edad, String genero, double peso,
             double altura, String domicilio) {
         IdPersona = idPersona;
         Dni = dni;
