@@ -1,0 +1,1209 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°3},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Álgebra Lineal}
+\fancyhead[R]{\small Trabajo Práctico N°3}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Álgebra Lineal}
+\newcommand{\trabajo}{Trabajo Práctico N°3}
+\newcommand{\profesor}{Lic. Mauro Vaca}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== ACTIVIDAD 1 ========================
+\newpage
+\section{Escribir los elementos de las siguientes matrices}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $A_{2\times3} = (a_{ij})$ / $a_{ij} = i - 2j$
+
+    \solucion
+    \[
+    \begin{aligned}
+    a_{11} &= 1-2(1)=-1, \quad a_{12}=1-2(2)=-3, \quad a_{13}=1-2(3)=-5\\
+    a_{21} &= 2-2(1)=0,  \quad a_{22}=2-2(2)=-2, \quad a_{23}=2-2(3)=-4
+    \end{aligned}
+    \]
+    \[
+    A = \begin{pmatrix} -1 & -3 & -5 \\ 0 & -2 & -4 \end{pmatrix}
+    \]
+
+    \item $B_{3\times3} = (b_{ij})/b_{ij} = \begin{cases} 0, & i \leq j \\ i, & i > j \end{cases}$
+
+    \solucion
+    \[
+    \begin{aligned}
+    b_{11}&=0,\ b_{12}=0,\ b_{13}=0\\
+    b_{21}&=2,\ b_{22}=0,\ b_{23}=0\\
+    b_{31}&=3,\ b_{32}=3,\ b_{33}=0
+    \end{aligned}
+    \]
+    \[
+    B = \begin{pmatrix} 0 & 0 & 0 \\ 2 & 0 & 0 \\ 3 & 3 & 0 \end{pmatrix}
+    \]
+
+    \item $C_{3\times3} = (c_{ij})/c_{ij} = \begin{cases} 0, & i \neq j \\ i^j, & i = j \end{cases}$
+
+    \solucion
+    \[
+    \begin{aligned}
+    c_{11}&=1^1=1,\quad c_{22}=2^2=4,\quad c_{33}=3^3=27\\
+    c_{ij}&=0 \text{ para todo } i\neq j
+    \end{aligned}
+    \]
+    \[
+    C = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 4 & 0 \\ 0 & 0 & 27 \end{pmatrix}
+    \]
+
+    \item $D_{4\times2} = (d_{ij})/d_{ij} = ij$
+
+    \solucion
+    \[
+    \begin{aligned}
+    d_{11}&=1,\ d_{12}=2,\ d_{21}=2,\ d_{22}=4,\\
+    d_{31}&=3,\ d_{32}=6,\ d_{41}=4,\ d_{42}=8
+    \end{aligned}
+    \]
+    \[
+    D = \begin{pmatrix} 1 & 2 \\ 2 & 4 \\ 3 & 6 \\ 4 & 8 \end{pmatrix}
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 2 ========================
+\section{Dadas las matrices del ejercicio 1), calcular si es posible}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $B + C$
+
+    \solucion
+    \[
+    B + C =
+    \begin{pmatrix} 0&0&0\\2&0&0\\3&3&0 \end{pmatrix}
+    +
+    \begin{pmatrix} 1&0&0\\0&4&0\\0&0&27 \end{pmatrix}
+    =
+    \begin{pmatrix} 1&0&0\\2&4&0\\3&3&27 \end{pmatrix}
+    \]
+
+    \item $AB$
+
+    \solucion
+    \[
+    AB =
+    \begin{pmatrix}-1&-3&-5\\0&-2&-4\end{pmatrix}
+    \begin{pmatrix}0&0&0\\2&0&0\\3&3&0\end{pmatrix}
+    =
+    \begin{pmatrix}-21&-15&0\\-16&-12&0\end{pmatrix}
+    \]
+
+    \item $A + D^T$
+
+    \solucion
+
+    $A$ es $2\times3$ y $D^T$ es $2\times4$; no tienen las mismas dimensiones,
+    por lo tanto \textbf{la operación no se puede realizar}.
+
+    \item $AI$
+
+    \solucion
+    \[
+    AI =
+    \begin{pmatrix}-1&-3&-5\\0&-2&-4\end{pmatrix}
+    \begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}
+    =
+    \begin{pmatrix}-1&-3&-5\\0&-2&-4\end{pmatrix}
+    \]
+
+    \item $(C + B^T) A^T$
+
+    \solucion
+    \[
+    B^T = \begin{pmatrix}0&2&3\\0&0&3\\0&0&0\end{pmatrix}, \qquad
+    C + B^T =
+    \begin{pmatrix}1&0&0\\0&4&0\\0&0&27\end{pmatrix}
+    +
+    \begin{pmatrix}0&2&3\\0&0&3\\0&0&0\end{pmatrix}
+    =
+    \begin{pmatrix}1&2&3\\0&4&3\\0&0&27\end{pmatrix}
+    \]
+    \[
+    A^T = \begin{pmatrix}-1&0\\-3&-2\\-5&-4\end{pmatrix}, \qquad
+    (C+B^T)A^T =
+    \begin{pmatrix}1&2&3\\0&4&3\\0&0&27\end{pmatrix}
+    \begin{pmatrix}-1&0\\-3&-2\\-5&-4\end{pmatrix}
+    =
+    \begin{pmatrix}-22&-16\\-27&-20\\-135&-108\end{pmatrix}
+    \]
+
+    \item $AB - D^T$
+
+    \solucion
+
+    $AB$ es $2\times3$ y $D^T$ es $2\times4$; no tienen las mismas dimensiones,
+    por lo tanto \textbf{la resta no se puede realizar}.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 3 ========================
+\section{Determinar las matrices $X$ e $Y$, según corresponda, tal que}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $X + \begin{pmatrix} -2 & 5 \\ 3 & 2 \end{pmatrix} = 3I$
+
+    \solucion
+    \[
+    X = \begin{pmatrix}3&0\\0&3\end{pmatrix} - \begin{pmatrix}-2&5\\3&2\end{pmatrix}
+    = \begin{pmatrix}5&-5\\-3&1\end{pmatrix}
+    \]
+
+    \item $-3\begin{pmatrix} -1 & 3 & 1 \\ 0 & 2 & 3 \end{pmatrix} + 2Y = -3Y + \begin{pmatrix} 1 & 4 & -2 \\ 3 & 0 & -1 \end{pmatrix}$
+
+    \solucion
+    \[
+    2Y + 3Y = \begin{pmatrix}1&4&-2\\3&0&-1\end{pmatrix} + 3\begin{pmatrix}-1&3&1\\0&2&3\end{pmatrix}
+    = \begin{pmatrix}1&4&-2\\3&0&-1\end{pmatrix} + \begin{pmatrix}-3&9&3\\0&6&9\end{pmatrix}
+    = \begin{pmatrix}-2&13&1\\3&6&8\end{pmatrix}
+    \]
+    \[
+    Y = \frac{1}{5}\begin{pmatrix}-2&13&1\\3&6&8\end{pmatrix}
+    = \begin{pmatrix}-\frac{2}{5}&\frac{13}{5}&\frac{1}{5}\\[4pt]\frac{3}{5}&\frac{6}{5}&\frac{8}{5}\end{pmatrix}
+    \]
+
+    \item $-2X + \begin{pmatrix} -1 & 4 \\ -3 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 3 \\ -1 & 2 \end{pmatrix}^T$
+
+    \solucion
+    \[
+    -2X + \begin{pmatrix}-1&4\\-3&0\end{pmatrix} = \begin{pmatrix}1&-1\\3&2\end{pmatrix}
+    \implies
+    -2X = \begin{pmatrix}2&-5\\6&2\end{pmatrix}
+    \implies
+    X = \begin{pmatrix}-1&\frac{5}{2}\\-3&-1\end{pmatrix}
+    \]
+
+    \item $\dfrac{2}{3}Y - 7\begin{pmatrix} 2 \\ -1 \end{pmatrix} = \dfrac{2}{7}Y$
+
+    \solucion
+    \[
+    \frac{2}{3}Y - \frac{2}{7}Y = \begin{pmatrix}14\\-7\end{pmatrix}
+    \implies
+    \left(\frac{14-6}{21}\right)Y = \begin{pmatrix}14\\-7\end{pmatrix}
+    \]
+    \[
+    \implies
+    \frac{8}{21}Y = \begin{pmatrix}14\\-7\end{pmatrix}
+    \implies
+    Y = \frac{21}{8}\begin{pmatrix}14\\-7\end{pmatrix}
+    = \begin{pmatrix}\frac{147}{4}\\[4pt]-\frac{147}{8}\end{pmatrix}
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 4 ========================
+\section{Resolver los siguientes problemas}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Los costos de fabricación de dos tipos de fertilizantes agrícolas, uno Químico y otro Biológico (en pesos por kilogramo de producto), de la empresa ``La Tora'' se registran en una matriz $T$, que tiene como filas la mano de obra directa, los materiales y la mano de obra indirecta. $Y$ por columnas se registran los dos fertilizantes. Cada elemento $t_{ij}$ de la matriz $T$ se obtiene de la siguiente forma:
+
+    \[
+    T = \begin{pmatrix} ij + 1 & \text{si } i \leq j \\ 2i - j & \text{si } i > j \end{pmatrix}
+    \]
+
+    \begin{enumerate}[label=\roman*)]
+        \item Obtenga los elementos de la matriz $T$ y escríbala.
+
+        \solucion
+
+        La matriz $T$ es $3\times2$ (3 conceptos de costo, 2 fertilizantes):
+        \[
+        t_{ij} = \begin{cases} ij+1, & i \leq j\\[6pt] 2i-j, & i > j \end{cases}
+        \]
+        \[
+        \begin{aligned}
+        t_{11}&= (1)(1)+1=2 \quad(i=j), \quad & t_{12}&= (1)(2)+1=3 \quad(i<j)\\
+        t_{21}&= 2(2)-1=3   \quad(i>j), \quad & t_{22}&= (2)(2)+1=5 \quad(i=j)\\
+        t_{31}&= 2(3)-1=5   \quad(i>j), \quad & t_{32}&= 2(3)-2=4   \quad(i>j)
+        \end{aligned}
+        \]
+        \[
+        T = \begin{pmatrix} 2 & 3 \\ 3 & 5 \\ 5 & 4 \end{pmatrix}
+        \]
+
+        \item ¿Qué datos se muestran en la segunda fila?
+
+        \solucion
+
+        La segunda fila $(t_{21},\,t_{22}) = (3,\,5)$ representa los \textbf{costos de materiales}
+        del fertilizante Químico (\$3/kg) y del fertilizante Biológico (\$5/kg).
+
+        \item ¿Qué representa el elemento $t_{31}$? ¿Y el $t_{12}$?
+
+        \solucion
+
+        $t_{31}=5$: costo de \textbf{mano de obra indirecta} del fertilizante \textbf{Químico} = \$5/kg.\\
+        $t_{12}=3$: costo de \textbf{mano de obra directa} del fertilizante \textbf{Biológico} = \$3/kg.
+    \end{enumerate}
+
+    \newpage
+    \item Los costos de fabricación de dos tipos de fertilizantes agrícolas (en pesos por kilogramo de producto) de la Planta ``La Rufa'' se presentan en la siguiente tabla:
+
+    \begin{center}
+    \begin{tabular}{|l|c|c|}
+    \hline
+    \textbf{Concepto} & \textbf{Químico} & \textbf{Biológico} \\
+    \hline
+    Mano de obra directa & 2 & 2 \\
+    \hline
+    Materiales & 3 & 5 \\
+    \hline
+    Mano de obra indirecta & 3 & 2 \\
+    \hline
+    \end{tabular}
+    \end{center}
+
+    \begin{enumerate}[label=\roman*)]
+        \item ¿Cuál es el costo de materiales del fertilizante Biológico?
+
+        \solucion
+
+        El costo de materiales del fertilizante Biológico es $r_{22}=\$5$/kg.
+
+        \item Exprese la tabla por medio de una matriz $R$.
+
+        \solucion
+        \[
+        R = \begin{pmatrix} 2 & 2 \\ 3 & 5 \\ 3 & 2 \end{pmatrix}
+        \]
+
+        \item ¿Qué significa el elemento $r_{31}$?
+
+        \solucion
+
+        $r_{31}=3$: representa el costo de \textbf{mano de obra indirecta} del fertilizante \textbf{Químico} (\$3/kg).
+
+        \item Si en esta Planta se aumenta el costo de fabricación en un 20\%, escriba la nueva matriz $S$.
+
+        \solucion
+        \[
+        S = 1{,}2 \cdot R = 1{,}2\begin{pmatrix}2&2\\3&5\\3&2\end{pmatrix}
+        = \begin{pmatrix}2{,}4&2{,}4\\3{,}6&6\\3{,}6&2{,}4\end{pmatrix}
+        \]
+    \end{enumerate}
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 5 ========================
+\section{Aplicando propiedades de los determinantes, determinar si son verdaderas o falsas las siguientes igualdades}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\begin{vmatrix} 5 & 2 & x \\ -3 & 4 & -5 + x \\ x & 6 & y \end{vmatrix} = 2\begin{vmatrix} 1 & 7 & x \\ 2 & -3 & -5 + x \\ 3 & x & y \end{vmatrix}$
+
+    \solucion
+
+    Sea $A=\begin{vmatrix}5&2&x\\-3&4&{-5+x}\\x&6&y\end{vmatrix}$.
+
+    Intercambiando las columnas 1 y 2, el determinante cambia de signo:
+    \[
+    \begin{vmatrix}5&2&x\\-3&4&{-5+x}\\x&6&y\end{vmatrix}
+    = -\begin{vmatrix}2&5&x\\4&-3&{-5+x}\\6&x&y\end{vmatrix}
+    \]
+    Extrayendo el factor 2 de la primera columna:
+    \[
+    = -2\begin{vmatrix}1&5&x\\2&-3&{-5+x}\\3&x&y\end{vmatrix}
+    \neq
+    2\begin{vmatrix}1&7&x\\2&{-3}&{-5+x}\\3&x&y\end{vmatrix}
+    \]
+    Por lo tanto la igualdad es \textbf{FALSA}.
+
+    \item $\begin{vmatrix} a - b & 1 & b \\ b - c & 1 & c \\ c - a & 1 & a \end{vmatrix} = \begin{vmatrix} a & 1 & b \\ b & 1 & c \\ c & 1 & a \end{vmatrix}$
+
+    \solucion
+
+    Aplicando $C_1 \leftarrow C_1 + C_3$ en el determinante de la izquierda:
+    \[
+    \begin{vmatrix}a-b+b&1&b\\b-c+c&1&c\\c-a+a&1&a\end{vmatrix}
+    =\begin{vmatrix}a&1&b\\b&1&c\\c&1&a\end{vmatrix}
+    \]
+    Esta es exactamente la expresión del lado derecho.
+    La igualdad es \textbf{VERDADERA}.
+
+    \newpage
+    \item $\begin{vmatrix} p & p & p \\ 1 & 1 & 1 \\ 5 & 15 & 10 \end{vmatrix} = 0$
+
+    \solucion
+
+    La fila 1 es $p$ veces la fila 2, ya que $(p,\,p,\,p) = p\cdot(1,\,1,\,1)$.
+    Por lo tanto las filas son linealmente dependientes y el determinante es $0$.
+    La igualdad es \textbf{VERDADERA}.
+
+    \item $\begin{vmatrix} 4 & 7 & -3 \\ 5 & 2 & 3 \\ 1 & x & 1-x \end{vmatrix} = 0$
+
+    \solucion
+
+    Aplicando $C_1 \leftarrow C_1 - C_3$:
+    \[
+    \begin{vmatrix}4-(-3)&7&-3\\5-3&2&3\\1-(1-x)&x&1-x\end{vmatrix}
+    =\begin{vmatrix}7&7&-3\\2&2&3\\x&x&1-x\end{vmatrix}
+    \]
+    Las columnas 1 y 2 son iguales, por lo tanto el determinante es $0$.
+    La igualdad es \textbf{VERDADERA}.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 6 ========================
+\section{Calcular el determinante de las siguientes matrices, por el método que se pide}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $A = \begin{pmatrix} 0 & 4 & 1 \\ 1 & 2 & 2 \\ -2 & 3 & -5 \end{pmatrix}$, \textit{por desarrollo de Laplace.}
+
+    \solucion
+
+    Desarrollando por la primera fila:
+    \[
+    |A| = 0\cdot(-1)^{1+1}\begin{vmatrix}2&2\\3&-5\end{vmatrix}
+        +4\cdot(-1)^{1+2}\begin{vmatrix}1&2\\-2&-5\end{vmatrix}
+        +1\cdot(-1)^{1+3}\begin{vmatrix}1&2\\-2&3\end{vmatrix}
+    \]
+    \[
+    = 0 + 4(-1)\bigl(-5-(-4)\bigr) + 1(1)\bigl(3-(-4)\bigr)
+    = 4(-1)(-1) + 7 = 4 + 7 = \mathbf{11}
+    \]
+
+    \item $B = \begin{pmatrix} -1 & 2 & 1 \\ 4 & 3 & -2 \\ 5 & -1 & -3 \end{pmatrix}$, \textit{aplicando propiedades.}
+
+    \solucion
+
+    $C_2 \leftarrow C_2 + 2C_1$:
+    \[
+    B \sim \begin{pmatrix}-1&0&1\\4&11&-2\\5&9&-3\end{pmatrix}
+    \]
+    $C_1 \leftarrow C_1 + C_3$:
+    \[
+    B \sim \begin{pmatrix}0&0&1\\2&11&-2\\2&9&-3\end{pmatrix}
+    \]
+    Desarrollando por la primera fila:
+    \[
+    |B| = 1\cdot(-1)^{1+3}\begin{vmatrix}2&11\\2&9\end{vmatrix}
+    = 1\cdot(18-22) = \mathbf{-4}
+    \]
+
+    \item $C = \begin{pmatrix} 1 & -2 & -1 \\ -1 & 3 & 0 \\ 1 & 2 & 3 \end{pmatrix}$, \textit{por regla de Sarrus.}
+
+    \solucion
+    \[
+    |C| = \underbrace{(1)(3)(3)}_{9}+\underbrace{(-2)(0)(1)}_{0}+\underbrace{(-1)(-1)(2)}_{2}
+         -\underbrace{(-1)(3)(1)}_{-3}-\underbrace{(0)(2)(1)}_{0}-\underbrace{(3)(-2)(-1)}_{6}
+    \]
+    \[
+    = 9 + 0 + 2 - (-3) - 0 - 6 = 9 + 2 + 3 - 6 = \mathbf{8}
+    \]
+\end{enumerate}
+
+\volverindice
+
+% ======================== ACTIVIDAD 7 ========================
+\section{Determinar para las matrices del ejercicio anterior}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Los cofactores de: $a_{21},\ b_{22},\ c_{32},\ b_{13}$.
+
+    \solucion
+
+    \textbf{Cofactor $a_{21}$} (de $A$):
+    \[
+    A_{21} = (-1)^{2+1}\begin{vmatrix}4&1\\3&-5\end{vmatrix}
+    = (-1)(-20-3) = (-1)(-23) = 23
+    \]
+
+    \textbf{Cofactor $b_{22}$} (de $B$):
+    \[
+    B_{22} = (-1)^{2+2}\begin{vmatrix}-1&1\\5&-3\end{vmatrix}
+    = (1)(3-5) = -2
+    \]
+
+    \textbf{Cofactor $c_{32}$} (de $C$):
+    \[
+    C_{32} = (-1)^{3+2}\begin{vmatrix}1&-1\\-1&0\end{vmatrix}
+    = (-1)(0-1) = 1
+    \]
+
+    \textbf{Cofactor $b_{13}$} (de $B$):
+    \[
+    B_{13} = (-1)^{1+3}\begin{vmatrix}4&3\\5&-1\end{vmatrix}
+    = (1)(-4-15) = -19
+    \]
+
+    \newpage
+    \item La matriz de los cofactores de $A$ y $C$.
+
+    \solucion
+
+    \textbf{Cofactores de $A$:}
+    \[
+    \begin{aligned}
+    C_{11} &= (+1)\begin{vmatrix}2&2\\3&-5\end{vmatrix} = -10-6 = -16 &\quad
+    C_{12} &= (-1)\begin{vmatrix}1&2\\-2&-5\end{vmatrix} = -(-5+4) = 1\\[4pt]
+    C_{13} &= (+1)\begin{vmatrix}1&2\\-2&3\end{vmatrix} = 3+4 = 7 &\quad
+    C_{21} &= (-1)\begin{vmatrix}4&1\\3&-5\end{vmatrix} = -(-20-3) = 23\\[4pt]
+    C_{22} &= (+1)\begin{vmatrix}0&1\\-2&-5\end{vmatrix} = 0+2 = 2 &\quad
+    C_{23} &= (-1)\begin{vmatrix}0&4\\-2&3\end{vmatrix} = -(0+8) = -8\\[4pt]
+    C_{31} &= (+1)\begin{vmatrix}4&1\\2&2\end{vmatrix} = 8-2 = 6 &\quad
+    C_{32} &= (-1)\begin{vmatrix}0&1\\1&2\end{vmatrix} = -(0-1) = 1\\[4pt]
+    C_{33} &= (+1)\begin{vmatrix}0&4\\1&2\end{vmatrix} = 0-4 = -4 &
+    \end{aligned}
+    \]
+    \[
+    \text{Cof}(A) = \begin{pmatrix}-16&1&7\\23&2&-8\\6&1&-4\end{pmatrix}
+    \]
+
+    \textbf{Cofactores de $C$:}
+    \[
+    \begin{aligned}
+    C_{11} &= (+1)\begin{vmatrix}3&0\\2&3\end{vmatrix} = 9 &\quad
+    C_{12} &= (-1)\begin{vmatrix}-1&0\\1&3\end{vmatrix} = -(-3) = 3\\[4pt]
+    C_{13} &= (+1)\begin{vmatrix}-1&3\\1&2\end{vmatrix} = -2-3 = -5 &\quad
+    C_{21} &= (-1)\begin{vmatrix}-2&-1\\2&3\end{vmatrix} = -(-6+2) = 4\\[4pt]
+    C_{22} &= (+1)\begin{vmatrix}1&-1\\1&3\end{vmatrix} = 3+1 = 4 &\quad
+    C_{23} &= (-1)\begin{vmatrix}1&-2\\1&2\end{vmatrix} = -(2+2) = -4\\[4pt]
+    C_{31} &= (+1)\begin{vmatrix}-2&-1\\3&0\end{vmatrix} = 0+3 = 3 &\quad
+    C_{32} &= (-1)\begin{vmatrix}1&-1\\-1&0\end{vmatrix} = -(0-1) = 1\\[4pt]
+    C_{33} &= (+1)\begin{vmatrix}1&-2\\-1&3\end{vmatrix} = 3-2 = 1 &
+    \end{aligned}
+    \]
+    \[
+    \text{Cof}(C) = \begin{pmatrix}9&3&-5\\4&4&-4\\3&1&1\end{pmatrix}
+    \]
+
+    \newpage
+    \item La matriz adjunta de $A$ y $C$.
+
+    \solucion
+
+    La adjunta es la transpuesta de la matriz de cofactores:
+    \[
+    \text{Adj}(A) = \text{Cof}(A)^T =
+    \begin{pmatrix}-16&23&6\\1&2&1\\7&-8&-4\end{pmatrix}
+    \]
+    \[
+    \text{Adj}(C) = \text{Cof}(C)^T =
+    \begin{pmatrix}9&4&3\\3&4&1\\-5&-4&1\end{pmatrix}
+    \]
+
+    \newpage
+    \item La matriz inversa (si existe) a través de la matriz Adjunta de $A$, $B$ y $C$.
+
+    \solucion
+
+    Como $|A|=11\neq0$, $|B|=-4\neq0$ y $|C|=8\neq0$, las tres inversas existen.
+
+    \[
+    A^{-1} = \frac{1}{11}
+    \begin{pmatrix}-16&23&6\\1&2&1\\7&-8&-4\end{pmatrix}
+    \]
+
+    Para $B$, calculamos su matriz de cofactores:
+    \[
+    \begin{aligned}
+    C_{11} &= (+1)\begin{vmatrix}3&-2\\-1&-3\end{vmatrix} = -9-2 = -11 &\quad
+    C_{12} &= (-1)\begin{vmatrix}4&-2\\5&-3\end{vmatrix} = -(-12+10) = 2\\[4pt]
+    C_{13} &= (+1)\begin{vmatrix}4&3\\5&-1\end{vmatrix} = -4-15 = -19 &\quad
+    C_{21} &= (-1)\begin{vmatrix}2&1\\-1&-3\end{vmatrix} = -(-6+1) = 5\\[4pt]
+    C_{22} &= (+1)\begin{vmatrix}-1&1\\5&-3\end{vmatrix} = 3-5 = -2 &\quad
+    C_{23} &= (-1)\begin{vmatrix}-1&2\\5&-1\end{vmatrix} = -(1-10) = 9\\[4pt]
+    C_{31} &= (+1)\begin{vmatrix}2&1\\3&-2\end{vmatrix} = -4-3 = -7 &\quad
+    C_{32} &= (-1)\begin{vmatrix}-1&1\\4&-2\end{vmatrix} = -(2-4) = 2\\[4pt]
+    C_{33} &= (+1)\begin{vmatrix}-1&2\\4&3\end{vmatrix} = -3-8 = -11 &
+    \end{aligned}
+    \]
+    \[
+    \text{Adj}(B) = \text{Cof}(B)^T =
+    \begin{pmatrix}-11&5&-7\\2&-2&2\\-19&9&-11\end{pmatrix}
+    \]
+    \[
+    B^{-1} = \frac{1}{-4}
+    \begin{pmatrix}-11&5&-7\\2&-2&2\\-19&9&-11\end{pmatrix}
+    =
+    \begin{pmatrix}\frac{11}{4}&-\frac{5}{4}&\frac{7}{4}\\[4pt]-\frac{1}{2}&\frac{1}{2}&-\frac{1}{2}\\[4pt]\frac{19}{4}&-\frac{9}{4}&\frac{11}{4}\end{pmatrix}
+    \]
+
+    \[
+    C^{-1} = \frac{1}{8}
+    \begin{pmatrix}9&4&3\\3&4&1\\-5&-4&1\end{pmatrix}
+    =
+    \begin{pmatrix}\frac{9}{8}&\frac{1}{2}&\frac{3}{8}\\[4pt]\frac{3}{8}&\frac{1}{2}&\frac{1}{8}\\[4pt]-\frac{5}{8}&-\frac{1}{2}&\frac{1}{8}\end{pmatrix}
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 8 ========================
+\section{Resolver los siguientes sistemas de ecuaciones aplicando el método de Gauss}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\begin{cases} 2x + y - z = 8 \\ x - 2y + 3z = 0 \\ x + 2y - 5z = 0 \end{cases}$
+
+    \solucion
+    \[
+    \left(\begin{array}{ccc|c}
+    2 & 1 & -1 & 8 \\ 1 & -2 & 3 & 0 \\ 1 & 2 & -5 & 0
+    \end{array}\right)
+    \xrightarrow{F_1 \leftrightarrow F_2}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 3 & 0 \\ 2 & 1 & -1 & 8 \\ 1 & 2 & -5 & 0
+    \end{array}\right)
+    \]
+    \[
+    \xrightarrow{F_2 \leftarrow F_2 - 2F_1 \atop F_3 \leftarrow F_3 - F_1}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 3 & 0 \\ 0 & 5 & -7 & 8 \\ 0 & 4 & -8 & 0
+    \end{array}\right)
+    \xrightarrow{F_3 \leftarrow 5F_3 - 4F_2}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 3 & 0 \\ 0 & 5 & -7 & 8 \\ 0 & 0 & -12 & -32
+    \end{array}\right)
+    \]
+    Por sustitución regresiva:
+    \[
+    z = \frac{-32}{-12} = \frac{8}{3}, \qquad
+    5y = 8 + 7\cdot\frac{8}{3} = \frac{80}{3} \implies y = \frac{16}{3}, \qquad
+    x = 2y - 3z = \frac{32}{3} - 8 = \frac{8}{3}
+    \]
+    \[
+    \boxed{C_S = \left\{\left(\frac{8}{3},\,\frac{16}{3},\,\frac{8}{3}\right)\right\}}
+    \]
+
+    \item $\begin{cases} 3x - 7y + 2z = 0 \\ -2x + 2y - z = 3 \\ x - 5y + z = 3 \end{cases}$
+
+    \solucion
+    \[
+    \left(\begin{array}{ccc|c}
+    3 & -7 & 2 & 0 \\ -2 & 2 & -1 & 3 \\ 1 & -5 & 1 & 3
+    \end{array}\right)
+    \xrightarrow{F_1 \leftrightarrow F_3}
+    \left(\begin{array}{ccc|c}
+    1 & -5 & 1 & 3 \\ -2 & 2 & -1 & 3 \\ 3 & -7 & 2 & 0
+    \end{array}\right)
+    \]
+    \[
+    \xrightarrow{F_2 \leftarrow F_2 + 2F_1 \atop F_3 \leftarrow F_3 - 3F_1}
+    \left(\begin{array}{ccc|c}
+    1 & -5 & 1 & 3 \\ 0 & -8 & 1 & 9 \\ 0 & 8 & -1 & -9
+    \end{array}\right)
+    \xrightarrow{F_3 \leftarrow F_3 + F_2}
+    \left(\begin{array}{ccc|c}
+    1 & -5 & 1 & 3 \\ 0 & -8 & 1 & 9 \\ 0 & 0 & 0 & 0
+    \end{array}\right)
+    \]
+    Sistema compatible indeterminado. Sea $z = t$, $t\in\mathbb{R}$:
+    \[
+    y = \frac{t-9}{8}, \qquad x = 3 + 5y - t = 3 + \frac{5(t-9)}{8} - t = \frac{-21-3t}{8}
+    \]
+    \[
+    \boxed{C_S = \left\{\left(\frac{-21-3t}{8},\,\frac{t-9}{8},\,t\right) : t \in \mathbb{R}\right\}}
+    \]
+    Tres soluciones: $t=0 \Rightarrow \left(-\frac{21}{8},-\frac{9}{8},0\right)$;\quad
+    $t=1 \Rightarrow \left(-3,-1,1\right)$;\quad
+    $t=-1 \Rightarrow \left(-\frac{9}{4},-\frac{5}{4},-1\right)$.
+
+    \item $\begin{cases} -x + 2y = 1 \\ 4x - 3y - 5z = 2 \\ x - y - z = 5 \end{cases}$
+
+    \solucion
+    \[
+    \left(\begin{array}{ccc|c}
+    -1 & 2 & 0 & 1 \\ 4 & -3 & -5 & 2 \\ 1 & -1 & -1 & 5
+    \end{array}\right)
+    \xrightarrow{F_1 \leftarrow -F_1}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 0 & -1 \\ 4 & -3 & -5 & 2 \\ 1 & -1 & -1 & 5
+    \end{array}\right)
+    \]
+    \[
+    \xrightarrow{F_2 \leftarrow F_2 - 4F_1 \atop F_3 \leftarrow F_3 - F_1}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 0 & -1 \\ 0 & 5 & -5 & 6 \\ 0 & 1 & -1 & 6
+    \end{array}\right)
+    \xrightarrow{F_3 \leftarrow 5F_3 - F_2}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 0 & -1 \\ 0 & 5 & -5 & 6 \\ 0 & 0 & 0 & 24
+    \end{array}\right)
+    \]
+    La última fila indica $0 = 24$, contradicción.
+    \[
+    \boxed{\text{El sistema es incompatible (no tiene solución).}}
+    \]
+
+    \newpage
+    \item $\begin{cases} x - 2y + 3z = -3 \\ 2x + y = 2 \\ -x - 8y + 9z = -13 \end{cases}$
+
+    \solucion
+    \[
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 3 & -3 \\ 2 & 1 & 0 & 2 \\ -1 & -8 & 9 & -13
+    \end{array}\right)
+    \xrightarrow{F_2 \leftarrow F_2 - 2F_1 \atop F_3 \leftarrow F_3 + F_1}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 3 & -3 \\ 0 & 5 & -6 & 8 \\ 0 & -10 & 12 & -16
+    \end{array}\right)
+    \]
+    \[
+    \xrightarrow{F_3 \leftarrow F_3 + 2F_2}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 3 & -3 \\ 0 & 5 & -6 & 8 \\ 0 & 0 & 0 & 0
+    \end{array}\right)
+    \]
+    Sistema compatible indeterminado. Sea $z = t$, $t\in\mathbb{R}$:
+    \[
+    y = \frac{8+6t}{5}, \qquad x = -3 + 2y - 3t = -3 + \frac{16+12t}{5} - 3t = \frac{1-3t}{5}
+    \]
+    \[
+    \boxed{C_S = \left\{\left(\frac{1-3t}{5},\,\frac{8+6t}{5},\,t\right) : t \in \mathbb{R}\right\}}
+    \]
+    Tres soluciones: $t=0 \Rightarrow \left(\frac{1}{5},\frac{8}{5},0\right)$;\quad
+    $t=1 \Rightarrow \left(-\frac{2}{5},\frac{14}{5},1\right)$;\quad
+    $t=-1 \Rightarrow \left(\frac{4}{5},\frac{2}{5},-1\right)$.
+
+    \item $\begin{cases} 3x + 2y + 5z = 9 \\ 4x + 3y - z = -18 \\ -2x + 4y - 3z = 6 \end{cases}$
+
+    \solucion
+    \[
+    \left(\begin{array}{ccc|c}
+    3 & 2 & 5 & 9 \\ 4 & 3 & -1 & -18 \\ -2 & 4 & -3 & 6
+    \end{array}\right)
+    \xrightarrow{F_1 \leftarrow F_1 + F_3}
+    \left(\begin{array}{ccc|c}
+    1 & 6 & 2 & 15 \\ 4 & 3 & -1 & -18 \\ -2 & 4 & -3 & 6
+    \end{array}\right)
+    \]
+    \[
+    \xrightarrow{F_2 \leftarrow F_2 - 4F_1 \atop F_3 \leftarrow F_3 + 2F_1}
+    \left(\begin{array}{ccc|c}
+    1 & 6 & 2 & 15 \\ 0 & -21 & -9 & -78 \\ 0 & 16 & 1 & 36
+    \end{array}\right)
+    \xrightarrow{F_3 \leftarrow 21F_3 + 16F_2}
+    \left(\begin{array}{ccc|c}
+    1 & 6 & 2 & 15 \\ 0 & -21 & -9 & -78 \\ 0 & 0 & -123 & -492
+    \end{array}\right)
+    \]
+    Por sustitución regresiva:
+    \[
+    z = \frac{-492}{-123} = 4, \qquad
+    -21y = -78 + 9(4) = -42 \implies y = 2, \qquad
+    x = 15 - 6(2) - 2(4) = -5
+    \]
+    \[
+    \boxed{C_S = \{(-5,\,2,\,4)\}}
+    \]
+
+    \newpage
+    \item $\begin{cases} x - 2y + 3z = -3 \\ 2x + y = 2 \\ -x - 8y - 9z = 3 \end{cases}$
+
+    \solucion
+    \[
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 3 & -3 \\ 2 & 1 & 0 & 2 \\ -1 & -8 & -9 & 3
+    \end{array}\right)
+    \xrightarrow{F_2 \leftarrow F_2 - 2F_1 \atop F_3 \leftarrow F_3 + F_1}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 3 & -3 \\ 0 & 5 & -6 & 8 \\ 0 & -10 & -6 & 0
+    \end{array}\right)
+    \]
+    \[
+    \xrightarrow{F_3 \leftarrow F_3 + 2F_2}
+    \left(\begin{array}{ccc|c}
+    1 & -2 & 3 & -3 \\ 0 & 5 & -6 & 8 \\ 0 & 0 & -18 & 16
+    \end{array}\right)
+    \]
+    Por sustitución regresiva:
+    \[
+    z = \frac{16}{-18} = -\frac{8}{9}, \qquad
+    5y = 8 + 6\left(-\frac{8}{9}\right) = \frac{24}{9} \cdot \frac{3}{3} = \frac{24}{9}\implies
+    y = \frac{8}{15}, \qquad
+    \]
+    \[
+    x = -3 + 2\left(\frac{8}{15}\right) - 3\left(-\frac{8}{9}\right) = \frac{11}{15}
+    \]
+    \[
+    \boxed{C_S = \left\{\left(\frac{11}{15},\,\frac{8}{15},\,-\frac{8}{9}\right)\right\}}
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 9 ========================
+\section{Analiza si existe el o los valores del parámetro $k$, para que el sistema admita solución única, infinitas soluciones o ninguna}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\begin{cases} x + y + z = 1 \\ y + z = k \\ kx + ky + z = 1 \end{cases}$
+
+    \solucion
+    \[
+    \left(\begin{array}{ccc|c}
+    1 & 1 & 1 & 1 \\ 0 & 1 & 1 & k \\ k & k & 1 & 1
+    \end{array}\right)
+    \xrightarrow{F_3 \leftarrow F_3 - kF_1}
+    \left(\begin{array}{ccc|c}
+    1 & 1 & 1 & 1 \\ 0 & 1 & 1 & k \\ 0 & 0 & 1-k & 1-k
+    \end{array}\right)
+    \]
+
+    \textbf{Caso $k \neq 1$:} la tercera fila da $z = 1$; luego $y = k-1$, $x = 1-k$.
+    \[\boxed{C_S = \{(1-k,\,k-1,\,1)\}}\]
+
+    \textbf{Caso $k = 1$:} la tercera fila es $0=0$. El sistema se reduce a
+    $x+y+z=1$ con $y+z=1$, de donde $x=0$. Sea $z=t$: $y=1-t$.
+    \[\boxed{C_S = \{(0,\,1-t,\,t):t\in\mathbb{R}\}}\]
+
+    \textbf{Conclusión:} solución única $\forall\,k\neq1$; infinitas soluciones si $k=1$; el sistema nunca es incompatible.
+
+    \newpage
+    \item $\begin{cases} x + z = 0 \\ x + y = k \\ x + 2y + z = 2 \end{cases}$
+
+    \solucion
+    \[
+    \left(\begin{array}{ccc|c}
+    1 & 0 & 1 & 0 \\ 1 & 1 & 0 & k \\ 1 & 2 & 1 & 2
+    \end{array}\right)
+    \xrightarrow{F_2 \leftarrow F_2 - F_1 \atop F_3 \leftarrow F_3 - F_1}
+    \left(\begin{array}{ccc|c}
+    1 & 0 & 1 & 0 \\ 0 & 1 & -1 & k \\ 0 & 2 & 0 & 2
+    \end{array}\right)
+    \xrightarrow{F_3 \leftarrow F_3 - 2F_2}
+    \left(\begin{array}{ccc|c}
+    1 & 0 & 1 & 0 \\ 0 & 1 & -1 & k \\ 0 & 0 & 2 & 2-2k
+    \end{array}\right)
+    \]
+
+    El sistema tiene solución única para todo $k\in\mathbb{R}$:
+    \[
+    z = 1-k, \quad y = k+(1-k) = 1, \quad x = -(1-k) = k-1
+    \]
+    \[\boxed{C_S = \{(k-1,\,1,\,1-k)\} \quad \forall\,k\in\mathbb{R}}\]
+
+    \textbf{Conclusión:} solución única para todo $k\in\mathbb{R}$.
+
+    \item $\begin{cases} kx + y - z = 0 \\ x + 3y + z = 0 \\ 3x + 10y + 4z = 0 \end{cases}$
+
+    \solucion
+    \[
+    |A| = \begin{vmatrix}k&1&-1\\1&3&1\\3&10&4\end{vmatrix}
+    = k(12-10) - (4-3) + (-1)(10-9) = 2k - 1 - 1 = 2k-2
+    \]
+
+    \textbf{Caso $k \neq 1$:} $|A|\neq0$, $\text{rg}(A)=3=n$.
+    \[\boxed{C_S = \{(0,\,0,\,0)\}}\]
+
+    \textbf{Caso $k = 1$:}
+    \[
+    \left(\begin{array}{ccc|c}1&1&-1&0\\1&3&1&0\\3&10&4&0\end{array}\right)
+    \xrightarrow{F_2 \leftarrow F_2 - F_1 \atop F_3 \leftarrow F_3 - 3F_1}
+    \left(\begin{array}{ccc|c}1&1&-1&0\\0&2&2&0\\0&7&7&0\end{array}\right)
+    \xrightarrow{F_3 \leftarrow F_3 - \frac{7}{2}F_2}
+    \left(\begin{array}{ccc|c}1&1&-1&0\\0&2&2&0\\0&0&0&0\end{array}\right)
+    \]
+    $\text{rg}(A)=2 < n=3$, infinitas soluciones. Sea $z=\lambda$: $y=-\lambda$, $x=2\lambda$.
+    \[\boxed{C_S = \{(2\lambda,\,-\lambda,\,\lambda):\lambda\in\mathbb{R}\}}\]
+
+    \textbf{Conclusión:} solución trivial única $\forall\,k\neq1$; infinitas soluciones si $k=1$.
+
+    \item $\begin{cases} x + y + z = 0 \\ x - y + z = 0 \\ kx + z = 0 \end{cases}$
+
+    \solucion
+    \[
+    \left(\begin{array}{ccc|c}1&1&1&0\\1&-1&1&0\\k&0&1&0\end{array}\right)
+    \xrightarrow{F_2 \leftarrow F_2 - F_1}
+    \left(\begin{array}{ccc|c}1&1&1&0\\0&-2&0&0\\k&0&1&0\end{array}\right)
+    \xrightarrow{F_2 \leftarrow -\frac{1}{2}F_2}
+    \left(\begin{array}{ccc|c}1&1&1&0\\0&1&0&0\\k&0&1&0\end{array}\right)
+    \]
+    \[
+    \xrightarrow{F_3 \leftarrow F_3 - kF_1}
+    \left(\begin{array}{ccc|c}1&1&1&0\\0&1&0&0\\0&-k&1-k&0\end{array}\right)
+    \xrightarrow{F_3 \leftarrow F_3 + kF_2}
+    \left(\begin{array}{ccc|c}1&1&1&0\\0&1&0&0\\0&0&1-k&0\end{array}\right)
+    \]
+
+    \textbf{Caso $k \neq 1$:} $z=0$, $y=0$, $x=0$.
+    \[\boxed{C_S = \{(0,\,0,\,0)\}}\]
+
+    \textbf{Caso $k = 1$:} la tercera fila es $0=0$. Con $y=0$: $x+z=0 \Rightarrow x=-t$. Sea $z=t$:
+    \[\boxed{C_S = \{(-t,\,0,\,t):t\in\mathbb{R}\}}\]
+
+    \textbf{Conclusión:} solución trivial única $\forall\,k\neq1$; infinitas soluciones si $k=1$.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 10 ========================
+\section{Expresar el sistema de ecuaciones en forma matricial y determinar la solución utilizando la matriz inversa}
+
+\[
+\begin{cases}
+-x + y - z = 2 \\
+x + 2y - z = 0 \\
+3x - y + z = 1
+\end{cases}
+\]
+
+\solucion
+
+Se escribe el sistema en forma matricial $AX = B$:
+\[
+A = \begin{pmatrix}-1&1&-1\\1&2&-1\\3&-1&1\end{pmatrix}, \qquad
+X = \begin{pmatrix}x\\y\\z\end{pmatrix}, \qquad
+B = \begin{pmatrix}2\\0\\1\end{pmatrix}
+\]
+$AX=B \Rightarrow X = A^{-1}B$.
+
+Calculamos $|A|$ aplicando $F_3 \leftarrow F_3 + F_1$:
+\[
+A \sim \begin{pmatrix}2&0&0\\1&2&-1\\3&-1&1\end{pmatrix}
+\implies
+|A| = 2\cdot(-1)^{1+1}\begin{vmatrix}2&-1\\-1&1\end{vmatrix} = 2(2-1) = 2
+\]
+
+Calculamos los cofactores:
+\[
+\begin{aligned}
+C_{11} &= (+1)\begin{vmatrix}2&-1\\-1&1\end{vmatrix} = 2-1 = 1 &\quad
+C_{12} &= (-1)\begin{vmatrix}1&-1\\3&1\end{vmatrix} = -(1+3) = -4\\[4pt]
+C_{13} &= (+1)\begin{vmatrix}1&2\\3&-1\end{vmatrix} = -1-6 = -7 &\quad
+C_{21} &= (-1)\begin{vmatrix}1&-1\\-1&1\end{vmatrix} = -(1-1) = 0\\[4pt]
+C_{22} &= (+1)\begin{vmatrix}-1&-1\\3&1\end{vmatrix} = -1+3 = 2 &\quad
+C_{23} &= (-1)\begin{vmatrix}-1&1\\3&-1\end{vmatrix} = -(1-3) = 2\\[4pt]
+C_{31} &= (+1)\begin{vmatrix}1&-1\\2&-1\end{vmatrix} = -1+2 = 1 &\quad
+C_{32} &= (-1)\begin{vmatrix}-1&-1\\1&-1\end{vmatrix} = -(1+1) = -2\\[4pt]
+C_{33} &= (+1)\begin{vmatrix}-1&1\\1&2\end{vmatrix} = -2-1 = -3 &
+\end{aligned}
+\]
+\[
+\text{Cof}(A) = \begin{pmatrix}1&-4&-7\\0&2&2\\1&-2&-3\end{pmatrix}, \qquad
+\text{Adj}(A) = \begin{pmatrix}1&0&1\\-4&2&-2\\-7&2&-3\end{pmatrix}
+\]
+\[
+A^{-1} = \frac{1}{2}\begin{pmatrix}1&0&1\\-4&2&-2\\-7&2&-3\end{pmatrix}
+\]
+\[
+X = A^{-1}B = \frac{1}{2}\begin{pmatrix}1&0&1\\-4&2&-2\\-7&2&-3\end{pmatrix}
+\begin{pmatrix}2\\0\\1\end{pmatrix}
+= \frac{1}{2}\begin{pmatrix}3\\-10\\-17\end{pmatrix}
+= \begin{pmatrix}\frac{3}{2}\\[4pt]-5\\[4pt]-\frac{17}{2}\end{pmatrix}
+\]
+\[
+\therefore \quad x = \frac{3}{2},\quad y = -5,\quad z = -\frac{17}{2}
+\qquad \Rightarrow \qquad C_S = \left\{\left(\frac{3}{2},\,-5,\,-\frac{17}{2}\right)\right\}
+\]
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 11 ========================
+\section{Dados los siguientes sistemas clasificarlos usando el Teorema de Rouché-Frobenius}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\begin{cases} x + 3y - z = 0 \\ 5x - 3y + 2z = 0 \\ z - 2y + 4x = 0 \end{cases}$
+
+    \solucion
+
+    Reordenando: $4x - 2y + z = 0$.
+    \[
+    \left(\begin{array}{ccc|c}1&3&-1&0\\5&-3&2&0\\4&-2&1&0\end{array}\right)
+    \xrightarrow{F_2 \leftarrow F_2 - 5F_1 \atop F_3 \leftarrow F_3 - 4F_1}
+    \left(\begin{array}{ccc|c}1&3&-1&0\\0&-18&7&0\\0&-14&5&0\end{array}\right)
+    \]
+    \[
+    \xrightarrow{F_3 \leftarrow 9F_3 - 7F_2}
+    \left(\begin{array}{ccc|c}1&3&-1&0\\0&-18&7&0\\0&0&-4&0\end{array}\right)
+    \]
+    $\text{rg}(A) = \text{rg}(A|\mathbf{0}) = 3 = n$. \textbf{Sistema Compatible Determinado.}
+    \[C_S = \{(0,\,0,\,0)\}\]
+
+    \item $\begin{cases} 2x - 4y = 2 \\ -3x + 6y = -3 \\ x - 2y = 1 \end{cases}$
+
+    \solucion
+
+    Las tres ecuaciones son múltiplos de $x - 2y = 1$:
+    \[
+    \left(\begin{array}{cc|c}2&-4&2\\-3&6&-3\\1&-2&1\end{array}\right)
+    \xrightarrow{F_1 \leftarrow \frac{1}{2}F_1,\ F_2 \leftarrow -\frac{1}{3}F_2}
+    \left(\begin{array}{cc|c}1&-2&1\\1&-2&1\\1&-2&1\end{array}\right)
+    \xrightarrow{F_2 \leftarrow F_2-F_1 \atop F_3 \leftarrow F_3-F_1}
+    \left(\begin{array}{cc|c}1&-2&1\\0&0&0\\0&0&0\end{array}\right)
+    \]
+    $\text{rg}(A)=1$, $\text{rg}(A|B)=1$, $n=2$. Como $\text{rg}(A)=\text{rg}(A|B)<n$,
+    \textbf{Sistema Compatible Indeterminado} (infinitas soluciones).
+
+    \newpage
+    \item $\begin{cases} 3x + 6y - 3z = 9 \\ 2x + 4y - 2z = 6 \\ -x - 2y + z = -3 \end{cases}$
+
+    \solucion
+
+    Las tres ecuaciones son múltiplos de $-x-2y+z=-3$:
+    \[
+    \left(\begin{array}{ccc|c}3&6&-3&9\\2&4&-2&6\\-1&-2&1&-3\end{array}\right)
+    \xrightarrow{F_1 \leftarrow -\frac{1}{3}F_1,\ F_2 \leftarrow -\frac{1}{2}F_2}
+    \left(\begin{array}{ccc|c}-1&-2&1&-3\\-1&-2&1&-3\\-1&-2&1&-3\end{array}\right)
+    \xrightarrow{F_2\leftarrow F_2-F_1 \atop F_3\leftarrow F_3-F_1}
+    \left(\begin{array}{ccc|c}-1&-2&1&-3\\0&0&0&0\\0&0&0&0\end{array}\right)
+    \]
+    $\text{rg}(A)=1$, $\text{rg}(A|B)=1$, $n=3$. Como $\text{rg}(A)=\text{rg}(A|B)<n$,
+    \textbf{Sistema Compatible Indeterminado} (infinitas soluciones).
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 12 ========================
+\section{Problema de aplicación}
+
+Un productor agropecuario ordena tres tipos de fertilizantes A, B, C. Cada bolsa de fertilizante A cuesta \$3000, cada bolsa del B cuesta \$1500, y del C, \$500. Si realiza un pedido de 100 bolsas que le cuesta \$145000, determine la cantidad de bolsas de cada fertilizante, sabiendo que el número de bolsas del fertilizante C es el doble que el número de bolsas del fertilizante A.
+
+\solucion
+
+Sean $A$, $B$ y $C$ la cantidad de bolsas de cada fertilizante. El sistema es:
+\[
+\begin{cases}
+A + B + C = 100\\
+3000A + 1500B + 500C = 145000\\
+C = 2A
+\end{cases}
+\]
+
+Simplificando la segunda ecuación (dividiendo por 500) y reescribiendo:
+\[
+\begin{cases}
+A + B + C = 100\\
+6A + 3B + C = 290\\
+-2A + C = 0
+\end{cases}
+\]
+\[
+\left(\begin{array}{ccc|c}1&1&1&100\\6&3&1&290\\-2&0&1&0\end{array}\right)
+\xrightarrow{F_2 \leftarrow F_2 - 6F_1 \atop F_3 \leftarrow F_3 + 2F_1}
+\left(\begin{array}{ccc|c}1&1&1&100\\0&-3&-5&-310\\0&2&3&200\end{array}\right)
+\xrightarrow{F_3 \leftarrow 3F_3 + 2F_2}
+\left(\begin{array}{ccc|c}1&1&1&100\\0&-3&-5&-310\\0&0&-1&-20\end{array}\right)
+\]
+
+Por sustitución regresiva:
+\[
+C = 20, \qquad -3B = -310 + 5(20) = -210 \implies B = 70, \qquad A = 100 - 70 - 20 = 10
+\]
+
+\textbf{Verificación:}
+\[
+10+70+20=100\ \checkmark \qquad
+3000(10)+1500(70)+500(20)=145000\ \checkmark \qquad
+C=2A\Rightarrow20=2(10)\ \checkmark
+\]
+\[
+\therefore\quad\text{10 bolsas del fertilizante A, 70 bolsas del fertilizante B, 20 bolsas del fertilizante C.}
+\]
+
+\volverindice
+
+\end{document}
