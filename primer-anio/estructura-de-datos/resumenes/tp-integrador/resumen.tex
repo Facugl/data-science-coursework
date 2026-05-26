@@ -1,0 +1,725 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+\geometry{margin=2.5cm}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Resumen Teórico - IED}
+\lhead{UCASAL}
+\cfoot{\thepage}
+
+\title{\textbf{Resumen Teórico\\Introducción a la Estructura de Datos}}
+\author{Material de Estudio para Trabajo Final Integrador}
+\date{Mayo 2026}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section{Unidad 1: Modelos Matemáticos y Teoría de Grafos}
+
+\subsection{Conceptos Básicos de Grafos}
+
+\subsubsection{Definición}
+Un \textbf{grafo} $G = (V, E)$ está compuesto por:
+\begin{itemize}
+    \item $V$: Conjunto finito no vacío de \textbf{vértices} o nodos
+    \item $E$: Conjunto de \textbf{aristas} o arcos que conectan pares de vértices
+\end{itemize}
+
+\subsubsection{Tipos de Grafos}
+
+\paragraph{Grafo Dirigido (Dígrafo):}
+Las aristas tienen dirección. Se representa como $(v_i, v_j)$ donde la arista va desde $v_i$ hacia $v_j$.
+
+\paragraph{Grafo No Dirigido:}
+Las aristas no tienen dirección. La arista $\{v_i, v_j\}$ conecta ambos vértices bidireccionalmente.
+
+\subsubsection{Propiedades de Grafos}
+
+\paragraph{Conexidad:}
+\begin{itemize}
+    \item \textbf{Grafo Conexo:} Existe un camino entre cualquier par de vértices.
+    \item \textbf{Grafo No Conexo:} Existen vértices sin camino entre ellos.
+    \item \textbf{Componente Conexa:} Subgrafo conexo maximal.
+\end{itemize}
+
+\paragraph{Grafo Ponderado:}
+Un grafo donde cada arista tiene asociado un peso o costo numérico.
+$$w: E \rightarrow \mathbb{R}$$
+
+\paragraph{Grafo Maximal y Minimal:}
+\begin{itemize}
+    \item \textbf{Maximal:} No se pueden agregar más aristas sin violar alguna propiedad.
+    \item \textbf{Minimal:} No se pueden quitar aristas sin violar alguna propiedad.
+\end{itemize}
+
+\subsubsection{Representación de Grafos}
+
+\paragraph{Matriz de Adyacencia:}
+Matriz $A$ de tamaño $n \times n$ donde:
+$$A[i][j] = \begin{cases} 
+1 & \text{si existe arista de } v_i \text{ a } v_j \text{ (no ponderado)} \\
+w_{ij} & \text{peso de la arista (ponderado)} \\
+0 \text{ o } \infty & \text{si no existe arista}
+\end{cases}$$
+
+\textbf{Ejemplo:} Para un grafo con 4 vértices $\{A, B, C, D\}$ con aristas $A-B$, $B-C$, $C-D$:
+
+$$\begin{bmatrix}
+0 & 1 & 0 & 0 \\
+1 & 0 & 1 & 0 \\
+0 & 1 & 0 & 1 \\
+0 & 0 & 1 & 0
+\end{bmatrix}$$
+
+\paragraph{Lista de Adyacencia:}
+Para cada vértice, se mantiene una lista de sus vértices adyacentes.
+
+\textbf{Ejemplo:}
+\begin{verbatim}
+A -> [B]
+B -> [A, C]
+C -> [B, D]
+D -> [C]
+\end{verbatim}
+
+\subsection{Conceptos Adicionales}
+
+\paragraph{Grado de un Vértice:}
+\begin{itemize}
+    \item \textbf{Grafo no dirigido:} Número de aristas incidentes.
+    \item \textbf{Grafo dirigido:} 
+    \begin{itemize}
+        \item \textit{Grado de entrada:} Aristas que llegan al vértice
+        \item \textit{Grado de salida:} Aristas que salen del vértice
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Camino:} Secuencia de vértices $v_1, v_2, ..., v_k$ donde existe arista entre vértices consecutivos.
+
+\paragraph{Ciclo:} Camino donde el vértice inicial coincide con el final.
+
+\newpage
+
+\section{Unidad 2: Estructuras Lineales de Datos}
+
+\subsection{Listas}
+
+\subsubsection{Definición}
+Una \textbf{lista} es una colección ordenada de elementos del mismo tipo, donde cada elemento tiene una posición específica.
+
+\subsubsection{Tipos de Listas}
+
+\paragraph{Lista Secuencial:}
+Los elementos se almacenan en posiciones contiguas de memoria (array).
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item Acceso directo por índice: $O(1)$
+    \item Eficiente en uso de memoria
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item Inserción/eliminación costosa: $O(n)$
+    \item Tamaño fijo
+\end{itemize}
+
+\paragraph{Lista Enlazada (Linkeada):}
+Los elementos se almacenan en nodos, cada uno con un puntero al siguiente.
+
+\textbf{Estructura de un Nodo:}
+\begin{verbatim}
+struct Nodo {
+    dato: TipoDato
+    siguiente: Puntero a Nodo
+}
+\end{verbatim}
+
+\textbf{Ventajas:}
+\begin{itemize}
+    \item Inserción/eliminación eficiente: $O(1)$ si se tiene el puntero
+    \item Tamaño dinámico
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item Acceso secuencial: $O(n)$
+    \item Mayor uso de memoria (punteros)
+\end{itemize}
+
+\subsection{Pila (Stack)}
+
+\subsubsection{Definición}
+Estructura LIFO (\textit{Last In, First Out}): el último elemento en entrar es el primero en salir.
+
+\subsubsection{Operaciones Básicas}
+\begin{itemize}
+    \item \texttt{Push(x)}: Agregar elemento $x$ al tope
+    \item \texttt{Pop()}: Eliminar y retornar el elemento del tope
+    \item \texttt{Top()} o \texttt{Peek()}: Consultar el elemento del tope sin eliminarlo
+    \item \texttt{isEmpty()}: Verificar si la pila está vacía
+\end{itemize}
+
+\subsubsection{Ejemplo Práctico}
+\begin{verbatim}
+Operaciones:        Pila resultante:
+Push(5)             [5]
+Push(3)             [5, 3]
+Push(8)             [5, 3, 8]  <- Tope
+Pop()               [5, 3]     (retorna 8)
+Push(1)             [5, 3, 1]  <- Tope
+\end{verbatim}
+
+\subsection{Cola (Queue)}
+
+\subsubsection{Definición}
+Estructura FIFO (\textit{First In, First Out}): el primer elemento en entrar es el primero en salir.
+
+\subsubsection{Operaciones Básicas}
+\begin{itemize}
+    \item \texttt{Enqueue(x)} o \texttt{Insert(x)}: Agregar elemento $x$ al final
+    \item \texttt{Dequeue()} o \texttt{Remove()}: Eliminar y retornar el elemento del frente
+    \item \texttt{Front()}: Consultar el elemento del frente sin eliminarlo
+    \item \texttt{isEmpty()}: Verificar si la cola está vacía
+\end{itemize}
+
+\subsubsection{Ejemplo Práctico}
+\begin{verbatim}
+Operaciones:           Cola resultante:
+Enqueue(7)             [7]
+Enqueue(3)             [7, 3]
+Enqueue(9)             [7, 3, 9]
+Dequeue()              [3, 9]      (retorna 7)
+Enqueue(2)             [3, 9, 2]
+                       ^Frente    ^Final
+\end{verbatim}
+
+\subsection{Asignación Dinámica de Memoria}
+
+\paragraph{Concepto:}
+Permite solicitar memoria durante la ejecución del programa según sea necesario.
+
+\paragraph{Operaciones:}
+\begin{itemize}
+    \item \texttt{malloc()} / \texttt{new}: Reservar memoria
+    \item \texttt{free()} / \texttt{delete}: Liberar memoria
+\end{itemize}
+
+\subsection{Lista Irrestricta}
+
+\paragraph{Definición:}
+Lista donde se pueden realizar operaciones de inserción y eliminación en cualquier posición, no solo en los extremos.
+
+\paragraph{Operaciones:}
+\begin{itemize}
+    \item Insertar en posición $i$
+    \item Eliminar en posición $i$
+    \item Buscar elemento
+    \item Recorrer la lista
+\end{itemize}
+
+\newpage
+
+\section{Unidad 3: Árboles}
+
+\subsection{Definiciones Básicas}
+
+\subsubsection{Árbol}
+Estructura jerárquica compuesta por nodos conectados por aristas, donde:
+\begin{itemize}
+    \item Existe un nodo especial llamado \textbf{raíz}
+    \item Cada nodo puede tener cero o más \textbf{hijos}
+    \item No existen ciclos
+\end{itemize}
+
+\subsubsection{Terminología}
+\begin{itemize}
+    \item \textbf{Raíz:} Nodo superior sin padre
+    \item \textbf{Hoja:} Nodo sin hijos
+    \item \textbf{Nodo Interno:} Nodo con al menos un hijo
+    \item \textbf{Padre:} Nodo predecesor directo
+    \item \textbf{Hijo:} Nodo sucesor directo
+    \item \textbf{Hermanos:} Nodos con el mismo padre
+    \item \textbf{Subárbol:} Árbol formado por un nodo y todos sus descendientes
+    \item \textbf{Nivel:} Distancia desde la raíz (la raíz está en nivel 0)
+    \item \textbf{Altura:} Máximo nivel del árbol (longitud del camino más largo desde la raíz a una hoja)
+    \item \textbf{Profundidad de un nodo:} Longitud del camino desde la raíz hasta ese nodo
+\end{itemize}
+
+\subsection{Árboles Binarios}
+
+\subsubsection{Definición}
+Árbol donde cada nodo tiene \textbf{como máximo dos hijos}: hijo izquierdo e hijo derecho.
+
+\subsubsection{Tipos de Árboles Binarios}
+
+\paragraph{Árbol Binario Completo:}
+Todos los niveles están completamente llenos, excepto posiblemente el último, que se llena de izquierda a derecha.
+
+\paragraph{Árbol Binario Lleno:}
+Todos los nodos internos tienen exactamente 2 hijos.
+
+\paragraph{Árbol Binario Perfecto:}
+Todos los niveles están completamente llenos. Tiene $2^{h+1} - 1$ nodos, donde $h$ es la altura.
+
+\paragraph{Árbol Binario Degenerado:}
+Cada nodo tiene solo un hijo (similar a una lista enlazada).
+
+\subsubsection{Propiedades}
+\begin{itemize}
+    \item Número máximo de nodos en nivel $i$: $2^i$
+    \item Número máximo de nodos en árbol de altura $h$: $2^{h+1} - 1$
+    \item Altura mínima con $n$ nodos: $\lceil \log_2(n+1) \rceil - 1$
+\end{itemize}
+
+\subsection{Recorridos de Árboles Binarios}
+
+\subsubsection{Pre-orden (Raíz-Izquierda-Derecha)}
+\begin{algorithm}[H]
+\caption{Recorrido Pre-orden}
+\begin{algorithmic}
+\Procedure{PreOrden}{nodo}
+    \If{nodo $\neq$ null}
+        \State Visitar(nodo)
+        \State PreOrden(nodo.izquierdo)
+        \State PreOrden(nodo.derecho)
+    \EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{In-orden (Izquierda-Raíz-Derecha)}
+\begin{algorithm}[H]
+\caption{Recorrido In-orden}
+\begin{algorithmic}
+\Procedure{InOrden}{nodo}
+    \If{nodo $\neq$ null}
+        \State InOrden(nodo.izquierdo)
+        \State Visitar(nodo)
+        \State InOrden(nodo.derecho)
+    \EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Post-orden (Izquierda-Derecha-Raíz)}
+\begin{algorithm}[H]
+\caption{Recorrido Post-orden}
+\begin{algorithmic}
+\Procedure{PostOrden}{nodo}
+    \If{nodo $\neq$ null}
+        \State PostOrden(nodo.izquierdo)
+        \State PostOrden(nodo.derecho)
+        \State Visitar(nodo)
+    \EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Ejemplo de Recorridos}
+Para el árbol:
+\begin{verbatim}
+      A
+     / \
+    B   C
+   / \
+  D   E
+\end{verbatim}
+
+\begin{itemize}
+    \item \textbf{Pre-orden:} A, B, D, E, C
+    \item \textbf{In-orden:} D, B, E, A, C
+    \item \textbf{Post-orden:} D, E, B, C, A
+\end{itemize}
+
+\subsection{Árboles Balanceados}
+
+\subsubsection{Definición}
+Un árbol está \textbf{balanceado} si para cada nodo, la diferencia de altura entre su subárbol izquierdo y derecho es como máximo 1.
+
+\subsubsection{Factor de Balance}
+$$FB(nodo) = \text{altura(subárbol\_izquierdo)} - \text{altura(subárbol\_derecho)}$$
+
+Un árbol está balanceado si: $|FB(nodo)| \leq 1$ para todo nodo.
+
+\subsection{Árboles N-arios}
+
+\subsubsection{Definición}
+Árbol donde cada nodo puede tener un número arbitrario de hijos.
+
+\subsubsection{Transformada de Knuth}
+Técnica para convertir un árbol N-ario en un árbol binario:
+\begin{itemize}
+    \item El \textbf{primer hijo} de un nodo se convierte en su \textbf{hijo izquierdo}
+    \item El \textbf{siguiente hermano} se convierte en su \textbf{hijo derecho}
+\end{itemize}
+
+\textbf{Ejemplo:}
+\begin{verbatim}
+Árbol N-ario:        Árbol Binario (Knuth):
+      A                    A
+    / | \                 /
+   B  C  D               B
+  /|                      \
+ E F                       C
+                            \
+                             D
+                            /
+                           E
+                            \
+                             F
+\end{verbatim}
+
+\newpage
+
+\section{Unidad 4: Acceso de Datos}
+
+\subsection{Tablas de Símbolos}
+
+\subsubsection{Definición}
+Estructura de datos que permite almacenar pares \textit{(clave, valor)} con las operaciones:
+\begin{itemize}
+    \item \texttt{Insert(clave, valor)}
+    \item \texttt{Search(clave)} $\rightarrow$ valor
+    \item \texttt{Delete(clave)}
+\end{itemize}
+
+\subsubsection{Costos de Acceso}
+\begin{itemize}
+    \item \textbf{Búsqueda secuencial:} $O(n)$
+    \item \textbf{Búsqueda binaria (arreglo ordenado):} $O(\log n)$
+    \item \textbf{Árbol de búsqueda:} $O(h)$ donde $h$ es la altura
+    \item \textbf{Tabla Hash:} $O(1)$ promedio
+\end{itemize}
+
+\subsection{Árboles de Búsqueda Binaria (ABB)}
+
+\subsubsection{Definición}
+Árbol binario donde para cada nodo:
+\begin{itemize}
+    \item Todos los valores del subárbol izquierdo son \textbf{menores}
+    \item Todos los valores del subárbol derecho son \textbf{mayores}
+\end{itemize}
+
+\subsubsection{Operaciones}
+
+\paragraph{Búsqueda:}
+\begin{algorithm}[H]
+\caption{Búsqueda en ABB}
+\begin{algorithmic}
+\Procedure{Buscar}{nodo, clave}
+    \If{nodo = null}
+        \State \Return null
+    \EndIf
+    \If{clave = nodo.valor}
+        \State \Return nodo
+    \ElsIf{clave < nodo.valor}
+        \State \Return Buscar(nodo.izquierdo, clave)
+    \Else
+        \State \Return Buscar(nodo.derecho, clave)
+    \EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Inserción:}
+Similar a búsqueda, pero se agrega el nodo en la posición correspondiente.
+
+\paragraph{Eliminación:}
+Casos:
+\begin{enumerate}
+    \item Nodo hoja: Se elimina directamente
+    \item Nodo con un hijo: Se reemplaza por su hijo
+    \item Nodo con dos hijos: Se reemplaza por su predecesor o sucesor in-orden
+\end{enumerate}
+
+\subsection{Árboles AVL}
+
+\subsubsection{Definición}
+ABB autobalanceado donde el factor de balance de cada nodo es $-1$, $0$ o $1$.
+
+\subsubsection{Rotaciones}
+Para mantener el balance después de inserciones/eliminaciones:
+
+\paragraph{Rotación Simple a la Derecha:}
+Usada cuando el subárbol izquierdo del hijo izquierdo causa desbalance.
+
+\paragraph{Rotación Simple a la Izquierda:}
+Usada cuando el subárbol derecho del hijo derecho causa desbalance.
+
+\paragraph{Rotación Doble Izquierda-Derecha:}
+Usada cuando el subárbol derecho del hijo izquierdo causa desbalance.
+
+\paragraph{Rotación Doble Derecha-Izquierda:}
+Usada cuando el subárbol izquierdo del hijo derecho causa desbalance.
+
+\subsection{Hashing}
+
+\subsubsection{Concepto}
+Técnica que utiliza una función hash para mapear claves a posiciones en una tabla.
+
+$$h: K \rightarrow \{0, 1, ..., m-1\}$$
+
+donde $K$ es el conjunto de claves y $m$ es el tamaño de la tabla.
+
+\subsubsection{Funciones de Transformación}
+
+\paragraph{Método de División:}
+$$h(k) = k \bmod m$$
+
+donde $m$ es generalmente un número primo.
+
+\paragraph{Método de Multiplicación:}
+$$h(k) = \lfloor m \cdot (k \cdot A \bmod 1) \rfloor$$
+
+donde $0 < A < 1$ (comúnmente $A \approx 0.618$).
+
+\paragraph{Para Cadenas de Caracteres:}
+Convertir cada carácter a su código ASCII y aplicar una función:
+$$h(s) = \left(\sum_{i=0}^{n-1} ASCII(s[i]) \cdot 31^i\right) \bmod m$$
+
+\textbf{Ejemplo con método de división:}
+\begin{verbatim}
+Clave: "Hola"
+Conversión: H(72) + o(111) + l(108) + a(97) = 388
+Con m = 50: h("Hola") = 388 mod 50 = 38
+\end{verbatim}
+
+\subsubsection{Colisiones}
+
+\paragraph{Definición:}
+Ocurre cuando dos claves diferentes producen el mismo valor hash: $h(k_1) = h(k_2)$ con $k_1 \neq k_2$.
+
+\paragraph{Resolución por Encadenamiento:}
+Cada posición de la tabla contiene una lista enlazada con todos los elementos que tienen ese hash.
+
+\paragraph{Resolución por Direccionamiento Abierto:}
+\begin{itemize}
+    \item \textbf{Prueba Lineal:} $h'(k, i) = (h(k) + i) \bmod m$
+    \item \textbf{Prueba Cuadrática:} $h'(k, i) = (h(k) + c_1 \cdot i + c_2 \cdot i^2) \bmod m$
+    \item \textbf{Hash Doble:} $h'(k, i) = (h_1(k) + i \cdot h_2(k)) \bmod m$
+\end{itemize}
+
+\subsection{Árboles B}
+
+\subsubsection{Definición}
+Árbol de búsqueda N-ario balanceado optimizado para acceso a disco, donde:
+\begin{itemize}
+    \item Cada nodo puede contener múltiples claves
+    \item Todas las hojas están al mismo nivel
+    \item Se mantiene un orden de $t$ (grado mínimo)
+\end{itemize}
+
+\subsubsection{Propiedades del Árbol B de orden $t$:}
+\begin{itemize}
+    \item Cada nodo (excepto la raíz) tiene entre $t-1$ y $2t-1$ claves
+    \item Cada nodo interno (excepto la raíz) tiene entre $t$ y $2t$ hijos
+    \item La raíz tiene al menos 1 clave
+    \item Todas las hojas están al mismo nivel
+\end{itemize}
+
+\newpage
+
+\section{Ejemplos Prácticos Adicionales}
+
+\subsection{Ejemplo: Operaciones con Pila y Cola}
+
+\textbf{Situación:} Dada la lista: [12, 7, 18, 5, 9, 14]
+
+\textbf{Proceso:}
+\begin{itemize}
+    \item Elementos pares (12, 18, 14) $\rightarrow$ Pila: [12, 18, 14] (tope en 14)
+    \item Elementos impares (7, 5, 9) $\rightarrow$ Cola: [7, 5, 9]
+    \item Promedio de la pila: $(12 + 18 + 14) / 3 = 14.67$
+\end{itemize}
+
+\subsection{Ejemplo: Recorrido de Árbol}
+
+Para el árbol:
+\begin{verbatim}
+        15
+       /  \
+      10   20
+     / \   / \
+    5  12 18 25
+\end{verbatim}
+
+\begin{itemize}
+    \item \textbf{Tipo:} Árbol binario de búsqueda
+    \item \textbf{Completo:} Sí
+    \item \textbf{Altura:} 2
+    \item \textbf{Balanceado:} Sí (FB = 0 para todos los nodos)
+    \item \textbf{Pre-orden:} 15, 10, 5, 12, 20, 18, 25
+    \item \textbf{In-orden:} 5, 10, 12, 15, 18, 20, 25
+    \item \textbf{Post-orden:} 5, 12, 10, 18, 25, 20, 15
+\end{itemize}
+
+\subsection{Ejemplo: Hashing con Método de División}
+
+\textbf{Claves:} ``Ana'', ``Juan'', ``María'', ``Pedro''\\
+\textbf{Tabla:} $m = 50$
+
+\textbf{Conversión ASCII y cálculo:}
+\begin{align*}
+\text{Ana} &= 65 + 110 + 97 = 272 \rightarrow 272 \bmod 50 = 22\\
+\text{Juan} &= 74 + 117 + 97 + 110 = 398 \rightarrow 398 \bmod 50 = 48\\
+\text{María} &= 77 + 97 + 114 + 237 + 97 = 622 \rightarrow 622 \bmod 50 = 22\\
+\text{Pedro} &= 80 + 101 + 100 + 114 + 111 = 506 \rightarrow 506 \bmod 50 = 6
+\end{align*}
+
+\textbf{Nota:} ``Ana'' y ``María'' tienen colisión en la posición 22.
+
+\newpage
+
+\section{Algoritmos Fundamentales}
+
+\subsection{Algoritmo de Recorrido de Lista con Pila y Cola}
+
+\begin{algorithm}[H]
+\caption{Procesar Lista en Pila y Cola}
+\begin{algorithmic}
+\Procedure{ProcesarLista}{lista}
+    \State pila $\leftarrow$ nueva Pila()
+    \State cola $\leftarrow$ nueva Cola()
+    \State suma\_pila $\leftarrow$ 0
+    \State contador\_pila $\leftarrow$ 0
+    
+    \For{cada elemento en lista}
+        \If{elemento mod 2 = 0} \Comment{Es par}
+            \State pila.push(elemento)
+            \State suma\_pila $\leftarrow$ suma\_pila + elemento
+            \State contador\_pila $\leftarrow$ contador\_pila + 1
+        \Else \Comment{Es impar}
+            \State cola.enqueue(elemento)
+        \EndIf
+    \EndFor
+    
+    \State Mostrar(pila)
+    \State Mostrar(cola)
+    
+    \If{contador\_pila > 0}
+        \State promedio $\leftarrow$ suma\_pila / contador\_pila
+        \State Mostrar(``Promedio de pila:'', promedio)
+    \EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Verificación de Balance en Árbol}
+
+\begin{algorithm}[H]
+\caption{Verificar si un árbol está balanceado}
+\begin{algorithmic}
+\Procedure{CalcularAltura}{nodo}
+    \If{nodo = null}
+        \State \Return -1
+    \EndIf
+    \State \Return $1 + \max($CalcularAltura(nodo.izq), CalcularAltura(nodo.der)$)$
+\EndProcedure
+
+\Procedure{EstaBalanceado}{nodo}
+    \If{nodo = null}
+        \State \Return true
+    \EndIf
+    
+    \State altura\_izq $\leftarrow$ CalcularAltura(nodo.izquierdo)
+    \State altura\_der $\leftarrow$ CalcularAltura(nodo.derecho)
+    \State factor\_balance $\leftarrow$ altura\_izq - altura\_der
+    
+    \If{$|$factor\_balance$| > 1$}
+        \State \Return false
+    \EndIf
+    
+    \State \Return EstaBalanceado(nodo.izq) AND EstaBalanceado(nodo.der)
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\newpage
+
+\section{Complejidades Temporales - Resumen}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Estructura} & \textbf{Búsqueda} & \textbf{Inserción} & \textbf{Eliminación} \\
+\hline
+Array (desordenado) & $O(n)$ & $O(1)$ & $O(n)$ \\
+Array (ordenado) & $O(\log n)$ & $O(n)$ & $O(n)$ \\
+Lista Enlazada & $O(n)$ & $O(1)^*$ & $O(1)^*$ \\
+Pila & - & $O(1)$ & $O(1)$ \\
+Cola & - & $O(1)$ & $O(1)$ \\
+ABB (balanceado) & $O(\log n)$ & $O(\log n)$ & $O(\log n)$ \\
+ABB (degenerado) & $O(n)$ & $O(n)$ & $O(n)$ \\
+AVL & $O(\log n)$ & $O(\log n)$ & $O(\log n)$ \\
+Hash (ideal) & $O(1)$ & $O(1)$ & $O(1)$ \\
+Árbol B & $O(\log n)$ & $O(\log n)$ & $O(\log n)$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\small{*Si se tiene el puntero al nodo}
+
+\section{Consejos para el Trabajo Integrador}
+
+\subsection{Análisis de Grafos}
+\begin{enumerate}
+    \item Identificar vértices y aristas
+    \item Verificar dirección de las aristas
+    \item Comprobar conectividad (¿hay camino entre todos los pares?)
+    \item Verificar si hay pesos en las aristas
+    \item Construir la matriz siguiendo el orden de los vértices
+\end{enumerate}
+
+\subsection{Trabajar con Pilas y Colas}
+\begin{enumerate}
+    \item Identificar claramente el criterio de separación
+    \item Mantener el orden LIFO para pilas (último que entra, primero que sale)
+    \item Mantener el orden FIFO para colas (primero que entra, primero que sale)
+    \item Para promedios: sumar todos los elementos y dividir por la cantidad
+\end{enumerate}
+
+\subsection{Análisis de Árboles}
+\begin{enumerate}
+    \item Identificar la raíz y los nodos hoja
+    \item Calcular la altura contando niveles desde 0
+    \item Para verificar balance: calcular altura de subárboles izquierdo y derecho
+    \item Para recorridos: seguir estrictamente el orden indicado (pre/in/post)
+    \item Un árbol es completo si todos los niveles están llenos excepto posiblemente el último
+\end{enumerate}
+
+\subsection{Hashing}
+\begin{enumerate}
+    \item Convertir cada carácter a su valor ASCII
+    \item Sumar todos los valores
+    \item Aplicar módulo $m$ (el tamaño de la tabla)
+    \item Documentar claramente los cálculos
+    \item Identificar posibles colisiones (mismo resultado para claves diferentes)
+\end{enumerate}
+
+\vfill
+
+\begin{center}
+\textit{Este resumen cubre todos los conceptos teóricos necesarios\\para resolver el Trabajo Final Integrador de Introducción a la Estructura de Datos.}
+
+\vspace{1em}
+
+\textbf{¡Éxitos en el examen!}
+\end{center}
+
+\end{document}
