@@ -10,7 +10,7 @@
 % COLOR Y TABLAS CON COLOR
 % ============================================================
 \usepackage[dvipsnames]{xcolor}
-\usepackage{colortbl}   % necesario para \rowcolor en tablas
+\usepackage{colortbl}
 
 % ============================================================
 % MÁRGENES Y GEOMETRÍA
@@ -198,7 +198,6 @@
     ->,
     >=Stealth
 ]
-    % Estilo de nodos del grafo (separado del estilo global)
     \tikzset{
         vertice/.style={circle, draw, thick, minimum size=0.85cm, font=\bfseries},
         peso/.style={font=\small, fill=white, inner sep=2pt}
@@ -206,23 +205,23 @@
 
     % Nodos
     \node[vertice] (5) at (0, 0)     {5};
-    \node[vertice] (2) at (3, 0)     {2};
-    \node[vertice] (1) at (4.5,-1) {1};
+    \node[vertice] (2) at (6, 0)     {2};
+    \node[vertice] (1) at (7.5,-1)   {1};
     \node[vertice] (4) at (1.2,-1.8) {4};
     \node[vertice] (6) at (0, -3.6)  {6};
-    \node[vertice] (3) at (3, -3.6)  {3};
+    \node[vertice] (3) at (6, -3.6)  {3};
 
     % Aristas
-    \draw (5) to node[peso, above]       {10} (2);
-    \draw (2) to[bend left=15]  node[peso, above right] {2} (1);
-    \draw (1) to[bend left=15]  node[peso, below left]  {20}  (2);
-    \draw (2) to node[peso, above left]  {30} (4);
-    \draw (2) to node[peso, right]       {4}  (3);
-    \draw (4) to node[peso, above right]  {15} (5);
-    \draw (4) to node[peso, below right]        {4}  (6);
-    \draw (6) to node[peso, left]        {10} (5);
-    \draw (6) to node[peso, below]       {10} (3);
-    \draw (3) to node[peso, below right] {5}  (1);
+    \draw (5) to node[peso, above right]        {15} (4);
+    \draw (2) to[bend left=15]  node[peso, above right] {2}  (1);
+    \draw (2) to[bend left=15]  node[peso, above left]  {30} (6);
+    \draw (2) to[bend left=15]  node[peso, above]       {10} (5);
+    \draw (1) to[bend left=15]  node[peso, below left]  {20} (2);
+    \draw (1) to[bend left=15]  node[peso, below right] {5}  (3);
+    \draw (3) to node[peso, right]              {4}  (2);
+    \draw (6) to node[peso, left]               {10} (5);
+    \draw (6) to node[peso, above left]         {4}  (4);
+    \draw (3) to node[peso, below right]        {10} (6);
 \end{tikzpicture}
 \caption{Grafo a analizar}
 \label{fig:grafo}
@@ -242,18 +241,22 @@
 \solucion
 
 \begin{itemize}[leftmargin=2cm]
-    \item \textbf{Dirigido o no dirigido:} Es un grafo \textbf{dirigido}, ya que se puede observar que cada arista posee un sentido definido.
+    \item \textbf{Dirigido o no dirigido:} Es un grafo \textbf{dirigido},
+    ya que cada arista tiene una dirección definida por una flecha.
 
-    \item \textbf{Conexo:} El grafo \textbf{no es conexo}. Existen ciertos nodos 
-    a los cuales no se puede acceder desde cada nodo del grafo siguiendo la 
-    dirección de las aristas.
+    \item \textbf{Conexo:} El grafo es \textbf{débilmente conexo}: ignorando
+    las direcciones de las aristas, el grafo subyacente es conexo.
+    Sin embargo, \textbf{no es fuertemente conexo}, ya que el nodo~4 no posee
+    aristas de salida, por lo que no es posible alcanzar ningún otro nodo
+    partiendo desde él.
 
-    \item \textbf{Ponderado:} El grafo \textbf{es ponderado}, ya que se puede observar que cada arista 
-    tiene asociado un peso numérico.
+    \item \textbf{Ponderado:} El grafo \textbf{es ponderado}, ya que cada
+    arista tiene un peso numérico asociado.
 
-    \item \textbf{Maximal / Minimal:} El grafo \textbf{no posee ningún nodo maximal}. 
-    Sin embargo, \textbf{sí posee nodos minimales}; por ejemplo, el nodo~4, 
-    del cual no parte ninguna arista de salida.
+    \item \textbf{Maximal / Minimal:} El grafo \textbf{no es maximal} ni \textbf{minimal}.
+    No es maximal porque no contiene todas las aristas posibles entre sus vértices.
+    No es minimal porque contiene ciclos —por ejemplo $1 \to 2 \to 1$—,
+    por lo que podrían eliminarse aristas y el grafo seguiría siendo conexo.
 \end{itemize}
 
 \subsection{Matriz de adyacencia}
@@ -266,18 +269,17 @@ La matriz de adyacencia $A$ para los nodos $\{1,2,3,4,5,6\}$ es:
 
 \[
 A = \begin{pmatrix}
-      & 1 & 2 & 3 & 4 & 5 & 6 \\
-    1 & 0 & 1 & 1 & 0 & 0 & 0 \\
-    2 & 1 & 0 & 0 & 0 & 1 & 1 \\
-    3 & 0 & 1 & 0 & 0 & 0 & 1 \\
-    4 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    5 & 0 & 0 & 0 & 1 & 0 & 0 \\
-    6 & 0 & 0 & 1 & 1 & 1 & 0 \\
+      & 1  & 2  & 3  & 4  & 5  & 6  \\
+    1 & 0  & 20 & 5  & 0  & 0  & 0  \\
+    2 & 2  & 0  & 0  & 0  & 10 & 30 \\
+    3 & 0  & 4  & 0  & 0  & 0  & 10 \\
+    4 & 0  & 0  & 0  & 0  & 0  & 0  \\
+    5 & 0  & 0  & 0  & 15 & 0  & 0  \\
+    6 & 0  & 0  & 0  & 4  & 10 & 0  \\
 \end{pmatrix}
 \]
-
-donde $A_{ij} = 1$ indica que existe una arista dirigida desde el nodo $i$ 
-hacia el nodo $j$, y $A_{ij} = 0$ indica su ausencia.
+donde $A_{ij} = w$ indica que existe una arista dirigida desde el nodo $i$
+hacia el nodo $j$ con peso $w$, y $A_{ij} = 0$ indica su ausencia.
 
 \volverindice
 
@@ -289,19 +291,18 @@ hacia el nodo $j$, y $A_{ij} = 0$ indica su ausencia.
 
 \textit{Desarrollar un algoritmo de pasos básicos que me permita recorrer una lista y:}
 
-\textit{a) Al encontrarse un elemento par, deberá generar y mostrar una pila, caso distinto, 
-al encontrarse con un elemento impar, deberá generar y mostrar una cola resultante conteniendo 
-los números impares.}
+\textit{a) Al encontrarse un elemento par, deberá generar y mostrar una pila; caso
+distinto, al encontrarse con un elemento impar, deberá generar y mostrar una cola
+resultante conteniendo los números impares.}
 
-\textit{a) Mostrar el promedio de los elementos de la pila P1.}
+\textit{b) Mostrar el promedio de los elementos de la pila P1.}
 
 \solucion
 
-El algoritmo recorre primero la lista completa para validar que todos los
-elementos sean números enteros. Si encuentra algún elemento inválido, informa
-el error y detiene la ejecución antes de reservar memoria para las estructuras
-auxiliares. Una vez validada la lista, la recorre nuevamente: por cada elemento
-par lo apila en una \texttt{pila} y por cada elemento impar lo encola  una \texttt{cola}.
+El algoritmo valida primero que todos los elementos sean enteros.
+Si hay alguno inválido, informa el error y termina.
+De lo contrario, recorre la lista y apila los pares o encola los impares
+según corresponda, para luego calcular el promedio de la pila.
 
 \newpage
 \begin{lstlisting}[style=estilo_base, language=Java]
@@ -334,7 +335,7 @@ public class Ejercicio02 {
         System.out.println("Lista original: " + Arrays.toString(list));
         System.out.println("Pila Auxiliar (pares):   " + pila);
         System.out.println("Cola Auxiliar (impares): " + cola);
-        
+
         for (Integer par : pila) {
             suma += par; // acumulo para luego dividir por el tamaño de la pila
         }
@@ -346,7 +347,7 @@ public class Ejercicio02 {
 \end{lstlisting}
 
 \newpage
-\textbf{Salida — caso exitoso} (todos los elementos son enteros):
+\textbf{Salida --- caso exitoso} (todos los elementos son enteros):
 
 \begin{lstlisting}[style=estilo_base, language={}, numbers=none]
 item a)
@@ -357,7 +358,7 @@ item b)
 El Promedio de la Pila Auxiliar es: 4.0
 \end{lstlisting}
 
-\textbf{Salida — caso de error} (la lista contiene un elemento no entero,
+\textbf{Salida --- caso de error} (la lista contiene un elemento no entero,
 p.\,ej.\ \texttt{"hola"} en la posición 2):
 
 \begin{lstlisting}[style=estilo_base, language={}, numbers=none]
@@ -418,17 +419,19 @@ Error: 'hola' no es un número entero.
 \solucion
 
 \begin{itemize}[leftmargin=2cm]
-    \item \textbf{Tipo de árbol:} Es un \textbf{árbol binario de búsqueda (ABB)}. 
-    \textbf{No es completo}, dado que el nodo~1 no posee hijos.
+    \item \textbf{Tipo de árbol:} Es un \textbf{árbol binario de búsqueda (ABB)}.
+    \textbf{No es completo}, ya que el nodo~10 no tiene hijo izquierdo,
+    lo que rompe el requisito de que los nodos del último nivel estén
+    alineados a la izquierda.
 
-    \item \textbf{Altura:} Considerando la raíz con altura~1, el árbol 
+    \item \textbf{Altura:} Considerando la raíz con altura~1, el árbol
     tiene \textbf{altura~4}.
 
-    \item \textbf{Balanceo:} El árbol \textbf{no está balanceado}. 
-    Para determinarlo se calcula el Factor de Balance (FB) de cada nodo, 
+    \item \textbf{Balanceo:} El árbol \textbf{no está balanceado}.
+    Para determinarlo se calcula el Factor de Balance (FB) de cada nodo,
     definido como:
     \[
-        FB(n) = \text{altura\_subárbol\_izquierdo}(n) - 
+        FB(n) = \text{altura\_subárbol\_izquierdo}(n) -
                 \text{altura\_subárbol\_derecho}(n)
     \]
 
@@ -451,14 +454,14 @@ Error: 'hola' no es un número entero.
         \bottomrule
     \end{tabular}
     \end{center}
-    El nodo~10 tiene $FB = -2$, valor fuera del rango $[-1, 1]$ 
-    exigido por un árbol AVL. Por lo tanto, el árbol se considera 
+    El nodo~10 tiene $FB = -2$, valor fuera del rango $[-1, 1]$
+    exigido por un árbol AVL. Por lo tanto, el árbol se considera
     \textbf{desbalanceado}.
 \end{itemize}
 
 \subsection{Recorridos del árbol}
 
-\textit{b) Generar los recorridos "pre order", "in order", "post order" del árbol dado.}
+\textit{b) Generar los recorridos ``pre order'', ``in order'', ``post order'' del árbol dado.}
 
 \solucion
 
@@ -487,8 +490,8 @@ Error: 'hola' no es un número entero.
 \newpage
 \section{Método hash de división con $m = 50$}
 
-\textit{Por el método hash de división con $m=50$, obtener los valores hash de los 
-siguientes conjuntos de claves: 'Ariel', 'Luis', 'Gonzalo', 'Federico', 'Roberto', 'Carlos'.}
+\textit{Por el método hash de división con $m=50$, obtener los valores hash de los
+siguientes conjuntos de claves: `Ariel', `Luis', `Gonzalo', `Federico', `Roberto', `Carlos'.}
 
 \solucion
 
