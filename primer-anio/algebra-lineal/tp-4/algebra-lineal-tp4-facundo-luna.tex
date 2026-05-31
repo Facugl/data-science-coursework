@@ -1,0 +1,955 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°4},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Álgebra Lineal}
+\fancyhead[R]{\small Trabajo Práctico N°4}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Álgebra Lineal}
+\newcommand{\trabajo}{Trabajo Práctico N°4}
+\newcommand{\profesor}{Lic. Mauro Vaca}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== ACTIVIDAD 1 ========================
+\newpage
+\section{Desarrollar la expresión de cada notación de sumatoria}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\displaystyle\sum_{i=1}^{5}(2i-1)$
+
+    \solucion
+    \[
+    \sum_{i=1}^{5}(2i-1) = (2\cdot1-1)+(2\cdot2-1)+(2\cdot3-1)+(2\cdot4-1)+(2\cdot5-1)
+    = 1+3+5+7+9 = 25
+    \]
+
+    \item $\displaystyle\sum_{i=2}^{6}\frac{i+2}{1-i}$
+
+    \solucion
+    \[
+    \sum_{i=2}^{6}\frac{i+2}{1-i}
+    = \frac{2+2}{1-2}+\frac{3+2}{1-3}+\frac{4+2}{1-4}+\frac{5+2}{1-5}+\frac{6+2}{1-6}
+    = -4-\frac{5}{2}-2-\frac{5}{2}-\frac{8}{5} = -\frac{88}{5}
+    \]
+
+    \item $\displaystyle\sum_{i=1}^{6}\frac{(-1)^{i}}{1+i}$
+
+    \solucion
+    \[
+    \sum_{i=1}^{6}\frac{(-1)^{i}}{1+i}
+    = \frac{(-1)^1}{1+1}+\frac{(-1)^2}{1+2}+\frac{(-1)^3}{1+3}+\frac{(-1)^4}{1+4}+\frac{(-1)^5}{1+5}+\frac{(-1)^6}{1+6}
+    \]
+    \[
+    = -\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}-\frac{1}{6}+\frac{1}{7} \approx -0{,}24
+    \]
+
+    \item $\displaystyle\sum_{i=5}^{9}\left(\frac{1}{2}i-3\right)$
+
+    \solucion
+    \[
+    \sum_{i=5}^{9}\left(\frac{1}{2}i-3\right)
+    = \left(\frac{5}{2}-3\right)+\left(\frac{6}{2}-3\right)+\left(\frac{7}{2}-3\right)+\left(\frac{8}{2}-3\right)+\left(\frac{9}{2}-3\right)
+    \]
+    \[
+    = -15 + \frac{35}{2} = \frac{5}{2}
+    \]
+
+    \newpage
+    \item $\displaystyle\sum_{i=4}^{10}\frac{n}{2i}$
+
+    \solucion
+    \[
+    \sum_{i=4}^{10}\frac{n}{2i}
+    = \frac{n}{2}\sum_{i=4}^{10}\frac{1}{i}
+    = \frac{n}{2}\left(\frac{1}{4}+\frac{1}{5}+\frac{1}{6}+\frac{1}{7}+\frac{1}{8}+\frac{1}{9}+\frac{1}{10}\right)
+    = \frac{n}{2}\cdot\frac{2161}{2520}
+    = \frac{2161\,n}{5040}
+    \]
+
+    \item $\displaystyle\sum_{i=1}^{6}8$
+
+    \solucion
+    \[
+    \sum_{i=1}^{6}8 = 8\sum_{i=1}^{6}1 = 8\cdot6 = 48
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 2 ========================
+\section{Descubrir las regularidades y expresar usando la notación $\Sigma$}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Las siguientes sucesiones:
+    \begin{enumerate}[label=\roman*.-]
+        \item $0 - 4 - 8 - 12 - 16 - 20 - 24 - 28$
+
+        \solucion
+        \[
+        0-4-8-12-16-20-24-28 = (4-4\cdot1)+(4-4\cdot2)+(4-4\cdot3)+\cdots
+        = \sum_{i=1}^{8}(4-4i)
+        \]
+
+        \item $-7 - 11 - 15 - 19 - 23 - 27$
+
+        \solucion
+        \[
+        -7-11-15-19-23-27 = (-3-4\cdot1)+(-3-4\cdot2)+(-3-4\cdot3)+\cdots
+        = \sum_{i=1}^{6}(-3-4i)
+        \]
+
+        \item $-\dfrac{1}{2}+\dfrac{2}{3}-\dfrac{3}{4}+\dfrac{4}{5}-\dfrac{5}{6}$
+
+        \solucion
+        \[
+        -\frac{1}{2}+\frac{2}{3}-\frac{3}{4}+\frac{4}{5}-\frac{5}{6}
+        = \frac{(-1)^1\cdot1}{1+1}+\frac{(-1)^2\cdot2}{1+2}+\frac{(-1)^3\cdot3}{1+3}+\frac{(-1)^4\cdot4}{1+4}+\frac{(-1)^5\cdot5}{1+5}
+        = \sum_{i=1}^{5}\frac{(-1)^i\cdot i}{1+i}
+        \]
+
+        \item $\sqrt{5}-\sqrt[3]{6}+\sqrt[4]{7}-\sqrt[5]{8}+\sqrt[6]{9}$
+
+        \solucion
+        \[
+        \sqrt{5}-\sqrt[3]{6}+\sqrt[4]{7}-\sqrt[5]{8}+\sqrt[6]{9}
+        = (-1)^2\sqrt[2]{3+2}+(-1)^3\sqrt[3]{3+3}+\cdots
+        = \sum_{i=2}^{6}(-1)^{i}\sqrt[i]{3+i}
+        \]
+
+    \end{enumerate}
+
+    \item Expresa como sumatoria la suma de los múltiplos de 7 desde el 63 al 105.
+
+    \solucion
+    \[
+    \sum_{i=63}^{105} 7i
+    \]
+
+    \item Expresa como sumatoria la suma de las raíces cuadradas de los primeros veinte números impares.
+
+    \solucion
+    \[
+    \sum_{i=1}^{20}\sqrt{2i-1}
+    \]
+
+\end{enumerate}
+
+\volverindice
+
+% ======================== ACTIVIDAD 3 ========================
+\section{Aplicar las propiedades del operador sumatoria para calcular}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\displaystyle\sum_{k=4}^{12}(5k-2)$
+
+    \solucion
+    \[
+    \sum_{k=4}^{12}(5k-2) = 5\sum_{k=4}^{12}k - 2\sum_{k=4}^{12}1
+    \]
+    \[
+    \sum_{k=4}^{12}k = \frac{(4+12)\cdot9}{2} = 72
+    \qquad\qquad
+    \sum_{k=4}^{12}1 = 9
+    \]
+    \[
+    = 5\cdot72 - 2\cdot9 = 360 - 18 = 342
+    \]
+
+    \item $\displaystyle\sum_{k=1}^{6}(4k+3)^2$
+
+    \solucion
+    \[
+    \sum_{k=1}^{6}(4k+3)^2 = \sum_{k=1}^{6}(16k^2+12k+9)
+    = 16\sum_{k=1}^{6}k^2 + 12\sum_{k=1}^{6}k + 9\sum_{k=1}^{6}1
+    \]
+    \[
+    = 16\cdot\frac{6(6+1)(2\cdot6+1)}{6} + 12\cdot\frac{6(6+1)}{2} + 9\cdot6
+    = 16(3\cdot7\cdot13) + 12(3\cdot7) + 6
+    \]
+    \[
+    = 4368 + 252 + 6 = 4626
+    \]
+
+    \item $\displaystyle\sum_{h=3}^{8}(h+4)h$
+
+    \solucion
+    \[
+    \sum_{h=3}^{8}(h+4)h = \sum_{h=3}^{8}(h^2+4h)
+    = \sum_{h=3}^{8}h^2 + 4\sum_{h=3}^{8}h
+    \]
+    \[
+    \sum_{h=3}^{8}h^2
+    = \sum_{h=1}^{8}h^2 - \sum_{h=1}^{2}h^2
+    = \frac{8\cdot9\cdot17}{6} - \frac{2\cdot3\cdot5}{6}
+    = 204 - 5 = 199
+    \]
+    \[
+    \sum_{h=3}^{8}h
+    = \frac{(3+8)\cdot6}{2} = 33
+    \]
+    \[
+    = 199 + 4\cdot33 = 199 + 132 = 331
+    \]
+
+    \item $\displaystyle\sum_{h=1}^{n}(2^h - 2^{h-1})$
+
+    \solucion
+    \[
+    \sum_{h=1}^{n}(2^h - 2^{h-1}) = \sum_{h=1}^{n}2^h - \sum_{h=1}^{n}2^{h-1}
+    = (2^1+2^2+\cdots+2^n) - (2^0+2^1+\cdots+2^{n-1})
+    = 2^n - 2^0 = 2^n - 1
+    \]
+
+\end{enumerate}
+
+\volverindice
+
+
+% ======================== ACTIVIDAD 4 ========================
+\section{Calcular dado que $\sum_{i=1}^{6} x_i = -4$ y $\sum_{i=1}^{6}(x_i)^2 = 10$}
+
+\[
+\sum_{i=1}^{6} 2x_i + 3 \qquad \text{y} \qquad \sum_{i=1}^{6} 5(x_i)^2 - 2
+\]
+
+\solucion
+\[
+\sum_{i=1}^{6}(2x_i+3) = 2\sum_{i=1}^{6}x_i + \sum_{i=1}^{6}3
+= 2\cdot(-4) + 6 = -8 + 6 = -2
+\]
+\[
+\sum_{i=1}^{6}5(x_i)^2-2 = 5\sum_{i=1}^{6}(x_i)^2 - \sum_{i=1}^{6}2
+= 5\cdot10 - 2\cdot6 = 50 - 12 = 38
+\]
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 5 ========================
+\section{Completar las líneas de puntos para que se verifiquen las igualdades}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\displaystyle\sum_{i=1}^{12} 4^i = \sum_{i=6}^{\ldots} \ldots$
+
+    \solucion
+
+    Aplicando la propiedad $\displaystyle\sum_{k=1}^{n}2k = \sum_{k=p+1}^{n+p}2(k-p)$:
+    \[
+    \sum_{i=1}^{12} 4^i = \sum_{i=1+5}^{12+5} 4^{i-5} = \sum_{i=6}^{17} 4^{i-5}
+    \]
+
+    \item $\displaystyle\sum_{j=1}^{7}(3j-2) = \sum_{i=6}^{\ldots} \ldots$
+
+    \solucion
+    \[
+    \sum_{j=1}^{7}(3j-2) = \sum_{j=1+5}^{7+5}\bigl[3(j-5)-2\bigr] = \sum_{j=6}^{12}(3j-17)
+    \]
+
+    \item $\displaystyle\sum_{k=0}^{15}(3k+1)k = \sum_{k=1}^{\ldots} \ldots$
+
+    \solucion
+
+    Aplicando el cambio $k \leftarrow k-1$ (es decir, $k_{\text{nuevo}} = k_{\text{viejo}}+1$):
+    cuando $k=0 \Rightarrow k'=1$ y cuando $k=15 \Rightarrow k'=16$:
+    \[
+    \sum_{k=0}^{15}(3k+1)k
+    = \sum_{k=1}^{16}\bigl(3(k-1)+1\bigr)(k-1)
+    = \sum_{k=1}^{16}(3k-2)(k-1)
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 6 ========================
+\section{Determinar si las siguientes igualdades son verdaderas o falsas. Justificar la respuesta}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\displaystyle\sum_{i=-p}^{p}\frac{i}{p} = \frac{1}{p}$
+
+    \solucion
+
+    Desarrollando la sumatoria:
+    \[
+    \sum_{i=-p}^{p}\frac{i}{p} = \frac{1}{p}\sum_{i=-p}^{p}i
+    = \frac{1}{p}\left(-p + \cdots + (-1) + 0 + 1 + \cdots + p\right)
+    = \frac{1}{p}\cdot 0 = 0 \neq \frac{1}{p}
+    \]
+    Los términos se cancelan simétricamente: $-\dfrac{p}{p}+\dfrac{p}{p} = -1+1 = 0$.
+    Por lo tanto la igualdad es \textbf{FALSA}.
+
+    \item $\displaystyle\sum_{i=1}^{p} i = \frac{p(p+1)}{2}$
+
+    \solucion
+
+    La igualdad es \textbf{VERDADERA}. Demostración por inducción matemática:
+
+    \textbf{Caso base} ($p=1$):
+    \[
+    \sum_{i=1}^{1} i = 1 = \frac{1\cdot2}{2} = 1 \quad \checkmark
+    \]
+
+    \textbf{Hipótesis inductiva}: supongamos que para $p=k$ la igualdad vale:
+    \[
+    \sum_{i=1}^{k} i = \frac{k(k+1)}{2}
+    \]
+
+    \textbf{Paso inductivo}: debemos probar que vale para $p=k+1$, es decir, que
+    $\displaystyle\sum_{i=1}^{k+1} i = \frac{(k+1)(k+2)}{2}$.
+    \[
+    \sum_{i=1}^{k+1} i = \sum_{i=1}^{k} i + (k+1)
+    \overset{H.I.}{=} \frac{k(k+1)}{2} + (k+1)
+    = (k+1)\left(\frac{k}{2}+1\right)
+    = \frac{(k+1)(k+2)}{2} \quad \checkmark
+    \]
+
+    \newpage
+    \item $\displaystyle\sum_{i=1}^{p} i^2 = \frac{p(p+1)(2p+1)}{6}$
+
+    \solucion
+
+    La igualdad es \textbf{VERDADERA}. Demostración por inducción matemática:
+
+    \textbf{Caso base} ($p=1$):
+    \[
+    \sum_{i=1}^{1} i^2 = 1 = \frac{1\cdot2\cdot3}{6} = 1 \quad \checkmark
+    \]
+
+    \textbf{Hipótesis inductiva}: supongamos que para $p=k$ la igualdad vale:
+    \[
+    \sum_{i=1}^{k} i^2 = \frac{k(k+1)(2k+1)}{6}
+    \]
+
+    \textbf{Paso inductivo}: debemos probar que vale para $p=k+1$, es decir, que
+    $\displaystyle\sum_{i=1}^{k+1} i^2 = \frac{(k+1)(k+2)(2k+3)}{6}$.
+    \[
+    \sum_{i=1}^{k+1} i^2 = \sum_{i=1}^{k} i^2 + (k+1)^2
+    \overset{H.I.}{=} \frac{k(k+1)(2k+1)}{6} + (k+1)^2
+    = (k+1)\left[\frac{k(2k+1)}{6} + (k+1)\right]
+    \]
+    \[
+    = (k+1)\cdot\frac{k(2k+1)+6(k+1)}{6}
+    = (k+1)\cdot\frac{2k^2+7k+6}{6}
+    = \frac{(k+1)(k+2)(2k+3)}{6} \quad \checkmark
+    \]
+
+    \newpage
+    \item $\displaystyle\sum_{i=1}^{p} i^3 = \frac{p^2(p+1)^2}{4}$
+
+    \solucion
+
+    La igualdad es \textbf{VERDADERA}. Demostración por inducción matemática:
+
+    \textbf{Caso base} ($p=1$):
+    \[
+    \sum_{i=1}^{1} i^3 = 1 = \frac{1^2\cdot2^2}{4} = 1 \quad \checkmark
+    \]
+
+    \textbf{Hipótesis inductiva}: supongamos que para $p=k$ la igualdad vale:
+    \[
+    \sum_{i=1}^{k} i^3 = \frac{k^2(k+1)^2}{4}
+    \]
+
+    \textbf{Paso inductivo}: debemos probar que vale para $p=k+1$, es decir, que
+    $\displaystyle\sum_{i=1}^{k+1} i^3 = \frac{(k+1)^2(k+2)^2}{4}$.
+    \[
+    \sum_{i=1}^{k+1} i^3 = \sum_{i=1}^{k} i^3 + (k+1)^3
+    \overset{H.I.}{=} \frac{k^2(k+1)^2}{4} + (k+1)^3
+    = (k+1)^2\left[\frac{k^2}{4} + (k+1)\right]
+    \]
+    \[
+    = (k+1)^2\cdot\frac{k^2+4k+4}{4}
+    = \frac{(k+1)^2(k+2)^2}{4} \quad \checkmark
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 7 ========================
+\section{Desarrollar y calcular}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\displaystyle\prod_{k=1}^{6}\left(\frac{2}{5}k\right)$
+
+    \solucion
+    \[
+    \prod_{k=1}^{6}\left(\frac{2}{5}k\right)
+    = \left(\frac{2}{5}\cdot1\right)\left(\frac{2}{5}\cdot2\right)\left(\frac{2}{5}\cdot3\right)
+      \left(\frac{2}{5}\cdot4\right)\left(\frac{2}{5}\cdot5\right)\left(\frac{2}{5}\cdot6\right)
+    = \frac{46080}{15625}
+    \]
+
+    \item $\displaystyle\prod_{k=1}^{12}(m^2-1)k$
+
+    \solucion
+    \[
+    \prod_{k=1}^{12}(m^2-1)k = (m^2-1)^{12}\cdot\prod_{k=1}^{12}k
+    = (m^2-1)^{12}\cdot(1\cdot2\cdot3\cdot4\cdot5\cdot6\cdot7\cdot8\cdot9\cdot10\cdot11\cdot12)
+    = (m^2-1)^{12}\cdot 12!
+    \]
+
+    \item $\displaystyle\prod_{k=1}^{7}\left(\frac{1}{k}+1\right)$
+
+    \solucion
+    \[
+    \prod_{k=1}^{7}\left(\frac{1}{k}+1\right)
+    = \left(\frac{1}{1}+1\right)\left(\frac{1}{2}+1\right)\left(\frac{1}{3}+1\right)
+      \left(\frac{1}{4}+1\right)\left(\frac{1}{5}+1\right)\left(\frac{1}{6}+1\right)\left(\frac{1}{7}+1\right)
+    \]
+    \[
+    = 2\cdot\frac{3}{2}\cdot\frac{4}{3}\cdot\frac{5}{4}\cdot\frac{6}{5}\cdot\frac{7}{6}\cdot\frac{8}{7} = 8
+    \]
+
+    \item $\displaystyle\prod_{k=1}^{6}2$
+
+    \solucion
+    \[
+    \prod_{k=1}^{6}2 = 2^6 = 64
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 8 ========================
+\section{Expresar los siguientes productos utilizando el operador correspondiente}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $3 \cdot 13 \cdot 18 \cdot 23 \cdot 28$
+
+    \solucion
+
+    Observando que la razón entre los dos primeros terminos es el doble del resto, asumo que falta un termino intermedio, luego, la sucesión $3,\,8,\,13,\,18,\,23,\,28$ es una progresión aritmética de primer término $3$ y razón $5$, con término general $5k-2$ para $k=1,2,\ldots,6$:
+    \[
+    k=1:\;3\;\checkmark,\quad k=2:\;8\;\checkmark,\quad k=3:\;13\;\checkmark,\quad
+    k=4:\;18\;\checkmark,\quad k=5:\;23\;\checkmark,\quad k=6:\;28\;\checkmark
+    \]
+    \[
+    \prod_{k=1}^{6}(5k-2)
+    \]
+
+    \item $\left(-\dfrac{1}{9}\right)\cdot\dfrac{1}{3}\cdot(-1)\cdot3\cdot9\cdot27$
+
+    \solucion
+
+    Los valores absolutos son $3^{-2},\,3^{-1},\,3^{0},\,3^{1},\,3^{2},\,3^{3}$,
+    es decir potencias de $3$ con exponente $k$ para $k=-2,-1,0,1,2,3$.
+    Los signos siguen el patrón $(-1)^{k+1}$:
+    \[
+    k=-2:\;(-1)^{-1}\cdot3^{-2}=-\tfrac{1}{9}\;\checkmark,\quad
+    k=-1:\;(-1)^{0}\cdot3^{-1}=+\tfrac{1}{3}\;\checkmark,\quad
+    k=0:\;(-1)^{1}\cdot1=-1\;\checkmark,\;\ldots
+    \]
+    \[
+    \prod_{k=-2}^{3}(-1)^{k+1}\cdot 3^{k}
+    \]
+
+    \item $1\cdot4\cdot27\cdot256\cdot3125$
+
+    \solucion
+
+    Reconocemos que $1=1^1,\;4=2^2,\;27=3^3,\;256=4^4,\;3125=5^5$,
+    es decir cada factor es de la forma $k^k$:
+    \[
+    \prod_{k=1}^{5}k^{k}
+    \]
+
+    \newpage
+    \item $\left(-\dfrac{1}{7}\right)\cdot\dfrac{1}{21}\cdot\left(-\dfrac{1}{63}\right)\cdot\dfrac{1}{189}\cdot\left(-\dfrac{1}{567}\right)$
+
+    \solucion
+
+    Los denominadores $7,\,21,\,63,\,189,\,567$ forman una progresión geométrica de razón $3$:
+    $7\cdot3^{k-1}$ para $k=1,2,3,4,5$.
+    Los signos alternan comenzando en negativo: $(-1)^{k}$ para $k=1,2,3,4,5$.
+    \[
+    \prod_{k=1}^{5}\dfrac{(-1)^{k}}{7\cdot3^{k-1}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+
+% ======================== ACTIVIDAD 9 ========================
+\section{Demostrar que}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\displaystyle\prod_{k=1}^{n}\left(\frac{1}{2}k\right) = \frac{n!}{2^n}$
+
+    \solucion
+    \[
+    \prod_{k=1}^{n}\left(\frac{1}{2}k\right)
+    = \left(\frac{1}{2}\right)^n \prod_{k=1}^{n}k
+    = \frac{1}{2^n}\cdot n!
+    = \frac{n!}{2^n} \quad\checkmark
+    \]
+
+    \item $\displaystyle\prod_{k=1}^{n} k^i = (n!)^i$
+
+    \solucion
+    \[
+    \prod_{k=1}^{n} k^i
+    = \prod_{k=1}^{n}(k^i)
+    = \left(\prod_{k=1}^{n}k\right)^i
+    = (n!)^i \quad\checkmark
+    \]
+
+    \item $\displaystyle\prod_{k=1}^{5} 3(k+1) = 3^5(6!)$
+
+    \solucion
+    \[
+    \prod_{k=1}^{5} 3(k+1)
+    = 3^5 \cdot \prod_{k=1}^{5}(k+1)
+    = 3^5\cdot(2\cdot3\cdot4\cdot5\cdot6)
+    \]
+    Como $1! = 1$, multiplicar por $1$ no altera el producto:
+    \[
+    = 3^5\cdot(1\cdot2\cdot3\cdot4\cdot5\cdot6)
+    = 3^5\cdot 6! \quad\checkmark
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 10 ========================
+\section{Resolver y calcular}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\dfrac{(2+3)!}{2!\cdot3!}$
+
+    \solucion
+    \[
+    \frac{(2+3)!}{2!\cdot3!} = \frac{5!}{2!\cdot3!} = \frac{5\cdot4\cdot3!}{2!\cdot3!}
+    = \frac{5\cdot4}{2} = \frac{20}{2} = 10
+    \]
+
+    \item $\dfrac{(n+5)!}{(n+3)!}$
+
+    \solucion
+    \[
+    \frac{(n+5)!}{(n+3)!} = \frac{(n+5)(n+4)(n+3)!}{(n+3)!}
+    = (n+5)(n+4) = n^2+9n+20
+    \]
+
+    \item $\dfrac{(n-1)!}{n!}+\dfrac{(n+1)!}{n!}$
+
+    \solucion
+    \[
+    \frac{(n-1)!}{n!}+\frac{(n+1)!}{n!}
+    = \frac{(n-1)!}{n(n-1)!}+\frac{(n+1)\cdot n!}{n!}
+    = \frac{1}{n}+(n+1)
+    = \frac{1}{n}+n+1
+    = \frac{n^2+n+1}{n}
+    \]
+
+    \item $\dbinom{7}{5}$
+
+    \solucion
+    \[
+    \binom{7}{5} = \frac{7!}{(7-5)!\,5!} = \frac{7!}{2!\,5!}
+    = \frac{7\cdot6\cdot5!}{2!\,5!} = \frac{7\cdot6}{2} = 21
+    \]
+
+    \item $\dbinom{11}{1}$
+
+    \solucion
+    \[
+    \binom{11}{1} = \frac{11!}{(11-1)!\,1!} = \frac{11\cdot10!}{10!\cdot1} = 11
+    \]
+
+    \item $\dbinom{11}{10}$
+
+    \solucion
+    \[
+    \binom{11}{10} = \frac{11!}{(11-10)!\,10!} = \frac{11\cdot10!}{1!\,10!} = 11
+    \]
+
+    \newpage
+    \item $\dbinom{n+5}{n+4}$
+
+    \solucion
+    \[
+    \binom{n+5}{n+4} = \frac{(n+5)!}{(n+5-n-4)!\,(n+4)!}
+    = \frac{(n+5)(n+4)!}{1!\,(n+4)!} = n+5
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 11 ========================
+\section{Binomio de Newton}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Dar la expresión genérica del Binomio de Newton, usarla para realizar el desarrollo de $\left(\dfrac{x}{3}-2\right)^7$. ¿Cuántos sumandos tiene este desarrollo?
+
+    \solucion
+
+    La expresión genérica del Binomio de Newton es:
+    \[
+    (a+b)^n = \sum_{k=0}^{n}\binom{n}{k}a^{n-k}b^k
+    \]
+
+    Con $a=\dfrac{x}{3}$, $b=-2$ y $n=7$:
+    \[
+    \left(\frac{x}{3}-2\right)^7 = \sum_{k=0}^{7}\binom{7}{k}\left(\frac{x}{3}\right)^{7-k}(-2)^k
+    \]
+    \[
+    = \binom{7}{0}\left(\frac{x}{3}\right)^7(-2)^0
+    + \binom{7}{1}\left(\frac{x}{3}\right)^6(-2)^1
+    + \binom{7}{2}\left(\frac{x}{3}\right)^5(-2)^2
+    + \binom{7}{3}\left(\frac{x}{3}\right)^4(-2)^3
+    \]
+    \[
+    + \binom{7}{4}\left(\frac{x}{3}\right)^3(-2)^4
+    + \binom{7}{5}\left(\frac{x}{3}\right)^2(-2)^5
+    + \binom{7}{6}\left(\frac{x}{3}\right)^1(-2)^6
+    + \binom{7}{7}\left(\frac{x}{3}\right)^0(-2)^7
+    \]
+
+    Se observa que hay $n+1$ términos $\Rightarrow 7+1 = \mathbf{8}$ \textbf{términos}.
+
+    \item Escribir la expresión del término genérico. En base a ello, encontrar $T_5$.
+
+    \solucion
+
+    El término genérico (término $k+1$) es:
+    \[
+    T_{k+1} = \binom{n}{k}\,a^{n-k}\,b^k
+    \]
+
+    Para $T_5$ tomamos $k=4$:
+    \[
+    T_5 = \binom{7}{4}\left(\frac{x}{3}\right)^{7-4}(-2)^4
+    = \binom{7}{4}\left(\frac{x}{3}\right)^3 \cdot 16
+    \]
+    \[
+    \binom{7}{4} = \frac{7!}{4!\,(7-4)!} = \frac{7\cdot6\cdot5\cdot4!}{4!\cdot3!}
+    = \frac{7\cdot6\cdot5}{6} = 35
+    \]
+    \[
+    T_5 = 35\cdot\frac{x^3}{27}\cdot16 = \frac{560}{27}\,x^3
+    \]
+
+    \newpage
+    \item Explicar cómo encontrar el o los términos centrales. ¿Cuál es el término central de $\left(\dfrac{x}{3}-2\right)^7$?
+
+    \solucion
+
+    Para un desarrollo de $n+1$ términos:
+    \begin{itemize}
+        \item Si $n$ es \textbf{par}: hay un único término central, $T_{\frac{n}{2}+1}$.
+        \item Si $n$ es \textbf{impar}: hay \textbf{dos} términos centrales, $T_{\frac{n+1}{2}}$ y $T_{\frac{n+3}{2}}$.
+    \end{itemize}
+
+    Como $n=7$ es impar, hay dos términos centrales: $T_{\frac{7+1}{2}} = T_4$ y
+    $T_{\frac{7+3}{2}} = T_5$.
+
+    \textbf{Término $T_4$} ($k=3$):
+    \[
+    T_4 = \binom{7}{3}\left(\frac{x}{3}\right)^4(-2)^3
+    = 35\cdot\frac{x^4}{81}\cdot(-8)
+    = 35\left(\frac{x}{3}\right)^4\!(-8)
+    = -\frac{280}{81}{x^4}
+    \]
+
+    \textbf{Término $T_5$} ($k=4$):
+    \[
+    T_5 = \binom{7}{4}\left(\frac{x}{3}\right)^3(-2)^4
+    = 35\left(\frac{x}{3}\right)^3\cdot16
+    = \frac{560}{27}{x^3}
+    \]
+
+    Donde $\dbinom{7}{3} = \dbinom{7}{4} = \dfrac{7!}{3!\,4!} = \dfrac{7\cdot6\cdot5\cdot4!}{6\cdot4!} = 35$.
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 12 ========================
+\section{Determinar}
+
+\begin{enumerate}[label=\alph*.-]
+    \item El tercer término del desarrollo de $(m^2-3)^4$.
+
+    \solucion
+
+    Con $a=m^2$, $b=-3$, $n=4$ y $k=2$ (tercer término):
+    \[
+    T_3 = \binom{4}{2}(m^2)^{4-2}(-3)^2
+    = \binom{4}{2}(m^2)^2\cdot9
+    \]
+    \[
+    \binom{4}{2} = \frac{4!}{2!\,(4-2)!} = \frac{4\cdot3\cdot2!}{2!\cdot2!} = \frac{4\cdot3}{2} = 6
+    \]
+    \[
+    T_3 = 6\cdot m^4\cdot9 = 54\,m^4
+    \]
+
+    \item El término central del desarrollo de $\left(\dfrac{1}{3}x+5\right)^{10}$.
+
+    \solucion
+
+    Como $n=10$ es par, hay un único término central: $T_{\frac{n}{2}+1} = T_6$.
+
+    Con $a=\dfrac{1}{3}x$, $b=5$, $n=10$ y $k=5$:
+    \[
+    T_6 = \binom{10}{5}\left(\frac{x}{3}\right)^5(5)^5
+    \]
+    \[
+    \binom{10}{5} = \frac{10!}{5!\,5!} = \frac{10\cdot9\cdot8\cdot7\cdot6\cdot5!}{5!\cdot5!}
+    = \frac{10\cdot9\cdot8\cdot7\cdot6}{5!} = \frac{30240}{120} = 252
+    \]
+    \[
+    T_6 = 252\cdot\frac{x^5}{243}\cdot3125
+    = \frac{252\cdot3125}{243}\,x^5
+    = \frac{787500}{243}\,x^5
+    \]
+
+    \item El penúltimo término del desarrollo de $(y-2x)^6$.
+
+    \solucion
+
+    El penúltimo término es $T_6$ (anteúltimo de 7 términos), con $k=5$,
+    $a=y$, $b=-2x$, $n=6$:
+    \[
+    T_6 = \binom{6}{5}\,y^{6-5}\,(-2x)^5
+    = 6\cdot y\cdot(-32x^5)
+    = -192\,yx^5
+    \]
+    \[
+    \binom{6}{5} = \frac{6!}{5!\,(6-5)!} = \frac{6\cdot5!}{5!\cdot1} = 6
+    \]
+
+    \newpage
+    \item El término independiente del desarrollo de $\left(p-\dfrac{1}{p}\right)^8$.
+
+    \solucion
+
+    Con $a=p$, $b=-\dfrac{1}{p}$, $n=8$:
+    \[
+    T_{k+1} = \binom{8}{k}\,p^{8-k}\,\left(-\frac{1}{p}\right)^k
+    = \binom{8}{k}\,p^{8-k}\,(-1)^k\,p^{-k}
+    = \binom{8}{k}(-1)^k\,p^{8-2k}
+    \]
+
+    Para que el término sea independiente de $p$, necesitamos que el exponente sea cero:
+    \[
+    8-2k = 0 \implies k = 4
+    \]
+    \[
+    T_5 = \binom{8}{4}(-1)^4\,p^0
+    = \binom{8}{4}\cdot1\cdot1 = 70
+    \]
+    \[
+    \binom{8}{4} = \frac{8!}{4!\,(8-4)!} = \frac{8\cdot7\cdot6\cdot5\cdot4!}{4!\cdot4!}
+    = \frac{8\cdot7\cdot6\cdot5}{4!} = \frac{1680}{24} = 70
+    \]
+
+\end{enumerate}
+
+\volverindice
+
+\end{document}
