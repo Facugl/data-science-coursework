@@ -1,0 +1,1085 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°3},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Cálculo Diferencial e Integral I}
+\fancyhead[R]{\small Trabajo Práctico N°3}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Cálculo Diferencial e Integral I}
+\newcommand{\trabajo}{Trabajo Práctico N°3}
+\newcommand{\profesor}{Lic. Mauro Vaca}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== EJERCICIO 1 ========================
+\newpage
+\section{Pendiente de la tangente y recta tangente}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Encuentre la pendiente de la tangente de las siguientes curvas en los puntos correspondientes.
+
+    \begin{enumerate}[label=\roman*.-]
+        \item $y = 4x - x^2$ en el punto $(1, 3)$
+
+        \solucion
+        % ---- a) i) y = 4x - x^2 en (1, 3) ----
+        En este caso, $a = 1$ y $f(x) = 4x - x^2$, la pendiente es:
+        \[
+        m = \lim_{x \to 1} \frac{f(x) - f(1)}{x - 1}
+        = \lim_{x \to 1} \frac{4x - x^2 - 3}{x - 1}
+        = \lim_{x \to 1} \frac{(x-1)(x-3)}{x-1}
+        = \lim_{x \to 1} (x - 3) = 1 - 3
+        \]
+        \[
+        \boxed{m = -2}
+        \]
+
+    \end{enumerate}
+
+    \item Halle la ecuación de la recta tangente del inciso a).
+
+    \solucion
+    % ---- b) Ecuación de la recta tangente en (1, 3) ----
+    Con la forma punto-pendiente, la ecuación de la recta tangente en $(1, 3)$ es:
+    \[
+    y - y_1 = m(x - x_1) \implies y - 3 = -2(x - 1) \implies y = -2x + 2 + 3
+    \]
+    \[
+    \boxed{y = 5 - 2x}
+    \]
+
+    \item Dibuje la curva y la recta tangente en cada caso.
+
+    \solucion
+    % ---- c) Gráfico ----
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = center,
+            xlabel = {$x$},
+            ylabel = {$y$},
+            xmin=-1, xmax=5,
+            ymin=-1, ymax=6,
+            width=10cm, height=8cm,
+            grid=both,
+            grid style={line width=0.2pt, draw=gray!30},
+            major grid style={line width=0.4pt, draw=gray!60},
+        ]
+        \addplot[blue, thick, domain=-1:5, samples=100] {4*x - x^2};
+        \addlegendentry{$y = 4x - x^2$}
+
+        \addplot[red, thick, domain=-1:5] {5 - 2*x};
+        \addlegendentry{$y = 5 - 2x$}
+
+        \addplot[mark=*, mark size=2pt, black] coordinates {(1,3)};
+        \node[above right] at (axis cs:1,3) {$(1,3)$};
+        \end{axis}
+        \end{tikzpicture}
+        \caption{Curva $y = 4x - x^2$ y su recta tangente $y = 5 - 2x$ en el punto $(1, 3)$.}
+        \label{fig:tangente-1ai}
+    \end{figure}
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 2 ========================
+\section{Derivada por definición}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Encuentre la derivada por definición de las siguientes funciones en un número $x = a$.
+
+    \begin{enumerate}[label=\roman*.-]
+        \setcounter{enumii}{1} % comienza en ii)
+        \item $f(t) = \dfrac{2t+1}{t+3}$
+
+        \solucion
+        % ---- a) ii) f(t) = (2t+1)/(t+3) ----
+        \[
+        f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}
+        = \lim_{h \to 0} \left[\frac{2(a+h)+1}{a+h+3} - \frac{2a+1}{a+3}\right] \cdot \frac{1}{h}
+        \]
+        \[
+        = \lim_{h \to 0} \left[\frac{2a+2h+1}{a+h+3} - \frac{2a+1}{a+3}\right] \cdot \frac{1}{h}
+        \]
+        \[
+        = \lim_{h \to 0} \frac{(2a+2h+1)(a+3) - (2a+1)(a+h+3)}{h(a+h+3)(a+3)}
+        \]
+        \[
+        = \lim_{h \to 0} \frac{2ah + 6h - h}{h(a+h+3)(a+3)}
+        = \lim_{h \to 0} \frac{5h}{h(a+h+3)(a+3)}
+        \]
+        \[
+        \boxed{f'(a) = \frac{5}{(a+3)^2}}
+        \]
+    \end{enumerate}
+
+    \item Encuentre la derivada de las siguientes funciones aplicando la definición de derivada. Indique los dominios de la función y de su derivada.
+
+    \begin{enumerate}[label=\roman*.-]
+        \setcounter{enumii}{2} % comienza en iii)
+        \item $f(x) = \sqrt{9-x}$
+
+        \solucion
+
+        % ---- b) iii) f(x) = sqrt(9-x) ----
+        $\text {Dominio: } 9 - x \geq 0 \implies x \leq 9 \implies D_f = (-\infty,\, 9]$
+        \[
+        f'(x) = \lim_{h \to 0} \frac{\sqrt{9-(x+h)} - \sqrt{9-x}}{h}
+        \cdot \frac{\sqrt{9-(x+h)} + \sqrt{9-x}}{\sqrt{9-(x+h)} + \sqrt{9-x}}
+        \]
+        \[
+        = \lim_{h \to 0} \frac{9-x-h - (9-x)}{h\left[\sqrt{9-(x+h)} + \sqrt{9-x}\right]}
+        = \lim_{h \to 0} \frac{-h}{h\left[\sqrt{9-(x+h)} + \sqrt{9-x}\right]}
+        \]
+        \[
+        = \lim_{h \to 0} \frac{-1}{\sqrt{9-(x+h)} + \sqrt{9-x}}
+        = \frac{-1}{2\sqrt{9-x}}
+        \]
+        \[
+        \boxed{f'(x) = \frac{-1}{2\sqrt{9-x}}, \qquad D_{f'} = (-\infty,\, 9)}
+        \]
+    \end{enumerate}
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 3 ========================
+\section{Reglas de derivación}
+
+Derive las siguientes funciones utilizando reglas de derivación.
+
+\begin{enumerate}[label=\alph*.-]
+        \setcounter{enumi}{2} % comienza en c)
+    \item $y = x^{10}+\frac{5}{x^3} - 3$
+
+    \solucion
+    \[
+    y = x^{10} + \frac{5}{x^3} - 3 = x^{10} + 5x^{-3} - 3
+    \]
+    \[
+    y' = 10x^9 - 15x^{-4} = 10x^9 - \frac{15}{x^4}
+    \]
+
+    \setcounter{enumi}{3} % comienza en d)
+    \item $y = 5e^x - x^3$
+
+    \solucion
+    \[
+    y' = 5e^x - 3x^2
+    \]
+
+    \setcounter{enumi}{5} % salta a f)
+    \item $y = \sqrt{t} + 4t$
+
+    \solucion
+    \[
+    y = t^{1/2} + 4t
+    \]
+    \[
+    y' = \frac{1}{2}t^{-1/2} + 4 = \frac{1}{2\sqrt{t}} + 4
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 4 ========================
+\section{Funciones derivadas}
+
+Halle las funciones derivadas de las siguientes funciones.
+
+\begin{enumerate}[label=\alph*.-]
+    \setcounter{enumi}{1} % comienza en b)
+    \item $g(x) = \dfrac{x^2 - x}{x^2 - 1}$
+ 
+    \solucion
+ 
+    Aplicando la regla del cociente con $u = x^2 - x$ y $v = x^2 - 1$:
+    \[
+    g'(x) = \frac{(2x-1)(x^2-1) - (x^2-x)(2x)}{(x^2-1)^2}
+    \]
+    Expandiendo el numerador:
+    \[
+    = \frac{2x^3 - 2x - x^2 + 1 - 2x^3 + 2x^2}{(x^2-1)^2}
+    = \frac{x^2 - 2x + 1}{(x^2-1)^2}
+    \]
+    Factorizando numerador y denominador:
+    \[
+    = \frac{(x-1)^2}{[(x-1)(x+1)]^2}
+    = \frac{(x-1)^2}{(x-1)^2(x+1)^2}
+    \]
+    \[
+    \boxed{g'(x) = \frac{1}{(x+1)^2}}
+    \]
+
+    \item $h(x) = \dfrac{\cos x}{2 - \sen x}$
+
+    \solucion
+    % ---- c) h(x) = cos(x) / (2 - sen(x)) ----
+    \[
+    h'(x) = \frac{-\sen x\,(2 - \sen x) - \cos x\,(-\cos x)}{(2 - \sen x)^2}
+    \]
+    \[
+    = \frac{-2\sen x + \sen^2 x + \cos^2 x}{(2 - \sen x)^2}
+    = \frac{-2\sen x + 1}{(2-\sen x)^2}
+    \]
+    \[
+    \boxed{h'(x) = \frac{1 - 2\sen x}{(2 - \sen x)^2}}
+    \]
+
+    \setcounter{enumi}{6} % salta a g)
+    \item $f(u) = 3\sqrt[3]{u^2}\,\tg\,u$
+
+    \solucion
+    % ---- g) f(u) = 3*cbrt(u^2) * tg(u) ----
+    \[
+    f(u) = 3u^{2/3}\,\tg\,u
+    \]
+    \[
+    f'(u) = 3 \cdot \frac{2}{3}\,u^{-1/3}\,\tg\,u + 3u^{2/3}\,\sec^2 u
+    = \frac{2\,\tg\,u}{\sqrt[3]{u}} + 3\sqrt[3]{u^2}\,\sec^2 u
+    \]
+    \[
+    \boxed{f'(u) = \frac{2\,\tg\,u}{\sqrt[3]{u}} + 3\sqrt[3]{u^2}\,\sec^2 u}
+    \]
+
+    \item $g(u) = e^u + u^2\,2^u$
+
+    \solucion
+    % ---- h) g(u) = e^u + u^2 * 2^u ----
+    \[
+    g'(u) = e^u + 2u \cdot 2^u + u^2 \cdot 2^u \ln 2
+    = e^u + 2^u(2u + u^2 \ln 2)
+    \]
+    \[
+    \boxed{g'(u) = e^u + 2^u\!\left(2u + u^2\ln 2\right)}
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 5 ========================
+\section{Situaciones problemáticas — Costo de inventario}
+
+\begin{enumerate}[label=\alph*.-]
+    \setcounter{enumi}{2} % comienza en c)
+    \item El costo anual de inventario de una fábrica es
+    \[
+    C = \frac{10880000}{Q} + 6{,}3\,Q
+    \]
+    donde $Q$ es el tamaño del pedido cuando se reponen existencias.
+    Halle el cambio del costo anual cuando $Q$ crece de 350 a 351 y compárelo con el ritmo instantáneo de cambio para $Q = 350$.
+
+    \solucion
+
+    % ---- c) ----
+    \textbf{Cambio real:}
+    \[
+    \Delta C = C(351) - C(350)
+    \]
+    \[
+    C(351) = \frac{10{.}880{.}000}{351} + 6{,}3 \cdot 351 = 30{.}997{,}15 + 2{.}211{,}3 = 33{.}208{,}15
+    \]
+    \[
+    C(350) = \frac{10{.}880{.}000}{350} + 6{,}3 \cdot 350 = 31{.}085{,}71 + 2{.}205 = 33{.}290{,}71
+    \]
+    \[
+    \Delta C = 33{.}208{,}15 - 33{.}290{,}71 = -82{,}56
+    \]
+
+    \textbf{Ritmo instantáneo de cambio:}
+    \[
+    C'(Q) = -\frac{10{.}880{.}000}{Q^2} + 6{,}3
+    \]
+    \[
+    C'(350) = -\frac{10{.}880{.}000}{(350)^2} + 6{,}3 = -88{,}82 + 6{,}3 \approx -82{,}51
+    \]
+
+    El cambio real $(\Delta C = -82{,}56)$ es muy cercano al ritmo instantáneo de cambio $(C'(350) \approx -82{,}51)$, lo que confirma que la derivada aproxima bien el cambio unitario.
+    \end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 6 ========================
+\section{Movimiento en el planeta Marte}
+
+\begin{enumerate}[label=\alph*.-]
+    \setcounter{enumi}{1} % comienza en b)
+    \item Si se lanza una roca verticalmente hacia arriba en el planeta Marte con una velocidad de 10 m/s, su altura (en metros) después de $t$ segundos está dada por $H = 10t - 1{,}86t^2$.
+
+    \begin{enumerate}[label=\roman*.-]
+        \item Halle la velocidad de la roca después de un segundo.
+
+        \solucion
+
+        La velocidad es $H'(t) = 10 - 3{,}72t$. Evaluando en $t = 1$:
+        \[
+            H'(1) = 10 - 3{,}72 \cdot 1 = \boxed{6{,}28 \text{ m/s}}
+        \]
+
+        \item Halle la velocidad de la roca cuando $t = a$.
+
+        \solucion
+
+        \[
+            H'(a) = 10 - 3{,}72a
+        \]
+
+        \item ¿Cuándo caerá la roca a la superficie?
+
+        \solucion
+
+        La roca cae cuando $H = 0$:
+        \[
+            0 = t(10 - 1{,}86t) \implies t = 0 \quad \text{o} \quad t = \frac{10}{1{,}86} \approx 5{,}37 \text{ s}
+        \]
+        La roca cae a la superficie a los $\approx 5{,}37$ segundos.
+
+        \item ¿Con qué velocidad la roca chocará contra la superficie?
+
+        \solucion
+
+        \[
+            H'(5{,}37) = 10 - 3{,}72 \cdot 5{,}37 \approx \boxed{-9{,}97 \text{ m/s}}
+        \]
+
+    \end{enumerate}
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 7 ========================
+\section{Derivada de funciones compuestas}
+
+Halle la función derivada de las siguientes funciones compuestas.
+
+\begin{enumerate}[label=\alph*.-]
+    \setcounter{enumi}{1} % comienza en b)
+    \item $y = 2\cos(2x)^3$
+
+    \solucion
+
+    % ---- b) y = 2*cos(2x)^3 ----
+    Sea $f(u) = 2u^3$, $u = g(x) = \cos(2x)$, con $v = 2x$.
+    \[
+    f'(u) = 6u^2, \qquad g'(x) = -\sen(2x) \cdot 2 = -2\sen(2x)
+    \]
+    \[
+    \boxed{y' = -12\cos^2(2x)\,\sen(2x)}
+    \]
+
+    \setcounter{enumi}{7} % salta a h)
+    \item $y = e^{-2x}\cos(4x)$
+
+    \solucion
+
+    % ---- h) y = e^{-2x} * cos(4x) ----
+    Sea $F = F_1 \cdot F_2$, donde $F_1 = e^{-2x}$ y $F_2 = \cos(4x)$.
+    \[
+    F_1' = e^{-2x} \cdot (-2) = -2e^{-2x}, \qquad F_2' = -\sen(4x) \cdot 4 = -4\sen(4x)
+    \]
+    Aplicando la regla del producto:
+    \[
+    y' = F_1' \cdot F_2 + F_1 \cdot F_2' = -2e^{-2x}\cos(4x) + e^{-2x}(-4\sen(4x))
+    \]
+    \[
+    y' = -2e^{-2x}\cos(4x) - 4e^{-2x}\sen(4x)
+    \]
+    \[
+    \boxed{y' = -2e^{-2x}\bigl(\cos(4x) + 2\sen(4x)\bigr)}
+    \]
+
+    \item $y = \cos(\sen(\cos x))$
+
+    \solucion
+
+    % ---- i) y = cos(sen(cos x)) ----
+    Sea $f(u) = \cos(u)$, $u = g(v) = \sen(v)$, $v = \cos(x)$.
+    \[
+    f' = -\sen(u), \qquad u' = \cos(v), \qquad v' = -\sen(x)
+    \]
+    \[
+    y' = -\sen(\sen(\cos x)) \cdot \cos(\cos x) \cdot (-\sen x)
+    \]
+    \[
+    \boxed{y' = \sen(\sen(\cos x))\cdot\cos(\cos x)\cdot\sen(x)}
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 8 ========================
+\section{Recta tangente y normal}
+Encuentre las ecuaciones de la recta tangente y normal a las curvas dadas, en el punto indicado.
+
+\begin{enumerate}[label=\alph*.-]
+    \item $y = \dfrac{2}{1+x^2}$, \quad $(1, 1)$
+
+    \solucion
+    \[
+    y' = \frac{0 \cdot (1+x^2) - 2 \cdot 2x}{(1+x^2)^2} = \frac{-4x}{(1+x^2)^2}
+    \qquad \Rightarrow \qquad y'(1) = \frac{-4}{(1+1)^2} = \frac{-4}{4} = -1
+    \]
+    \textbf{Recta tangente} ($m = -1$):
+    \[
+    y - 1 = -1(x-1) \implies \boxed{y = -x + 2}
+    \]
+    \textbf{Recta normal} ($m_\perp = \frac{-1}{-1} = 1$):
+    \[
+    y - 1 = 1(x-1) \implies \boxed{y = x}
+    \]
+
+    \item $y = \sqrt{x^3 + 1}$, \quad $(2, 3)$
+
+    \solucion
+    \[
+    m = \lim_{x \to 2} \frac{f(x) - f(2)}{x-2}
+    = \lim_{x \to 2} \frac{\sqrt{x^3+1} - 3}{x-2}
+    \cdot \frac{\sqrt{x^3+1}+3}{\sqrt{x^3+1}+3}
+    \]
+    \[
+    m = \lim_{x \to 2} \frac{x^3 + 1 - 9}{(x-2)(\sqrt{x^3+1}+3)}
+    = \lim_{x \to 2} \frac{x^3 - 8}{(x-2)(\sqrt{x^3+1}+3)}
+    \]
+
+    Para factorizar $x^3 - 8$ se aplica la regla de Ruffini con raíz $x = 2$:
+
+    \[
+    \begin{array}{c|cccc}
+        & 1 & 0 & 0 & -8 \\
+      2 &   & 2 & 4 &  8 \\
+      \hline
+        & 1 & 2 & 4 &  0 \\
+    \end{array}
+    \]
+
+    Por lo tanto $x^3 - 8 = (x-2)(x^2+2x+4)$, y el factor $(x-2)$ se cancela:
+
+    \[
+    = \lim_{x \to 2} \frac{(x-2)(x^2+2x+4)}{(x-2)(\sqrt{x^3+1}+3)}
+    = \lim_{x \to 2} \frac{x^2+2x+4}{\sqrt{x^3+1}+3}
+    = \frac{4+4+4}{3+3} = \frac{12}{6} = 2
+    \]
+
+    \textbf{Recta tangente} ($m = 2$):
+    \[
+    y - 3 = 2(x-2) \implies \boxed{y = 2x - 1}
+    \]
+    \textbf{Recta normal} $\left(m_\perp = -\dfrac{1}{2}\right)$:
+    \[
+    y - 3 = -\frac{1}{2}(x-2) \implies y = -\frac{1}{2}x + 1 + 3 \implies \boxed{y = -\frac{1}{2}x + 4}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 9 ========================
+\section{Diferenciación implícita}
+
+Encuentra $dy/dx$ por diferenciación implícita.
+
+\begin{enumerate}[label=\alph*.-]
+    \setcounter{enumi}{4} % comienza en e)
+    \item $xe^y = x - y$
+
+    \solucion
+
+    % ---- e) xe^y = x - y ----
+    Diferenciando ambos lados respecto a $x$ (recordando que $y$ es función de $x$):
+    \[
+    \frac{d}{dx}(xe^y) = \frac{d}{dx}(x - y)
+    \]
+    Aplicando la regla del producto en el lado izquierdo:
+    \[
+    e^y + xe^y\,y' = 1 - y'
+    \]
+    Agrupando los términos con $y'$:
+    \[
+    xe^y\,y' + y' = 1 - e^y
+    \implies y'(xe^y + 1) = 1 - e^y
+    \]
+    \[
+    \boxed{y' = \frac{1 - e^y}{xe^y + 1}}
+    \]
+
+    \item $y\cos x = x^2 + y^2$
+
+    \solucion
+    % ---- f) y*cos(x) = x^2 + y^2 ----
+    \[
+    \frac{d}{dx}(y\cos x) = \frac{d}{dx}(x^2 + y^2)
+    \implies y(-\sen x) + y'\cos x = 2x + 2y\,y'
+    \]
+    \[
+    y'\cos x - 2y\,y' = 2x + y\sen x
+    \implies y'(\cos x - 2y) = 2x + y\sen x
+    \]
+    \[
+    \boxed{y' = \frac{2x + y\sen x}{\cos x - 2y}}
+    \]
+
+    \item $\cos(xy) = 1 + \sen\,y$
+
+    \solucion
+    % ---- g) cos(xy) = 1 + sen(y) ----
+    \[
+    \frac{d}{dx}(\cos(xy)) = \frac{d}{dx}(1 + \sen y)
+    \]
+    Aplicando la regla de la cadena en el lado izquierdo, donde $xy$ depende de $x$:
+    \[
+    -\sen(xy) \cdot \frac{d}{dx}(xy) = \cos(y) \cdot y'
+    \]
+    \[
+    -\sen(xy) \cdot (y + x\,y') = \cos(y) \cdot y'
+    \]
+    \[
+    -y\,\sen(xy) - x\,y'\sen(xy) = \cos(y)\,y'
+    \]
+    \[
+    -y\,\sen(xy) = \cos(y)\,y' + x\,y'\sen(xy) = y'\bigl(\cos(y) + x\,\sen(xy)\bigr)
+    \]
+    \[
+    \boxed{y' = \frac{-y\,\sen(xy)}{\cos(y) + x\,\sen(xy)}}
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 10 ========================
+\section{Curva de Kampila de Eudoxo}
+
+\begin{enumerate}[label=\alph*.-]
+    \item La curva con ecuación $y^2 = 5x^4 - x^2$ se llama Kampila de Eudoxo. Encuentre la ecuación de la recta tangente a esta curva en el punto $(1, 2)$.
+
+    \solucion
+
+    % ---- a) y^2 = 5x^4 - x^2, punto (1,2) ----
+    Diferenciando implícitamente:
+    \[
+    \frac{d}{dx}(y^2) = \frac{d}{dx}(5x^4 - x^2)
+    \implies 2y\,y' = 20x^3 - 2x
+    \implies y' = \frac{20x^3 - 2x}{2y} = \frac{10x^3 - x}{y}
+    \]
+    Evaluando en $(1, 2)$:
+    \[
+    y'(1,2) = \frac{10(1)^3 - 1}{2} = \frac{10 - 1}{2} = \frac{9}{2} \implies m = \frac{9}{2}
+    \]
+    Ecuación de la recta tangente:
+    \[
+    y - 2 = \frac{9}{2}(x-1) \implies y - 2 = \frac{9}{2}x - \frac{9}{2} \implies \boxed{y = \frac{9}{2}x - \frac{5}{2}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 11 ========================
+\section{Derivada de funciones inversas trigonométricas}
+Halla la derivada de la función. Simplifica donde se pueda.
+
+\begin{enumerate}[label=\alph*.-]
+    \setcounter{enumi}{1} % comienza en b)
+    \item $y = \tan^{-1}(x^2)$
+
+    \solucion
+
+    Sea $\tan(y) = x^2$. Diferenciando implícitamente:
+    \[
+    \sec^2(y)\,y' = 2x \implies y' = \frac{2x}{\sec^2(y)}
+    \]
+    Usando la identidad $\sec^2(y) = 1 + \tan^2(y)$ y que $\tan(y) = x^2$:
+    \[
+    \sec^2(y) = 1 + (x^2)^2 = 1 + x^4
+    \]
+    \[
+    \boxed{y' = \frac{2x}{1+x^4}}
+    \]
+
+    \item $y = \sen^{-1}(2x+1)$
+
+    \solucion
+
+    Sea $\sen(y) = 2x+1$. Diferenciando implícitamente:
+    \[
+    \cos(y)\,y' = 2 \implies y' = \frac{2}{\cos(y)}
+    \]
+    Usando la identidad $\cos(y) = \sqrt{1 - \sen^2(y)}$ y que $\sen(y) = 2x+1$:
+    \[
+    \cos(y) = \sqrt{1-(2x+1)^2}
+    \]
+    \[
+    \boxed{y' = \frac{2}{\sqrt{1-(2x+1)^2}}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 12 ========================
+\section{Derivación logarítmica}
+
+Aplica la derivación logarítmica para hallar la derivada de la función.
+
+\begin{enumerate}[label=\alph*.-]
+    \setcounter{enumi}{1} % comienza en b)
+    \item $x(t) = \dfrac{e^{-t}\cos^2 t}{t^2 + t + 1}$
+
+    \solucion
+
+    % ---- b) x(t) = e^{-t} * cos^2(t) / (t^2 + t + 1) ----
+    Aplicando logaritmo natural:
+    \[
+    \ln x = \ln\left(\frac{e^{-t}\cos^2(t)}{t^2+t+1}\right)
+    = \ln e^{-t} + \ln\cos^2(t) - \ln(t^2+t+1)
+    \]
+    \[
+    \ln x = -t + 2\ln(\cos t) - \ln(t^2+t+1)
+    \]
+    Diferenciando ambos lados respecto a $t$:
+    \[
+    \frac{1}{x}\,x' = -1 + \frac{2\cos t(-\sen t)}{\cos^2 t} - \frac{2t+1}{t^2+t+1}
+    = -1 - 2\,\tg(t) - \frac{2t+1}{t^2+t+1}
+    \]
+    Despejando $x'$:
+    \[
+    \boxed{x'(t) = x\left(-1 - 2\,\tg(t) - \frac{2t+1}{t^2+t+1}\right)
+    = \frac{e^{-t}\cos^2 t}{t^2+t+1}\left(-1 - 2\,\tg(t) - \frac{2t+1}{t^2+t+1}\right)}
+    \]
+
+    \setcounter{enumi}{5} % salta a f)
+    \item $f(z) = (\sen z)^{\ln z} + (\ln z)^{\cos z}$
+
+    \solucion
+
+    % ---- f) f(z) = sen(z)^{ln z} + ln(z)^{cos z} ----
+    La función tiene dos términos; se deriva cada uno por separado usando logaritmos.
+
+    \textbf{Primer término:} $f_1 = \sen(z)^{\ln z}$
+    \[
+    \ln f_1 = \ln z \cdot \ln(\sen z)
+    \]
+    \[
+    \frac{1}{f_1}f_1' = \frac{1}{z}\cdot\ln(\sen z) + \ln z \cdot \frac{\cos z}{\sen z}
+    = \frac{\ln(\sen z)}{z} + \ln z\,\cdot\tg^{-1}(z)
+    \]
+    \[
+    f_1' = f_1\left(\frac{\ln(\sen z)}{z} + \frac{\ln z}{\tg(z)}\right)
+    = \sen(z)^{\ln z}\left(\frac{\ln(\sen z)}{z} + \frac{\ln z}{\tg(z)}\right)
+    \]
+
+    \textbf{Segundo término:} $f_2 = (\ln z)^{\cos z}$
+    \[
+    \ln f_2 = \cos(z)\cdot\ln(\ln z)
+    \]
+    \[
+    \frac{1}{f_2}f_2' = -\sen(z)\cdot\ln(\ln z) + \cos(z)\cdot\frac{1}{\ln z}\cdot\frac{1}{z}
+    = -\tg(z) + \frac{1}{z\ln z}
+    \]
+    \[
+    f_2' = f_2\left(-\tg(z) + \frac{1}{z\ln z}\right)
+    = (\ln z)^{\cos z}\left(\frac{1}{z\ln z} - \tg(z)\right)
+    \]
+
+    \textbf{Resultado final:}
+    \[
+    \boxed{f'(z) = \sen(z)^{\ln z}\!\left(\frac{\ln(\sen z)}{z} + \frac{\ln z}{\tg(z)}\right)
+    + (\ln z)^{\cos z}\!\left(\frac{1}{z\ln z} - \tg(z)\right)}
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 13 ========================
+\section{Aproximación lineal}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Encuentra la aproximación lineal de la función $f(x) = \sqrt{1-x}$ en $x = 0$ y úsala para aproximar los valores de $\sqrt{0{,}9}$ y $\sqrt{0{,}99}$. Grafica $f$ y la recta tangente.
+
+    \solucion
+
+    % ---- a) f(x) = sqrt(1-x) en x=0 ----
+La derivada de $f(x) = (1-x)^{1/2}$ es:
+\[
+f'(x) = \frac{1}{2}(1-x)^{-1/2} \cdot (-1) = \frac{-1}{2\sqrt{1-x}}
+\]
+Evaluando en $x = 0$:
+\[
+f(0) = 1, \qquad f'(0) = \frac{-1}{2\sqrt{1}} = -\frac{1}{2}
+\]
+La aproximación lineal (recta tangente en $x=0$) es:
+\[
+L(x) = f(0) + f'(0)(x-0) = 1 - \frac{x}{2}
+\]
+Por lo tanto: $\sqrt{1-x} \approx 1 - \dfrac{x}{2}$ cuando $x$ está cerca de $0$.
+
+\textbf{Aproximaciones:}
+\begin{itemize}
+    \item $\sqrt{0{,}9} = \sqrt{1-0{,}1} \approx 1 - \dfrac{0{,}1}{2} = 0{,}95$ \quad (valor real: $\approx 0{,}9487$)
+    \item $\sqrt{0{,}99} = \sqrt{1-0{,}01} \approx 1 - \dfrac{0{,}01}{2} = 0{,}995$ \quad (valor real: $\approx 0{,}9950$)
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines = center,
+    xlabel = {$x$},
+    ylabel = {$y$},
+    xmin=-0.5, xmax=1.5,
+    ymin=-0.5, ymax=2,
+    width=13cm, height=9cm,
+    grid=both,
+    grid style={line width=0.2pt, draw=gray!30},
+    major grid style={line width=0.4pt, draw=gray!60},
+]
+\addplot[blue, thick, domain=-0.5:1, samples=100] {sqrt(1-x)};
+\addlegendentry{$f(x) = \sqrt{1-x}$}
+
+\addplot[red, dashed, thick, domain=-0.5:1.5] {1 - x/2};
+\addlegendentry{$L(x) = 1 - \dfrac{x}{2}$}
+
+\addplot[mark=*, mark size=2pt, black] coordinates {(0,1)};
+\node[above right] at (axis cs:0,1) {$(0,1)$};
+\end{axis}
+\end{tikzpicture}
+\caption{Aproximación lineal de $f(x) = \sqrt{1-x}$ en $x = 0$. La recta tangente $L(x) = 1 - \frac{x}{2}$ aproxima bien a $f$ cerca del punto $(0,1)$.}
+\end{figure}
+\end{enumerate}
+
+\volverindice
+
+% ======================== EJERCICIO 14 ========================
+\section{Diferenciales para aproximar}
+
+Utiliza diferenciales para aproximar el valor de las siguientes expresiones.
+
+\begin{enumerate}[label=\alph*.-]
+    \setcounter{enumi}{2} % comienza en c)
+    \item $e^{-0.015}$
+
+    \solucion
+
+    % ---- c) e^{-0.015} ----
+    Sea $f(x) = e^x$, con $a = 0$ y $dx = -0{,}015$.
+    \[
+    f'(x) = e^x, \qquad f'(0) = e^0 = 1
+    \]
+    \[
+    dy = f'(a)\,dx = 1 \cdot (-0{,}015) = -0{,}015
+    \]
+    Aplicando la aproximación $f(a+dx) \approx f(a) + dy$:
+    \[
+    e^{-0{,}015} \approx 1 + (-0{,}015) \implies \boxed{e^{-0{,}015} \approx 0{,}985}
+    \]
+
+    \item $\tan 44°$
+
+    \solucion
+
+    % ---- d) tan 44° ----
+    Sea $f(x) = \tg(x)$, con $a = 45° = \dfrac{\pi}{4}$ y $dx = 44° - 45° = -1° = -\dfrac{\pi}{180}$.
+    \[
+    f'(x) = \sec^2(x), \qquad f'\!\left(\frac{\pi}{4}\right) = \sec^2\!\left(\frac{\pi}{4}\right) = \frac{1}{\cos^2(\pi/4)} = \frac{1}{(\sqrt{2}/2)^2} = 2
+    \]
+    \[
+    dy = f'(a)\,dx = 2\cdot\left(-\frac{\pi}{180}\right) = -\frac{\pi}{90} \approx -0{,}0349
+    \]
+    \[
+    \tg(44°) \approx \tg(45°) + dy = 1 - \frac{\pi}{90} \implies \boxed{\tg(44°) \approx 0{,}9651}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 15 ========================
+\section{Situaciones problemáticas con diferenciales}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Se encontró que la arista de un cubo es 30 cm, con un posible error en la medición de 0{,}1 cm. Utilice diferenciales para estimar el error máximo posible, el error relativo y el porcentaje de error al calcular:
+
+    \begin{enumerate}[label=\roman*.-]
+        \item El volumen del cubo.
+
+        \solucion
+
+        % ---- a) i) Volumen ----
+        El volumen del cubo es $V = x^3$, con $x = 30$ cm y $dx = 0{,}1$ cm.
+        \[
+        dV = 3x^2\,dx = 3(30)^2 \cdot 0{,}1 = 3 \cdot 900 \cdot 0{,}1 = 270 \text{ cm}^3
+        \]
+        \textbf{Error máximo estimado:} $dV = 270 \text{ cm}^3$
+
+        \textbf{Error relativo:}
+        \[
+        \frac{dV}{V} = \frac{270}{30^3} = \frac{270}{27000} = 0{,}01
+        \]
+
+        \textbf{Porcentaje de error:}
+        \[
+        0{,}01 \times 100\% = 1\%
+        \]
+
+        \textbf{Observación:} El error relativo en el volumen es
+        \[
+        \frac{dV}{V} = \frac{3x^2\,dx}{x^3} = 3\,\frac{dx}{x} = 3 \cdot \frac{0{,}1}{30} = 3 \cdot 0{,}003 \approx 0{,}01
+        \]
+        Es decir, el error relativo en el volumen es exactamente \textbf{el triple} del error relativo en la arista,
+        lo cual es consecuencia directa de que $V = x^3$.
+
+        \item El área superficial del cubo.
+
+        \solucion
+
+        % ---- a) ii) Área superficial ----
+        La superficie total del cubo es $S = 6x^2$, con $x = 30$ cm y $dx = 0{,}1$ cm.
+        \[
+        dS = 12x\,dx = 12 \cdot 30 \cdot 0{,}1 = 36 \text{ cm}^2
+        \]
+        \textbf{Error máximo estimado:} $dS = 36 \text{ cm}^2$
+
+        \textbf{Error relativo:}
+        \[
+        S = 6 \cdot 30^2 = 5400 \text{ cm}^2 \implies \frac{dS}{S} = \frac{36}{5400} \approx 0{,}0066
+        \]
+
+        \textbf{Porcentaje de error:}
+        \[
+        0{,}0066 \times 100\% \approx \boxed{0{,}66\%}
+        \]
+        \textbf{Observación:} El error relativo en el área superficial es
+        \[
+        \frac{dS}{S} = \frac{12x\,dx}{6x^2} = 2\,\frac{dx}{x} = 2 \cdot \frac{0{,}1}{30} \approx 0{,}66\%
+        \]
+        El error relativo en la superficie es exactamente \textbf{el doble} del error relativo en la arista,
+        consecuencia de que $S = 6x^2$.
+    \end{enumerate}
+\end{enumerate}
+
+\volverindice
+
+% ======================== EJERCICIO 16 ========================
+\section{Regla de L'Hôpital}
+
+Encuentra el límite aplicando la regla de L'Hôpital.
+
+\begin{enumerate}[label=\alph*.-]
+    % --- INCISO 1 (elegido) ---
+    \item $\displaystyle\lim_{t \to 0} \frac{e^{2t}-1}{\sen\,t}$
+
+    \solucion
+
+    % ---- a) lim_{t->0} (e^{2t}-1)/sen(t) ----
+    \[
+    \lim_{t \to 0} \frac{e^{2t}-1}{\sen\,t} \stackrel{\text{L'H}}{=}
+    \lim_{t \to 0} \frac{2e^{2t}}{\cos t} = \frac{2e^0}{\cos 0} = \frac{2}{1} = \boxed{2}
+    \]
+
+    \item $\displaystyle\lim_{\theta \to 0} \frac{\sen(4\theta)}{\tan(5\theta)}$
+
+    \solucion
+
+    % ---- b) lim_{theta->0} sen(4theta)/tan(5theta) ----
+    \[
+    \lim_{\theta \to 0} \frac{\sen(4\theta)}{\tan(5\theta)} \stackrel{\text{L'H}}{=}
+    \lim_{\theta \to 0} \frac{4\cos(4\theta)}{5\sec^2(5\theta)} = \frac{4\cos 0}{5\sec^2 0} = \frac{4}{5} = \boxed{\dfrac{4}{5}}
+    \]
+
+    \item $\displaystyle\lim_{x \to 1} \frac{\ln x}{x^2-1}$
+
+    \solucion
+
+    % ---- c) lim_{x->1} ln(x)/(x^2-1) ----
+    \[
+    \lim_{x \to 1} \frac{\ln x}{x^2-1} \stackrel{\text{L'H}}{=}
+    \lim_{x \to 1} \frac{\tfrac{1}{x}}{2x} = \lim_{x \to 1} \frac{1}{2x^2} = \frac{1}{2} = \boxed{\dfrac{1}{2}}
+    \]
+\end{enumerate}
+
+\volverindice
+
+\end{document}
