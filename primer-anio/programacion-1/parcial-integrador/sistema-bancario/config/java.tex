@@ -1,0 +1,73 @@
+% ============================================================
+% COLORES PARA SINTAXIS JAVA
+% ============================================================
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+\definecolor{codeannotation}{RGB}{187, 181, 41}
+
+% Colores para las cajas de diseño
+\definecolor{azulucasal}{RGB}{0, 70, 140}
+\definecolor{azulclaro}{RGB}{230, 240, 255}
+\definecolor{verdeclaro}{RGB}{230, 255, 235}
+\definecolor{verdeoscuro}{RGB}{0, 100, 60}
+\definecolor{amarilloclaro}{RGB}{255, 252, 220}
+\definecolor{naranjaclaro}{RGB}{255, 240, 220}
+\definecolor{naranjaoscuro}{RGB}{160, 80, 0}
+
+% ============================================================
+% PALABRAS CLAVE DE JAVA
+% ============================================================
+\lstdefinelanguage{Java}{
+    keywords={
+        abstract, assert, boolean, break, byte, case, catch, char, class,
+        const, continue, default, do, double, else, enum, extends, final,
+        finally, float, for, goto, if, implements, import, instanceof, int,
+        interface, long, native, new, package, private, protected, public,
+        return, short, static, strictfp, super, switch, synchronized, this,
+        throw, throws, transient, try, void, volatile, while, true, false, null,
+        var, record, sealed, permits, yield
+    },
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[b]',
+}
+
+% ============================================================
+% ESTILO JAVA
+% ============================================================
+\lstdefinestyle{java}{
+    language=Java,
+    inputencoding=utf8,
+    extendedchars=true,
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\footnotesize,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numbers=none,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    columns=fullflexible,
+    keepspaces=true,
+    literate=
+        {á}{{\'{a}}}1 {é}{{\'{e}}}1 {í}{{\'{i}}}1 {ó}{{\'{o}}}1 {ú}{{\'{u}}}1
+        {Á}{{\'{A}}}1 {É}{{\'{E}}}1 {Í}{{\'{I}}}1 {Ó}{{\'{O}}}1 {Ú}{{\'{U}}}1
+        {ñ}{{\~{n}}}1 {Ñ}{{\~{N}}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+% ============================================================
+% CAPTIONS DE LISTINGS
+% ============================================================
+\renewcommand{\lstlistingname}{Clase}
+\AtBeginDocument{\renewcommand{\thelstlisting}{}}

@@ -1,0 +1,587 @@
+% ============================================================
+% Programacion I — Examen Final Integrador
+% Facundo Luna
+% ============================================================
+\documentclass[12pt, a4paper]{article}
+
+\input{config/paquetes}
+\input{config/java}
+\input{config/comandos}
+
+\begin{document}
+
+% ============================================================
+% PORTADA
+% ============================================================
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ============================================================
+% INDICE
+% ============================================================
+\tableofcontents
+\newpage
+
+% ============================================================
+% SECCIÓN 1 — ENUNCIADO
+% ============================================================
+\section{Enunciado}
+
+Se desarrolla un \textbf{Sistema de Gestión Bancaria} por consola que permite
+administrar clientes, cuentas bancarias y movimientos financieros.
+El sistema contempla dos tipos de cuentas: \textit{Caja de Ahorro} y
+\textit{Cuenta Corriente}, ambas derivadas de una clase común.
+
+\vspace{0.8em}
+
+\subsection{Funcionalidades principales}
+
+El sistema permite realizar las siguientes operaciones:
+
+\begin{enumerate}[leftmargin=1.5cm, label=\arabic{*}.]
+  \item \textbf{Alta de clientes} — registro de nombre, DNI y datos de contacto.
+  \item \textbf{Apertura de cuentas} — Caja de Ahorro o Cuenta Corriente asociada a un cliente.
+  \item \textbf{Depósito y extracción} — con validación de saldo disponible y límite de descubierto.
+  \item \textbf{Transferencias entre cuentas} — con registro automático de movimientos.
+  \item \textbf{Consulta de saldo e historial} — listado de movimientos ordenados por fecha.
+  \item \textbf{Búsqueda de clientes y cuentas} — por DNI o número de cuenta.
+  \item \textbf{Listar clientes con mayor saldo} — usando \texttt{Stream} y comparadores funcionales.
+\end{enumerate}
+
+\subsection{Conceptos del curso aplicados}
+
+\begin{tabularx}{\textwidth}{@{} l X @{}}
+  \toprule
+  \textbf{Concepto} & \textbf{Aplicación en el sistema} \\
+  \midrule
+  Operaciones y cálculos secuenciales & Depósito, extracción, transferencia \\[4pt]
+  Ingreso de datos por consola        & Menú interactivo con \texttt{Scanner} \\[4pt]
+  Estructuras de selección            & \texttt{switch} en menú, \texttt{if} en validaciones \\[4pt]
+  Bucles                              & \texttt{while} y \texttt{for-each} en listados \\[4pt]
+  Creación de clases                  & \texttt{Cliente}, \texttt{Cuenta}, \texttt{Movimiento}, \ldots \\[4pt]
+  Creación de objetos                 & Instanciación desde menú y servicio \\[4pt]
+  Arreglos / colecciones              & \texttt{List<>} para cuentas, movimientos, clientes \\[4pt]
+  Herencia                            & \texttt{CajaDeAhorro} y \texttt{CuentaCorriente extends Cuenta} \\
+  \bottomrule
+\end{tabularx}
+
+% ============================================================
+% SECCIÓN 2 — ARQUITECTURA
+% ============================================================
+\newpage
+\section{Arquitectura del sistema}
+
+\subsection{Estructura de paquetes}
+
+El proyecto adopta una \textbf{arquitectura en capas} inspirada en el patrón
+\textit{Model-Service-View}, adaptada al contexto de consola. Cada paquete
+tiene una responsabilidad única y acotada:
+
+\begin{center}
+\begin{mdframed}[
+  backgroundcolor=azulclaro,
+  linecolor=azulucasal,
+  linewidth=1pt,
+  roundcorner=6pt,
+  innerleftmargin=14pt,
+  innerrightmargin=14pt,
+  innertopmargin=10pt,
+  innerbottommargin=10pt,
+  userdefinedwidth=0.88\textwidth
+]
+\begin{tabularx}{\linewidth}{@{} l l X @{}}
+  \ttfamily src/               &            & \\[2pt]
+  \ttfamily \quad menu/        &            & \\
+  \ttfamily \qquad MenuPrincipal.java  & \textrm{—} & \textrm{\small Punto de entrada e interacción con el usuario} \\[4pt]
+  \ttfamily \quad modelos/     &            & \\
+  \ttfamily \qquad Banco.java           & \textrm{—} & \textrm{\small Entidad raíz del sistema} \\
+  \ttfamily \qquad Cliente.java         & \textrm{—} & \textrm{\small Datos del titular} \\
+  \ttfamily \qquad Cuenta.java          & \textrm{—} & \textrm{\small Clase abstracta base} \\
+  \ttfamily \qquad CajaDeAhorro.java    & \textrm{—} & \textrm{\small Especialización de Cuenta} \\
+  \ttfamily \qquad CuentaCorriente.java & \textrm{—} & \textrm{\small Especialización con descubierto} \\
+  \ttfamily \qquad Movimiento.java      & \textrm{—} & \textrm{\small Registro de operaciones} \\[4pt]
+  \ttfamily \quad servicio/    &            & \\
+  \ttfamily \qquad BancoService.java    & \textrm{—} & \textrm{\small Lógica de negocio centralizada} \\[4pt]
+  \ttfamily \quad utilidades/  &            & \\
+  \ttfamily \qquad Consola.java         & \textrm{—} & \textrm{\small Lectura segura de entradas del usuario} \\[4pt]
+  \ttfamily App.java                    & \textrm{—} & \textrm{\small Arranque de la aplicación} \\
+\end{tabularx}
+\end{mdframed}
+\end{center}
+
+\subsection{Descripción de las capas}
+
+\begin{description}[leftmargin=2cm, style=nextline]
+  \item[\texttt{modelos/}]
+    Contiene las clases de dominio puro: definen atributos, constructores,
+    getters/setters y, en el caso de \texttt{Cuenta}, métodos abstractos que
+    las subclases implementan (\texttt{depositar}, \texttt{extraer}).
+    No contienen lógica de negocio ni acceso a la UI.
+
+  \item[\texttt{servicio/}]
+    \texttt{BancoService} encapsula todas las reglas del negocio: alta de
+    clientes y cuentas, transferencias, búsquedas y reportes.
+    Es la única capa que manipula las colecciones internas del \texttt{Banco}.
+    El menú solo llama métodos de servicio; nunca accede al modelo directamente.
+
+  \item[\texttt{utilidades/}]
+    \texttt{Consola} centraliza la lectura de datos del usuario, maneja excepciones de entrada (\texttt{NumberFormatException}) y expone métodos
+    reutilizables (\texttt{leerEntero}, \texttt{leerTexto}, \texttt{leerDouble}).
+    Al estar en un paquete propio puede usarse desde cualquier capa sin generar
+    dependencias circulares.
+
+  \item[\texttt{menu/}]
+    \texttt{MenuPrincipal} es la capa de presentación: muestra opciones,
+    captura la selección y delega en \texttt{BancoService}. Toda la interacción
+    con el usuario ocurre aquí.
+\end{description}
+
+\subsection{Decisiones de diseño destacadas}
+
+\begin{itemize}[leftmargin=0.5cm]
+
+  \item \textbf{\texttt{Optional<T>} — manejo seguro de nulos} \\
+    Los métodos de búsqueda (\texttt{buscarClientePorDni},
+    \texttt{buscarCuentaPorNumero}) retornan \texttt{Optional} en lugar de
+    \texttt{null}. Esto obliga al llamador a manejar el caso ``no encontrado''
+    de forma explícita, eliminando los \texttt{NullPointerException}.
+
+  \item \textbf{\texttt{Stream} y programación funcional} \\
+    Se usan \texttt{stream().filter()}, \texttt{.map()}, \texttt{.sorted()} y
+    \texttt{.collect()} para recorrer y transformar colecciones sin bucles
+    imperativos. Por ejemplo, listar los clientes ordenados por saldo total
+    se resuelve en una sola expresión en lugar de un bucle con
+    comparadores manuales.
+
+  \item \textbf{Herencia e \texttt{instanceof}} \\
+    \texttt{CajaDeAhorro} y \texttt{CuentaCorriente} extienden la clase
+    abstracta \texttt{Cuenta}. El polimorfismo permite operar sobre cualquier
+    cuenta sin conocer su tipo concreto; \texttt{instanceof} se emplea
+    únicamente donde la lógica difiere (por ejemplo, el descubierto).
+
+  \item \textbf{Separación total UI / lógica} \\
+    El servicio nunca imprime por consola; el menú nunca accede al estado
+    interno del banco. Esta separación facilita agregar una interfaz gráfica
+    en el futuro sin tocar la lógica de negocio.
+
+\end{itemize}
+
+\newpage
+\subsection{Diagrama UML de clases}
+
+La figura~\ref{fig:uml} muestra las relaciones entre las clases del sistema.
+
+\begin{figure}[H]
+\centering
+\renewcommand{\umltextcolor}{black}
+\renewcommand{\umldrawcolor}{azulucasal}
+\renewcommand{\umlfillcolor}{azulclaro}
+\scalebox{0.72}{
+\begin{tikzpicture}[every node/.style={font=\small}]
+
+  \begin{class}[text width=4.4cm]{Banco}{0,1}
+    \attribute{- nombre : String}
+    \attribute{- clientes : List\textless Cliente\textgreater}
+    \attribute{- cuentas : List\textless Cuenta\textgreater}
+    \operation{+ agregarCliente(c : Cliente)}
+    \operation{+ agregarCuenta(c : Cuenta)}
+    \operation{+ getClientes() : List}
+    \operation{+ getCuentas() : List}
+  \end{class}
+
+  \begin{class}[text width=4.4cm]{Cliente}{9,1}
+    \attribute{- nombre : String}
+    \attribute{- dni : String}
+    \attribute{- email : String}
+    \operation{+ getNombre() : String}
+    \operation{+ getDni() : String}
+    \operation{+ getEmail() : String}
+  \end{class}
+
+  \begin{class}[text width=4.0cm]{Movimiento}{-5,-10}
+    \attribute{- tipo : String}
+    \attribute{- monto : double}
+    \attribute{- fecha : LocalDateTime}
+    \operation{+ getTipo() : String}
+    \operation{+ getMonto() : double}
+    \operation{+ getFecha() : LocalDateTime}
+  \end{class}
+
+  \begin{abstractclass}[text width=4.6cm]{Cuenta}{3.5,-7}
+    \attribute{- numeroCuenta : String}
+    \attribute{- saldo : double}
+    \attribute{- titular : Cliente}
+    \attribute{- movimientos : List}
+    \operation{+ getSaldo() : double}
+    \operation{+ getMovimientos() : List}
+    \operation[0]{+ depositar(monto : double) : boolean}
+    \operation[0]{+ extraer(monto : double) : boolean}
+  \end{abstractclass}
+
+  \begin{class}[text width=4.8cm]{BancoService}{10.5,-7}
+    \attribute{- banco : Banco}
+    \operation{+ registrarCliente(...)}
+    \operation{+ abrirCajaDeAhorro(...)}
+    \operation{+ abrirCuentaCorriente(...)}
+    \operation{+ depositar(nro, monto) : boolean}
+    \operation{+ extraer(nro, monto) : boolean}
+    \operation{+ transferir(orig, dest, monto)}
+    \operation{+ buscarClientePorDni(dni)}
+    \operation{+ listarPorSaldo() : List}
+  \end{class}
+
+  \begin{class}[text width=4.4cm]{CajaDeAhorro}{1,-15}
+    \operation{+ depositar(monto : double) : boolean}
+    \operation{+ extraer(monto : double) : boolean}
+  \end{class}
+
+  \begin{class}[text width=4.8cm]{CuentaCorriente}{7,-15}
+    \attribute{- limiteDescubierto : double}
+    \operation{+ depositar(monto : double) : boolean}
+    \operation{+ extraer(monto : double) : boolean}
+    \operation{+ getLimiteDescubierto() : double}
+  \end{class}
+
+  \aggregation{Banco}{clientes}{1..*}{Cliente}
+  \aggregation{Banco}{cuentas}{1..*}{Cuenta}
+  \aggregation{Cuenta}{movimientos}{0..*}{Movimiento}
+  \association{Cuenta}{titular}{1}{Cliente}{}{}
+  \inherit{CajaDeAhorro}{Cuenta}
+  \inherit{CuentaCorriente}{Cuenta}
+  \unidirectionalAssociation{BancoService}{banco}{1}{Banco}
+
+\end{tikzpicture}
+}
+\caption{Diagrama UML de clases — Sistema Bancario}
+\label{fig:uml}
+\end{figure}
+
+% ============================================================
+% SECCIÓN 3 — CÓDIGO FUENTE
+% ============================================================
+\newpage
+\section{Código fuente}
+
+El código completo está disponible en el repositorio:
+\begin{center}
+  \url{https://github.com/Facugl/data-science-coursework/tree/main/primer-anio/programacion-1/examen-integrador/sistema-bancario}
+\end{center}
+
+A continuación se presenta el código de cada clase, organizado por capa.
+
+% ──────────────────────────────────────────────
+\subsection{Capa de modelos}
+% ──────────────────────────────────────────────
+
+\subsubsection{Clase abstracta \texttt{Cuenta}}
+\lstinputlisting[
+  style=java,
+  caption={modelos/Cuenta.java — clase base abstracta},
+  columns=fullflexible,
+  keepspaces=true
+]{src/modelos/Cuenta.java}
+
+\subsubsection{Clase \texttt{CajaDeAhorro}}
+\lstinputlisting[
+  style=java,
+  caption={modelos/CajaDeAhorro.java — herencia de Cuenta},
+  columns=fullflexible,
+  keepspaces=true
+]{src/modelos/CajaDeAhorro.java}
+
+\subsubsection{Clase \texttt{CuentaCorriente}}
+\lstinputlisting[
+  style=java,
+  caption={modelos/CuentaCorriente.java — descubierto autorizado},
+  columns=fullflexible,
+  keepspaces=true
+]{src/modelos/CuentaCorriente.java}
+
+\subsubsection{Clase \texttt{Cliente}}
+\lstinputlisting[
+  style=java,
+  caption={modelos/Cliente.java},
+  columns=fullflexible,
+  keepspaces=true
+]{src/modelos/Cliente.java}
+
+\subsubsection{Clase \texttt{Movimiento}}
+\lstinputlisting[
+  style=java,
+  caption={modelos/Movimiento.java — historial de operaciones},
+  columns=fullflexible,
+  keepspaces=true
+]{src/modelos/Movimiento.java}
+
+\subsubsection{Clase \texttt{Banco}}
+\lstinputlisting[
+  style=java,
+  caption={modelos/Banco.java — entidad raiz del sistema},
+  columns=fullflexible,
+  keepspaces=true
+]{src/modelos/Banco.java}
+
+% ──────────────────────────────────────────────
+\subsection{Capa de servicio}
+% ──────────────────────────────────────────────
+
+\subsubsection{Clase \texttt{BancoService}}
+\lstinputlisting[
+  style=java,
+  caption={servicio/BancoService.java — logica de negocio con Optional y Stream},
+  columns=fullflexible,
+  keepspaces=true
+]{src/servicio/BancoService.java}
+
+% ──────────────────────────────────────────────
+\subsection{Capa de utilidades}
+% ──────────────────────────────────────────────
+
+\subsubsection{Clase \texttt{Consola}}
+\lstinputlisting[
+  style=java,
+  caption={utilidades/Consola.java — lectura robusta de entradas},
+  columns=fullflexible,
+  keepspaces=true
+]{src/utilidades/Consola.java}
+
+% ──────────────────────────────────────────────
+\subsection{Menú principal}
+% ──────────────────────────────────────────────
+
+\subsubsection{Clase \texttt{MenuPrincipal}}
+\lstinputlisting[
+  style=java,
+  caption={menu/MenuPrincipal.java — interfaz de usuario por consola},
+  columns=fullflexible,
+  keepspaces=true
+]{src/menu/MenuPrincipal.java}
+
+\subsubsection{Clase \texttt{App} — punto de entrada}
+\lstinputlisting[
+  style=java,
+  caption={App.java — arranque de la aplicacion},
+  columns=fullflexible,
+  keepspaces=true
+]{src/App.java}
+
+% ============================================================
+% SECCIÓN 4 — CAPTURAS DE EJECUCIÓN
+% ============================================================
+\newpage
+\section{Capturas de ejecución}
+
+A continuación se presentan ejemplos reales de ejecución del sistema,
+organizados por funcionalidad. Los datos de prueba iniciales
+(\textit{García, Juan} y \textit{López, María}) son cargados
+automáticamente al iniciar la aplicación.
+
+% ──────────────────────────────────────────────
+\subsection{Inicio del sistema y datos de prueba}
+% ──────────────────────────────────────────────
+
+Al arrancar, el sistema carga clientes y cuentas de ejemplo y presenta
+el menú principal con las cuatro categorías de operaciones disponibles.
+
+\begin{tcolorbox}[
+  enhanced, breakable,
+  colback=black!92!white,
+  colframe=black!60!white,
+  coltext=green!70!white,
+  boxrule=0.5pt,
+  arc=4pt,
+  fontupper=\ttfamily\small
+]
+{[OK]} Cliente registrado: García, Juan\\
+{[OK]} Cliente registrado: López, María\\
+{[OK]} Caja de Ahorro abierta. Número: CBU-1001\\
+{[OK]} Cuenta Corriente abierta. Número: CBU-1002 | Descubierto: \$10000.0\\
+{[INFO]} Datos de prueba cargados correctamente.\\
+~\\
+======================================================================\\
+BIENVENIDO AL SISTEMA BANCARIO\\
+Desarrollado por: Facundo Luna~~|~~Programacion I --- 2026\\
+======================================================================\\
+~\\
+Este sistema permite gestionar clientes y cuentas bancarias.\\
+Desde el menú principal podrá: registrar clientes, abrir cuentas,\\
+realizar operaciones bancarias y consultar reportes e historial.\\
+~\\
+======================================================================\\
+MENÚ PRINCIPAL\\
+======================================================================\\
+1. Gestión de Clientes\\
+2. Gestión de Cuentas\\
+3. Operaciones Bancarias\\
+4. Reportes e Historial\\
+0. Salir\\
+======================================================================\\
+Seleccione una opción:
+\end{tcolorbox}
+
+\newpage
+\subsection{Gestión de clientes}
+
+Se registra un nuevo cliente (\textit{Uzumaki, Naruto}), se lista el
+padrón completo y se lo busca por DNI para verificar el alta.
+
+\begin{tcolorbox}[
+  enhanced, breakable,
+  colback=black!92!white,
+  colframe=black!60!white,
+  coltext=green!70!white,
+  boxrule=0.5pt,
+  arc=4pt,
+  fontupper=\ttfamily\small
+]
+Seleccione una opción: \textbf{1}\\
+~\\
+\textgreater\textgreater{} Registrar Nuevo Cliente\\
+--------------------------------------------------\\
+Nombre: \textbf{Naruto}\\
+Apellido: \textbf{Uzumaki}\\
+DNI: \textbf{38735411}\\
+Email: \textbf{naruto@gmail.com}\\
+{[OK]} Cliente registrado: Uzumaki, Naruto\\
+~\\
+Seleccione una opción: \textbf{2}\\
+~\\
+\textgreater\textgreater{} Clientes Registrados\\
+--------------------------------------------------\\
+~~Cliente: García, Juan~~~~| DNI: 12345678 | Email: juan@email.com~~| Cuentas: 1\\
+~~Cliente: López, María~~~~| DNI: 87654321 | Email: maria@email.com | Cuentas: 1\\
+~~Cliente: Uzumaki, Naruto | DNI: 38735411 | Email: naruto@gmail.com| Cuentas: 0\\
+{[INFO]} Total: 3 cliente(s).\\
+~\\
+Seleccione una opción: \textbf{3}\\
+~\\
+\textgreater\textgreater{} Buscar Cliente por DNI\\
+--------------------------------------------------\\
+Ingrese DNI: \textbf{38735411}\\
+~~Cliente: Uzumaki, Naruto | DNI: 38735411 | Email: naruto@gmail.com | Cuentas: 0
+\end{tcolorbox}
+
+\newpage
+\subsection{Apertura de cuenta y consulta}
+
+Se abre una Caja de Ahorro para el cliente recién registrado y se
+consultan sus cuentas para confirmar la apertura y el saldo inicial.
+
+\begin{tcolorbox}[
+  enhanced, breakable,
+  colback=black!92!white,
+  colframe=black!60!white,
+  coltext=green!70!white,
+  boxrule=0.5pt,
+  arc=4pt,
+  fontupper=\ttfamily\small
+]
+Seleccione una opción: \textbf{1}~~\textrm{\textit{(Abrir Caja de Ahorro)}}\\
+~\\
+\textgreater\textgreater{} Abrir Caja de Ahorro\\
+--------------------------------------------------\\
+DNI del cliente: \textbf{38735411}\\
+Saldo inicial: \textbf{\$10000}\\
+{[OK]} Caja de Ahorro abierta. Número: CBU-1003\\
+~\\
+Seleccione una opción: \textbf{3}~~\textrm{\textit{(Ver cuentas de un cliente)}}\\
+~\\
+\textgreater\textgreater{} Cuentas del Cliente\\
+--------------------------------------------------\\
+DNI del cliente: \textbf{38735411}\\
+~~Cuenta CBU-1003 | Tipo: Caja de Ahorro | Titular: Uzumaki, Naruto\\
+~~~~~~~~~~~~~~~~| Saldo: \$10000,00 | Tasa: 5,0\%
+\end{tcolorbox}
+
+\subsection{Transferencia entre cuentas}
+
+Se transfieren \$5\,000 desde la cuenta de Naruto (\texttt{CBU-1003})
+hacia la cuenta de García (\texttt{CBU-1001}). El sistema valida el
+saldo disponible y confirma la operación.
+
+\begin{tcolorbox}[
+  enhanced, breakable,
+  colback=black!92!white,
+  colframe=black!60!white,
+  coltext=green!70!white,
+  boxrule=0.5pt,
+  arc=4pt,
+  fontupper=\ttfamily\small
+]
+Seleccione una opción: \textbf{3}~~\textrm{\textit{(Transferir entre cuentas)}}\\
+~\\
+\textgreater\textgreater{} Transferencia\\
+--------------------------------------------------\\
+Cuenta origen~~: \textbf{CBU-1003}\\
+Cuenta destino~: \textbf{CBU-1001}\\
+Monto a transferir: \textbf{\$5000}\\
+{[OK]} Transferencia exitosa: \$5000,00 de CBU-1003 a CBU-1001
+\end{tcolorbox}
+
+\newpage
+\subsection{Historial de movimientos y saldo}
+
+Se consulta el historial de \texttt{CBU-1003}. Se observan los dos
+movimientos registrados: el depósito inicial por apertura y la
+extracción correspondiente a la transferencia saliente.
+
+\begin{tcolorbox}[
+  enhanced, breakable,
+  colback=black!92!white,
+  colframe=black!60!white,
+  coltext=green!70!white,
+  boxrule=0.5pt,
+  arc=4pt,
+  fontupper=\ttfamily\small
+]
+Seleccione una opción: \textbf{1}~~\textrm{\textit{(Ver historial de una cuenta)}}\\
+~\\
+\textgreater\textgreater{} Historial de Movimientos\\
+--------------------------------------------------\\
+Número de cuenta: \textbf{CBU-1003}\\
+~\\
+\textgreater\textgreater{} Historial --- Cuenta CBU-1003\\
+--------------------------------------------------\\
+~~Cuenta CBU-1003 | Tipo: Caja de Ahorro | Titular: Uzumaki, Naruto\\
+~~~~~~~~~~~~~~~~| Saldo: \$5000,00 | Tasa: 5,0\%\\
+~\\
+~~[09/06/2026 23:05:44] Depósito~~ | Monto: \$~~10000,00 | Saldo: \$~~10000,00 | Apertura de cuenta\\
+~~[09/06/2026 23:07:16] Extracción | Monto: \$~~~5000,00 | Saldo: \$~~~5000,00 | Extracción en efectivo\\
+~\\
+{[INFO]} Volviendo al menú principal...\\
+~\\
+Seleccione una opción: \textbf{0}\\
+{[INFO]} Cerrando sistema. Hasta pronto!
+\end{tcolorbox}
+
+\vspace{1em}
+
+Los ejemplos verifican de forma integral: carga inicial de datos,
+registro y búsqueda de clientes, apertura de cuentas, transferencia
+con validación de saldo, y consulta de historial con marca de tiempo
+por cada movimiento.
+\end{document}

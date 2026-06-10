@@ -1,0 +1,90 @@
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+\newcommand{\universidad}{Universidad Cat\'olica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Programaci\'on I}
+\newcommand{\trabajo}{Ex\'amen Final Integrador}
+\newcommand{\profesor}{Ing. Mario Mart\'inez}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+% ============================================================
+% LOGO DE LA UNIVERSIDAD
+% ============================================================
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% VOLVER AL INDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al \'indice}%
+    \end{flushright}%
+}
+
+% ============================================================
+% CAJA DE ENUNCIADO
+% ============================================================
+\newcommand{\enunciado}[1]{%
+    \begin{tcolorbox}[
+        colback=azulclaro,
+        colframe=azulucasal,
+        fonttitle=\bfseries,
+        title=Enunciado,
+        breakable,
+        arc=4pt,
+    ]
+        #1
+    \end{tcolorbox}%
+    \vspace{0.5em}%
+}
+
+% ============================================================
+% CAJA DE CONCEPTO OOP / JAVA
+% ============================================================
+\newcommand{\concepto}[2]{%
+    \begin{tcolorbox}[
+        colback=verdeclaro,
+        colframe=verdeoscuro,
+        fonttitle=\bfseries,
+        title=#1,
+        breakable,
+        arc=4pt,
+    ]
+        #2
+    \end{tcolorbox}%
+    \vspace{0.5em}%
+}
+
+% ============================================================
+% CAJA DE NOTA / DECISION DE DISENO
+% ============================================================
+\newcommand{\nota}[2]{%
+    \begin{tcolorbox}[
+        colback=amarilloclaro,
+        colframe=naranjaoscuro,
+        fonttitle=\bfseries,
+        title=#1,
+        breakable,
+        arc=4pt,
+    ]
+        #2
+    \end{tcolorbox}%
+    \vspace{0.5em}%
+}
+
+% ============================================================
+% BLOQUE DE EXPLICACION
+% ============================================================
+\newcommand{\explicacion}{%
+    \vspace{1em}%
+    \textbf{Explicaci\'on:}%
+    \vspace{0.5em}%
+    \par%
+}
