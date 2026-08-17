@@ -1,0 +1,368 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% TIPOGRAFÍA
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% COMILLAS TIPOGRÁFICAS (compatibles con babel/español)
+% ============================================================
+\usepackage{csquotes}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{caption}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% LISTAS
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N° 1 - Programación II},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Programación II}
+\fancyhead[R]{\small Trabajo Práctico N° 1}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Programación II}
+\newcommand{\trabajo}{Trabajo Práctico N° 1}
+\newcommand{\profesor}{Ing. Mario Martínez}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+% COMANDO PARA EL ENUNCIADO DE CADA PREGUNTA
+% ============================================================
+\newcommand{\enunciado}[1]{%
+    \begin{quote}
+        \itshape #1
+    \end{quote}
+}
+
+% ============================================================
+% BIBLIOGRAFÍA
+% ============================================================
+\usepackage[
+    sorting=nyt,
+    style=apa,
+    backend=biber
+]{biblatex}
+\addbibresource{referencias.bib}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== CUERPO ============================
+
+\newpage
+
+\phantomsection
+\section*{Aclaraciones previas}
+\addcontentsline{toc}{section}{Aclaraciones previas}
+
+El presente trabajo práctico aborda preguntas introductorias y conceptuales de la materia Programación II, algunas a modo diagnóstico, otras a modo de nivelación y otras específicas del contenido de la Unidad 1. Para su elaboración se consultó el material de estudio de la materia (y de Programación I) y otras fuentes de información complementarias, tales como sitios de internet y bibliografía especializada.
+
+% ======================== PREGUNTA 1 ========================
+
+\newpage
+\section{Lenguajes de máquina, de bajo nivel y de alto nivel}
+
+\enunciado{Comente con sus palabras que entiende por el concepto y en qué se diferencian los lenguajes de máquina, bajo nivel y alto nivel. Incorpore ejemplos.}
+
+Un lenguaje de programación es el medio a través del cual una persona le indica a una computadora qué tareas debe realizar. Estos lenguajes se clasifican según qué tan cerca están de lo que entiende directamente el hardware o de lo que entiende una persona \parencite{joyanes2008fundamentos}.
+
+\textbf{Lenguaje de máquina.} Es el único lenguaje que la computadora ejecuta de forma directa, sin necesidad de traducción. Está compuesto por secuencias de ceros y unos (código binario) que representan instrucciones específicas del procesador, como mover datos entre registros o realizar una suma. Es totalmente dependiente del hardware: un programa escrito en lenguaje de máquina para un procesador Intel no funciona en un procesador con arquitectura distinta. Por ejemplo, una instrucción podría verse como \texttt{10110000 01100001}.
+
+\textbf{Lenguaje de bajo nivel (ensamblador).} Es una evolución del lenguaje de máquina que reemplaza las cadenas binarias por mnemotécnicos (abreviaturas en inglés) más fáciles de recordar para el programador, como \texttt{MOV}, \texttt{ADD} o \texttt{JMP}. Sigue siendo muy cercano al hardware —cada instrucción del ensamblador corresponde a una instrucción de máquina— por lo que también depende del procesador para el cual fue escrito. Requiere un programa llamado \emph{ensamblador} para traducirlo a lenguaje de máquina.
+
+\textbf{Lenguaje de alto nivel.} Se aleja del hardware y se acerca al lenguaje natural humano (generalmente en inglés), utilizando palabras e instrucciones que expresan directamente el problema a resolver, sin preocuparse por los detalles internos del procesador. Ejemplos son Python, Java, C++ o C\#. Estos lenguajes son independientes de la máquina: un mismo programa puede ejecutarse en distintas arquitecturas siempre que exista un compilador o intérprete adecuado.
+
+En síntesis, la diferencia central entre estos tres niveles radica en la distancia respecto del hardware: cuanto más bajo es el nivel, más eficiente y rápido es el código pero más difícil de escribir y menos portable; cuanto más alto es el nivel, más sencillo resulta programar y más portable es el código, aunque suele requerir un paso de traducción (compilación o interpretación) antes de ejecutarse \parencite{cairo2005metodologia}.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 2 ========================
+
+\section{Compiladores e intérpretes}
+
+\enunciado{También con sus palabras, que entiende y diferencias entre Compiladores e Intérpretes. Incorpore ejemplos.}
+
+Tanto el compilador como el intérprete son programas traductores: convierten el código fuente escrito por el programador en un lenguaje de alto nivel a instrucciones que la computadora puede ejecutar. La diferencia está en \emph{cómo} y \emph{cuándo} realizan esa traducción \parencite{joyanes2008fundamentos}.
+
+\textbf{Compilador.} Traduce el programa completo de una sola vez, antes de ejecutarlo. Como resultado genera un archivo ejecutable independiente (código objeto o código máquina) que ya no necesita del código fuente ni del compilador para correr. Si el programa tiene errores, el compilador los informa todos juntos al finalizar la traducción, y el programa no se ejecuta hasta que se corrigen. Ejemplos de lenguajes compilados son C, C++ y Rust.
+
+\textbf{Intérprete.} Traduce y ejecuta el programa línea por línea, en el momento en que corre. No genera un archivo ejecutable aparte: cada vez que se quiere correr el programa, se necesita tener el intérprete instalado. Si encuentra un error, detiene la ejecución en esa línea sin revisar el resto del código. Ejemplos de lenguajes interpretados son Python y JavaScript (en su forma tradicional).
+
+En la práctica, muchos lenguajes modernos (como Python o Java) combinan ambas estrategias: primero compilan el código fuente a un código intermedio (bytecode) y luego ese bytecode es interpretado o compilado \emph{just-in-time} por una máquina virtual, buscando un equilibrio entre portabilidad y velocidad de ejecución \parencite{cairo2005metodologia}.
+
+La principal ventaja del compilador es la velocidad de ejecución del programa final, ya que no hay traducción de por medio en tiempo de ejecución. La principal ventaja del intérprete es la flexibilidad para probar y corregir código rápidamente, sin tener que recompilar todo el programa cada vez.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 3 ========================
+
+\section{Operadores aritméticos y lógicos}
+
+\enunciado{¿Qué operadores aritméticos y lógicos conoce?}
+
+\textbf{Operadores aritméticos.} Se utilizan para realizar cálculos matemáticos entre valores numéricos \parencite{joyanes2008fundamentos}:
+
+\begin{itemize}[noitemsep]
+    \item Suma: \texttt{+}
+    \item Resta: \texttt{-}
+    \item Multiplicación: \texttt{*}
+    \item División: \texttt{/}
+    \item División entera: \texttt{DIV} (en PSeInt) — descarta la parte decimal del resultado
+    \item Módulo o resto de la división: \texttt{MOD} (en PSeInt) — devuelve el resto de una división entera
+    \item Potenciación: \texttt{\textasciicircum}
+\end{itemize}
+
+\textbf{Operadores lógicos.} Se utilizan para combinar o evaluar expresiones booleanas (verdadero o falso), típicamente dentro de condiciones (\texttt{Si}) o bucles (\texttt{Mientras}) \parencite{cairo2005metodologia}:
+
+\begin{itemize}[noitemsep]
+    \item Y (AND): devuelve verdadero solo si ambas condiciones son verdaderas.
+    \item O (OR): devuelve verdadero si al menos una de las condiciones es verdadera.
+    \item NO (NOT): invierte el valor lógico de una condición (de verdadero a falso, o viceversa).
+\end{itemize}
+
+Además, suelen mencionarse junto a estos los \textbf{operadores relacionales} (\texttt{=}, \texttt{<>}, \texttt{>}, \texttt{<}, \texttt{>=}, \texttt{<=}), que comparan valores y devuelven un resultado lógico (verdadero o falso), y que habitualmente se combinan con los operadores lógicos para construir condiciones más complejas.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 4 ========================
+
+\section{Concepto de algoritmo}
+
+\enunciado{¿Qué es un algoritmo?}
+
+Un algoritmo es un conjunto finito, ordenado y no ambiguo de pasos o instrucciones que permite resolver un problema o realizar una tarea determinada \parencite{cairo2005metodologia}. Para que una secuencia de pasos sea considerada un algoritmo debe cumplir con ciertas características:
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Finitud:} debe terminar después de un número finito de pasos.
+    \item \textbf{Precisión (no ambigüedad):} cada paso debe estar definido con claridad, sin lugar a interpretaciones distintas.
+    \item \textbf{Entrada:} puede recibir cero o más datos de entrada.
+    \item \textbf{Salida:} debe producir al menos un resultado o salida.
+    \item \textbf{Efectividad:} cada paso debe ser lo suficientemente básico como para poder realizarse, en principio, por una persona con lápiz y papel en un tiempo finito \parencite{joyanes2008fundamentos}.
+\end{itemize}
+
+Un ejemplo cotidiano de algoritmo es una receta de cocina: tiene un conjunto ordenado de pasos, ingredientes como entrada y un plato terminado como salida. En programación, un algoritmo es la base lógica sobre la cual luego se construye un programa, independientemente del lenguaje en el que se vaya a implementar.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 5 ========================
+
+\section{Programa, lenguaje de programación y tarea del programador}
+
+\enunciado{¿Qué es un programa? ¿Qué es un lenguaje de programación? ¿Y qué tarea es la que hace un programador?}
+
+\textbf{Programa.} Es la implementación concreta de un algoritmo, escrita en un lenguaje de programación específico para que una computadora pueda ejecutarla. Mientras el algoritmo es la idea o el plan de solución (independiente del lenguaje), el programa es esa misma solución ya traducida a instrucciones que la máquina puede procesar \parencite{joyanes2008fundamentos}.
+
+\textbf{Lenguaje de programación.} Es un conjunto de reglas, símbolos y palabras clave (sintaxis) que permite a una persona escribir instrucciones comprensibles tanto para sí misma como, luego de un proceso de traducción (compilación o interpretación), para la computadora. Ejemplos son Python, Java, C o PSeInt (este último pensado específicamente para el aprendizaje mediante pseudocódigo).
+
+\textbf{Tarea del programador.} El programador es quien analiza un problema, diseña un algoritmo que lo resuelve y lo traduce (codifica) a un lenguaje de programación concreto, para luego probarlo, corregirlo y mantenerlo en el tiempo. Su trabajo no se limita a escribir código: incluye también entender el requerimiento, planificar la solución antes de programar y verificar que el resultado final cumpla con lo esperado \parencite{cairo2005metodologia}.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 6 ========================
+
+\section{Investigación sobre un lenguaje de programación popular}
+
+\enunciado{De los lenguajes de programación más populares en la actualidad (puede seleccionar uno del material de estudio u otro que Ud. considere), seleccione uno de ellos y desarrolle una pequeña investigación que incluya al menos:}
+
+Se seleccionó el lenguaje \textbf{Python} para esta investigación, por ser en la actualidad el lenguaje de programación más utilizado según los principales índices de la industria.
+
+\subsection*{a) ¿Cómo surgió?}
+
+Python fue creado por el programador neerlandés \textbf{Guido van Rossum} y su primera versión se publicó en 1991. El nombre no hace referencia a la serpiente, sino al grupo de comedia británico \emph{Monty Python's Flying Circus}, del cual van Rossum era admirador. El objetivo original del lenguaje era ofrecer una sintaxis simple y legible, que redujera el esfuerzo de escritura de código sin sacrificar potencia, tomando ideas de lenguajes anteriores como ABC, Modula-3 y C \parencite{joyanes2008fundamentos}. A lo largo de los años atravesó varias versiones mayores, siendo la más relevante el salto de Python 2 a Python 3 (2008), que introdujo cambios profundos en el lenguaje y que actualmente es el estándar utilizado.
+
+\subsection*{b) ¿Para qué se usa en la actualidad?}
+
+Hoy Python se utiliza en una enorme variedad de dominios: desarrollo web (con frameworks como Django o Flask), automatización de tareas (\emph{scripting}), análisis y ciencia de datos, y muy especialmente en inteligencia artificial y aprendizaje automático, gracias a bibliotecas como TensorFlow, PyTorch y scikit-learn. Según el índice TIOBE, a comienzos de 2026 Python alcanzó una participación cercana al 22\%, la más alta registrada por cualquier lenguaje en la historia del índice, impulsada en gran parte por su rol central en el desarrollo de IA \parencite{tiobe2026}. También se destaca en el ámbito educativo, siendo frecuentemente el primer lenguaje que se enseña por su sintaxis simple.
+
+\subsection*{c) ¿Por qué es tan popular ese lenguaje?}
+
+Varios factores explican su popularidad actual. En primer lugar, se volvió el lenguaje de referencia para la inteligencia artificial: los frameworks dominantes en machine learning (TensorFlow, PyTorch, scikit-learn) están escritos en o para Python, y es el lenguaje más utilizado en los repositorios de GitHub relacionados con IA \parencite{tiobe2026}. En segundo lugar, su sintaxis clara y cercana al lenguaje natural reduce la curva de aprendizaje para principiantes. En tercer lugar, cuenta con una enorme comunidad y un ecosistema de bibliotecas para casi cualquier tarea, lo que evita \enquote{reinventar la rueda}. Por último, la encuesta de desarrolladores de Stack Overflow de 2025 registró para Python el mayor incremento interanual de todos los lenguajes relevados, lo que confirma una tendencia de crecimiento sostenido y no un pico puntual \parencite{stackoverflow2025}.
+
+\subsection*{d) ¿Cómo lo clasificaría según su nivel de abstracción del procesador?}
+
+Python es un lenguaje de \textbf{alto nivel}. Su sintaxis está diseñada para ser comprendida por personas, no por el procesador, y no requiere que el programador gestione manualmente recursos de bajo nivel como direcciones de memoria o registros del CPU. Además, es un lenguaje \textbf{interpretado} (más precisamente, compilado a bytecode y luego ejecutado por una máquina virtual, la CPython VM), lo que aumenta su nivel de abstracción respecto de lenguajes compilados de más bajo nivel como C. Esta combinación —alto nivel más interpretación— es justamente lo que lo hace más lento en tiempo de ejecución que lenguajes como C o Rust, pero mucho más rápido y sencillo de escribir y depurar \parencite{cairo2005metodologia}.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 7 ========================
+
+\section{Fases de la resolución de problemas}
+
+\enunciado{¿Qué fases en la \enquote{resolución de problemas} conoce? Menciónelas y explique la importancia de la Fase IV.}
+
+Siguiendo el enfoque clásico de resolución de problemas aplicado a la programación —basado originalmente en el método de George Polya y adaptado por los principales autores de metodología de la programación—, se distinguen habitualmente cuatro fases \parencite{cairo2005metodologia}:
+
+\begin{enumerate}
+    \item \textbf{Análisis del problema:} consiste en comprender exactamente qué se pide resolver, identificando los datos de entrada disponibles, los resultados de salida esperados y las restricciones o reglas del problema.
+    \item \textbf{Diseño del algoritmo:} una vez comprendido el problema, se elabora la solución en un nivel abstracto (independiente del lenguaje), mediante pseudocódigo o diagramas de flujo, definiendo la secuencia lógica de pasos que resuelve el problema.
+    \item \textbf{Codificación (o implementación):} el algoritmo diseñado se traduce a un lenguaje de programación concreto, respetando su sintaxis, para obtener un programa ejecutable por la computadora.
+    \item \textbf{Prueba y depuración (\emph{testing} y \emph{debugging}):} se ejecuta el programa con distintos conjuntos de datos —incluyendo casos límite— para verificar que produce los resultados esperados, y se corrigen los errores (\emph{bugs}) que se detecten.
+\end{enumerate}
+
+\textbf{Importancia de la Fase IV.} La fase de prueba y depuración es fundamental porque es la que garantiza que el programa efectivamente resuelve el problema para el cual fue diseñado, y no solo que \enquote{compila} o \enquote{corre sin errores visibles}. Un programa puede ejecutarse sin fallas técnicas y aun así producir resultados incorrectos frente a determinados datos de entrada (por ejemplo, valores límite, negativos o nulos que no fueron contemplados en el diseño). Sin esta fase, errores lógicos podrían pasar desapercibidos y llegar a un entorno de uso real, con consecuencias que van desde resultados erróneos hasta fallos críticos del sistema. Por eso se considera que probar un programa de forma exhaustiva —y no solo con el \enquote{caso feliz}— es tan importante como diseñarlo o codificarlo \parencite{joyanes2008fundamentos}.
+
+\volverindice
+\newpage
+
+% ======================== PREGUNTA 8 ========================
+
+\section{Variables y constantes}
+
+\enunciado{¿Qué es una variable y qué es una constante?}
+
+\textbf{Variable.} Es un espacio de memoria identificado con un nombre (identificador), destinado a almacenar un dato cuyo valor puede cambiar durante la ejecución del programa. Toda variable tiene tres elementos: un nombre, un tipo de dato (entero, real, carácter, lógico, etc.) y un valor, que puede modificarse en distintos momentos del programa \parencite{joyanes2008fundamentos}. Por ejemplo, en un algoritmo que calcule el promedio de notas de un alumno, la variable \texttt{Nota} irá cambiando de valor cada vez que se ingrese una nueva calificación por teclado.
+
+\textbf{Constante.} Es también un espacio de memoria identificado con un nombre, pero cuyo valor se fija una única vez y permanece invariable durante toda la ejecución del programa \parencite{cairo2005metodologia}. Se utiliza típicamente para valores que no deben cambiar, como el número $\pi$, una tarifa fija o un límite de un sistema. Por ejemplo, en el Ejercicio 10 de este mismo trabajo práctico, el valor de la tarifa de la primera hora de estacionamiento (200 pesos) podría definirse como una constante, ya que no varía durante la ejecución del algoritmo.
+
+En síntesis, la diferencia esencial entre ambas es la \textbf{mutabilidad}: la variable está pensada para almacenar datos que cambian a lo largo del programa, mientras que la constante representa un valor fijo que se declara una sola vez y se utiliza sin modificarse.
+
+\volverindice
+
+% ======================== BIBLIOGRAFÍA ========================
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Bibliografía}
+\printbibliography[title={Bibliografía}]
+
+\end{document}
