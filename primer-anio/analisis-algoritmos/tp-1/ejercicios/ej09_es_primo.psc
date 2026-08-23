@@ -1,7 +1,7 @@
 Algoritmo EsPrimo
 	Definir n, i Como Entero
-	Definir esPrimo Como Logico
-	
+	Definir flagPrimo Como Logico
+		
 	Repetir
 		Escribir "Ingresa un numero. Debe ser mayor a 1:"
 		Leer n
@@ -10,17 +10,17 @@ Algoritmo EsPrimo
 		FinSi
 	Hasta Que n > 1
 	
-	esPrimo <- Verdadero
+	flagPrimo <- Verdadero
 	i <- 2
 	
-	Mientras i <= n / 2 Y esPrimo Hacer
+	Mientras i <= n / 2 Y flagPrimo Hacer
 		Si (n MOD i = 0) Entonces
-			esPrimo <- Falso
+			flagPrimo <- Falso
 		FinSi
 		i <- i + 1
 	FinMientras
 	
-	Si esPrimo Entonces
+	Si flagPrimo Entonces
 		Escribir "Es primo."
 	SiNo
 		Escribir "No es primo."
