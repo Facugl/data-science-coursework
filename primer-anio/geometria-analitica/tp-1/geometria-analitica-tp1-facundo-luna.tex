@@ -1,0 +1,2023 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°1},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Geometría Analítica}
+\fancyhead[R]{\small Trabajo Práctico N°1}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Geometría Analítica}
+\newcommand{\trabajo}{Trabajo Práctico N°1}
+\newcommand{\profesor}{Lic. Mauro Vaca}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+    \vspace{0.8em}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.5cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== ACTIVIDAD 1 ========================
+\newpage
+\section{Determine si los siguientes conjuntos son espacios vectoriales, cada uno con las operaciones usuales de cada conjunto}
+
+\begin{enumerate}[label=\alph*.-]
+    \item El conjunto de puntos de $\mathbb{R}^2$ que están en una recta que pasa por el origen.
+
+    \solucion
+
+    Sea $L = \{(x,y) \in \mathbb{R}^2 \, / \, y = mx, \; m \in \mathbb{R} \text{ fijo}\}$, con las operaciones usuales de $\mathbb{R}^2$:
+    \[
+    (x_1,mx_1)+(x_2,mx_2) = (x_1+x_2,\; mx_1+mx_2), \qquad
+    k\cdot(x_1,mx_1) = (kx_1,\; kmx_1)
+    \]
+
+    Verificamos los 10 axiomas de espacio vectorial.
+
+    \textbf{1. Cerradura bajo la suma}
+
+    Sean $u=(x_1,mx_1),\; v=(x_2,mx_2) \in L$.
+    \[
+    u+v = (x_1,mx_1)+(x_2,mx_2) = \big((x_1+x_2),\, (mx_1+mx_2)\big) = \big((x_1+x_2),\, m(x_1+x_2)\big)
+    \]
+    Por lo tanto $u+v \in L$.
+
+    \textbf{2. Conmutatividad de la suma}
+
+    \begin{align*}
+    u+v &= (x_1,mx_1)+(x_2,mx_2) = \big((x_1+x_2),\, m(x_1+x_2)\big) \\
+        &= \big((x_2+x_1),\, m(x_2+x_1)\big) = (x_2,mx_2)+(x_1,mx_1) = v+u
+    \end{align*}
+    Por lo tanto $u+v=v+u$.
+
+    \textbf{3. Asociatividad de la suma}
+
+    Sean $u=(x_1,mx_1),\, v=(x_2,mx_2),\, w=(x_3,mx_3) \in L$.
+    \begin{align*}
+    (u+v)+w &= \big[(x_1,mx_1)+(x_2,mx_2)\big]+(x_3,mx_3) = \big((x_1+x_2),\,m(x_1+x_2)\big)+(x_3,mx_3)\\
+    &= \big((x_1+x_2+x_3),\, m(x_1+x_2+x_3)\big) = (x_1,mx_1)+\big((x_2+x_3),\,m(x_2+x_3)\big)\\
+    &= (x_1,mx_1)+\big[(x_2,mx_2)+(x_3,mx_3)\big] = u+(v+w)
+    \end{align*}
+    Por lo tanto $(u+v)+w = u+(v+w)$.
+
+    \textbf{4. Existencia del elemento neutro de la suma}
+
+    Existe $\theta=(0,0) \in L$ (pues $0=m\cdot 0$) tal que para todo $u=(x_1,mx_1)\in L$:
+    \[
+    u+\theta = (x_1,mx_1)+(0,m\cdot 0) = \big((x_1+0),\,(mx_1+0)\big) = (x_1,mx_1) = u
+    \]
+    Por lo tanto $u+\theta = u$.
+
+    \textbf{5. Existencia del inverso aditivo}
+
+    Para $u=(x_1,mx_1)\in L$, existe $-u=(-x_1,-mx_1) \in L$ tal que:
+    \[
+    u+(-u) = (x_1,mx_1)+(-x_1,-mx_1) = \big((x_1-x_1),\,(mx_1-mx_1)\big) = (0,0)=\theta
+    \]
+    Por lo tanto $u+(-u)=\theta$.
+
+    \textbf{6. Cerradura bajo el producto por escalar}
+
+    Sea $u=(x_1,mx_1)\in L$ y $\alpha \in \mathbb{R}$.
+    \[
+    \alpha u = \alpha(x_1,mx_1) = (\alpha x_1,\, \alpha m x_1) = \big(\alpha x_1,\, m(\alpha x_1)\big)
+    \]
+    Por lo tanto $\alpha u \in L$.
+
+    \textbf{7. Distributividad respecto a la suma de vectores}
+
+    Sean $u=(x_1,mx_1),\, v=(x_2,mx_2) \in L$ y $\alpha \in \mathbb{R}$.
+    \begin{align*}
+    \alpha(u+v) &= \alpha\big[(x_1,mx_1)+(x_2,mx_2)\big] = \alpha\big((x_1+x_2),\,m(x_1+x_2)\big)\\
+    &= \big(\alpha(x_1+x_2),\,\alpha m(x_1+x_2)\big) = \big((\alpha x_1+\alpha x_2),\,(\alpha m x_1+\alpha m x_2)\big)\\
+    &= (\alpha x_1,\alpha m x_1)+(\alpha x_2,\alpha m x_2) = \alpha(x_1,mx_1)+\alpha(x_2,mx_2) = \alpha u+\alpha v
+    \end{align*}
+    Por lo tanto $\alpha(u+v)=\alpha u+\alpha v$.
+
+    \textbf{8. Distributividad respecto a la suma de escalares}
+
+    Sea $u=(x_1,mx_1) \in L$ y $\alpha,\beta \in \mathbb{R}$.
+    \begin{align*}
+    (\alpha+\beta)u &= (\alpha+\beta)(x_1,mx_1) = \big((\alpha+\beta)x_1,\,(\alpha+\beta)mx_1\big)\\
+    &= \big((\alpha x_1+\beta x_1),\,(\alpha m x_1+\beta m x_1)\big) = (\alpha x_1,\alpha m x_1)+(\beta x_1,\beta m x_1)\\
+    &= \alpha(x_1,mx_1)+\beta(x_1,mx_1) = \alpha u+\beta u
+    \end{align*}
+    Por lo tanto $(\alpha+\beta)u = \alpha u+\beta u$.
+
+    \textbf{9. Asociatividad del producto por escalares}
+
+    Sea $u=(x_1,mx_1)\in L$ y $\alpha,\beta \in \mathbb{R}$.
+    \[
+    (\alpha\beta)u = (\alpha\beta)(x_1,mx_1) = (\alpha\beta x_1,\,\alpha\beta m x_1) = \alpha(\beta x_1,\,\beta m x_1) = \alpha\big[\beta(x_1,mx_1)\big] = \alpha(\beta u)
+    \]
+    Por lo tanto $(\alpha\beta)u = \alpha(\beta u)$.
+
+    \textbf{10. Existencia del elemento neutro del producto}
+
+    Para $u=(x_1,mx_1) \in L$:
+    \[
+    1\cdot u = 1\cdot(x_1,mx_1) = (1\cdot x_1,\,1\cdot mx_1) = (x_1,mx_1) = u
+    \]
+    Por lo tanto existe $1 \in \mathbb{R}$ tal que $1\cdot u = u$.
+
+    \textbf{Conclusión:}
+
+    Como se cumplen los 10 axiomas, $L=\{(x,y)\in\mathbb{R}^2 \, / \, y=mx,\, m\in\mathbb{R}\}$ \textbf{es un espacio vectorial} con las operaciones usuales de $\mathbb{R}^2$.
+
+    % ---------------- INCISO B ----------------
+    \item El conjunto unitario $\{1\}$.
+
+    \solucion
+
+    Sea $V=\{1\}$, con las operaciones usuales de suma y producto de $\mathbb{R}$.
+
+    \textbf{Prueba si es cerrado bajo la suma:}
+
+    Tomando $u=v=1\in V$:
+    \[
+    1+1 = 2 \notin V
+    \]
+
+    Por lo tanto $V$ no es cerrado bajo la suma.
+
+    \textbf{Conclusión:} como $V=\{1\}$ no es cerrado bajo la suma, \textbf{no es un espacio vectorial}.
+
+    % ---------------- INCISO C ----------------
+    \item El conjunto de polinomios de grado 3.
+
+    \solucion
+
+    Sea $\mathcal{P}_3 = \{a_0+a_1x+a_2x^2+a_3x^3 \; / \; a_0,a_1,a_2,a_3 \in \mathbb{R}\}$, el conjunto de polinomios de grado \textbf{a lo sumo} 3, con las operaciones usuales de suma de polinomios y producto por escalar.
+
+    Verificamos los 10 axiomas de espacio vectorial.
+
+    \textbf{1. Cerradura bajo la suma}
+
+    Sean $P(x)=a_0+a_1x+a_2x^2+a_3x^3$ y $Q(x)=b_0+b_1x+b_2x^2+b_3x^3$ en $\mathcal{P}_3$.
+    \[
+    P(x)+Q(x) = (a_0+b_0)+(a_1+b_1)x+(a_2+b_2)x^2+(a_3+b_3)x^3
+    \]
+    Como los coeficientes pertenecen a $\mathbb{R}$, se tiene un polinomio de grado a lo sumo 3. Por lo tanto $P(x)+Q(x) \in \mathcal{P}_3$.
+
+    \textbf{2. Conmutatividad de la suma}
+
+    \begin{align*}
+    P(x)+Q(x) &= (a_0+a_1x+a_2x^2+a_3x^3)+(b_0+b_1x+b_2x^2+b_3x^3)\\
+    &= (a_0+b_0)+(a_1+b_1)x+(a_2+b_2)x^2+(a_3+b_3)x^3\\
+    &= (b_0+a_0)+(b_1+a_1)x+(b_2+a_2)x^2+(b_3+a_3)x^3\\
+    &= (b_0+b_1x+b_2x^2+b_3x^3)+(a_0+a_1x+a_2x^2+a_3x^3) = Q(x)+P(x)
+    \end{align*}
+    Por lo tanto $P(x)+Q(x)=Q(x)+P(x)$.
+
+    \textbf{3. Asociatividad de la suma}
+
+    Sea además $R(x)=c_0+c_1x+c_2x^2+c_3x^3 \in \mathcal{P}_3$.
+    \begin{align*}
+    (P(x)+Q(x))+R(x) &= \big[(a_0+b_0)+(a_1+b_1)x+(a_2+b_2)x^2+(a_3+b_3)x^3\big]+(c_0+c_1x+c_2x^2+c_3x^3)\\
+    &= (a_0+b_0+c_0)+(a_1+b_1+c_1)x+(a_2+b_2+c_2)x^2+(a_3+b_3+c_3)x^3\\
+    &= (a_0+a_1x+a_2x^2+a_3x^3)+\big[(b_0+c_0)+(b_1+c_1)x+(b_2+c_2)x^2+(b_3+c_3)x^3\big]\\
+    &= P(x)+(Q(x)+R(x))
+    \end{align*}
+    Por lo tanto $(P(x)+Q(x))+R(x)=P(x)+(Q(x)+R(x))$.
+
+    \textbf{4. Existencia del elemento neutro de la suma}
+
+    Existe $\theta=0+0x+0x^2+0x^3 \in \mathcal{P}_3$ tal que:
+    \[
+    \theta+P(x) = (0+a_0)+(0+a_1)x+(0+a_2)x^2+(0+a_3)x^3 = a_0+a_1x+a_2x^2+a_3x^3 = P(x)
+    \]
+    Por lo tanto $\theta \in \mathcal{P}_3$.
+
+    \textbf{5. Existencia del inverso aditivo}
+
+    Para $P(x)\in \mathcal{P}_3$ existe $-P(x)=-a_0-a_1x-a_2x^2-a_3x^3$ tal que:
+    \[
+    P(x)+(-P(x)) = (a_0-a_0)+(a_1-a_1)x+(a_2-a_2)x^2+(a_3-a_3)x^3 = 0+0x+0x^2+0x^3
+    \]
+    Por lo tanto $-P(x) \in \mathcal{P}_3$.
+
+    \textbf{6. Cerradura bajo el producto por escalar}
+
+    Sea $\alpha \in \mathbb{R}$:
+    \[
+    \alpha \cdot P(x) = \alpha(a_0+a_1x+a_2x^2+a_3x^3) = \alpha a_0+\alpha a_1 x+\alpha a_2 x^2+\alpha a_3 x^3
+    \]
+    Por lo tanto $\alpha P(x) \in \mathcal{P}_3$.
+
+    \textbf{7. Distributividad respecto a la suma de vectores}
+
+    \begin{align*}
+    \alpha(P(x)+Q(x)) &= \alpha\big[(a_0+b_0)+(a_1+b_1)x+(a_2+b_2)x^2+(a_3+b_3)x^3\big]\\
+    &= (\alpha a_0+\alpha b_0)+(\alpha a_1+\alpha b_1)x+(\alpha a_2+\alpha b_2)x^2+(\alpha a_3+\alpha b_3)x^3\\
+    &= (\alpha a_0+\alpha a_1x+\alpha a_2x^2+\alpha a_3x^3)+(\alpha b_0+\alpha b_1x+\alpha b_2x^2+\alpha b_3x^3)\\
+    &= \alpha P(x)+\alpha Q(x)
+    \end{align*}
+    Por lo tanto $\alpha(P(x)+Q(x))=\alpha P(x)+\alpha Q(x)$.
+
+    \textbf{8. Distributividad respecto a la suma de escalares}
+
+    Sean $\alpha,\beta \in \mathbb{R}$:
+    \begin{align*}
+    (\alpha+\beta)P(x) &= (\alpha+\beta)(a_0+a_1x+a_2x^2+a_3x^3)\\
+    &= (\alpha a_0+\beta a_0)+(\alpha a_1+\beta a_1)x+(\alpha a_2+\beta a_2)x^2+(\alpha a_3+\beta a_3)x^3\\
+    &= \alpha(a_0+a_1x+a_2x^2+a_3x^3)+\beta(a_0+a_1x+a_2x^2+a_3x^3) = \alpha P(x)+\beta P(x)
+    \end{align*}
+    Por lo tanto $(\alpha+\beta)P(x)=\alpha P(x)+\beta P(x)$.
+
+    \textbf{9. Asociatividad del producto por escalares}
+
+    \[
+    (\alpha\beta)P(x) = (\alpha\beta)(a_0+a_1x+a_2x^2+a_3x^3) = \alpha(\beta a_0+\beta a_1x+\beta a_2x^2+\beta a_3x^3) = \alpha(\beta P(x))
+    \]
+    Por lo tanto $(\alpha\beta)P(x)=\alpha(\beta P(x))$.
+
+    \textbf{10. Existencia del elemento neutro del producto}
+
+    \[
+    1\cdot P(x) = 1\cdot(a_0+a_1x+a_2x^2+a_3x^3) = a_0+a_1x+a_2x^2+a_3x^3 = P(x)
+    \]
+    Por lo tanto existe $1\in\mathbb{R}$ tal que $1\cdot P(x)=P(x)$.
+
+    \textbf{Conclusión:}
+
+    Como se cumplen los 10 axiomas, $\mathcal{P}_3=\{a_0+a_1x+a_2x^2+a_3x^3 \, / \, a_0,a_1,a_2,a_3\in\mathbb{R}\}$ \textbf{es un espacio vectorial} con las operaciones usuales.
+
+    \textbf{Observación:}
+
+    Si se interpreta "polinomios de grado 3" en sentido \textbf{estricto}, es decir exigiendo $a_3\neq 0$ (el término cúbico no puede anularse), sea
+    \[
+    \mathcal{P}_3^{*} = \{a_0+a_1x+a_2x^2+a_3x^3 \; / \; a_0,a_1,a_2,a_3\in\mathbb{R},\; a_3\neq 0\}.
+    \]
+
+    En este caso $\mathcal{P}_3^{*}$ \textbf{no} es un espacio vectorial, pues:
+
+    \begin{itemize}
+        \item \textbf{No contiene al vector nulo:} el polinomio $\theta(x)=0$ no tiene grado 3 (su coeficiente $a_3=0$), por lo tanto $\theta \notin \mathcal{P}_3^{*}$.
+        \item \textbf{No es cerrado bajo la suma:} sean $P(x)=x^3+x$ y $Q(x)=-x^3+2$, ambos con $a_3\neq 0$.
+        \[
+        P(x)+Q(x) = (x^3+x)+(-x^3+2) = x+2
+        \]
+        que tiene $a_3=0$, por lo tanto $P(x)+Q(x) \notin \mathcal{P}_3^{*}$.
+    \end{itemize}
+
+    Por lo tanto, con esta interpretación más estricta, $\mathcal{P}_3^{*}$ \textbf{no es un espacio vectorial}, ya que no contiene al elemento neutro de la suma ni es cerrado bajo dicha operación.
+
+    \textbf{Conclusión general:} el resultado depende de la interpretación del enunciado. Si "grado 3" se entiende como "grado a lo sumo 3" ($\mathcal{P}_3$), \textbf{sí es un espacio vectorial}. Si se entiende en sentido estricto, exigiendo $a_3\neq 0$ ($\mathcal{P}_3^{*}$), \textbf{no lo es}.
+
+    % ---------------- INCISO D ----------------
+    \item El conjunto de matrices de orden 2 antisimétricas.
+
+    \solucion
+
+    Sea $A = \left\{ M=\begin{pmatrix} 0 & a \\ -a & 0 \end{pmatrix} \; \Big/ \; a \in \mathbb{R} \right\}$, el conjunto de matrices $2\times 2$ antisimétricas (es decir, $M^T=-M$), con las operaciones usuales de suma de matrices y producto por escalar.
+
+    Verificamos los 10 axiomas de espacio vectorial.
+
+    \textbf{1. Cerradura bajo la suma}
+
+    Sean $M_1=\begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix},\; M_2=\begin{pmatrix}0 & a_2\\ -a_2 & 0\end{pmatrix} \in A$.
+    \[
+    M_1+M_2 = \begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix}+\begin{pmatrix}0 & a_2\\ -a_2 & 0\end{pmatrix} = \begin{pmatrix}0 & a_1+a_2\\ -(a_1+a_2) & 0\end{pmatrix}
+    \]
+    Como $a_1+a_2 \in \mathbb{R}$, se tiene una matriz antisimétrica. Por lo tanto $M_1+M_2 \in A$.
+
+    \textbf{2. Conmutatividad de la suma}
+
+    \begin{align*}
+    M_1+M_2 &= \begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix}+\begin{pmatrix}0 & a_2\\ -a_2 & 0\end{pmatrix} = \begin{pmatrix}0 & a_1+a_2\\ -(a_1+a_2) & 0\end{pmatrix}\\
+    &= \begin{pmatrix}0 & a_2+a_1\\ -(a_2+a_1) & 0\end{pmatrix} = \begin{pmatrix}0 & a_2\\ -a_2 & 0\end{pmatrix}+\begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix} = M_2+M_1
+    \end{align*}
+    Por lo tanto $M_1+M_2=M_2+M_1$.
+
+    \textbf{3. Asociatividad de la suma}
+
+    Sea además $M_3=\begin{pmatrix}0 & a_3\\ -a_3 & 0\end{pmatrix} \in A$.
+    \begin{align*}
+    (M_1+M_2)+M_3 &= \begin{pmatrix}0 & a_1+a_2\\ -(a_1+a_2) & 0\end{pmatrix}+\begin{pmatrix}0 & a_3\\ -a_3 & 0\end{pmatrix} = \begin{pmatrix}0 & a_1+a_2+a_3\\ -(a_1+a_2+a_3) & 0\end{pmatrix}\\
+    &= \begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix}+\begin{pmatrix}0 & a_2+a_3\\ -(a_2+a_3) & 0\end{pmatrix} = M_1+(M_2+M_3)
+    \end{align*}
+    Por lo tanto $(M_1+M_2)+M_3=M_1+(M_2+M_3)$.
+
+    \textbf{4. Existencia del elemento neutro de la suma}
+
+    Existe $\theta=\begin{pmatrix}0&0\\0&0\end{pmatrix} \in A$ (con $a=0$) tal que:
+    \[
+    M_1+\theta = \begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix}+\begin{pmatrix}0&0\\0&0\end{pmatrix} = \begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix} = M_1
+    \]
+    Por lo tanto $\theta \in A$.
+
+    \textbf{5. Existencia del inverso aditivo}
+
+    Para $M_1\in A$ existe $-M_1=\begin{pmatrix}0 & -a_1\\ a_1 & 0\end{pmatrix} \in A$ tal que:
+    \[
+    M_1+(-M_1) = \begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix}+\begin{pmatrix}0 & -a_1\\ a_1 & 0\end{pmatrix} = \begin{pmatrix}0&0\\0&0\end{pmatrix} = \theta
+    \]
+    Por lo tanto $-M_1 \in A$.
+
+    \textbf{6. Cerradura bajo el producto por escalar}
+
+    Sea $k \in \mathbb{R}$:
+    \[
+    k\cdot M_1 = k\begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix} = \begin{pmatrix}0 & ka_1\\ -ka_1 & 0\end{pmatrix}
+    \]
+    Como $ka_1 \in \mathbb{R}$, se tiene una matriz antisimétrica. Por lo tanto $kM_1 \in A$.
+
+    \textbf{7. Distributividad respecto a la suma de vectores}
+
+    \begin{align*}
+    k(M_1+M_2) &= k\begin{pmatrix}0 & a_1+a_2\\ -(a_1+a_2) & 0\end{pmatrix} = \begin{pmatrix}0 & k(a_1+a_2)\\ -k(a_1+a_2) & 0\end{pmatrix}\\
+    &= \begin{pmatrix}0 & ka_1+ka_2\\ -(ka_1+ka_2) & 0\end{pmatrix} = \begin{pmatrix}0 & ka_1\\ -ka_1 & 0\end{pmatrix}+\begin{pmatrix}0 & ka_2\\ -ka_2 & 0\end{pmatrix} = kM_1+kM_2
+    \end{align*}
+    Por lo tanto $k(M_1+M_2)=kM_1+kM_2$.
+
+    \textbf{8. Distributividad respecto a la suma de escalares}
+
+    Sean $k,h \in \mathbb{R}$:
+    \begin{align*}
+    (k+h)M_1 &= (k+h)\begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix} = \begin{pmatrix}0 & (k+h)a_1\\ -(k+h)a_1 & 0\end{pmatrix}\\
+    &= \begin{pmatrix}0 & ka_1+ha_1\\ -(ka_1+ha_1) & 0\end{pmatrix} = \begin{pmatrix}0 & ka_1\\ -ka_1 & 0\end{pmatrix}+\begin{pmatrix}0 & ha_1\\ -ha_1 & 0\end{pmatrix} = kM_1+hM_1
+    \end{align*}
+    Por lo tanto $(k+h)M_1=kM_1+hM_1$.
+
+    \textbf{9. Asociatividad del producto por escalares}
+
+    \[
+    (kh)M_1 = (kh)\begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix} = \begin{pmatrix}0 & kha_1\\ -kha_1 & 0\end{pmatrix} = k\begin{pmatrix}0 & ha_1\\ -ha_1 & 0\end{pmatrix} = k(hM_1)
+    \]
+    Por lo tanto $(kh)M_1=k(hM_1)$.
+
+    \textbf{10. Existencia del elemento neutro del producto}
+
+    \[
+    1\cdot M_1 = 1\cdot\begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix} = \begin{pmatrix}0 & a_1\\ -a_1 & 0\end{pmatrix} = M_1
+    \]
+    Por lo tanto existe $1\in\mathbb{R}$ tal que $1\cdot M_1=M_1$.
+
+    \textbf{Conclusión:}
+
+    Como se cumplen los 10 axiomas, $A$ (el conjunto de matrices de orden 2 antisimétricas) \textbf{es un espacio vectorial} con las operaciones usuales.
+
+    % ---------------- INCISO E ----------------
+    \item El conjunto de las funciones lineales $f(x)=ax+b$ con $a,b \in \mathbb{R}$.
+
+    \solucion
+
+    Sea $F=\{f:\mathbb{R}\to\mathbb{R} \; / \; f(x)=ax+b,\; a,b\in\mathbb{R}\}$, con las operaciones usuales de suma de funciones y producto por escalar.
+
+    Verificamos los 10 axiomas de espacio vectorial.
+
+    \textbf{1. Cerradura bajo la suma}
+
+    Sean $f(x)=a_1x+b_1,\; g(x)=a_2x+b_2 \in F$.
+    \[
+    (f+g)(x) = (a_1x+b_1)+(a_2x+b_2) = (a_1+a_2)x+(b_1+b_2)
+    \]
+    Como $a_1+a_2,\, b_1+b_2 \in \mathbb{R}$, se tiene una función del mismo tipo. Por lo tanto $f+g \in F$.
+
+    \textbf{2. Conmutatividad de la suma}
+
+    \begin{align*}
+    (f+g)(x) &= (a_1x+b_1)+(a_2x+b_2) = (a_1+a_2)x+(b_1+b_2)\\
+    &= (a_2+a_1)x+(b_2+b_1) = (a_2x+b_2)+(a_1x+b_1) = (g+f)(x)
+    \end{align*}
+    Por lo tanto $f+g=g+f$.
+
+    \textbf{3. Asociatividad de la suma}
+
+    Sea además $h(x)=a_3x+b_3 \in F$.
+    \begin{align*}
+    ((f+g)+h)(x) &= \big[(a_1+a_2)x+(b_1+b_2)\big]+(a_3x+b_3) = (a_1+a_2+a_3)x+(b_1+b_2+b_3)\\
+    &= (a_1x+b_1)+\big[(a_2+a_3)x+(b_2+b_3)\big] = (f+(g+h))(x)
+    \end{align*}
+    Por lo tanto $(f+g)+h=f+(g+h)$.
+
+    \textbf{4. Existencia del elemento neutro de la suma}
+
+    Existe $\theta(x)=0x+0 \in F$ (con $a=0,\,b=0$) tal que:
+    \[
+    (f+\theta)(x) = (a_1x+b_1)+(0x+0) = a_1x+b_1 = f(x)
+    \]
+    Por lo tanto $\theta \in F$.
+
+    \textbf{5. Existencia del inverso aditivo}
+
+    Para $f(x)=a_1x+b_1 \in F$ existe $-f(x)=-a_1x-b_1 \in F$ tal que:
+    \[
+    (f+(-f))(x) = (a_1x+b_1)+(-a_1x-b_1) = 0x+0 = \theta(x)
+    \]
+    Por lo tanto $-f \in F$.
+
+    \textbf{6. Cerradura bajo el producto por escalar}
+
+    Sea $k \in \mathbb{R}$:
+    \[
+    (k\cdot f)(x) = k(a_1x+b_1) = (ka_1)x+(kb_1)
+    \]
+    Como $ka_1,\, kb_1 \in \mathbb{R}$, se tiene una función del mismo tipo. Por lo tanto $kf \in F$.
+
+    \textbf{7. Distributividad respecto a la suma de vectores}
+
+    \begin{align*}
+    (k(f+g))(x) &= k\big[(a_1+a_2)x+(b_1+b_2)\big] = k(a_1+a_2)x+k(b_1+b_2)\\
+    &= (ka_1+ka_2)x+(kb_1+kb_2) = (ka_1x+kb_1)+(ka_2x+kb_2) = (kf+kg)(x)
+    \end{align*}
+    Por lo tanto $k(f+g)=kf+kg$.
+
+    \textbf{8. Distributividad respecto a la suma de escalares}
+
+    Sean $k,h \in \mathbb{R}$:
+    \begin{align*}
+    ((k+h)f)(x) &= (k+h)(a_1x+b_1) = (k+h)a_1x+(k+h)b_1\\
+    &= (ka_1+ha_1)x+(kb_1+hb_1) = (ka_1x+kb_1)+(ha_1x+hb_1) = (kf+hf)(x)
+    \end{align*}
+    Por lo tanto $(k+h)f=kf+hf$.
+
+    \textbf{9. Asociatividad del producto por escalares}
+
+    \[
+    ((kh)f)(x) = (kh)(a_1x+b_1) = (kha_1)x+(khb_1) = k\big(ha_1x+hb_1\big) = (k(hf))(x)
+    \]
+    Por lo tanto $(kh)f=k(hf)$.
+
+    \textbf{10. Existencia del elemento neutro del producto}
+
+    \[
+    (1\cdot f)(x) = 1\cdot(a_1x+b_1) = a_1x+b_1 = f(x)
+    \]
+    Por lo tanto existe $1\in\mathbb{R}$ tal que $1\cdot f=f$.
+
+    \textbf{Conclusión:}
+
+    Como se cumplen los 10 axiomas, $F=\{f(x)=ax+b \; / \; a,b\in\mathbb{R}\}$ \textbf{es un espacio vectorial} con las operaciones usuales. De hecho, es isomorfo a $\mathbb{R}^2$ mediante la correspondencia $f\mapsto(a,b)$.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 2 ========================
+\section{Los siguientes subconjuntos NO son subespacios vectoriales. Determine cuál es la propiedad que no se verifica}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $A = \{(x,y) \in \mathbb{R}^2 : |y| = |x|\}$
+
+    \solucion
+
+    Veamos si $A$ es cerrado bajo la suma.
+
+    Sean $u=(1,1) \in A$ (pues $|1|=|1|$) y $v=(1,-1) \in A$ (pues $|-1|=|1|$).
+
+    \[
+    u+v = (1,1)+(1,-1) = (2,0)
+    \]
+
+    Verificamos si $u+v \in A$, es decir si $|0|=|2|$:
+    \[
+    |0| = 0 \neq 2 = |2|
+    \]
+
+    Por lo tanto $u+v \notin A$.
+
+    \textbf{Conclusión:} $A$ no es cerrado bajo la suma, por lo tanto \textbf{no es un subespacio vectorial} de $\mathbb{R}^2$.
+
+% ---------------- INCISO B ----------------
+    \item $B = \left\{ \begin{pmatrix} x & 1 \\ z & w \end{pmatrix} \; \Big/ \; x,z,w \in \mathbb{R} \right\}$
+
+    \solucion
+
+    Veamos si $B$ es cerrado bajo la suma.
+
+    Sean $M_1=\begin{pmatrix}x_1 & 1\\ z_1 & w_1\end{pmatrix} \in B$ y $M_2=\begin{pmatrix}x_2 & 1\\ z_2 & w_2\end{pmatrix} \in B$.
+
+    \[
+    M_1+M_2 = \begin{pmatrix}x_1 & 1\\ z_1 & w_1\end{pmatrix}+\begin{pmatrix}x_2 & 1\\ z_2 & w_2\end{pmatrix} = \begin{pmatrix}x_1+x_2 & 2\\ z_1+z_2 & w_1+w_2\end{pmatrix}
+    \]
+
+    Para que $M_1+M_2 \in B$, la entrada $(1,2)$ debería ser $1$, pero:
+    \[
+    1+1 = 2 \neq 1
+    \]
+
+    Por lo tanto $M_1+M_2 \notin B$.
+
+    \textbf{Conclusión:} $B$ no es cerrado bajo la suma, por lo tanto \textbf{no es un subespacio vectorial} de $\mathbb{R}^{2\times2}$.
+
+    % ---------------- INCISO C ----------------
+    \item $C = \{A \in \mathbb{R}^{2\times2} \; / \; |A|=0\}$
+
+    \solucion
+
+    Veamos si $C$ es cerrado bajo la suma.
+
+    Sean
+    \[
+    A=\begin{pmatrix}1 & 0\\ 0 & 0\end{pmatrix}, \qquad
+    B=\begin{pmatrix}0 & 0\\ 0 & 1\end{pmatrix}
+    \]
+
+    Ambas matrices pertenecen a $C$, pues:
+    \[
+    |A| = (1)(0)-(0)(0) = 0, \qquad |B| = (0)(1)-(0)(0) = 0
+    \]
+
+    Calculamos la suma:
+    \[
+    A+B = \begin{pmatrix}1 & 0\\ 0 & 1\end{pmatrix}
+    \]
+
+    Verificamos si $A+B \in C$, es decir si $|A+B|=0$:
+    \[
+    |A+B| = (1)(1)-(0)(0) = 1 \neq 0
+    \]
+
+    Por lo tanto $A+B \notin C$.
+
+    \textbf{Conclusión:} $C$ no es cerrado bajo la suma, por lo tanto \textbf{no es un subespacio vectorial} de $\mathbb{R}^{2\times2}$.
+
+    \textit{Observación:} la condición $|A|=0$ no es lineal en las entradas de la matriz (el determinante involucra productos de entradas), por lo que no puede garantizarse la cerradura bajo la suma en general.
+
+    % ---------------- INCISO D ----------------
+    \item $D = \{(x,y) \in \mathbb{R}^2 \; / \; y=x^2\}$
+
+    \solucion
+
+    Veamos si $D$ es cerrado bajo la suma.
+
+    Sean $P=(x,x^2) \in D$ y $Q=(x_1,x_1^2) \in D$.
+
+    \[
+    P+Q = (x,x^2)+(x_1,x_1^2) = (x+x_1,\; x^2+x_1^2)
+    \]
+
+    Verificamos si $P+Q \in D$, es decir si $x^2+x_1^2=(x+x_1)^2$:
+    \[
+    (x+x_1)^2 = x^2+2xx_1+x_1^2 \neq x^2+x_1^2 \quad \text{(en general, si } x,x_1\neq 0\text{)}
+    \]
+
+    Por ejemplo, con $x=1,\, x_1=1$: $P=(1,1),\; Q=(1,1)$, entonces $P+Q=(2,2)$, pero $2\neq 2^2=4$, por lo tanto $P+Q \notin D$.
+
+    \textbf{Conclusión:} $D$ no es cerrado bajo la suma, por lo tanto \textbf{no es un subespacio vectorial} de $\mathbb{R}^2$.
+
+    % ---------------- INCISO E ----------------
+    \item $E = \{(x,y,z) \in \mathbb{R}^3 \; / \; x+y+z=1\}$
+
+    \solucion
+
+    Verifico si $E$ contiene al vector nulo.
+
+    El vector nulo es $\theta=(0,0,0)$. Veamos si $\theta \in E$, es decir si $0+0+0=1$:
+    \[
+    0+0+0 = 0 \neq 1
+    \]
+
+    Por lo tanto $\theta \notin E$.
+
+    \textbf{Conclusión:} $E$ no contiene al vector nulo, por lo tanto \textbf{no es un subespacio vectorial} de $\mathbb{R}^3$.
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 3 ========================
+\section{Demuestra que los siguientes conjuntos son subespacios vectoriales. Encuentre su dimensión y una base para los mismos}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $A = \{(x,y,z) \in \mathbb{R}^3 : 2x - y + z = 0\}$
+
+    \solucion
+
+    \textbf{Prueba de que $A$ es subespacio vectorial}
+
+    Como $A \subseteq \mathbb{R}^3$ y $\mathbb{R}^3$ ya es un espacio vectorial con las operaciones usuales, basta verificar que $A$ es un \textbf{subespacio vectorial}:
+
+    \begin{enumerate}
+        \item[i.] $A \neq \emptyset$ (contiene al vector nulo).
+        \item[ii.] $A$ es cerrado bajo la suma.
+        \item[iii.] $A$ es cerrado bajo el producto por escalar.
+    \end{enumerate}
+
+    \textbf{i. El vector nulo pertenece a $A$}
+
+    Para $(0,0,0)$: $2(0)-0+0=0$, por lo tanto $(0,0,0) \in A$. Luego $A \neq \emptyset$.
+
+    \textbf{ii. Cerrado bajo la suma}
+
+    Sean $u=(x_1,y_1,z_1) \in A$ y $v=(x_2,y_2,z_2) \in A$, es decir $2x_1-y_1+z_1=0$ y $2x_2-y_2+z_2=0$.
+
+    \[
+    u+v = (x_1+x_2,\; y_1+y_2,\; z_1+z_2)
+    \]
+
+    Veamos si $u+v \in A$, es decir si $2(x_1+x_2)-(y_1+y_2)+(z_1+z_2)=0$:
+
+    \[
+    2(x_1+x_2)-(y_1+y_2)+(z_1+z_2) = (2x_1-y_1+z_1)+(2x_2-y_2+z_2) = 0+0 = 0
+    \]
+
+    Por lo tanto $u+v \in A$.
+
+    \textbf{iii. Cerrado bajo el producto por un escalar}
+
+    Sea $u=(x_1,y_1,z_1)\in A$ (con $2x_1-y_1+z_1=0$) y $k \in \mathbb{R}$:
+
+    \[
+    k\cdot u = (kx_1,\; ky_1,\; kz_1)
+    \]
+
+    Veamos si $k\cdot u \in A$, es decir si $2(kx_1)-(ky_1)+(kz_1)=0$:
+
+    \[
+    2(kx_1)-(ky_1)+(kz_1) = k(2x_1-y_1+z_1) = k\cdot 0 = 0
+    \]
+
+    Por lo tanto $k\cdot u \in A$.
+
+    \textbf{Conclusión:} $A$ cumple las tres condiciones, luego \textbf{es un subespacio vectorial} de $\mathbb{R}^3$.
+
+    \textbf{Cálculo de una base y la dimensión}
+
+    Despejamos $y$ de la ecuación que define a $A$:
+    \[
+    2x-y+z=0 \quad \Longrightarrow \quad y = 2x+z
+    \]
+
+    Por lo tanto, todo vector de $A$ tiene la forma:
+    \[
+    (x,y,z) = (x,\; 2x+z,\; z)
+    \]
+
+    Separamos según los parámetros libres $x$ y $z$:
+    \[
+    (x,\, 2x+z,\, z) = x(1,2,0) + z(0,1,1)
+    \]
+
+    Es decir, todo vector de $A$ se escribe como combinación lineal de $v_1=(1,2,0)$ y $v_2=(0,1,1)$. Por lo tanto:
+    \[
+    A = \operatorname{gen}\{(1,2,0),\,(0,1,1)\}
+    \]
+
+    Además, $v_1$ y $v_2$ son linealmente independientes, pues ninguno es múltiplo escalar del otro.
+
+    \textbf{Conclusión:}
+    \[
+    \text{Base de } A = \{(1,2,0),\,(0,1,1)\}, \qquad \dim(A) = 2.
+    \]
+
+    \item $B = \left\{ \begin{pmatrix} x & y \\ z & w \end{pmatrix} \in \mathbb{R}^{2\times2} : x + y = 0 \ \wedge\ w = 0 \right\}$
+
+    \solucion
+
+    \textbf{Prueba de que $B$ es subespacio vectorial}
+
+    Como $B \subseteq \mathbb{R}^{2\times2}$ y $\mathbb{R}^{2\times2}$ ya es un espacio vectorial con las operaciones usuales, basta verificar que $B$ es un \textbf{subespacio vectorial}:
+
+    \begin{enumerate}
+        \item[i.] $B \neq \emptyset$ (contiene al vector nulo).
+        \item[ii.] $B$ es cerrado bajo la suma.
+        \item[iii.] $B$ es cerrado bajo el producto por escalar.
+    \end{enumerate}
+
+    \textbf{i. El vector nulo pertenece a $B$}
+
+    Para la matriz nula $\begin{pmatrix}0&0\\0&0\end{pmatrix}$: $0+0=0$ y $w=0$, por lo tanto pertenece a $B$. Luego $B \neq \emptyset$.
+
+    \textbf{ii. Cerrado bajo la suma}
+
+    Sean $M_1=\begin{pmatrix}x_1 & y_1\\ z_1 & w_1\end{pmatrix} \in B$ y $M_2=\begin{pmatrix}x_2 & y_2\\ z_2 & w_2\end{pmatrix} \in B$, es decir $x_1+y_1=0,\; w_1=0$ y $x_2+y_2=0,\; w_2=0$.
+
+    \[
+    M_1+M_2 = \begin{pmatrix}x_1+x_2 & y_1+y_2\\ z_1+z_2 & w_1+w_2\end{pmatrix}
+    \]
+
+    Veamos si $M_1+M_2 \in B$, es decir si $(x_1+x_2)+(y_1+y_2)=0$ y $w_1+w_2=0$:
+
+    \[
+    (x_1+x_2)+(y_1+y_2) = (x_1+y_1)+(x_2+y_2) = 0+0=0, \qquad w_1+w_2 = 0+0=0
+    \]
+
+    Por lo tanto $M_1+M_2 \in B$.
+
+    \textbf{iii. Cerrado bajo el producto por un escalar}
+
+    Sea $M_1=\begin{pmatrix}x_1 & y_1\\ z_1 & w_1\end{pmatrix}\in B$ (con $x_1+y_1=0,\; w_1=0$) y $k \in \mathbb{R}$:
+
+    \[
+    k\cdot M_1 = \begin{pmatrix}kx_1 & ky_1\\ kz_1 & kw_1\end{pmatrix}
+    \]
+
+    Veamos si $k\cdot M_1 \in B$, es decir si $kx_1+ky_1=0$ y $kw_1=0$:
+
+    \[
+    kx_1+ky_1 = k(x_1+y_1) = k\cdot 0=0, \qquad kw_1 = k\cdot 0=0
+    \]
+
+    Por lo tanto $k\cdot M_1 \in B$.
+
+    \textbf{Conclusión:} $B$ cumple las tres condiciones, luego \textbf{es un subespacio vectorial} de $\mathbb{R}^{2\times2}$.
+
+    \textbf{Cálculo de una base y la dimensión}
+
+    De las condiciones $x+y=0$ y $w=0$ se obtiene $y=-x$ y $w=0$, con $x,z$ libres. Por lo tanto, toda matriz de $B$ tiene la forma:
+    \[
+    \begin{pmatrix} x & -x \\ z & 0 \end{pmatrix}
+    \]
+
+    Separamos según los parámetros libres $x$ y $z$:
+    \[
+    \begin{pmatrix} x & -x \\ z & 0 \end{pmatrix} = x\begin{pmatrix}1 & -1\\ 0 & 0\end{pmatrix} + z\begin{pmatrix}0 & 0\\ 1 & 0\end{pmatrix}
+    \]
+
+    Es decir, todo elemento de $B$ se escribe como combinación lineal de $M_1=\begin{pmatrix}1&-1\\0&0\end{pmatrix}$ y $M_2=\begin{pmatrix}0&0\\1&0\end{pmatrix}$. Por lo tanto:
+    \[
+    B = \operatorname{gen}\left\{ \begin{pmatrix}1&-1\\0&0\end{pmatrix},\, \begin{pmatrix}0&0\\1&0\end{pmatrix} \right\}
+    \]
+
+    Además, $M_1$ y $M_2$ son linealmente independientes, pues si $\alpha M_1+\beta M_2 = \begin{pmatrix}0&0\\0&0\end{pmatrix}$, se obtiene $\alpha=0$ (de la entrada $(1,1)$) y $\beta=0$ (de la entrada $(2,1)$).
+
+    \textbf{Conclusión:}
+    \[
+    \text{Base de } B = \left\{ \begin{pmatrix}1&-1\\0&0\end{pmatrix},\, \begin{pmatrix}0&0\\1&0\end{pmatrix} \right\}, \qquad \dim(B) = 2.
+    \]
+
+    \item $C = \{p(x): \text{polinomios de grado menor o igual a 2, cuya suma de coeficientes es } 0\}$
+
+    \solucion
+
+    \textbf{Prueba de que $C$ es subespacio vectorial}
+
+    Sea $C = \{p(x)=a_0+a_1x+a_2x^2 \; / \; a_0,a_1,a_2\in\mathbb{R},\; a_0+a_1+a_2=0\}$.
+
+    Como $C \subseteq \mathcal{P}_2$ (el espacio de polinomios de grado a lo sumo 2, que ya es espacio vectorial con las operaciones usuales), basta verificar que $C$ es un \textbf{subespacio vectorial}:
+
+    \begin{enumerate}
+        \item[i.] $C \neq \emptyset$ (contiene al vector nulo).
+        \item[ii.] $C$ es cerrado bajo la suma.
+        \item[iii.] $C$ es cerrado bajo el producto por escalar.
+    \end{enumerate}
+
+    \textbf{i. El vector nulo pertenece a $C$}
+
+    Para $\theta(x)=0+0x+0x^2$: $0+0+0=0$, por lo tanto $\theta \in C$. Luego $C \neq \emptyset$.
+
+    \textbf{ii. Cerrado bajo la suma}
+
+    Sean $p(x)=a_0+a_1x+a_2x^2 \in C$ y $q(x)=b_0+b_1x+b_2x^2 \in C$, es decir $a_0+a_1+a_2=0$ y $b_0+b_1+b_2=0$.
+
+    \[
+    (p+q)(x) = (a_0+b_0)+(a_1+b_1)x+(a_2+b_2)x^2
+    \]
+
+    Veamos si $p+q \in C$, es decir si $(a_0+b_0)+(a_1+b_1)+(a_2+b_2)=0$:
+
+    \[
+    (a_0+b_0)+(a_1+b_1)+(a_2+b_2) = (a_0+a_1+a_2)+(b_0+b_1+b_2) = 0+0=0
+    \]
+
+    Por lo tanto $p+q \in C$.
+
+    \textbf{iii. Cerrado bajo el producto por un escalar}
+
+    Sea $p(x)=a_0+a_1x+a_2x^2\in C$ (con $a_0+a_1+a_2=0$) y $k \in \mathbb{R}$:
+
+    \[
+    (k\cdot p)(x) = ka_0+ka_1x+ka_2x^2
+    \]
+
+    Veamos si $k\cdot p \in C$, es decir si $ka_0+ka_1+ka_2=0$:
+
+    \[
+    ka_0+ka_1+ka_2 = k(a_0+a_1+a_2) = k\cdot 0=0
+    \]
+
+    Por lo tanto $k\cdot p \in C$.
+
+    \textbf{Conclusión:} $C$ cumple las tres condiciones, luego \textbf{es un subespacio vectorial} de $\mathcal{P}_2$.
+
+    \textbf{Cálculo de una base y la dimensión}
+
+    De la condición $a_0+a_1+a_2=0$ se obtiene $a_0=-a_1-a_2$, con $a_1,a_2$ libres. Por lo tanto, todo polinomio de $C$ tiene la forma:
+    \[
+    p(x) = (-a_1-a_2)+a_1x+a_2x^2
+    \]
+
+    Separamos según los parámetros libres $a_1$ y $a_2$:
+    \[
+    p(x) = a_1(-1+x) + a_2(-1+x^2) = a_1(x-1)+a_2(x^2-1)
+    \]
+
+    Es decir, todo polinomio de $C$ se escribe como combinación lineal de $p_1(x)=x-1$ y $p_2(x)=x^2-1$. Por lo tanto:
+    \[
+    C = \operatorname{gen}\{x-1,\; x^2-1\}
+    \]
+
+    Además, $p_1$ y $p_2$ son linealmente independientes, pues tienen distinto grado (ninguno es múltiplo escalar del otro): si $\alpha(x-1)+\beta(x^2-1)=0$ para todo $x$, comparando coeficientes se obtiene $\beta=0$ (coef. de $x^2$), $\alpha=0$ (coef. de $x$).
+
+    \textbf{Conclusión:}
+    \[
+    \text{Base de } C = \{x-1,\; x^2-1\}, \qquad \dim(C) = 2.
+    \]
+
+    \item $D = \{A \in \mathbb{R}^2 : A \text{ es antisimétrica}\}$
+
+    \solucion
+
+    \textbf{Prueba de que $D$ es subespacio vectorial}
+
+    Sea $D = \{M \in \mathbb{R}^{2\times2} \; / \; M^T=-M\}$.
+
+    Como $D \subseteq \mathbb{R}^{2\times2}$, que ya es un espacio vectorial con las operaciones usuales, basta verificar que $D$ es un \textbf{subespacio vectorial}:
+
+    \begin{enumerate}
+        \item[i.] $D \neq \emptyset$ (contiene al vector nulo).
+        \item[ii.] $D$ es cerrado bajo la suma.
+        \item[iii.] $D$ es cerrado bajo el producto por escalar.
+    \end{enumerate}
+
+    \textbf{i. El vector nulo pertenece a $D$}
+
+    La matriz nula cumple $0^T=-0=0$, por lo tanto $0 \in D$. Luego $D \neq \emptyset$.
+
+    \textbf{ii. Cerrado bajo la suma}
+
+    Sean $M,N \in D$, es decir $M^T=-M$ y $N^T=-N$.
+    \[
+    (M+N)^T = M^T+N^T = -M-N = -(M+N)
+    \]
+    Por lo tanto $M+N \in D$.
+
+    \textbf{iii. Cerrado bajo el producto por escalar}
+
+    Sea $M \in D$ y $k \in \mathbb{R}$.
+    \[
+    (kM)^T = kM^T = k(-M) = -(kM)
+    \]
+    Por lo tanto $kM \in D$.
+
+    \textbf{Conclusión:} $D$ cumple las tres condiciones, luego \textbf{es un subespacio vectorial} de $\mathbb{R}^{2\times2}$.
+
+    \textbf{Cálculo de una base y la dimensión}
+
+    Una matriz $M=\begin{pmatrix}a & b\\ c & d\end{pmatrix}$ es antisimétrica si $M^T=-M$, es decir:
+    \[
+    \begin{pmatrix}a & c\\ b & d\end{pmatrix} = \begin{pmatrix}-a & -b\\ -c & -d\end{pmatrix}
+    \]
+
+    De aquí: $a=-a \Rightarrow a=0$; $\; d=-d \Rightarrow d=0$; $\; c=-b \Rightarrow c=-b$. Por lo tanto, toda matriz de $D$ tiene la forma:
+    \[
+    \begin{pmatrix} 0 & b \\ -b & 0 \end{pmatrix}
+    \]
+
+    con $b\in\mathbb{R}$ libre. Separando:
+    \[
+    \begin{pmatrix} 0 & b \\ -b & 0 \end{pmatrix} = b\begin{pmatrix}0 & 1\\ -1 & 0\end{pmatrix}
+    \]
+
+    Es decir, todo elemento de $D$ se escribe como combinación lineal (múltiplo escalar) de $M_1=\begin{pmatrix}0&1\\-1&0\end{pmatrix}$. Por lo tanto:
+    \[
+    D = \operatorname{gen}\left\{ \begin{pmatrix}0&1\\-1&0\end{pmatrix} \right\}
+    \]
+
+    Además, $M_1 \neq 0$, por lo tanto es linealmente independiente por sí sola.
+
+    \textbf{Conclusión:}
+    \[
+    \text{Base de } D = \left\{ \begin{pmatrix}0&1\\-1&0\end{pmatrix} \right\}, \qquad \dim(D) = 1.
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 4 ========================
+\section{Decide si en cada uno de los siguientes casos, si $W$ es una combinación lineal de $U$ y $V$}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $U = (1,2,-2),\ V = (0,1,1)$ y $W = (0,0,0)$
+
+    \solucion
+
+    Buscamos escalares $\alpha,\beta \in \mathbb{R}$ tales que:
+    \[
+    \alpha U + \beta V = W
+    \]
+    \[
+    \alpha(1,2,-2)+\beta(0,1,1) = (0,0,0)
+    \]
+    \[
+    (\alpha,\; 2\alpha+\beta,\; -2\alpha+\beta) = (0,0,0)
+    \]
+
+    Igualando componente a componente, obtenemos el sistema:
+    \[
+    \begin{cases}
+    \alpha = 0 \\
+    2\alpha+\beta = 0 \\
+    -2\alpha+\beta = 0
+    \end{cases}
+    \]
+
+    De la primera ecuación: $\alpha=0$.
+
+    Sustituyendo en la segunda: $2(0)+\beta=0 \Rightarrow \beta=0$.
+
+    Verificamos en la tercera: $-2(0)+0 = 0$ \checkmark
+
+    Por lo tanto, el sistema tiene solución (única): $\alpha=0,\; \beta=0$.
+
+    \textbf{Conclusión:} $W=(0,0,0)$ \textbf{sí es combinación lineal} de $U$ y $V$, en particular la \textbf{combinación lineal trivial}:
+    \[
+    W = 0\cdot U + 0\cdot V
+    \]
+
+    \item $U = \begin{pmatrix} 1 & -1 \\ 0 & 2 \end{pmatrix},\ V = \begin{pmatrix} 0 & 1 \\ 2 & 1 \end{pmatrix}$ y $W = \begin{pmatrix} 2 & -1 \\ 2 & 1 \end{pmatrix}$
+
+    \solucion
+
+    Buscamos escalares $\alpha,\beta \in \mathbb{R}$ tales que:
+    \[
+    \alpha U + \beta V = W
+    \]
+    \[
+    \alpha\begin{pmatrix} 1 & -1 \\ 0 & 2 \end{pmatrix} + \beta\begin{pmatrix} 0 & 1 \\ 2 & 1 \end{pmatrix} = \begin{pmatrix} 2 & -1 \\ 2 & 1 \end{pmatrix}
+    \]
+    \[
+    \begin{pmatrix} \alpha & -\alpha+\beta \\ 2\beta & 2\alpha+\beta \end{pmatrix} = \begin{pmatrix} 2 & -1 \\ 2 & 1 \end{pmatrix}
+    \]
+
+    Igualando entrada por entrada, obtenemos el sistema:
+    \[
+    \begin{cases}
+    \alpha = 2 \\
+    -\alpha+\beta = -1 \\
+    2\beta = 2 \\
+    2\alpha+\beta = 1
+    \end{cases}
+    \]
+
+    De la primera ecuación: $\alpha=2$.
+
+    Sustituyendo en la segunda: $-2+\beta=-1 \Rightarrow \beta=1$.
+
+    Verificamos en la tercera: $2(1)=2$ \checkmark
+
+    Verificamos en la cuarta: $2(2)+1 = 5 \neq 1$ (no se cumple).
+
+    Como la cuarta ecuación no se satisface con los valores hallados, el sistema es \textbf{incompatible} (no tiene solución).
+
+    \textbf{Conclusión:} $W$ \textbf{no es combinación lineal} de $U$ y $V$.
+
+    \item $U = x + x^2,\ V = 2x^2 - x + 2$ y $W = x^2 + 4x - 2$
+
+    \solucion
+
+    Buscamos escalares $\alpha,\beta \in \mathbb{R}$ tales que:
+    \[
+    \alpha U + \beta V = W
+    \]
+    \[
+    \alpha(x+x^2) + \beta(2x^2-x+2) = x^2+4x-2
+    \]
+    \[
+    (\alpha-\beta)x + (\alpha+2\beta)x^2 + 2\beta = x^2+4x-2
+    \]
+
+    Igualando coeficiente a coeficiente, obtenemos el sistema:
+    \[
+    \begin{cases}
+    2\beta = -2 & \text{(término independiente)}\\
+    \alpha-\beta = 4 & \text{(coeficiente de } x\text{)}\\
+    \alpha+2\beta = 1 & \text{(coeficiente de } x^2\text{)}
+    \end{cases}
+    \]
+
+    De la primera ecuación: $\beta=-1$.
+
+    Sustituyendo en la segunda: $\alpha-(-1)=4 \Rightarrow \alpha=3$.
+
+    Verificamos en la tercera: $3+2(-1) = 3-2 = 1$ \checkmark
+
+    Por lo tanto, el sistema tiene solución (única): $\alpha=3,\; \beta=-1$.
+
+    \textbf{Conclusión:} $W=x^2+4x-2$ \textbf{sí es combinación lineal} de $U$ y $V$:
+    \[
+    W = 3U - V
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 5 ========================
+\section{Dados los vectores $u = (1,3,-2)$ y $v = (0,1,-2)$ elementos del espacio vectorial $\mathbb{R}^3$}
+
+\begin{enumerate}[label=\alph*.-]
+    \item Encuentra una combinación lineal de los vectores $u$ y $v$.
+
+    \solucion
+
+    Una combinación lineal de $u$ y $v$ se obtiene eligiendo escalares $\alpha,\beta \in \mathbb{R}$ cualesquiera y calculando $\alpha u+\beta v$. Por ejemplo, tomando $\alpha=1,\; \beta=1$:
+
+    \[
+    1\cdot u + 1\cdot v = (1,3,-2)+(0,1,-2) = (1,4,-4)
+    \]
+
+    Por lo tanto, $(1,4,-4)$ es una combinación lineal de $u$ y $v$.
+
+    \item Determina el conjunto de todas las combinaciones lineales de los vectores $u$ y $v$.
+
+    \solucion
+
+    Buscamos el conjunto $\operatorname{gen}\{u,v\}$, es decir, todos los vectores $(x,y,z) \in \mathbb{R}^3$ que se pueden escribir como $(x,y,z)=\alpha u+\beta v$ para algún $\alpha,\beta\in\mathbb{R}$.
+
+    \[
+    (x,y,z) = \alpha(1,3,-2)+\beta(0,1,-2)
+    \]
+
+    Esto da lugar al sistema:
+    \[
+    \begin{cases}
+    \alpha \phantom{+2\beta} = x \\
+    3\alpha+\beta = y \\
+    -2\alpha-2\beta = z
+    \end{cases}
+    \]
+
+    Planteamos la matriz aumentada del sistema y triangulamos con Gauss:
+
+    \[
+    \left(\begin{array}{cc|c}
+    1 & 0 & x \\
+    3 & 1 & y \\
+    -2 & -2 & z
+    \end{array}\right)
+    \]
+
+    \textbf{Paso 1:} $F_2 \to F_2 - 3F_1$
+
+    \[
+    \left(\begin{array}{cc|c}
+    1 & 0 & x \\
+    0 & 1 & y-3x \\
+    -2 & -2 & z
+    \end{array}\right)
+    \]
+
+    \textbf{Paso 2:} $F_3 \to F_3 + 2F_1$
+
+    \[
+    \left(\begin{array}{cc|c}
+    1 & 0 & x \\
+    0 & 1 & y-3x \\
+    0 & -2 & z+2x
+    \end{array}\right)
+    \]
+
+    \textbf{Paso 3:} $F_3 \to F_3 + 2F_2$
+
+    \[
+    \left(\begin{array}{cc|c}
+    1 & 0 & x \\
+    0 & 1 & y-3x \\
+    0 & 0 & z+2x+2(y-3x)
+    \end{array}\right)
+    =
+    \left(\begin{array}{cc|c}
+    1 & 0 & x \\
+    0 & 1 & y-3x \\
+    0 & 0 & z-4x+2y
+    \end{array}\right)
+    \]
+
+    La tercera fila quedó con ceros en las columnas de $\alpha$ y $\beta$. Para que el sistema tenga solución, el término del lado derecho de esa fila debe ser cero:
+    \[
+    z-4x+2y = 0
+    \]
+
+    \textbf{Conclusión:}
+    \[
+    \operatorname{gen}\{u,v\} = \{(x,y,z)\in\mathbb{R}^3 \; / \; 4x-2y-z=0\}
+    \]
+
+    \item El vector $w = (2,1,-3)$ ¿es combinación lineal de $u$ y $v$?
+
+    \solucion
+
+    Usando la ecuación del subespacio generado hallada en el inciso anterior, verificamos si $w=(2,1,-3)$ la satisface:
+
+    \[
+    4x-2y-z = 4(2)-2(1)-(-3) = 8-2+3 = 9 \neq 0
+    \]
+
+    Como $w$ no satisface la ecuación $4x-2y-z=0$, el vector $w$ \textbf{no pertenece} a $\operatorname{gen}\{u,v\}$.
+
+    \textbf{Conclusión:} $w=(2,1,-3)$ \textbf{no es combinación lineal} de $u$ y $v$.
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 6 ========================
+\section{Para qué valores del parámetro $k$ es $(4,-5,2k)$ una combinación lineal de los vectores $u = (1,2,-2)$ y $v = (0,3,-2)$}
+
+\solucion
+
+Buscamos $\alpha,\beta \in \mathbb{R}$ tales que:
+\[
+\alpha u + \beta v = (4,-5,2k)
+\]
+\[
+\alpha(1,2,-2)+\beta(0,3,-2) = (4,-5,2k)
+\]
+
+Esto da lugar al sistema:
+\[
+\begin{cases}
+\alpha \phantom{+3\beta} = 4 \\
+2\alpha+3\beta = -5 \\
+-2\alpha-2\beta = 2k
+\end{cases}
+\]
+
+Planteamos la matriz aumentada del sistema (incógnitas $\alpha,\beta$) y triangulamos con Gauss:
+
+\[
+\left(\begin{array}{cc|c}
+1 & 0 & 4 \\
+2 & 3 & -5 \\
+-2 & -2 & 2k
+\end{array}\right)
+\]
+
+\textbf{Paso 1:} $F_2 \to F_2 - 2F_1$
+
+\[
+\left(\begin{array}{cc|c}
+1 & 0 & 4 \\
+0 & 3 & -13 \\
+-2 & -2 & 2k
+\end{array}\right)
+\]
+
+\textbf{Paso 2:} $F_3 \to F_3 + 2F_1$
+
+\[
+\left(\begin{array}{cc|c}
+1 & 0 & 4 \\
+0 & 3 & -13 \\
+0 & -2 & 2k+8
+\end{array}\right)
+\]
+
+\textbf{Paso 3:} $F_3 \to F_3 + \dfrac{2}{3}F_2$
+
+\[
+\left(\begin{array}{cc|c}
+1 & 0 & 4 \\
+0 & 3 & -13 \\
+0 & 0 & 2k+8+\frac{2}{3}(-13)
+\end{array}\right)
+=
+\left(\begin{array}{cc|c}
+1 & 0 & 4 \\
+0 & 3 & -13 \\
+0 & 0 & 2k-\frac{2}{3}
+\end{array}\right)
+\]
+
+La tercera fila quedó con ceros en las columnas de $\alpha$ y $\beta$. Para que el sistema tenga solución (y por lo tanto $(4,-5,2k)$ sea combinación lineal de $u$ y $v$), el término del lado derecho de esa fila debe ser cero:
+\[
+2k-\frac{2}{3} = 0 \quad \Longrightarrow \quad 2k=\frac{2}{3} \quad \Longrightarrow \quad k=\frac{1}{3}
+\]
+
+\textbf{Verificación:}
+
+Con $k=\dfrac{1}{3}$, de la segunda fila: $3\beta=-13 \Rightarrow \beta=-\dfrac{13}{3}$, y de la primera: $\alpha=4$.
+
+Comprobamos en la tercera ecuación original:
+\[
+-2\alpha-2\beta = -2(4)-2\left(-\frac{13}{3}\right) = -8+\frac{26}{3} = \frac{-24+26}{3}=\frac{2}{3} = 2\left(\frac{1}{3}\right) = 2k \checkmark
+\]
+
+\textbf{Conclusión:} $(4,-5,2k)$ es combinación lineal de $u$ y $v$ \textbf{únicamente para} $k=\dfrac{1}{3}$.
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 7 ========================
+\section{Determine si los siguientes conjuntos son linealmente dependientes o independientes}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\{x^2 - 2x + 1,\ 3x^3 - 5x,\ 3x^3 - x^2 + x + 1,\ 4x + 2\} \subset \mathcal{P}_3$
+
+    \solucion
+
+    Identificamos cada polinomio con su vector de coeficientes $(a_0,a_1,a_2,a_3)$ en la base $\{1,x,x^2,x^3\}$:
+    \[
+    v_1 = x^2-2x+1 \to (1,-2,1,0), \qquad v_2 = 3x^3-5x \to (0,-5,0,3)
+    \]
+    \[
+    v_3 = 3x^3-x^2+x+1 \to (1,1,-1,3), \qquad v_4 = 4x+2 \to (2,4,0,0)
+    \]
+
+    Buscamos $\alpha_1,\alpha_2,\alpha_3,\alpha_4 \in \mathbb{R}$ tales que $\alpha_1 v_1+\alpha_2 v_2+\alpha_3 v_3+\alpha_4 v_4 = 0$. Esto da lugar al sistema:
+    \[
+    \begin{cases}
+    \alpha_1 \phantom{-5\alpha_2} + \alpha_3 + 2\alpha_4 = 0 \\
+    -2\alpha_1 -5\alpha_2 + \alpha_3 + 4\alpha_4 = 0 \\
+    \alpha_1 \phantom{-5\alpha_2} - \alpha_3 \phantom{+4\alpha_4} = 0 \\
+    \phantom{\alpha_1}\ 3\alpha_2 + 3\alpha_3 \phantom{+4\alpha_4} = 0
+    \end{cases}
+    \]
+
+    De la tercera ecuación: $\alpha_1=\alpha_3$. De la cuarta: $\alpha_2=-\alpha_3$. Sustituyendo en la primera:
+    \[
+    \alpha_3+\alpha_3+2\alpha_4=0 \;\Longrightarrow\; \alpha_4=-\alpha_3
+    \]
+
+    Verificamos en la segunda ecuación con $\alpha_1=\alpha_3,\;\alpha_2=-\alpha_3,\;\alpha_4=-\alpha_3$:
+    \[
+    -2\alpha_3-5(-\alpha_3)+\alpha_3+4(-\alpha_3) = -2\alpha_3+5\alpha_3+\alpha_3-4\alpha_3 = 0 \quad \checkmark
+    \]
+
+    El sistema tiene infinitas soluciones (parámetro libre $\alpha_3$), por lo tanto existe una solución no trivial. Tomando $\alpha_3=1$: $\alpha_1=1,\;\alpha_2=-1,\;\alpha_3=1,\;\alpha_4=-1$.
+
+    \[
+    v_1 - v_2 + v_3 - v_4 = 0 \qquad \Longleftrightarrow \qquad v_4 = v_1 - v_2 + v_3
+    \]
+
+    \textbf{Conclusión:} el conjunto es \textbf{linealmente dependiente}, pues $4x+2 = (x^2-2x+1) - (3x^3-5x) + (3x^3-x^2+x+1)$.
+
+    % ---------------- INCISO B ----------------
+    \item $\{(1,3,5),(2,1,-1),(4,7,9)\} \subset \mathbb{R}^3$
+
+    \solucion
+
+    Como tenemos 3 vectores en $\mathbb{R}^3$, planteamos el determinante de la matriz formada por ellos:
+    \[
+    \begin{vmatrix} 1 & 3 & 5 \\ 2 & 1 & -1 \\ 4 & 7 & 9 \end{vmatrix}
+    = 1(9+7) - 3(18+4) + 5(14-4) = 16 - 66 + 50 = 0
+    \]
+
+    Como el determinante es $0$, el conjunto es linealmente dependiente. Buscamos la combinación: $\alpha(1,3,5)+\beta(2,1,-1)=(4,7,9)$:
+    \[
+    \begin{cases}
+    \alpha+2\beta=4 \\
+    3\alpha+\beta=7 \\
+    5\alpha-\beta=9
+    \end{cases}
+    \]
+
+    De la primera: $\alpha=4-2\beta$. Sustituyendo en la segunda: $3(4-2\beta)+\beta=7 \Rightarrow 12-5\beta=7 \Rightarrow \beta=1,\; \alpha=2$.
+
+    Verificamos en la tercera: $5(2)-1=9$ \checkmark
+
+    \textbf{Conclusión:} el conjunto es \textbf{linealmente dependiente}, pues $(4,7,9)=2(1,3,5)+(2,1,-1)$.
+
+    % ---------------- INCISO C ----------------
+    \item $\left\{ \begin{pmatrix} 1 & 3 \\ -1 & 0 \end{pmatrix}, \begin{pmatrix} 1 & -1 \\ 1 & 5 \end{pmatrix}, \begin{pmatrix} 1 & 7 \\ -3 & -5 \end{pmatrix} \right\} \subset \mathbb{R}^{2\times2}$
+
+    \solucion
+
+    Buscamos $\alpha,\beta \in \mathbb{R}$ tales que $\alpha\begin{pmatrix}1&3\\-1&0\end{pmatrix}+\beta\begin{pmatrix}1&-1\\1&5\end{pmatrix}=\begin{pmatrix}1&7\\-3&-5\end{pmatrix}$, lo cual da el sistema:
+    \[
+    \begin{cases}
+    \alpha+\beta=1 \\
+    3\alpha-\beta=7 \\
+    -\alpha+\beta=-3 \\
+    5\beta=-5
+    \end{cases}
+    \]
+
+    De la cuarta ecuación: $\beta=-1$. Sustituyendo en la primera: $\alpha=2$.
+
+    Verificamos: en la segunda, $3(2)-(-1)=7$ \checkmark; en la tercera, $-2+(-1)=-3$ \checkmark.
+
+    \textbf{Conclusión:} el conjunto es \textbf{linealmente dependiente}, pues $\begin{pmatrix}1&7\\-3&-5\end{pmatrix}=2\begin{pmatrix}1&3\\-1&0\end{pmatrix}-\begin{pmatrix}1&-1\\1&5\end{pmatrix}$.
+
+    % ---------------- INCISO D ----------------
+    \item $\{(1,3),(2,0),(1,-1)\} \subset \mathbb{R}^2$
+
+    \solucion
+
+    Como tenemos 3 vectores en un espacio de dimensión 2, el conjunto es \textbf{necesariamente linealmente dependiente} (no puede haber más de 2 vectores linealmente independientes en $\mathbb{R}^2$).
+
+    Buscamos escalares no todos nulos tales que $\alpha(1,3)+\beta(2,0)+\gamma(1,-1)=(0,0)$:
+    \[
+    \begin{cases}
+    \alpha+2\beta+\gamma=0 \\
+    3\alpha \phantom{+2\beta} -\gamma=0
+    \end{cases}
+    \]
+
+    De la segunda ecuación: $\gamma=3\alpha$. Sustituyendo en la primera: $\alpha+2\beta+3\alpha=0 \Rightarrow \beta=-2\alpha$.
+
+    Tomando $\alpha=1$: $\beta=-2,\;\gamma=3$.
+
+    \[
+    (1,3)-2(2,0)+3(1,-1) = (1-4+3,\; 3-0-3) = (0,0) \quad \checkmark
+    \]
+
+    \textbf{Conclusión:} el conjunto es \textbf{linealmente dependiente}, ya que $(1,3)-2(2,0)+3(1,-1)=(0,0)$ con escalares no todos nulos.
+
+    % ---------------- INCISO E ----------------
+    \item $\{x^2 + 1,\ 2x + 1,\ x^2 + x - 1\} \subset \mathcal{P}_2$
+
+    \solucion
+
+    Identificamos cada polinomio con su vector de coeficientes $(a_0,a_1,a_2)$:
+    \[
+    v_1 = x^2+1 \to (1,0,1), \qquad v_2 = 2x+1 \to (1,2,0), \qquad v_3 = x^2+x-1 \to (-1,1,1)
+    \]
+
+    Como tenemos 3 vectores en un espacio de dimensión 3, planteamos el determinante:
+    \[
+    \begin{vmatrix} 1 & 0 & 1 \\ 1 & 2 & 0 \\ -1 & 1 & 1 \end{vmatrix}
+    = 1(2-0) - 0(1-0) + 1(1+2) = 2 + 3 = 5 \neq 0
+    \]
+
+    Como el determinante es distinto de cero, la única solución del sistema homogéneo $\alpha v_1+\beta v_2+\gamma v_3=0$ es la trivial $\alpha=\beta=\gamma=0$.
+
+    \textbf{Conclusión:} el conjunto es \textbf{linealmente independiente}.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 8 ========================
+\section{Dado el conjunto $S = \{(1,1,1),(0,1,1-k),(0,1,1-k^2)\}$, determina si existen valores del parámetro $k$ para que la ecuación tenga}
+
+\solucion
+
+Buscamos $\alpha,\beta,\gamma \in \mathbb{R}$ tales que:
+\[
+\alpha(1,1,1) + \beta(0,1,1-k) + \gamma(0,1,1-k^2) = (0,0,0)
+\]
+
+Esto da lugar al sistema homogéneo:
+\[
+\begin{cases}
+\alpha \phantom{+\beta+\gamma} = 0 \\
+\alpha+\beta+\gamma = 0 \\
+\alpha+\beta(1-k)+\gamma(1-k^2) = 0
+\end{cases}
+\]
+
+De la primera ecuación: $\alpha=0$. Sustituyendo en la segunda: $\beta+\gamma=0 \Rightarrow \gamma=-\beta$.
+
+Sustituyendo $\alpha=0$ y $\gamma=-\beta$ en la tercera ecuación:
+\[
+\beta(1-k) - \beta(1-k^2) = 0 \;\Longrightarrow\; \beta\big[(1-k)-(1-k^2)\big] = 0 \;\Longrightarrow\; \beta(k^2-k) = 0 \;\Longrightarrow\; \beta\, k(k-1) = 0
+\]
+
+Por lo tanto, existe una solución con $\beta\neq0$ (es decir, no trivial) \textbf{si y solo si} $k(k-1)=0$, es decir $k=0$ o $k=1$. Para cualquier otro valor de $k$, la única solución es $\beta=0$ (y en consecuencia $\alpha=\gamma=0$), la trivial.
+
+\begin{enumerate}[label=\alph*.-]
+    \item Linealmente independientes.
+
+    Según el análisis anterior, el sistema homogéneo solo admite la solución trivial cuando $k(k-1)\neq0$.
+
+    \textbf{Conclusión:} $S$ es \textbf{linealmente independiente} para todo $k \in \mathbb{R} - \{0,1\}$.
+
+    \item Linealmente dependiente.
+
+    Según el análisis anterior, existe una solución no trivial cuando $k(k-1)=0$.
+
+    Por ejemplo, con $k=0$: tomando $\beta=1,\gamma=-1$, se verifica $0\cdot(1,1,1)+1\cdot(0,1,1)-1\cdot(0,1,1)=(0,0,0)$.
+
+    Con $k=1$: el segundo y tercer vector coinciden, $(0,1,0)=(0,1,1-1^2)=(0,1,0)$, por lo que son directamente linealmente dependientes entre sí.
+
+    \textbf{Conclusión:} $S$ es \textbf{linealmente dependiente} para $k=0$ y para $k=1$.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 9 ========================
+\section{Suponga que el conjunto $\{U,V,W\}$ es linealmente independiente. ¿Qué puedes afirmar al respecto del conjunto $\{U,\ U+2V,\ U+V-3W\}$}
+
+\solucion
+
+\textbf{Afirmación:} el conjunto $\{U,\, U+2V,\, U+V-3W\}$ también es \textbf{linealmente independiente}.
+
+\textbf{Demostración}
+
+Buscamos $\alpha_1,\alpha_2,\alpha_3 \in \mathbb{R}$ tales que:
+\[
+\alpha_1 U + \alpha_2(U+2V) + \alpha_3(U+V-3W) = \vec{0}
+\]
+
+Agrupamos según $U$, $V$ y $W$:
+\[
+(\alpha_1+\alpha_2+\alpha_3)\,U + (2\alpha_2+\alpha_3)\,V + (-3\alpha_3)\,W = \vec{0}
+\]
+
+Como por hipótesis $\{U,V,W\}$ es linealmente independiente, la \textbf{única} forma de que esta combinación lineal de $U$, $V$ y $W$ sea el vector nulo es que cada uno de los coeficientes sea cero:
+\[
+\begin{cases}
+\alpha_1+\alpha_2+\alpha_3 = 0 \\
+2\alpha_2+\alpha_3 = 0 \\
+-3\alpha_3 = 0
+\end{cases}
+\]
+
+De la tercera ecuación: $\alpha_3=0$.
+
+Sustituyendo en la segunda: $2\alpha_2+0=0 \Rightarrow \alpha_2=0$.
+
+Sustituyendo en la primera: $\alpha_1+0+0=0 \Rightarrow \alpha_1=0$.
+
+Por lo tanto, el sistema homogéneo tiene únicamente la solución trivial $\alpha_1=\alpha_2=\alpha_3=0$.
+
+\textbf{Verificación alternativa (matriz de cambio de coordenadas):}
+
+Expresando cada nuevo vector en términos de la base $\{U,V,W\}$ como columnas de una matriz:
+\[
+M = \begin{pmatrix} 1 & 1 & 1 \\ 0 & 2 & 1 \\ 0 & 0 & -3 \end{pmatrix}
+\]
+
+Como $M$ es triangular superior, su determinante es el producto de la diagonal:
+\[
+\det(M) = 1\cdot 2\cdot(-3) = -6 \neq 0
+\]
+
+Al ser $\det(M)\neq0$, la matriz es invertible, lo cual confirma que el sistema homogéneo asociado solo admite la solución trivial.
+
+\textbf{Conclusión:} como $\{U,V,W\}$ es una base del subespacio que generan (por ser linealmente independiente), y la matriz de cambio de coordenadas de $\{U,\,U+2V,\,U+V-3W\}$ respecto de esa base es invertible, se concluye que $\{U,\,U+2V,\,U+V-3W\}$ es \textbf{linealmente independiente}. Además, como tiene la misma cantidad de vectores ($3$) que $\{U,V,W\}$, ambos conjuntos generan el mismo subespacio, es decir, $\{U,\,U+2V,\,U+V-3W\}$ es también una \textbf{base} de $\operatorname{gen}\{U,V,W\}$.
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 10 ========================
+\section{Determine el Subespacio generado por los siguientes vectores}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\{(1,5),(2,1)\}$
+
+    \solucion
+
+    Buscamos el conjunto de todos los $(x,y)\in\mathbb{R}^2$ tales que $(x,y)=\alpha(1,5)+\beta(2,1)$ para algún $\alpha,\beta\in\mathbb{R}$:
+    \[
+    \begin{cases}
+    \alpha+2\beta=x \\
+    5\alpha+\beta=y
+    \end{cases}
+    \]
+
+    De la primera ecuación: $\alpha=x-2\beta$. Sustituyendo en la segunda:
+    \[
+    5(x-2\beta)+\beta=y \;\Longrightarrow\; 5x-9\beta=y \;\Longrightarrow\; \beta=\frac{5x-y}{9}, \qquad \alpha=\frac{-x+2y}{9}
+    \]
+
+    Como el sistema tiene solución para \textbf{cualquier} $(x,y)\in\mathbb{R}^2$ (no aparece ninguna ecuación de compatibilidad, ya que los dos vectores son linealmente independientes: $\det\begin{pmatrix}1&2\\5&1\end{pmatrix}=1-10=-9\neq0$), se concluye:
+    \[
+    \operatorname{gen}\{(1,5),(2,1)\} = \mathbb{R}^2
+    \]
+
+    % ---------------- INCISO B ----------------
+    \item $\{(1,1,0),(0,-1,1)\}$
+
+    \solucion
+
+    Buscamos el conjunto de todos los $(x,y,z)\in\mathbb{R}^3$ tales que $(x,y,z)=\alpha(1,1,0)+\beta(0,-1,1)$:
+    \[
+    \begin{cases}
+    \alpha \phantom{-\beta} = x \\
+    \alpha-\beta = y \\
+    \phantom{\alpha-}\beta = z
+    \end{cases}
+    \]
+
+    De la primera y la tercera: $\alpha=x,\; \beta=z$. Sustituyendo en la segunda:
+    \[
+    x-z=y \;\Longrightarrow\; x-y-z=0
+    \]
+
+    Esta es la condición de compatibilidad del sistema (los dos vectores generadores son linealmente independientes, por lo que generan un plano que pasa por el origen).
+
+    \textbf{Conclusión:}
+    \[
+    \operatorname{gen}\{(1,1,0),(0,-1,1)\} = \{(x,y,z)\in\mathbb{R}^3 \; / \; x-y-z=0\}
+    \]
+
+    % ---------------- INCISO C ----------------
+    \item $\left\{ \begin{pmatrix} 1 & 2 \\ 0 & 0 \end{pmatrix}, \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \right\}$
+
+    \solucion
+
+    Buscamos todas las matrices $\begin{pmatrix}a&b\\c&d\end{pmatrix} \in \mathbb{R}^{2\times2}$ tales que:
+    \[
+    \begin{pmatrix}a&b\\c&d\end{pmatrix} = \alpha\begin{pmatrix}1&2\\0&0\end{pmatrix}+\beta\begin{pmatrix}0&-1\\1&0\end{pmatrix} = \begin{pmatrix}\alpha & 2\alpha-\beta \\ \beta & 0\end{pmatrix}
+    \]
+
+    Igualando entrada por entrada:
+    \[
+    a=\alpha, \qquad b=2\alpha-\beta, \qquad c=\beta, \qquad d=0
+    \]
+
+    Sustituyendo $\alpha=a$ y $\beta=c$ en la segunda igualdad se obtiene la condición de compatibilidad:
+    \[
+    b = 2a-c
+    \]
+
+    mientras que $d$ queda forzado a ser siempre $0$.
+
+    \textbf{Conclusión:}
+    \[
+    \operatorname{gen}\left\{ \begin{pmatrix}1&2\\0&0\end{pmatrix}, \begin{pmatrix}0&-1\\1&0\end{pmatrix} \right\} = \left\{ \begin{pmatrix}a&b\\c&d\end{pmatrix} \in \mathbb{R}^{2\times2} \; \Big/ \; b=2a-c,\; d=0 \right\}
+    \]
+
+    % ---------------- INCISO D ----------------
+    \item $\{x^3 + 1,\ x^2 + 1\}$
+
+    \solucion
+
+    Buscamos todos los polinomios $p(x)=a_0+a_1x+a_2x^2+a_3x^3 \in \mathcal{P}_3$ tales que:
+    \[
+    p(x) = \alpha(x^3+1)+\beta(x^2+1) = (\alpha+\beta) + 0\cdot x + \beta x^2 + \alpha x^3
+    \]
+
+    Igualando coeficiente a coeficiente:
+    \[
+    a_0=\alpha+\beta, \qquad a_1=0, \qquad a_2=\beta, \qquad a_3=\alpha
+    \]
+
+    De la segunda igualdad se obtiene directamente la primera condición: $a_1=0$.
+
+    Sustituyendo $\alpha=a_3$ y $\beta=a_2$ en la primera igualdad: $a_0=a_3+a_2$, es decir, $a_0-a_2-a_3=0$.
+
+    \textbf{Conclusión:}
+    \[
+    \operatorname{gen}\{x^3+1,\; x^2+1\} = \{a_0+a_1x+a_2x^2+a_3x^3 \in \mathcal{P}_3 \; / \; a_1=0,\;\, a_0-a_2-a_3=0\}
+    \]
+
+    Es un subespacio de dimensión $2$ (tantos como parámetros libres, $\alpha$ y $\beta$).
+
+    % ---------------- INCISO E ----------------
+    \item $\left\{ \begin{pmatrix} 1&0&1 \\ 0&0&0 \\ 0&0&0 \end{pmatrix}, \begin{pmatrix} 0&0&1 \\ 0&1&0 \\ 0&0&0 \end{pmatrix}, \begin{pmatrix} 0&0&1 \\ 0&0&0 \\ 0&0&1 \end{pmatrix} \right\}$
+
+    \solucion
+
+    Buscamos todas las matrices $\begin{pmatrix} a&b&c \\ d&e&f \\ g&h&i \end{pmatrix} \in \mathbb{R}^{3\times3}$ tales que:
+    \[
+    \begin{pmatrix} a&b&c \\ d&e&f \\ g&h&i \end{pmatrix}
+    = \alpha\begin{pmatrix}1&0&1\\0&0&0\\0&0&0\end{pmatrix} + \beta\begin{pmatrix}0&0&1\\0&1&0\\0&0&0\end{pmatrix} + \gamma\begin{pmatrix}0&0&1\\0&0&0\\0&0&1\end{pmatrix}
+    = \begin{pmatrix} \alpha & 0 & \alpha+\beta+\gamma \\ 0 & \beta & 0 \\ 0 & 0 & \gamma \end{pmatrix}
+    \]
+
+    Igualando entrada por entrada:
+    \[
+    a=\alpha,\quad b=0,\quad c=\alpha+\beta+\gamma,\quad d=0,\quad e=\beta,\quad f=0,\quad g=0,\quad h=0,\quad i=\gamma
+    \]
+
+    Las entradas $b,d,f,g,h$ quedan forzadas a ser siempre $0$. Sustituyendo $\alpha=a,\;\beta=e,\;\gamma=i$ en la igualdad de $c$ se obtiene la condición de compatibilidad:
+    \[
+    c = a+e+i
+    \]
+
+    mientras que $a,e,i$ quedan completamente libres.
+
+    \textbf{Conclusión:}
+    \[
+    \operatorname{gen}\left\{ \begin{pmatrix}1&0&1\\0&0&0\\0&0&0\end{pmatrix}, \begin{pmatrix}0&0&1\\0&1&0\\0&0&0\end{pmatrix}, \begin{pmatrix}0&0&1\\0&0&0\\0&0&1\end{pmatrix} \right\}
+    = \left\{ \begin{pmatrix} a&b&c \\ d&e&f \\ g&h&i \end{pmatrix} \in \mathbb{R}^{3\times3} \; \Big/ \; b=d=f=g=h=0,\;\, c=a+e+i \right\}
+    \]
+
+    Es un subespacio de dimensión $3$ (tantos como parámetros libres, $\alpha,\beta,\gamma$).
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 11 ========================
+\section{Determine si los siguientes conjuntos forman una base del correspondiente Subespacio vectorial que se detalla}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $\{(1,2,0),(0,-1,1)\}$ del subespacio $S = \{(x,y,z): 2x - y - z = 0\}$
+
+    \solucion
+
+    Para que un conjunto sea base de $S$ debe cumplir tres condiciones: (i) todos sus vectores deben pertenecer a $S$, (ii) deben ser linealmente independientes, y (iii) su cantidad debe coincidir con $\dim(S)$.
+
+    \textbf{i. Pertenencia a $S$}
+
+    Para $v_1=(1,2,0)$: $2(1)-2-0=0$ \checkmark, por lo tanto $v_1\in S$.
+
+    Para $v_2=(0,-1,1)$: $2(0)-(-1)-1=0$ \checkmark, por lo tanto $v_2\in S$.
+
+    \textbf{ii. Independencia lineal}
+
+    Como $v_1$ y $v_2$ no son múltiplos escalares uno del otro, son linealmente independientes.
+
+    \textbf{iii. Dimensión de $S$}
+
+    Despejando de la ecuación $2x-y-z=0$: $y=2x-z$, con $x,z$ libres. Por lo tanto todo vector de $S$ tiene la forma:
+    \[
+    (x,\,2x-z,\,z) = x(1,2,0)+z(0,-1,1)
+    \]
+
+    Es decir, $\dim(S)=2$.
+
+    \textbf{Conclusión:} como $\{v_1,v_2\}\subset S$, son linealmente independientes, y su cantidad ($2$) coincide con $\dim(S)=2$, el conjunto $\{(1,2,0),(0,-1,1)\}$ \textbf{sí es una base} de $S$.
+
+    % ---------------- INCISO B ----------------
+    \item $\left\{ \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix} \right\}$ de las matrices simétricas de orden 2.
+
+    \solucion
+
+    Sea $\text{Sim}_2 = \left\{ \begin{pmatrix}a&b\\b&d\end{pmatrix} \; / \; a,b,d\in\mathbb{R} \right\}$ el subespacio de matrices simétricas de orden 2.
+
+    \textbf{i. Pertenencia a $\text{Sim}_2$}
+
+    Las tres matrices dadas son simétricas (cada una cumple $M^T=M$), por lo tanto pertenecen a $\text{Sim}_2$.
+
+    \textbf{ii. Independencia lineal}
+
+    Sean $\alpha,\beta,\gamma\in\mathbb{R}$ tales que:
+    \[
+    \alpha\begin{pmatrix}1&0\\0&0\end{pmatrix}+\beta\begin{pmatrix}0&1\\1&0\end{pmatrix}+\gamma\begin{pmatrix}0&0\\0&1\end{pmatrix} = \begin{pmatrix}\alpha&\beta\\\beta&\gamma\end{pmatrix} = \begin{pmatrix}0&0\\0&0\end{pmatrix}
+    \]
+
+    De aquí $\alpha=0,\;\beta=0,\;\gamma=0$: solo la solución trivial. Por lo tanto, son linealmente independientes.
+
+    \textbf{iii. Generan $\text{Sim}_2$}
+
+    Cualquier matriz simétrica $\begin{pmatrix}a&b\\b&d\end{pmatrix}$ se escribe como:
+    \[
+    \begin{pmatrix}a&b\\b&d\end{pmatrix} = a\begin{pmatrix}1&0\\0&0\end{pmatrix}+b\begin{pmatrix}0&1\\1&0\end{pmatrix}+d\begin{pmatrix}0&0\\0&1\end{pmatrix}
+    \]
+
+    Por lo tanto el conjunto genera $\text{Sim}_2$, y en consecuencia $\dim(\text{Sim}_2)=3$.
+
+    \textbf{Conclusión:} como el conjunto es linealmente independiente y genera $\text{Sim}_2$ (con exactamente $3=\dim(\text{Sim}_2)$ elementos), \textbf{sí es una base} de las matrices simétricas de orden 2.
+
+    % ---------------- INCISO C ----------------
+    \item $\{(-1,2),(5,3)\}$ de $\mathbb{R}^2$.
+
+    \solucion
+
+    Como tenemos $2$ vectores en un espacio de dimensión $2$, basta verificar que son linealmente independientes calculando el determinante:
+    \[
+    \det\begin{pmatrix}-1&2\\5&3\end{pmatrix} = (-1)(3)-(2)(5) = -3-10=-13 \neq 0
+    \]
+
+    \textbf{Conclusión:} como el determinante es distinto de cero, el conjunto es linealmente independiente, y al tener exactamente $2=\dim(\mathbb{R}^2)$ vectores independientes, \textbf{sí es una base} de $\mathbb{R}^2$.
+
+    % ---------------- INCISO D ----------------
+    \item $\{(1,0,1),(0,1,1),(2,1,1)\}$ de $\mathbb{R}^3$
+
+    \solucion
+
+    Como tenemos $3$ vectores en un espacio de dimensión $3$, basta verificar que son linealmente independientes calculando el determinante:
+    \[
+    \det\begin{pmatrix}1&0&1\\0&1&1\\2&1&1\end{pmatrix} = 1(1-1)-0(0-2)+1(0-2) = 0-0-2=-2 \neq 0
+    \]
+
+    \textbf{Conclusión:} como el determinante es distinto de cero, el conjunto es linealmente independiente, y al tener exactamente $3=\dim(\mathbb{R}^3)$ vectores independientes, \textbf{sí es una base} de $\mathbb{R}^3$.
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 12 ========================
+\section{Determine una base y dimensión de los siguientes subespacios vectoriales}
+
+\begin{enumerate}[label=\alph*.-]
+    \item $S = \{(x,y,z): 2x - y - z = 0\}$
+
+    \solucion
+
+    Despejamos $y$ de la ecuación que define a $S$:
+    \[
+    2x-y-z=0 \;\Longrightarrow\; y=2x-z
+    \]
+
+    Por lo tanto, todo vector de $S$ tiene la forma:
+    \[
+    (x,y,z) = (x,\,2x-z,\,z)
+    \]
+
+    Separamos según los parámetros libres $x$ y $z$:
+    \[
+    (x,\,2x-z,\,z) = x(1,2,0)+z(0,-1,1)
+    \]
+
+    Es decir, todo vector de $S$ se escribe como combinación lineal de $v_1=(1,2,0)$ y $v_2=(0,-1,1)$, los cuales son linealmente independientes (no son múltiplos escalares entre sí).
+
+    \textbf{Conclusión:}
+    \[
+    \text{Base de } S = \{(1,2,0),\,(0,-1,1)\}, \qquad \dim(S) = 2.
+    \]
+
+    % ---------------- INCISO B ----------------
+    \item $T = \{A \in \mathbb{R}^{3\times3}: A \text{ es triangular superior}\}$
+
+    \solucion
+
+    Una matriz triangular superior de orden 3 tiene la forma:
+    \[
+    A = \begin{pmatrix} a_{11} & a_{12} & a_{13} \\ 0 & a_{22} & a_{23} \\ 0 & 0 & a_{33} \end{pmatrix}, \qquad a_{11},a_{12},a_{13},a_{22},a_{23},a_{33} \in \mathbb{R} \text{ libres}
+    \]
+
+    Separando según cada parámetro libre, todo elemento de $T$ se escribe como:
+    \[
+    A = a_{11}\begin{pmatrix}1&0&0\\0&0&0\\0&0&0\end{pmatrix} + a_{12}\begin{pmatrix}0&1&0\\0&0&0\\0&0&0\end{pmatrix} + a_{13}\begin{pmatrix}0&0&1\\0&0&0\\0&0&0\end{pmatrix}
+    \]
+    \[
+    + \; a_{22}\begin{pmatrix}0&0&0\\0&1&0\\0&0&0\end{pmatrix} + a_{23}\begin{pmatrix}0&0&0\\0&0&1\\0&0&0\end{pmatrix} + a_{33}\begin{pmatrix}0&0&0\\0&0&0\\0&0&1\end{pmatrix}
+    \]
+
+    Estas seis matrices son linealmente independientes, pues cada una tiene su entrada distintiva de $1$ en una posición donde todas las demás valen $0$ (la única forma de anular la combinación es que cada coeficiente sea cero).
+
+    \textbf{Conclusión:}
+    \[
+    \text{Base de } T = \left\{ \begin{pmatrix}1&0&0\\0&0&0\\0&0&0\end{pmatrix}, \begin{pmatrix}0&1&0\\0&0&0\\0&0&0\end{pmatrix}, \begin{pmatrix}0&0&1\\0&0&0\\0&0&0\end{pmatrix}, \begin{pmatrix}0&0&0\\0&1&0\\0&0&0\end{pmatrix}, \begin{pmatrix}0&0&0\\0&0&1\\0&0&0\end{pmatrix}, \begin{pmatrix}0&0&0\\0&0&0\\0&0&1\end{pmatrix} \right\}
+    \]
+    \[
+    \dim(T) = 6.
+    \]
+
+    % ---------------- INCISO C ----------------
+    \item $U = \left\{ \begin{pmatrix} x & 2x & x-y \\ y & 0 & z \end{pmatrix} \in \mathbb{R}^{2\times3} \text{ con } x,y,z \in \mathbb{R} \right\}$
+
+    \solucion
+
+    Separamos la matriz genérica de $U$ según los parámetros libres $x$, $y$ y $z$:
+    \[
+    \begin{pmatrix} x & 2x & x-y \\ y & 0 & z \end{pmatrix}
+    = x\begin{pmatrix}1&2&1\\0&0&0\end{pmatrix} + y\begin{pmatrix}0&0&-1\\1&0&0\end{pmatrix} + z\begin{pmatrix}0&0&0\\0&0&1\end{pmatrix}
+    \]
+
+    Es decir, todo elemento de $U$ se escribe como combinación lineal de:
+    \[
+    M_1=\begin{pmatrix}1&2&1\\0&0&0\end{pmatrix}, \qquad M_2=\begin{pmatrix}0&0&-1\\1&0&0\end{pmatrix}, \qquad M_3=\begin{pmatrix}0&0&0\\0&0&1\end{pmatrix}
+    \]
+
+    Verificamos que son linealmente independientes: si $\alpha M_1+\beta M_2+\gamma M_3=\begin{pmatrix}0&0&0\\0&0&0\end{pmatrix}$, de la entrada $(1,1)$ se obtiene $\alpha=0$; de la entrada $(2,1)$, $\beta=0$; y de la entrada $(2,3)$, $\gamma=0$.
+
+    \textbf{Conclusión:}
+    \[
+    \text{Base de } U = \left\{ \begin{pmatrix}1&2&1\\0&0&0\end{pmatrix}, \begin{pmatrix}0&0&-1\\1&0&0\end{pmatrix}, \begin{pmatrix}0&0&0\\0&0&1\end{pmatrix} \right\}, \qquad \dim(U) = 3.
+    \]
+
+    % ---------------- INCISO D ----------------
+    \item $V = \{ax^3 + bx^2 + cx + d \in \mathcal{P}_3 : c = a - b \ \wedge\ d = a + b\}$
+
+    \solucion
+
+    Sustituyendo las condiciones $c=a-b$ y $d=a+b$ en la expresión general, todo polinomio de $V$ tiene la forma:
+    \[
+    p(x) = ax^3+bx^2+(a-b)x+(a+b)
+    \]
+
+    con $a,b\in\mathbb{R}$ libres. Separamos según los parámetros libres $a$ y $b$:
+    \[
+    p(x) = a\underbrace{(x^3+x+1)}_{p_1(x)} + b\underbrace{(x^2-x+1)}_{p_2(x)}
+    \]
+
+    Es decir, todo polinomio de $V$ se escribe como combinación lineal de $p_1(x)=x^3+x+1$ y $p_2(x)=x^2-x+1$, los cuales son linealmente independientes (ninguno es múltiplo escalar del otro, ya que $p_1$ tiene término cúbico y $p_2$ no).
+
+    \textbf{Conclusión:}
+    \[
+    \text{Base de } V = \{x^3+x+1,\; x^2-x+1\}, \qquad \dim(V) = 2.
+    \]
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== ACTIVIDAD 13 ========================
+\section{Dado el vector $v = (3,2)$ en la base canónica, encuentra sus coordenadas en la base $\beta = \{(1,2),(1,-2)\}$. Si las coordenadas de $v$ en la base $\beta$ son $(1,1)$. ¿Cuáles son las coordenadas de $v$ en la base canónica de $\mathbb{R}^2$?}
+
+\solucion
+
+\textbf{Parte 1: coordenadas de $v=(3,2)$ en la base $\beta$}
+
+Buscamos $\alpha,\beta_1 \in \mathbb{R}$ tales que:
+\[
+\alpha(1,2)+\beta_1(1,-2) = (3,2)
+\]
+
+Esto da lugar al sistema:
+\[
+\begin{cases}
+\alpha+\beta_1 = 3 \\
+2\alpha-2\beta_1 = 2
+\end{cases}
+\]
+
+Dividiendo la segunda ecuación por $2$: $\alpha-\beta_1=1$.
+
+Sumando esta ecuación con la primera ($\alpha+\beta_1=3$):
+\[
+2\alpha = 4 \;\Longrightarrow\; \alpha=2
+\]
+
+Sustituyendo en $\alpha+\beta_1=3$: $\beta_1=1$.
+
+\textbf{Verificación:} $2(1,2)+1(1,-2) = (2,4)+(1,-2) = (3,2)$ \checkmark
+
+\textbf{Conclusión:} las coordenadas de $v=(3,2)$ en la base $\beta$ son:
+\[
+[v]_\beta = (2,1)
+\]
+
+\textbf{Parte 2: coordenadas en la base canónica, dado $[v]_\beta=(1,1)$}
+
+Si las coordenadas de $v$ en la base $\beta$ son $(1,1)$, entonces $v$ se reconstruye como combinación lineal de los vectores de la base $\beta$ con esos coeficientes:
+\[
+v = 1\cdot(1,2) + 1\cdot(1,-2) = (1+1,\; 2-2) = (2,0)
+\]
+
+\textbf{Conclusión:} las coordenadas de $v$ en la base canónica de $\mathbb{R}^2$ son:
+\[
+v = (2,0)
+\]
+
+\end{document}
