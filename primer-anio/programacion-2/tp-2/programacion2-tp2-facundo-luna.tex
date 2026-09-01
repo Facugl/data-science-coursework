@@ -1,0 +1,474 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% TIPOGRAFÍA
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% COMILLAS TIPOGRÁFICAS (compatibles con babel/español)
+% ============================================================
+\usepackage{csquotes}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{caption}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CÓDIGO / PYTHON
+% ============================================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+% Estilo para código Python
+\lstdefinestyle{python}{
+    style=estilo_base,
+    language=Python,
+}
+\renewcommand{\lstlistingname}{Código}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% Comando corto para importar la solución de un ejercicio desde ejercicios/
+% Uso: \codigopython{02}{Caption del ejercicio}
+% Espera encontrar el archivo ejercicios/TP2_Ejercicio_#1.py
+\newcommand{\codigopython}[2]{%
+    \lstinputlisting[style=python, caption={#2}]{ejercicios/TP2_Ejercicio_#1.py}%
+}
+
+% ============================================================
+% LISTAS
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N° 2 - Programación II},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Programación II}
+\fancyhead[R]{\small Trabajo Práctico N° 2}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Programación II}
+\newcommand{\trabajo}{Trabajo Práctico N° 2}
+\newcommand{\profesor}{Ing. Mario Martínez}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+% COMANDO PARA EL ENUNCIADO DE CADA EJERCICIO
+% ============================================================
+\newcommand{\enunciado}[1]{%
+    \begin{quote}
+        \itshape #1
+    \end{quote}
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== CUERPO ============================
+
+\newpage
+
+\phantomsection
+\section*{Aclaraciones previas}
+\addcontentsline{toc}{section}{Aclaraciones previas}
+
+El presente trabajo práctico consiste en la codificación en Python de 15 ejercicios introductorios de la Unidad correspondiente de Programación II, referidos al uso de variables, entrada y salida de datos por teclado/pantalla, operadores aritméticos, cadenas de texto y sus métodos. Cada ejercicio se resuelve en un archivo independiente, nombrado según el formato exigido por la cátedra (\texttt{TP2\_Ejercicio\_XX.py}), incluyendo como primera línea un comentario con el apellido y nombre del alumno.
+
+El código fuente completo de cada ejercicio se encuentra disponible en el siguiente repositorio de GitHub, con el fin de facilitar su verificación y prueba:
+
+\begin{center}
+    \url{https://github.com/Facugl/data-science-coursework/tree/main/primer-anio/programacion-2/tp-2/ejercicios}
+\end{center}
+
+% ======================== EJERCICIO 1 ========================
+
+\newpage
+\section{Suma de dos números enteros}
+
+\enunciado{Dados dos números enteros cualquiera almacenados en variables, almacenar en una nueva variable la suma de ellos e imprimir por pantalla su resultado.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{01}{Suma de dos números enteros}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 2 ========================
+
+\section{Resta de dos números enteros}
+
+\enunciado{Dados dos números enteros cualquiera almacenados en variables, almacenar en una nueva variable la resta de ellos e imprimir por pantalla su resultado.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{02}{Resta de dos números enteros}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 3 ========================
+
+\section{Suma, resta, multiplicación y división de dos números}
+
+\enunciado{Solicitar al usuario el ingreso de dos números enteros. Calcular (utilizando distintas variables), su suma, resta, multiplicación y división. Mostrar por pantalla el resultado de cada una de las operaciones realizadas. Por ej. si el usuario ingresó 4 y 7. Mostrar \enquote{El resultado de multiplicar 4 x 7 es 28}.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{03}{Suma, resta, multiplicación y división de dos números}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 4 ========================
+
+\section{Mensaje de bienvenida con nombre y apellido}
+
+\enunciado{Solicitar al usuario el ingreso de su nombre, luego de su apellido (dos ingresos). Luego mostrar por pantalla un mensaje de bienvenida completo. Por ej., si ingresó Julián Alvarez: \enquote{¡¡Bienvenido Julián Alvarez!!} (utilizando una variable para nombre y otra para apellido).}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{04}{Mensaje de bienvenida con nombre y apellido}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 5 ========================
+
+\section{Mensaje de bienvenida con nombre completo}
+
+\enunciado{Ídem ejercicio 4 pero una vez ingresados nombres y apellidos, almacenarlos en una sola variable y mostrar el mensaje de bienvenida.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{05}{Mensaje de bienvenida con nombre completo}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 6 ========================
+
+\section{Promedio de dos números}
+
+\enunciado{Solicitar al usuario el ingreso de dos números, calcular y mostrar el promedio de ambos valores.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{06}{Promedio de dos números}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 7 ========================
+
+\section{Cantidad de letras de una palabra}
+
+\enunciado{Solicitar al usuario el ingreso de una palabra cualquiera, y mostrarle por pantalla cuántas letras tiene la palabra ingresada.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{07}{Cantidad de letras de una palabra}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 8 ========================
+
+\section{Área de un triángulo}
+
+\enunciado{Solicitar al usuario el ingreso de la BASE y la ALTURA de un triángulo, calcular y mostrar el área del triángulo.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{08}{Área de un triángulo}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 9 ========================
+
+\section{Acrónimo de tres palabras}
+
+\enunciado{Solicitar al usuario el ingreso de 3 palabras y armar un acrónimo con ellas. De cada palabra debe tomar la primera letra y armar el acrónimo. Ejemplo: Qatar, Argentina y Mundial --> QAM. Mostrar el resultado por pantalla.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{09}{Acrónimo de tres palabras}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 10 ========================
+
+\section{Porcentaje de varones y mujeres del curso}
+
+\enunciado{Solicitar al usuario el ingreso del total de alumnos del curso, luego la cantidad de mujeres y la cantidad de varones. Calcular y mostrar el porcentaje de varones y mujeres de la clase.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{10}{Porcentaje de varones y mujeres del curso}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 11 ========================
+
+\section{Combinación de palabras con slicing}
+
+\enunciado{Solicitar al usuario el ingreso de dos palabras y armar combinaciones con ellas. De la primera palabra tome las primeras tres letras, utilice el operador \enquote{\texttt{:}}. De la segunda palabra tome las primeras dos letras, utilice el operador \enquote{\texttt{:}}. Formar una nueva palabra con los recortes solicitados y mostrarlo por pantalla.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{11}{Combinación de palabras con slicing}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 12 ========================
+
+\section{Calculadora de operaciones con dos números reales}
+
+\enunciado{Realice una calculadora, el usuario ingresará dos números reales y se deberán calcular todas las operaciones entre ellos:}
+
+\begin{itemize}[noitemsep]
+    \item[A)] Suma
+    \item[B)] Resta
+    \item[C)] Multiplicación
+    \item[D)] División
+    \item[E)] Exponente/Potencia
+\end{itemize}
+
+\enunciado{Para todos los casos se debe imprimir en pantalla el resultado aclarando la operación realizada en cada caso y con qué números se ha realizado la operación. Por ej: \enquote{La suma entre 14.1 y 6.4 es 20.5}}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{12}{Calculadora de operaciones con dos números reales}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 13 ========================
+
+\section{Datos personales: nombre, DNI, edad y altura}
+
+\enunciado{Realice un programa que solicite al usuario el nombre completo de la persona, el DNI de la persona, la edad de la persona y la altura de la persona. Luego el programa debe mostrar por pantalla dos líneas de texto por separado:}
+
+\subsection*{a) Línea de nombre completo y DNI}
+
+\enunciado{En una línea imprimir el nombre completo y el DNI, aclarando de qué campo se trata cada uno. Por ej.: \enquote{Nombre Completo: Elena Lobo, DNI: 38041532}.}
+
+\subsection*{b) Línea de nombre completo, edad y altura}
+
+\enunciado{En la segunda línea se debe imprimir el nombre completo, edad y altura de la persona. Nuevamente debe aclarar el campo de cada uno, para el que lo lea entienda de qué se está hablando.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{13}{Datos personales: nombre, DNI, edad y altura}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 14 ========================
+
+\section{Formatos de un nombre completo}
+
+\enunciado{Realice un programa que solicite al usuario el ingreso de un nombre completo. Luego lo muestre por pantalla en los siguientes formatos:}
+
+\subsection*{a) Minúsculas}
+
+\enunciado{Todas las letras en minúsculas.}
+
+\subsection*{b) Mayúsculas}
+
+\enunciado{Todas las letras en mayúsculas.}
+
+\subsection*{c) Primera letra en mayúscula}
+
+\enunciado{Solo la primera letra del nombre en mayúscula.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{14}{Formatos de un nombre completo}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 15 ========================
+
+\section{Apellido del hijo/a a partir de los padres}
+
+\enunciado{Realice un programa que determine cuál sería el apellido de una persona al ingresar los dos nombres completos de sus padres. Es decir, se solicita crear una variable nueva que reúna los apellidos. Primero el programa debe consultar el nombre completo del padre\_1, luego el programa debe consultar el nombre completo del padre\_2, luego debe consultar el nombre del hijo/a. Debe extraer los apellidos de los padres (ver la nota al final). Luego formar el nombre completo del hijo/a utilizando los apellidos de sus padres y el nombre ingresado de dicha persona. Mostrar por pantalla el resultado.}
+
+\textbf{Nota de la cátedra.} Para extraer el apellido del nombre completo se recomienda usar el método \texttt{split}. Por ejemplo:
+
+\begin{quote}
+\ttfamily
+direccion\_completa = \enquote{Mitre 465}\\
+calle, altura = direccion\_completa.split(\enquote{ })
+\end{quote}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{15}{Apellido del hijo/a a partir de los padres}
+
+\volverindice
+
+\end{document}
