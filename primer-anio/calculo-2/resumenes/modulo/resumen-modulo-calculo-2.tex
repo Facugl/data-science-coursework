@@ -1,0 +1,382 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!50!black, urlcolor=blue!50!black}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\newtcolorbox{defi}[1][]{colback=blue!4!white, colframe=blue!40!black, fonttitle=\bfseries, breakable, title={#1}}
+\newtcolorbox{teo}[1][]{colback=orange!5!white, colframe=orange!60!black, fonttitle=\bfseries, breakable, title={#1}}
+\newtcolorbox{formula}[1][]{colback=gray!5!white, colframe=gray!50!black, fonttitle=\bfseries, breakable, title={#1}}
+
+\title{\textbf{Cálculo Diferencial e Integral II}\\
+\large Resumen del módulo de cátedra}
+\author{Facundo Luna\\ \small Universidad Católica de Salta}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Unidad I: Aplicaciones de la derivada}
+
+\subsection{Valores máximos y mínimos}
+
+\begin{defi}[Valores extremos]
+Sea $c$ un número en el dominio $D$ de $f$. Entonces $f(c)$ es el:
+\begin{itemize}
+    \item \textbf{Máximo absoluto} de $f$ sobre $D$ si $f(c)\ge f(x)$ para toda $x$ en $D$.
+    \item \textbf{Mínimo absoluto} de $f$ sobre $D$ si $f(c)\le f(x)$ para toda $x$ en $D$.
+    \item \textbf{Máximo/mínimo local}: si la desigualdad anterior vale solo para $x$ cerca de $c$.
+\end{itemize}
+\end{defi}
+
+\begin{teo}[Teorema del valor extremo]
+Si $f$ es continua sobre un intervalo cerrado $[a,b]$, entonces $f$ alcanza un valor máximo absoluto $f(c)$ y un valor mínimo absoluto $f(d)$ en algunos números $c,d\in[a,b]$.
+\end{teo}
+
+\begin{teo}[Teorema de Fermat]
+Si $f$ tiene un máximo o un mínimo local en $x=c$ y $f'(c)$ existe, entonces $f'(c)=0$.
+\end{teo}
+
+El recíproco es falso: $f'(c)=0$ no implica extremo (ej. $f(x)=x^3$ en $c=0$). Además puede haber extremo donde $f'$ no existe (ej. $f(x)=|x|$ en $x=0$).
+
+\begin{defi}[Número crítico]
+Un número $c$ en el dominio de $f$ es un \textbf{número crítico} si $f'(c)=0$ o $f'(c)$ no existe. Todo extremo local ocurre en un número crítico.
+\end{defi}
+
+\begin{formula}[Método del intervalo cerrado]
+Para hallar los valores extremos absolutos de $f$ continua sobre $[a,b]$:
+\begin{enumerate}
+    \item Halle los valores de $f$ en los números críticos de $f$ en $(a,b)$.
+    \item Halle los valores de $f$ en los extremos $a$ y $b$.
+    \item El mayor de estos valores es el máximo absoluto; el menor, el mínimo absoluto.
+\end{enumerate}
+\end{formula}
+
+\subsection{Teorema del valor medio}
+
+\begin{teo}[Teorema de Rolle]
+Si $f$ es continua en $[a,b]$, derivable en $(a,b)$ y $f(a)=f(b)$, entonces existe $c\in(a,b)$ tal que $f'(c)=0$.
+\end{teo}
+
+\begin{teo}[Teorema del valor medio (Lagrange)]
+Si $f$ es continua en $[a,b]$ y derivable en $(a,b)$, entonces existe $c\in(a,b)$ tal que
+\[
+f'(c)=\frac{f(b)-f(a)}{b-a}.
+\]
+\end{teo}
+
+\textbf{Consecuencia:} si $f'(x)=0$ para toda $x$ en un intervalo, entonces $f$ es constante en ese intervalo.
+
+\begin{formula}[Crecimiento y decrecimiento]
+\begin{itemize}
+    \item Si $f'(x)>0$ sobre un intervalo, $f$ es creciente en ese intervalo.
+    \item Si $f'(x)<0$ sobre un intervalo, $f$ es decreciente en ese intervalo.
+\end{itemize}
+\end{formula}
+
+\begin{teo}[Prueba de la primera derivada]
+Sea $c$ un número crítico de $f$ continua.
+\begin{itemize}
+    \item Si $f'$ cambia de $+$ a $-$ en $c$: máximo local.
+    \item Si $f'$ cambia de $-$ a $+$ en $c$: mínimo local.
+    \item Si $f'$ no cambia de signo en $c$: no hay extremo local.
+\end{itemize}
+\end{teo}
+
+\begin{defi}[Concavidad y punto de inflexión]
+$f$ es \textbf{cóncava hacia arriba} en $I$ si su gráfica queda por arriba de todas sus rectas tangentes en $I$; es \textbf{cóncava hacia abajo} si queda por debajo. Un \textbf{punto de inflexión} es un punto donde la curva cambia de concavidad.
+\end{defi}
+
+\begin{formula}[Prueba de concavidad]
+\begin{itemize}
+    \item Si $f''(x)>0$ en $I$: cóncava hacia arriba.
+    \item Si $f''(x)<0$ en $I$: cóncava hacia abajo.
+\end{itemize}
+Hay un punto de inflexión en todo punto donde $f''$ cambia de signo.
+\end{formula}
+
+\begin{teo}[Prueba de la segunda derivada]
+Si $f'(c)=0$:
+\begin{itemize}
+    \item Si $f''(c)>0$: mínimo local en $c$.
+    \item Si $f''(c)<0$: máximo local en $c$.
+    \item Si $f''(c)=0$: la prueba no decide (usar la primera derivada).
+\end{itemize}
+\end{teo}
+
+\subsection{Trazado de curvas y problemas de optimización}
+
+\textbf{Guía para el trazado de curvas:} dominio, intersecciones con los ejes, simetría (par/impar/periódica), asíntotas (horizontales/verticales), intervalos de crecimiento/decrecimiento, valores extremos, concavidad y puntos de inflexión.
+
+\begin{formula}[Pasos para resolver problemas de optimización]
+\begin{enumerate}
+    \item Comprender el problema (qué se conoce, qué se pide).
+    \item Dibujar un diagrama.
+    \item Introducir notación: identificar la cantidad $Q$ a optimizar y las variables auxiliares.
+    \item Expresar $Q$ en función de esas variables.
+    \item Usar las relaciones dadas para escribir $Q$ en función de \emph{una sola} variable, $Q=f(x)$, y determinar su dominio.
+    \item Hallar el máximo o mínimo absoluto de $f$ (prueba de la 1\textsuperscript{a}/2\textsuperscript{a} derivada o método del intervalo cerrado).
+\end{enumerate}
+\end{formula}
+
+\newpage
+\section{Unidad II: El cálculo integral}
+
+\subsection{Integral indefinida}
+
+\begin{defi}[Antiderivada o primitiva]
+$F$ es una \textbf{antiderivada} de $f$ en un intervalo $I$ si $F'(x)=f(x)$ para todo $x \in I$. Si $F$ es una antiderivada de $f$, todas las antiderivadas de $f$ son de la forma $F(x)+C$.
+\end{defi}
+
+\begin{formula}[Tabla de integrales inmediatas]
+\begin{align*}
+\int k\,dx &= kx+C
+&\int x^n\,dx &= \frac{x^{n+1}}{n+1}+C\ (n\ne-1)\\
+\int \frac1x\,dx &= \ln|x|+C
+&\int e^x\,dx &= e^x+C\\
+\int a^x\,dx &= \frac{a^x}{\ln a}+C
+&\int \cos x\,dx &= \sen x+C\\
+\int \sen x\,dx &= -\cos x+C
+&\int \sec^2x\,dx &= \tan x+C\\
+\int \sec x\tan x\,dx &= \sec x+C
+&\int \csc^2x\,dx &= -\cot x+C\\
+\int \csc x\cot x\,dx &= -\csc x+C
+&\int \frac{dx}{1+x^2} &= \arctan x+C\\
+\int \frac{dx}{\sqrt{1-x^2}} &= \arcsen x+C
+\end{align*}
+\end{formula}
+
+\begin{teo}[Regla de sustitución]
+Si $u=g(x)$ es derivable con rango un intervalo $I$, y $f$ es continua en $I$, entonces
+\[
+\int f(g(x))\,g'(x)\,dx=\int f(u)\,du.
+\]
+\end{teo}
+
+\begin{formula}[Estrategia para $\int \sen^m x\cos^n x\,dx$]
+\begin{itemize}
+    \item Potencia del coseno impar: separar un $\cos x$, usar $\cos^2x=1-\sen^2x$, sustituir $u=\sen x$.
+    \item Potencia del seno impar: separar un $\sen x$, usar $\sen^2x=1-\cos^2x$, sustituir $u=\cos x$.
+    \item Ambas potencias pares: usar $\sen^2x=\frac{1-\cos2x}{2}$, $\cos^2x=\frac{1+\cos2x}{2}$.
+\end{itemize}
+\end{formula}
+
+\begin{formula}[Estrategia para $\int \tan^m x\sec^n x\,dx$]
+\begin{itemize}
+    \item Potencia de la secante par: separar $\sec^2x$, usar $\sec^2x=1+\tan^2x$, sustituir $u=\tan x$.
+    \item Potencia de la tangente impar: separar $\sec x\tan x$, usar $\tan^2x=\sec^2x-1$, sustituir $u=\sec x$.
+\end{itemize}
+Además: $\int\tan x\,dx=\ln|\sec x|+C$,\quad $\int\sec x\,dx=\ln|\sec x+\tan x|+C$.
+\end{formula}
+
+\begin{formula}[Tabla de sustitución trigonométrica]
+\begin{itemize}
+    \item $\sqrt{a^2-x^2}$: $x=a\sen\theta$, $-\tfrac\pi2\le\theta\le\tfrac\pi2$ (identidad $1-\sen^2\theta=\cos^2\theta$).
+    \item $\sqrt{a^2+x^2}$: $x=a\tan\theta$, $-\tfrac\pi2<\theta<\tfrac\pi2$ (identidad $1+\tan^2\theta=\sec^2\theta$).
+    \item $\sqrt{x^2-a^2}$: $x=a\sec\theta$, $0\le\theta<\tfrac\pi2$ o $\pi\le\theta<\tfrac{3\pi}2$ (identidad $\tan^2\theta=\sec^2\theta-1$).
+\end{itemize}
+\end{formula}
+
+\begin{formula}[Fracciones parciales]
+Para integrar $P(x)/Q(x)$ (propia, $\deg P<\deg Q$): factorizar $Q$ y descomponer según:
+\begin{itemize}
+    \item \textbf{Caso 1} — factores lineales distintos $(a_ix+b_i)$: un término $\dfrac{A_i}{a_ix+b_i}$ por cada uno.
+    \item \textbf{Caso 2} — factor lineal repetido $(ax+b)^r$: términos $\dfrac{A_1}{ax+b}+\dfrac{A_2}{(ax+b)^2}+\dots+\dfrac{A_r}{(ax+b)^r}$.
+    \item \textbf{Caso 3} — factor cuadrático irreducible distinto $(ax^2+bx+c)$: término $\dfrac{Ax+B}{ax^2+bx+c}$.
+    \item \textbf{Caso 4} — factor cuadrático irreducible repetido: análogo al caso 2, con numeradores lineales.
+\end{itemize}
+Si $P/Q$ es impropia, dividir primero por división larga.
+\end{formula}
+
+\subsection{Integral definida}
+
+\begin{defi}[Suma de Riemann e integral definida]
+Con $\Delta x=(b-a)/n$ y puntos muestra $x_i^*$ en $[x_{i-1},x_i]$:
+\[
+\int_a^b f(x)\,dx=\lim_{n\to\infty}\sum_{i=1}^n f(x_i^*)\,\Delta x,
+\]
+siempre que el límite exista (entonces $f$ es integrable en $[a,b]$). Si $f\ge0$, la integral es el área bajo la curva.
+\end{defi}
+
+\begin{formula}[Propiedades]
+\begin{align*}
+&\int_a^b c\,dx=c(b-a), \qquad \int_a^a f(x)\,dx=0, \qquad \int_b^a f=-\int_a^b f\\
+&\int_a^b[f\pm g]=\int_a^b f\pm\int_a^b g, \qquad \int_a^b cf=c\int_a^b f\\
+&\int_a^b f=\int_a^c f+\int_c^b f
+\end{align*}
+Si $f(x)\ge0$ en $[a,b]$ entonces $\int_a^b f\ge0$; si $f\ge g$ entonces $\int_a^bf\ge\int_a^b g$.
+\end{formula}
+
+\begin{teo}[Teorema Fundamental del Cálculo, parte 1]
+Si $f$ es continua en $[a,b]$ y $g(x)=\int_a^x f(t)\,dt$, entonces $g$ es derivable en $(a,b)$ y $g'(x)=f(x)$.
+\end{teo}
+
+\begin{teo}[Teorema Fundamental del Cálculo, parte 2 — Regla de Barrow]
+Si $f$ es continua en $[a,b]$ y $F$ es una antiderivada de $f$, entonces
+\[
+\int_a^b f(x)\,dx=F(b)-F(a).
+\]
+\end{teo}
+
+\begin{teo}[Sustitución en integrales definidas]
+Si $u=g(x)$ es continua sobre $[a,b]$ y $f$ es continua sobre el rango de $g$:
+\[
+\int_a^b f(g(x))g'(x)\,dx=\int_{g(a)}^{g(b)} f(u)\,du.
+\]
+\end{teo}
+
+\begin{defi}[Integrales impropias]
+\textbf{Tipo 1} (intervalo infinito):
+\[
+\int_a^{\infty} f(x)\,dx=\lim_{t\to\infty}\int_a^t f(x)\,dx,
+\qquad
+\int_{-\infty}^{b} f(x)\,dx=\lim_{t\to-\infty}\int_t^b f(x)\,dx.
+\]
+\textbf{Tipo 2} (integrando discontinuo en un extremo o punto interior de $[a,b]$): se reemplaza el extremo problemático por un límite lateral. En ambos tipos, la integral es \textbf{convergente} si el límite existe (finito) y \textbf{divergente} en caso contrario.
+\end{defi}
+
+\subsection{Aplicaciones de la integral}
+
+\begin{formula}[Área entre curvas]
+Si $f(x)\ge g(x)$ para $x\in[a,b]$, el área entre $y=f(x)$ e $y=g(x)$ es
+\[
+A=\int_a^b\big[f(x)-g(x)\big]\,dx.
+\]
+\end{formula}
+
+\begin{formula}[Longitud de arco]
+Si $f'$ es continua en $[a,b]$, la longitud de $y=f(x)$ es
+\[
+L=\int_a^b\sqrt{1+[f'(x)]^2}\,dx.
+\]
+\end{formula}
+
+\begin{formula}[Trabajo]
+Si una fuerza variable $F(x)$ actúa a lo largo del eje $x$ desde $x=a$ hasta $x=b$:
+\[
+W=\int_a^b F(x)\,dx.
+\]
+Ley de Hooke: $F(x)=kx$ (fuerza para estirar/comprimir un resorte $x$ unidades).
+\end{formula}
+
+\begin{formula}[Momento y centro de masa de una barra]
+Para una barra de densidad lineal $\rho(x)$ en $[0,L]$:
+\[
+\text{Masa } M=\int_0^L\rho(x)\,dx,
+\qquad
+\text{Momento } M_0=\int_0^L x\,\rho(x)\,dx,
+\qquad
+\bar x=\frac{M_0}{M}.
+\]
+\end{formula}
+
+\newpage
+\section{Unidad III: Sucesiones y series de números reales}
+
+\subsection{Sucesiones}
+
+\begin{defi}[Límite de una sucesión]
+$\{a_n\}$ tiene límite $L$ ($\lim_{n\to\infty}a_n=L$) si $a_n$ se acerca a $L$ tanto como se quiera al tomar $n$ suficientemente grande. Si el límite existe, la sucesión \textbf{converge}; si no, \textbf{diverge}.
+\end{defi}
+
+Las leyes de límites de funciones valen también para sucesiones. Además:
+\begin{itemize}
+    \item Si $\lim|a_n|=0$ entonces $\lim a_n=0$.
+    \item Si $\lim a_n=L$ y $f$ es continua en $L$, entonces $\lim f(a_n)=f(L)$.
+    \item $\lim_{n\to\infty} r^n = 0$ si $-1<r<1$; $=1$ si $r=1$; la sucesión $\{r^n\}$ diverge para el resto de los valores de $r$.
+\end{itemize}
+
+\begin{defi}[Monotonía y acotación]
+$\{a_n\}$ es \textbf{creciente} si $a_n<a_{n+1}$ para toda $n$, \textbf{decreciente} si $a_n>a_{n+1}$; es \textbf{monótona} si es creciente o decreciente. Está \textbf{acotada} si existen $M,m$ con $m\le a_n\le M$ para toda $n$.
+\end{defi}
+
+\begin{teo}[Teorema de la sucesión monótona]
+Toda sucesión monótona y acotada es convergente.
+\end{teo}
+
+\subsection{Series numéricas}
+
+\begin{defi}[Serie convergente]
+Dada $\sum a_n$, la suma parcial $n$-ésima es $S_n=a_1+a_2+\dots+a_n$. Si $\{S_n\}$ converge a $S$, la serie \textbf{converge} y $S=\sum_{n=1}^\infty a_n$; si $\{S_n\}$ diverge, la serie \textbf{diverge}.
+\end{defi}
+
+\begin{teo}[Serie geométrica]
+$\displaystyle\sum_{n=0}^\infty ar^n$ converge a $\dfrac{a}{1-r}$ si $|r|<1$, y diverge si $|r|\ge1$.
+\end{teo}
+
+\begin{teo}[Criterio del término $n$-ésimo]
+Si $\sum a_n$ converge, entonces $\lim_{n\to\infty}a_n=0$. Equivalentemente (contrarrecíproco): si $\lim a_n\ne0$, la serie $\sum a_n$ \textbf{diverge}. (El recíproco es falso: la serie armónica $\sum 1/n$ diverge aunque $a_n\to0$.)
+\end{teo}
+
+\begin{teo}[Criterio de la integral]
+Si $f$ es positiva, continua y decreciente en $[1,\infty)$ y $a_n=f(n)$, entonces $\sum a_n$ e $\int_1^\infty f(x)\,dx$ ambas convergen o ambas divergen.
+\end{teo}
+
+\begin{teo}[Series $p$]
+$\displaystyle\sum_{n=1}^\infty \frac1{n^p}$ converge si $p>1$ y diverge si $0<p\le1$.
+\end{teo}
+
+\begin{teo}[Comparación directa y en el límite]
+Sean $a_n,b_n>0$.
+\begin{itemize}
+    \item \textbf{Directa:} si $\sum b_n$ converge y $a_n\le b_n$, entonces $\sum a_n$ converge. Si $\sum b_n$ diverge y $a_n\ge b_n$, entonces $\sum a_n$ diverge.
+    \item \textbf{En el límite:} si $\lim (a_n/b_n)=L$ con $0<L<\infty$, entonces $\sum a_n$ y $\sum b_n$ ambas convergen o ambas divergen.
+\end{itemize}
+\end{teo}
+
+\begin{teo}[Criterio de la serie alternada]
+Sea $a_n>0$. La serie $\sum(-1)^n a_n$ converge si: (1) $\lim a_n=0$ y (2) $a_{n+1}\le a_n$ para toda $n$.
+\end{teo}
+
+\begin{defi}[Convergencia absoluta y condicional]
+$\sum a_n$ es \textbf{absolutamente convergente} si $\sum|a_n|$ converge (y en tal caso $\sum a_n$ también converge). Es \textbf{condicionalmente convergente} si $\sum a_n$ converge pero $\sum|a_n|$ diverge.
+\end{defi}
+
+\begin{teo}[Criterio del cociente]
+Para $\sum a_n$ con $a_n\ne0$, sea $L=\lim\left|\dfrac{a_{n+1}}{a_n}\right|$.
+\begin{itemize}
+    \item Si $L<1$: converge absolutamente.
+    \item Si $L>1$ (o $L=\infty$): diverge.
+    \item Si $L=1$: el criterio no decide.
+\end{itemize}
+\end{teo}
+
+\begin{teo}[Criterio de la raíz]
+Para $\sum a_n$, sea $L=\lim\sqrt[n]{|a_n|}$. Mismas conclusiones que el criterio del cociente según $L<1$, $L>1$ o $L=1$.
+\end{teo}
+
+\subsection{Series de potencias}
+
+\begin{defi}[Serie de potencias]
+Una serie de la forma $\displaystyle\sum_{n=0}^\infty c_n(x-a)^n$. Hay tres posibilidades: converge solo en $x=a$ ($R=0$); converge para todo $x$ ($R=\infty$); o existe $R>0$ (\textbf{radio de convergencia}) tal que converge si $|x-a|<R$ y diverge si $|x-a|>R$ (los extremos $x=a\pm R$ se estudian aparte). El conjunto de todos los $x$ donde converge es el \textbf{intervalo de convergencia}.
+\end{defi}
+
+El radio de convergencia se calcula típicamente con el criterio del cociente o de la raíz aplicado a $c_n(x-a)^n$; los extremos del intervalo deben verificarse con otro criterio.
+
+\begin{defi}[Serie de Taylor y de Maclaurin]
+Si $f$ tiene derivadas de todos los órdenes en $x=a$, su \textbf{serie de Taylor} en $a$ es
+\[
+f(x)\sim\sum_{n=0}^\infty \frac{f^{(n)}(a)}{n!}(x-a)^n
+=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\dots
+\]
+Si $a=0$ se llama \textbf{serie de Maclaurin}.
+\end{defi}
+
+\begin{teo}[Convergencia de la serie de Taylor]
+Sea $R_n(x)=f(x)-T_n(x)$ el resto tras $n$ términos. Si $\lim_{n\to\infty}R_n(x)=0$ para todo $x$ en un intervalo $I$, entonces la serie de Taylor converge a $f(x)$ en $I$.
+\end{teo}
+
+\textbf{Pasos para hallar una serie de Taylor:} (1) derivar $f$ sucesivamente y evaluar en $a$, buscando un patrón; (2) formar los coeficientes $c_n=f^{(n)}(a)/n!$ y hallar el intervalo de convergencia; (3) verificar si la serie converge efectivamente a $f(x)$ dentro de ese intervalo (acotando el resto $R_n$).
+
+\end{document}
