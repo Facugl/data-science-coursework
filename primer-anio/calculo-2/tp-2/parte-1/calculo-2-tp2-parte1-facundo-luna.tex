@@ -1,0 +1,1566 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°2 - Parte 1},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Cálculo Diferencial e Integral II}
+\fancyhead[R]{\small Trabajo Práctico N°2 - Parte 1}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Cálculo Diferencial e Integral II}
+\newcommand{\trabajo}{Trabajo Práctico N°2 - Parte 1}
+\newcommand{\profesor}{Lic. Mauro Vaca}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== EJERCICIO 1 ========================
+
+\newpage
+
+\section{Verdadero o falso: primitivas de una función}
+
+Responda V o F y justifique.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Si $F(x)$ y $G(x)$ son primitivas de $f(x)$ entonces
+    $F(x)=G(x)+C$, siendo $C$ una constante.
+
+    \solucion
+
+    \textbf{Verdadero.}
+
+    Por el teorema 2.1.2, si $F(x)$ y $G(x)$ son ambas primitivas de
+    $f(x)$ en un intervalo, entonces difieren en una constante, es decir,
+
+    \[
+    F(x)=G(x)+C,
+    \qquad C\in\mathbb{R}.
+    \]
+
+
+    \item Toda primitiva de un polinomio de grado $n$ es un polinomio de
+    grado $n$.
+
+    \solucion
+
+    \textbf{Falso.}
+
+    Al integrar un polinomio de grado $n$, la regla de potencias aumenta
+    en uno el exponente de cada término. Por lo tanto, la primitiva es un
+    polinomio de grado $n+1$, no de grado $n$.
+
+
+    \item Si $f'(x)=g(x)$, entonces
+    \[
+    \int g(x)\,dx=f(x)+C.
+    \]
+
+    \solucion
+
+    \textbf{Verdadero.}
+
+    Integrando ambos miembros de $f'(x)=g(x)$ respecto de $x$ se obtiene
+
+    \[
+    \int f'(x)\,dx=\int g(x)\,dx,
+    \]
+
+    y como $\displaystyle\int f'(x)\,dx=f(x)+C$, se verifica la igualdad
+    planteada:
+
+    \[
+    \int g(x)\,dx=f(x)+C.
+    \]
+
+
+    \item La primitiva de $f(x)$ es única.
+
+    \solucion
+
+    \textbf{Falso.}
+
+    No existe una única primitiva, sino una familia de primitivas que
+    difieren entre sí en una constante de integración $C$.
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 2 ========================
+
+\section{Relación entre primitivas de una misma función}
+
+Muestre que las funciones distintas
+\[
+F_1(x)=\frac{1}{1-x}
+\qquad\text{y}\qquad
+F_2(x)=\frac{x}{1-x}
+\]
+son ambas primitivas de
+\[
+f(x)=\frac{1}{(1-x)^2}.
+\]
+¿Cuál es la relación entre las funciones $F_1(x)$ y $F_2(x)$?
+
+\solucion
+
+\textbf{Verificación de que $F_1$ es primitiva de $f$:}
+
+Escribimos
+\[
+F_1(x)=(1-x)^{-1}.
+\]
+
+Derivando mediante la regla de la cadena:
+\[
+F_1'(x)=-1\cdot(1-x)^{-2}\cdot(-1).
+\]
+
+Por lo tanto,
+\[
+\boxed{
+F_1'(x)=\frac{1}{(1-x)^2}=f(x)
+}.
+\]
+
+\textbf{Verificación de que $F_2$ es primitiva de $f$:}
+
+Aplicamos la regla del cociente a
+\[
+F_2(x)=\frac{x}{1-x}.
+\]
+
+\[
+F_2'(x)
+=
+\frac{(1)(1-x)-x(-1)}{(1-x)^2}.
+\]
+
+Simplificando el numerador:
+\[
+F_2'(x)
+=
+\frac{(1-x)+x}{(1-x)^2}
+=
+\frac{1}{(1-x)^2}.
+\]
+
+Por lo tanto,
+\[
+\boxed{
+F_2'(x)=\frac{1}{(1-x)^2}=f(x)
+}.
+\]
+
+Como $F_1'(x)=F_2'(x)=f(x)$, ambas funciones son primitivas de $f(x)$.
+
+\textbf{Relación entre $F_1(x)$ y $F_2(x)$:}
+
+Por el teorema 2.1.2, dos primitivas de una misma función definidas en
+un mismo intervalo difieren en una constante. Verificamos esto
+calculando $F_2(x)-F_1(x)$:
+
+\[
+F_2(x)-F_1(x)
+=
+\frac{x}{1-x}-\frac{1}{1-x}
+=
+\frac{x-1}{1-x}.
+\]
+
+Como $x-1=-(1-x)$, resulta
+\[
+F_2(x)-F_1(x)=-1.
+\]
+
+Por lo tanto,
+\[
+\boxed{
+F_2(x)=F_1(x)-1
+}.
+\]
+
+Es decir, $F_1$ y $F_2$ son ambas primitivas de $f(x)$ y, tal como
+predice el teorema, difieren en una constante ($C=-1$).
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 3 ========================
+
+\section{Integrales indefinidas generales}
+
+Obtenga las siguientes integrales indefinidas generales.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    \int\left(x^4-\frac12x^3+\frac14x-2\right)dx
+    \]
+
+    \solucion
+
+    Separamos la integral en cuatro términos y aplicamos la regla de
+    potencias en cada uno:
+    \[
+    \int x^4\,dx-\frac12\int x^3\,dx+\frac14\int x\,dx-2\int dx
+    =\frac{x^5}{5}-\frac12\cdot\frac{x^4}{4}+\frac14\cdot\frac{x^2}{2}-2x+C.
+    \]
+
+    \[
+    \boxed{
+    \int\left(x^4-\frac12x^3+\frac14x-2\right)dx
+    =\frac{x^5}{5}-\frac{x^4}{8}+\frac{x^2}{8}-2x+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int(y+4)(2y+1)\,dy
+    \]
+
+    \solucion
+
+    Desarrollamos el producto:
+    \[
+    (y+4)(2y+1)=2y^2+9y+4.
+    \]
+
+    Integrando término a término:
+    \[
+    \int(2y^2+9y+4)\,dy
+    =2\cdot\frac{y^3}{3}+9\cdot\frac{y^2}{2}+4y+C.
+    \]
+
+    \[
+    \boxed{
+    \int(y+4)(2y+1)\,dy=\frac23y^3+\frac92y^2+4y+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int v(v^2+2)^2\,dv
+    \]
+
+    \solucion
+
+    Desarrollamos el cuadrado:
+    \[
+    (v^2+2)^2=v^4+4v^2+4.
+    \]
+
+    Multiplicando por $v$:
+    \[
+    v(v^2+2)^2=v^5+4v^3+4v.
+    \]
+
+    Integrando término a término:
+    \[
+    \int(v^5+4v^3+4v)\,dv
+    =\frac{v^6}{6}+4\cdot\frac{v^4}{4}+4\cdot\frac{v^2}{2}+C.
+    \]
+
+    \[
+    \boxed{
+    \int v(v^2+2)^2\,dv=\frac16v^6+v^4+2v^2+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\left(\csc^2 t-2e^t\right)dt
+    \]
+
+    \solucion
+
+    Separamos la integral:
+    \[
+    \int\csc^2t\,dt-2\int e^t\,dt=-\cot t-2e^t+C.
+    \]
+
+    \[
+    \boxed{
+    \int\left(\csc^2 t-2e^t\right)dt=-\cot t-2e^t+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\left(1+\tan^2\theta\right)d\theta
+    \]
+
+    \solucion
+
+    Por la identidad pitagórica $1+\tan^2\theta=\sec^2\theta$, resulta
+    \[
+    \int\left(1+\tan^2\theta\right)d\theta=\int\sec^2\theta\,d\theta=\tan\theta+C.
+    \]
+
+    \[
+    \boxed{
+    \int\left(1+\tan^2\theta\right)d\theta=\tan\theta+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\frac{x^3+2\sqrt{x}}{x}\,dx
+    \]
+
+    \solucion
+
+    Separamos la fracción:
+    \[
+    \frac{x^3+2\sqrt{x}}{x}=x^2+2x^{-1/2}.
+    \]
+
+    Integrando término a término:
+    \[
+    \int\left(x^2+2x^{-1/2}\right)dx
+    =\frac{x^3}{3}+2\cdot\frac{x^{1/2}}{1/2}+C.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{x^3+2\sqrt{x}}{x}\,dx=\frac{x^3}{3}+4\sqrt{x}+C
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 4 ========================
+
+\section{Integrales indefinidas por sustitución}
+
+Evalúe cada una de las siguientes integrales indefinidas utilizando
+alguna sustitución conveniente.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    \int x^2e^{x^3}\,dx
+    \]
+
+    \solucion
+
+    Sustituimos
+    \[
+    u=x^3,\qquad du=3x^2\,dx\quad\Rightarrow\quad x^2\,dx=\frac{du}{3}.
+    \]
+
+    Entonces
+    \[
+    \int x^2e^{x^3}\,dx=\int e^u\,\frac{du}{3}=\frac13\int e^u\,du=\frac13e^u+C.
+    \]
+
+    \[
+    \boxed{
+    \int x^2e^{x^3}\,dx=\frac13e^{x^3}+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int(x+1)\sqrt{2x+x^2}\,dx
+    \]
+
+    \solucion
+
+    Sustituimos
+    \[
+    u=2x+x^2,\qquad du=(2+2x)\,dx=2(x+1)\,dx
+    \quad\Rightarrow\quad (x+1)\,dx=\frac{du}{2}.
+    \]
+
+    Entonces
+    \[
+    \int(x+1)\sqrt{2x+x^2}\,dx=\int\sqrt{u}\,\frac{du}{2}
+    =\frac12\int u^{1/2}\,du
+    =\frac12\cdot\frac{2}{3}u^{3/2}+C.
+    \]
+
+    \[
+    \boxed{
+    \int(x+1)\sqrt{2x+x^2}\,dx=\frac13\left(2x+x^2\right)^{3/2}+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\frac{(\ln z)^2}{z}\,dz
+    \]
+
+    \solucion
+
+    Sustituimos
+    \[
+    u=\ln z,\qquad du=\frac{1}{z}\,dz.
+    \]
+
+    Entonces
+    \[
+    \int\frac{(\ln z)^2}{z}\,dz=\int u^2\,du=\frac{u^3}{3}+C.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{(\ln z)^2}{z}\,dz=\frac13(\ln z)^3+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int 5^y\sen(5^y)\,dy
+    \]
+
+    \solucion
+
+    Sustituimos
+    \[
+    u=5^y,\qquad du=5^y\ln 5\,dy\quad\Rightarrow\quad dy=\frac{du}{5^y\ln5}.
+    \]
+
+    Entonces
+    \[
+    \int 5^y\sen(5^y)\,dy=\int\sen(u)\,\frac{du}{\ln5}
+    =\frac{1}{\ln5}\int\sen(u)\,du
+    =-\frac{1}{\ln5}\cos(u)+C.
+    \]
+
+    \[
+    \boxed{
+    \int 5^y\sen(5^y)\,dy=-\frac{1}{\ln5}\cos\!\left(5^y\right)+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\frac{\sen\theta}{1+\cos^2\theta}\,d\theta
+    \]
+
+    \solucion
+
+    Sustituimos
+    \[
+    u=\cos\theta,\qquad du=-\sen\theta\,d\theta\quad\Rightarrow\quad \sen\theta\,d\theta=-du.
+    \]
+
+    Entonces
+    \[
+    \int\frac{\sen\theta}{1+\cos^2\theta}\,d\theta=\int\frac{-du}{1+u^2}
+    =-\arctan(u)+C.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{\sen\theta}{1+\cos^2\theta}\,d\theta=-\arctan(\cos\theta)+C
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int t^2\sqrt{2+t}\,dt
+    \]
+
+    \solucion
+
+    Sustituimos
+    \[
+    u=2+t,\qquad du=dt,\qquad t=u-2.
+    \]
+
+    Entonces $t^2=(u-2)^2=u^2-4u+4$, y
+    \[
+    \int t^2\sqrt{2+t}\,dt=\int(u^2-4u+4)\sqrt{u}\,du
+    =\int\left(u^{5/2}-4u^{3/2}+4u^{1/2}\right)du.
+    \]
+
+    Integrando término a término:
+    \[
+    \frac{2}{7}u^{7/2}-4\cdot\frac{2}{5}u^{5/2}+4\cdot\frac{2}{3}u^{3/2}+C
+    =\frac27u^{7/2}-\frac85u^{5/2}+\frac83u^{3/2}+C.
+    \]
+
+    Volviendo a la variable original ($u=2+t$):
+    \[
+    \boxed{
+    \int t^2\sqrt{2+t}\,dt
+    =\frac27(2+t)^{7/2}-\frac85(2+t)^{5/2}+\frac83(2+t)^{3/2}+C
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 5 ========================
+
+\section{Integración por partes}
+
+Evalúe las siguientes integrales utilizando integración por partes.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    \int t e^{-3t}\,dt
+    \]
+
+    \solucion
+
+    Elegimos
+    \[
+    u=t,\qquad dv=e^{-3t}\,dt
+    \quad\Rightarrow\quad
+    du=dt,\qquad v=-\frac13e^{-3t}.
+    \]
+
+    Aplicando la fórmula de integración por partes:
+    \[
+    \int t e^{-3t}\,dt
+    =t\left(-\frac13e^{-3t}\right)-\int\left(-\frac13e^{-3t}\right)dt
+    =-\frac13te^{-3t}+\frac13\int e^{-3t}\,dt.
+    \]
+
+    Como $\displaystyle\int e^{-3t}\,dt=-\frac13e^{-3t}$, resulta
+    \[
+    \int t e^{-3t}\,dt=-\frac13te^{-3t}-\frac19e^{-3t}+C.
+    \]
+
+    \[
+    \boxed{
+    \int t e^{-3t}\,dt=-\frac19e^{-3t}(3t+1)+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int(x^2+2x)\cos x\,dx
+    \]
+
+    \solucion
+
+    Elegimos
+    \[
+    u=x^2+2x,\qquad dv=\cos x\,dx
+    \quad\Rightarrow\quad
+    du=(2x+2)\,dx,\qquad v=\sen x.
+    \]
+
+    Entonces
+    \[
+    \int(x^2+2x)\cos x\,dx
+    =(x^2+2x)\sen x-\int(2x+2)\sen x\,dx.
+    \]
+
+    Para $\displaystyle\int x\sen x\,dx$ aplicamos nuevamente partes con
+    $u=x$, $dv=\sen x\,dx$ ($du=dx$, $v=-\cos x$):
+    \[
+    \int x\sen x\,dx=-x\cos x+\int\cos x\,dx=-x\cos x+\sen x.
+    \]
+
+    Luego
+    \[
+    \int(2x+2)\sen x\,dx
+    =2\int x\sen x\,dx+2\int\sen x\,dx
+    =2(-x\cos x+\sen x)+2(-\cos x)
+    =-2x\cos x+2\sen x-2\cos x.
+    \]
+
+    Reemplazando:
+    \[
+    \int(x^2+2x)\cos x\,dx
+    =(x^2+2x)\sen x-\left(-2x\cos x+2\sen x-2\cos x\right)+C.
+    \]
+
+    \[
+    \boxed{
+    \int(x^2+2x)\cos x\,dx=(x^2+2x-2)\sen x+(2x+2)\cos x+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int z^5\ln z\,dz
+    \]
+
+    \solucion
+
+    Elegimos
+    \[
+    u=\ln z,\qquad dv=z^5\,dz
+    \quad\Rightarrow\quad
+    du=\frac{1}{z}\,dz,\qquad v=\frac{z^6}{6}.
+    \]
+
+    Entonces
+    \[
+    \int z^5\ln z\,dz
+    =\frac{z^6}{6}\ln z-\int\frac{z^6}{6}\cdot\frac{1}{z}\,dz
+    =\frac{z^6}{6}\ln z-\frac16\int z^5\,dz
+    =\frac{z^6}{6}\ln z-\frac{z^6}{36}+C.
+    \]
+
+    \[
+    \boxed{
+    \int z^5\ln z\,dz=\frac{z^6}{6}\left(\ln z-\frac16\right)+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int y\,2^y\,dy
+    \]
+
+    \solucion
+
+    Elegimos
+    \[
+    u=y,\qquad dv=2^y\,dy
+    \quad\Rightarrow\quad
+    du=dy,\qquad v=\frac{2^y}{\ln2}.
+    \]
+
+    Entonces
+    \[
+    \int y\,2^y\,dy
+    =y\cdot\frac{2^y}{\ln2}-\int\frac{2^y}{\ln2}\,dy
+    =\frac{y\,2^y}{\ln2}-\frac{1}{\ln2}\int2^y\,dy
+    =\frac{y\,2^y}{\ln2}-\frac{2^y}{(\ln2)^2}+C.
+    \]
+
+    \[
+    \boxed{
+    \int y\,2^y\,dy=\frac{2^y}{\ln2}\left(y-\frac{1}{\ln2}\right)+C
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int t\sec^2(2t)\,dt
+    \]
+
+    \solucion
+
+    Elegimos
+    \[
+    u=t,\qquad dv=\sec^2(2t)\,dt
+    \quad\Rightarrow\quad
+    du=dt,\qquad v=\frac12\tan(2t).
+    \]
+
+    Entonces
+    \[
+    \int t\sec^2(2t)\,dt
+    =\frac{t}{2}\tan(2t)-\frac12\int\tan(2t)\,dt.
+    \]
+
+    Para $\displaystyle\int\tan(2t)\,dt$ sustituimos $w=\cos(2t)$,
+    $dw=-2\sen(2t)\,dt$:
+    \[
+    \int\tan(2t)\,dt=\int\frac{\sen(2t)}{\cos(2t)}\,dt
+    =-\frac12\int\frac{dw}{w}=-\frac12\ln|w|+C=-\frac12\ln|\cos(2t)|+C.
+    \]
+
+    Reemplazando:
+    \[
+    \int t\sec^2(2t)\,dt
+    =\frac{t}{2}\tan(2t)-\frac12\left(-\frac12\ln|\cos(2t)|\right)+C.
+    \]
+
+    \[
+    \boxed{
+    \int t\sec^2(2t)\,dt=\frac{t}{2}\tan(2t)+\frac14\ln|\cos(2t)|+C
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int e^{2\theta}\sen(3\theta)\,d\theta
+    \]
+
+    \solucion
+
+    Elegimos
+    \[
+    u=\sen(3\theta),\qquad dv=e^{2\theta}\,d\theta
+    \quad\Rightarrow\quad
+    du=3\cos(3\theta)\,d\theta,\qquad v=\frac12e^{2\theta}.
+    \]
+
+    Entonces
+    \[
+    \int e^{2\theta}\sen(3\theta)\,d\theta
+    =\frac12e^{2\theta}\sen(3\theta)-\frac32\int e^{2\theta}\cos(3\theta)\,d\theta.
+    \]
+
+    Aplicamos partes nuevamente a $\displaystyle\int e^{2\theta}\cos(3\theta)\,d\theta$
+    con $u=\cos(3\theta)$, $dv=e^{2\theta}\,d\theta$
+    ($du=-3\sen(3\theta)\,d\theta$, $v=\tfrac12e^{2\theta}$):
+    \[
+    \int e^{2\theta}\cos(3\theta)\,d\theta
+    =\frac12e^{2\theta}\cos(3\theta)+\frac32\int e^{2\theta}\sen(3\theta)\,d\theta.
+    \]
+
+    Sustituyendo en la expresión anterior, y llamando
+    $I=\displaystyle\int e^{2\theta}\sen(3\theta)\,d\theta$:
+    \[
+    I=\frac12e^{2\theta}\sen(3\theta)
+    -\frac32\left[\frac12e^{2\theta}\cos(3\theta)+\frac32 I\right]
+    =\frac12e^{2\theta}\sen(3\theta)-\frac34e^{2\theta}\cos(3\theta)-\frac94I.
+    \]
+
+    Despejando $I$:
+    \[
+    \frac{13}{4}I=\frac12e^{2\theta}\sen(3\theta)-\frac34e^{2\theta}\cos(3\theta)
+    \quad\Rightarrow\quad
+    I=\frac{2}{13}e^{2\theta}\sen(3\theta)-\frac{3}{13}e^{2\theta}\cos(3\theta)+C.
+    \]
+
+    \[
+    \boxed{
+    \int e^{2\theta}\sen(3\theta)\,d\theta
+    =\frac{e^{2\theta}}{13}\left[2\sen(3\theta)-3\cos(3\theta)\right]+C
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 6 ========================
+
+\section{Integrales trigonométricas}
+
+Evalúe las siguientes integrales trigonométricas.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    \int\sen^2x\cos^3x\,dx
+    \]
+
+    \solucion
+
+    Separamos un factor $\cos x$ y usamos $\cos^2x=1-\sen^2x$:
+    \[
+    \int\sen^2x\cos^3x\,dx=\int\sen^2x\left(1-\sen^2x\right)\cos x\,dx.
+    \]
+
+    Sustituimos $u=\sen x$, $du=\cos x\,dx$:
+    \[
+    \int u^2(1-u^2)\,du=\int\left(u^2-u^4\right)du=\frac{u^3}{3}-\frac{u^5}{5}+C.
+    \]
+
+    \[
+    \boxed{
+    \int\sen^2x\cos^3x\,dx=\frac13\sen^3x-\frac15\sen^5x+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\sen^3\theta\cos^4\theta\,d\theta
+    \]
+
+    \solucion
+
+    Separamos un factor $\sen\theta$ y usamos $\sen^2\theta=1-\cos^2\theta$:
+    \[
+    \int\sen^3\theta\cos^4\theta\,d\theta
+    =\int\left(1-\cos^2\theta\right)\cos^4\theta\,\sen\theta\,d\theta.
+    \]
+
+    Sustituimos $u=\cos\theta$, $du=-\sen\theta\,d\theta$:
+    \[
+    -\int\left(1-u^2\right)u^4\,du=-\int\left(u^4-u^6\right)du
+    =-\frac{u^5}{5}+\frac{u^7}{7}+C.
+    \]
+
+    \[
+    \boxed{
+    \int\sen^3\theta\cos^4\theta\,d\theta=-\frac15\cos^5\theta+\frac17\cos^7\theta+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\sen^7t\cos^5t\,dt
+    \]
+
+    \solucion
+
+    Separamos un factor $\cos t$ y usamos $\cos^4t=\left(1-\sen^2t\right)^2$:
+    \[
+    \int\sen^7t\cos^5t\,dt
+    =\int\sen^7t\left(1-\sen^2t\right)^2\cos t\,dt.
+    \]
+
+    Sustituimos $u=\sen t$, $du=\cos t\,dt$:
+    \[
+    \int u^7\left(1-u^2\right)^2du
+    =\int u^7\left(1-2u^2+u^4\right)du
+    =\int\left(u^7-2u^9+u^{11}\right)du.
+    \]
+
+    Integrando término a término:
+    \[
+    \frac{u^8}{8}-2\cdot\frac{u^{10}}{10}+\frac{u^{12}}{12}+C
+    =\frac{u^8}{8}-\frac{u^{10}}{5}+\frac{u^{12}}{12}+C.
+    \]
+
+    \[
+    \boxed{
+    \int\sen^7t\cos^5t\,dt=\frac18\sen^8t-\frac15\sen^{10}t+\frac{1}{12}\sen^{12}t+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\sen^2\left(\frac13x\right)dx
+    \]
+
+    \solucion
+
+    Usamos la identidad $\sen^2\alpha=\dfrac{1-\cos(2\alpha)}{2}$ con
+    $\alpha=\frac13x$:
+    \[
+    \int\sen^2\left(\frac13x\right)dx
+    =\int\frac12\left(1-\cos\left(\frac23x\right)\right)dx
+    =\frac12\int dx-\frac12\int\cos\left(\frac23x\right)dx.
+    \]
+
+    Como $\displaystyle\int\cos\left(\frac23x\right)dx=\frac32\sen\left(\frac23x\right)$,
+    resulta
+    \[
+    \int\sen^2\left(\frac13x\right)dx=\frac12x-\frac12\cdot\frac32\sen\left(\frac23x\right)+C.
+    \]
+
+    \[
+    \boxed{
+    \int\sen^2\left(\frac13x\right)dx=\frac{x}{2}-\frac34\sen\left(\frac23x\right)+C
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int\cos^4(2t)\,dt
+    \]
+
+    \solucion
+
+    Usamos $\cos^2\alpha=\dfrac{1+\cos(2\alpha)}{2}$ con $\alpha=2t$:
+    \[
+    \cos^4(2t)=\left[\cos^2(2t)\right]^2
+    =\left[\frac{1+\cos(4t)}{2}\right]^2
+    =\frac14\left[1+2\cos(4t)+\cos^2(4t)\right].
+    \]
+
+    Aplicamos nuevamente la identidad a $\cos^2(4t)$:
+    \[
+    \cos^2(4t)=\frac{1+\cos(8t)}{2}.
+    \]
+
+    Entonces
+    \[
+    \cos^4(2t)=\frac14\left[1+2\cos(4t)+\frac{1+\cos(8t)}{2}\right]
+    =\frac38+\frac12\cos(4t)+\frac18\cos(8t).
+    \]
+
+    Integrando término a término:
+    \[
+    \int\cos^4(2t)\,dt
+    =\frac38t+\frac12\cdot\frac14\sen(4t)+\frac18\cdot\frac18\sen(8t)+C.
+    \]
+
+    \[
+    \boxed{
+    \int\cos^4(2t)\,dt=\frac38t+\frac18\sen(4t)+\frac{1}{64}\sen(8t)+C
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int\sen^2\theta\cos^4\theta\,d\theta
+    \]
+
+    \solucion
+
+    Usamos $\sen^2\theta=\dfrac{1-\cos(2\theta)}{2}$ y
+    $\cos^4\theta=\dfrac{1+2\cos(2\theta)+\cos^2(2\theta)}{4}$:
+    \[
+    \sen^2\theta\cos^4\theta
+    =\frac{1-\cos(2\theta)}{2}\cdot\frac{1+2\cos(2\theta)+\cos^2(2\theta)}{4}
+    =\frac18\left[1+\cos(2\theta)-\cos^2(2\theta)-\cos^3(2\theta)\right].
+    \]
+
+    Integramos cada término. Los dos primeros son inmediatos:
+    \[
+    \int 1\,d\theta=\theta,
+    \qquad
+    \int\cos(2\theta)\,d\theta=\frac12\sen(2\theta).
+    \]
+
+    Para $\cos^2(2\theta)$ usamos $\cos^2(2\theta)=\dfrac{1+\cos(4\theta)}{2}$:
+    \[
+    \int\cos^2(2\theta)\,d\theta=\frac{\theta}{2}+\frac18\sen(4\theta).
+    \]
+
+    Para $\cos^3(2\theta)=\left(1-\sen^2(2\theta)\right)\cos(2\theta)$,
+    sustituimos $u=\sen(2\theta)$, $du=2\cos(2\theta)\,d\theta$:
+    \[
+    \int\cos^3(2\theta)\,d\theta=\frac12\int\left(1-u^2\right)du
+    =\frac12\sen(2\theta)-\frac16\sen^3(2\theta).
+    \]
+
+    Reuniendo todos los términos:
+    \[
+    \int\sen^2\theta\cos^4\theta\,d\theta
+    =\frac18\left[\theta+\frac12\sen(2\theta)
+    -\frac{\theta}{2}-\frac18\sen(4\theta)
+    -\frac12\sen(2\theta)+\frac16\sen^3(2\theta)\right]+C.
+    \]
+
+    Los términos en $\sen(2\theta)$ se cancelan, y queda
+    \[
+    \int\sen^2\theta\cos^4\theta\,d\theta
+    =\frac18\left[\frac{\theta}{2}-\frac18\sen(4\theta)+\frac16\sen^3(2\theta)\right]+C.
+    \]
+
+    \[
+    \boxed{
+    \int\sen^2\theta\cos^4\theta\,d\theta
+    =\frac{\theta}{16}-\frac{1}{64}\sen(4\theta)+\frac{1}{48}\sen^3(2\theta)+C
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 7 ========================
+
+\section{Integrales por sustitución trigonométrica}
+
+Evalúe las siguientes integrales utilizando sustitución trigonométrica.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    \int\frac{x}{\sqrt{36-x^2}}\,dx
+    \]
+
+    \solucion
+
+    Esta integral no requiere sustitución trigonométrica: alcanza con la
+    sustitución algebraica $w=36-x^2$, $dw=-2x\,dx$:
+    \[
+    \int\frac{x}{\sqrt{36-x^2}}\,dx=-\frac12\int\frac{dw}{\sqrt w}
+    =-\frac12\cdot2\sqrt w+C=-\sqrt{36-x^2}+C.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{x}{\sqrt{36-x^2}}\,dx=-\sqrt{36-x^2}+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\frac{du}{u\sqrt{5-u^2}}
+    \]
+
+    \solucion
+
+    Sea $u=\sqrt5\sen\theta$, con $-\frac\pi2\le\theta\le\frac\pi2$.
+    Entonces $du=\sqrt5\cos\theta\,d\theta$ y
+    \[
+    \sqrt{5-u^2}=\sqrt{5-5\sen^2\theta}=\sqrt5\cos\theta.
+    \]
+
+    Sustituyendo:
+    \[
+    \int\frac{du}{u\sqrt{5-u^2}}
+    =\int\frac{\sqrt5\cos\theta\,d\theta}{\sqrt5\sen\theta\cdot\sqrt5\cos\theta}
+    =\frac{1}{\sqrt5}\int\csc\theta\,d\theta
+    =\frac{1}{\sqrt5}\ln|\csc\theta-\cot\theta|+C.
+    \]
+
+    Del triángulo asociado (cateto opuesto $u$, hipotenusa $\sqrt5$,
+    cateto adyacente $\sqrt{5-u^2}$):
+    \[
+    \csc\theta=\frac{\sqrt5}{u},\qquad\cot\theta=\frac{\sqrt{5-u^2}}{u}.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{du}{u\sqrt{5-u^2}}
+    =\frac{1}{\sqrt5}\ln\left|\frac{\sqrt5-\sqrt{5-u^2}}{u}\right|+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\frac{\sqrt{1+z^2}}{z}\,dz
+    \]
+
+    \solucion
+
+    Sea $z=\tan\theta$, con $-\frac\pi2<\theta<\frac\pi2$. Entonces
+    $dz=\sec^2\theta\,d\theta$ y $\sqrt{1+z^2}=\sec\theta$. Sustituyendo:
+    \[
+    \int\frac{\sqrt{1+z^2}}{z}\,dz
+    =\int\frac{\sec\theta}{\tan\theta}\sec^2\theta\,d\theta
+    =\int\csc\theta\sec^2\theta\,d\theta.
+    \]
+
+    Usando $\sec^2\theta=1+\tan^2\theta$:
+    \[
+    \int\csc\theta\left(1+\tan^2\theta\right)d\theta
+    =\int\csc\theta\,d\theta+\int\tan\theta\sec\theta\,d\theta
+    =-\ln|\csc\theta+\cot\theta|+\sec\theta+C,
+    \]
+    ya que $\tan\theta\csc\theta=\sec\theta$ y
+    $\displaystyle\int\sec\theta\tan\theta\,d\theta=\sec\theta$.
+
+    Del triángulo asociado (cateto opuesto $z$, cateto adyacente $1$,
+    hipotenusa $\sqrt{1+z^2}$):
+    \[
+    \sec\theta=\sqrt{1+z^2},\qquad
+    \csc\theta+\cot\theta=\frac{\sqrt{1+z^2}+1}{z}.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{\sqrt{1+z^2}}{z}\,dz
+    =\sqrt{1+z^2}-\ln\left|\frac{1+\sqrt{1+z^2}}{z}\right|+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\frac{dx}{(4+x^2)^{3/2}}
+    \]
+
+    \solucion
+
+    Sea $x=2\tan\theta$, con $-\frac\pi2<\theta<\frac\pi2$. Entonces
+    $dx=2\sec^2\theta\,d\theta$ y
+    \[
+    4+x^2=4+4\tan^2\theta=4\sec^2\theta
+    \quad\Rightarrow\quad
+    (4+x^2)^{3/2}=8\sec^3\theta.
+    \]
+
+    Sustituyendo:
+    \[
+    \int\frac{dx}{(4+x^2)^{3/2}}
+    =\int\frac{2\sec^2\theta\,d\theta}{8\sec^3\theta}
+    =\frac14\int\cos\theta\,d\theta=\frac14\sen\theta+C.
+    \]
+
+    Del triángulo asociado (cateto opuesto $x$, hipotenusa
+    $\sqrt{4+x^2}$):
+    \[
+    \sen\theta=\frac{x}{\sqrt{4+x^2}}.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{dx}{(4+x^2)^{3/2}}=\frac{x}{4\sqrt{4+x^2}}+C
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int\frac{dt}{t^2\sqrt{t^2-16}}
+    \]
+
+    \solucion
+
+    Sea $t=4\sec\theta$, con $0\le\theta<\frac\pi2$. Entonces
+    $dt=4\sec\theta\tan\theta\,d\theta$ y $\sqrt{t^2-16}=4\tan\theta$.
+    Sustituyendo:
+    \[
+    \int\frac{dt}{t^2\sqrt{t^2-16}}
+    =\int\frac{4\sec\theta\tan\theta\,d\theta}{16\sec^2\theta\cdot4\tan\theta}
+    =\frac{1}{16}\int\cos\theta\,d\theta=\frac{1}{16}\sen\theta+C.
+    \]
+
+    Del triángulo asociado (hipotenusa $t$, cateto adyacente $4$,
+    cateto opuesto $\sqrt{t^2-16}$):
+    \[
+    \sen\theta=\frac{\sqrt{t^2-16}}{t}.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{dt}{t^2\sqrt{t^2-16}}=\frac{\sqrt{t^2-16}}{16\,t}+C
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int\frac{\sqrt{x^2-9}}{x^3}\,dx
+    \]
+
+    \solucion
+
+    Sea $x=3\sec\theta$, con $0\le\theta<\frac\pi2$. Entonces
+    $dx=3\sec\theta\tan\theta\,d\theta$, $\sqrt{x^2-9}=3\tan\theta$ y
+    $x^3=27\sec^3\theta$. Sustituyendo:
+    \[
+    \int\frac{\sqrt{x^2-9}}{x^3}\,dx
+    =\int\frac{3\tan\theta\cdot3\sec\theta\tan\theta\,d\theta}{27\sec^3\theta}
+    =\frac13\int\frac{\tan^2\theta}{\sec^2\theta}\,d\theta
+    =\frac13\int\sen^2\theta\,d\theta.
+    \]
+
+    Usando $\sen^2\theta=\frac{1-\cos2\theta}{2}$:
+    \[
+    \frac13\int\frac{1-\cos2\theta}{2}\,d\theta
+    =\frac16\theta-\frac{1}{12}\sen2\theta+C
+    =\frac16\theta-\frac16\sen\theta\cos\theta+C.
+    \]
+
+    Del triángulo asociado (hipotenusa $x$, cateto adyacente $3$,
+    cateto opuesto $\sqrt{x^2-9}$):
+    \[
+    \theta=\arccos\left(\frac3x\right),\qquad
+    \sen\theta\cos\theta=\frac{\sqrt{x^2-9}}{x}\cdot\frac3x
+    =\frac{3\sqrt{x^2-9}}{x^2}.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{\sqrt{x^2-9}}{x^3}\,dx
+    =\frac16\arccos\left(\frac3x\right)-\frac{\sqrt{x^2-9}}{2x^2}+C
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 8 ========================
+
+\section{Integración por fracciones parciales}
+
+Evalúe cada una de las siguientes integrales por descomposición en
+fracciones (sumas) parciales.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    \int\frac{2}{2x^2+3x+1}\,dx
+    \]
+
+    \solucion
+
+    Factorizamos el denominador: $2x^2+3x+1=(2x+1)(x+1)$, y planteamos
+    \[
+    \frac{2}{(2x+1)(x+1)}=\frac{A}{2x+1}+\frac{B}{x+1}
+    \quad\Rightarrow\quad
+    2=A(x+1)+B(2x+1).
+    \]
+
+    Con $x=-1$: $2=-B\Rightarrow B=-2$.
+    Con $x=-\frac12$: $2=\frac12A\Rightarrow A=4$.
+
+    Entonces
+    \[
+    \int\left(\frac{4}{2x+1}-\frac{2}{x+1}\right)dx
+    =2\ln|2x+1|-2\ln|x+1|+C.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{2}{2x^2+3x+1}\,dx=2\ln\left|\frac{2x+1}{x+1}\right|+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\frac{x-4}{x^2-5x+6}\,dx
+    \]
+
+    \solucion
+
+    Factorizamos: $x^2-5x+6=(x-2)(x-3)$, y planteamos
+    \[
+    \frac{x-4}{(x-2)(x-3)}=\frac{A}{x-2}+\frac{B}{x-3}
+    \quad\Rightarrow\quad
+    x-4=A(x-3)+B(x-2).
+    \]
+
+    Con $x=2$: $-2=-A\Rightarrow A=2$.
+    Con $x=3$: $-1=B\Rightarrow B=-1$.
+
+    \[
+    \boxed{
+    \int\frac{x-4}{x^2-5x+6}\,dx=2\ln|x-2|-\ln|x-3|+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\frac{x^2+1}{(x-3)(x-2)^2}\,dx
+    \]
+
+    \solucion
+
+    Planteamos
+    \[
+    \frac{x^2+1}{(x-3)(x-2)^2}=\frac{A}{x-3}+\frac{B}{x-2}+\frac{C}{(x-2)^2}
+    \quad\Rightarrow\quad
+    x^2+1=A(x-2)^2+B(x-3)(x-2)+C(x-3).
+    \]
+
+    Con $x=3$: $10=A\Rightarrow A=10$.
+    Con $x=2$: $5=-C\Rightarrow C=-5$.
+    Igualando coeficientes de $x^2$: $1=A+B\Rightarrow B=-9$.
+
+    \[
+    \int\left(\frac{10}{x-3}-\frac{9}{x-2}-\frac{5}{(x-2)^2}\right)dx
+    =10\ln|x-3|-9\ln|x-2|+\frac{5}{x-2}+C.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{x^2+1}{(x-3)(x-2)^2}\,dx
+    =10\ln|x-3|-9\ln|x-2|+\frac{5}{x-2}+C
+    }
+    \]
+
+
+    \item
+    \[
+    \int\frac{x^3-2x^2-4}{x^3-2x^2}\,dx
+    \]
+
+    \solucion
+
+    Como el numerador y el denominador tienen el mismo grado, dividimos
+    primero:
+    \[
+    \frac{x^3-2x^2-4}{x^3-2x^2}=1-\frac{4}{x^3-2x^2}=1-\frac{4}{x^2(x-2)}.
+    \]
+
+    Descomponemos $\dfrac{4}{x^2(x-2)}=\dfrac{A}{x}+\dfrac{B}{x^2}+\dfrac{C}{x-2}$:
+    \[
+    4=Ax(x-2)+B(x-2)+Cx^2.
+    \]
+
+    Con $x=0$: $4=-2B\Rightarrow B=-2$.
+    Con $x=2$: $4=4C\Rightarrow C=1$.
+    Igualando coeficientes de $x^2$: $0=A+C\Rightarrow A=-1$.
+
+    Entonces
+    \[
+    \frac{4}{x^2(x-2)}=-\frac1x-\frac{2}{x^2}+\frac{1}{x-2},
+    \]
+    y por lo tanto
+    \[
+    \frac{x^3-2x^2-4}{x^3-2x^2}=1+\frac1x+\frac{2}{x^2}-\frac{1}{x-2}.
+    \]
+
+    Integrando:
+    \[
+    \int\left(1+\frac1x+\frac{2}{x^2}-\frac{1}{x-2}\right)dx
+    =x+\ln|x|-\frac2x-\ln|x-2|+C.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{x^3-2x^2-4}{x^3-2x^2}\,dx
+    =x-\frac2x+\ln\left|\frac{x}{x-2}\right|+C
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int\frac{x^2-x+6}{x^3+3x}\,dx
+    \]
+
+    \solucion
+
+    Factorizamos el denominador: $x^3+3x=x(x^2+3)$, y planteamos
+    \[
+    \frac{x^2-x+6}{x(x^2+3)}=\frac{A}{x}+\frac{Bx+C}{x^2+3}
+    \quad\Rightarrow\quad
+    x^2-x+6=A(x^2+3)+(Bx+C)x.
+    \]
+
+    Igualando coeficientes:
+    \[
+    x^2:\ A+B=1,\qquad x:\ C=-1,\qquad \text{cte}:\ 3A=6.
+    \]
+
+    De donde $A=2$, $B=-1$, $C=-1$. Entonces
+    \[
+    \int\left(\frac2x-\frac{x+1}{x^2+3}\right)dx
+    =2\ln|x|-\int\frac{x}{x^2+3}\,dx-\int\frac{1}{x^2+3}\,dx.
+    \]
+
+    Como $\displaystyle\int\frac{x}{x^2+3}\,dx=\frac12\ln(x^2+3)$ y
+    $\displaystyle\int\frac{dx}{x^2+3}=\frac{1}{\sqrt3}\arctan\left(\frac{x}{\sqrt3}\right)$,
+    resulta
+
+    \[
+    \boxed{
+    \int\frac{x^2-x+6}{x^3+3x}\,dx
+    =2\ln|x|-\frac12\ln(x^2+3)-\frac{1}{\sqrt3}\arctan\left(\frac{x}{\sqrt3}\right)+C
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int\frac{x^2-2x-1}{(x-1)^2(x^2+1)}\,dx
+    \]
+
+    \solucion
+
+    Planteamos
+    \[
+    \frac{x^2-2x-1}{(x-1)^2(x^2+1)}
+    =\frac{A}{x-1}+\frac{B}{(x-1)^2}+\frac{Cx+D}{x^2+1},
+    \]
+    \[
+    x^2-2x-1=A(x-1)(x^2+1)+B(x^2+1)+(Cx+D)(x-1)^2.
+    \]
+
+    Igualando coeficientes de $x^3,x^2,x^1,x^0$ se obtiene el sistema
+    \[
+    A+C=0,\qquad -A+B-2C+D=1,\qquad A+C-2D=-2,\qquad -A+B+D=-1,
+    \]
+    cuya solución es $A=1$, $B=-1$, $C=-1$, $D=1$.
+
+    Entonces
+    \[
+    \int\left(\frac{1}{x-1}-\frac{1}{(x-1)^2}+\frac{1-x}{x^2+1}\right)dx
+    =\ln|x-1|+\frac{1}{x-1}+\arctan x-\frac12\ln(x^2+1)+C.
+    \]
+
+    \[
+    \boxed{
+    \int\frac{x^2-2x-1}{(x-1)^2(x^2+1)}\,dx
+    =\ln|x-1|+\frac{1}{x-1}+\arctan x-\frac12\ln(x^2+1)+C
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+\end{document}
