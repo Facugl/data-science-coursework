@@ -21,10 +21,15 @@ data-science-coursework/
 │   └── tp-template.tex
 │
 ├── primer-anio/              # First Year
-│   ├── programacion-1/       # Programming I
-│   ├── algebra-lineal/       # Linear Algebra
-│   ├── calculo-diferencial-integral-1/  # Differential and Integral Calculus I
-│   └── intro-estructura-datos/  # Introduction to Data Structures
+│   ├── programacion-1/        # Programming I
+│   ├── algebra-lineal/        # Linear Algebra
+│   ├── calculo-1/             # Differential and Integral Calculus I
+│   ├── estructura-de-datos/   # Introduction to Data Structures
+│   ├── programacion-2/        # Programming II
+│   ├── analisis-algoritmos/   # Algorithm Analysis
+│   ├── calculo-2/             # Differential and Integral Calculus II
+│   ├── geometria-analitica/   # Analytic Geometry
+│   └── doctrina-social-iglesia/  # Catholic Social Doctrine
 │
 ├── segundo-anio/             # Second Year
 │   └── (upcoming courses)
@@ -66,10 +71,19 @@ Each assignment is structured using a **professional LaTeX template** that inclu
 ## 📚 Current Courses
 
 ### Primer Año (First Year) - 2025
+
+**Primer Cuatrimestre**
 - **Programación I** - Introduction to Programming
 - **Álgebra Lineal** - Linear Algebra
 - **Cálculo Diferencial e Integral I** - Differential and Integral Calculus I
 - **Introducción a la Estructura de Datos** - Introduction to Data Structures
+
+**Segundo Cuatrimestre** *(in progress)*
+- **Programación II** - Programming II
+- **Análisis de Algoritmos** - Algorithm Analysis
+- **Cálculo Diferencial e Integral II** - Differential and Integral Calculus II
+- **Geometría Analítica** - Analytic Geometry
+- **Doctrina Social de la Iglesia** - Catholic Social Doctrine
 
 ### Segundo Año (Second Year)
 - Coming soon...
