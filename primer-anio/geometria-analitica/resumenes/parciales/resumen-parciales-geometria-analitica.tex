@@ -19,7 +19,9 @@
 \titlespacing*{\section}{0pt}{1.6em}{0.8em}
 \titlespacing*{\subsection}{0pt}{1.2em}{0.5em}
 
-\newtcolorbox{teoria}[1][]{colback=blue!4!white, colframe=blue!40!black, fonttitle=\bfseries,
+\newtcolorbox{intuicion}[1][Idea intuitiva]{colback=teal!5!white, colframe=teal!45!black,
+  fonttitle=\bfseries, breakable, title={#1}}
+\newtcolorbox{teoria}[1][Definición formal]{colback=blue!4!white, colframe=blue!40!black, fonttitle=\bfseries,
   breakable, title={#1}}
 \newtcolorbox{proc}[1][Procedimiento]{colback=green!5!white, colframe=green!30!black, fonttitle=\bfseries,
   breakable, title={#1}}
@@ -43,11 +45,14 @@
 \newpage
 
 \begin{teoria}[Cómo usar este resumen]
-Cada tema está organizado como un \textbf{``tipo de ejercicio''}: primero un recordatorio
-teórico mínimo, después \textbf{qué pide} el enunciado, después el \textbf{procedimiento}
-paso a paso para resolverlo, un \textbf{ejemplo resuelto} y, por último, una caja roja con
-\textbf{errores típicos} a los que hay que prestar atención en el parcial. La idea es que,
-frente a un ejercicio nuevo, puedas reconocer el ``tipo'' y aplicar directamente los pasos.
+Cada tema está organizado en el mismo orden: primero una caja verdeazulada con la
+\textbf{idea intuitiva} (una explicación bajada a tierra, sin fórmulas, de qué es el
+concepto y para qué sirve), después la \textbf{definición formal} con toda la precisión
+matemática (imprescindible para la parte teórica del parcial), después \textbf{qué pide}
+un ejercicio típico, el \textbf{procedimiento} paso a paso para resolverlo, un
+\textbf{ejemplo resuelto} y, por último, una caja roja con \textbf{errores típicos}. La
+idea intuitiva es una puerta de entrada para entender el concepto, \emph{no} reemplaza a
+la definición formal: en el parcial hay que poder dar ambas.
 \end{teoria}
 
 \part{PRIMER PARCIAL --- Espacios vectoriales y Transformaciones lineales}
@@ -56,7 +61,18 @@ frente a un ejercicio nuevo, puedas reconocer el ``tipo'' y aplicar directamente
 
 \subsection{Determinar si un conjunto es un espacio vectorial}
 
-\begin{teoria}[Definición]
+\begin{intuicion}
+Un espacio vectorial es, en criollo, un conjunto de ``objetos'' (pueden ser flechas,
+listas de números, polinomios, matrices, funciones...) donde podés hacer dos cosas sin
+nunca ``salirte'' del conjunto: \textbf{sumar} dos de esos objetos y \textbf{escalarlos}
+(agrandarlos o achicarlos multiplicando por un número). Además, esas dos operaciones
+tienen que comportarse ``bien'' (como uno espera: da lo mismo el orden en que sumás, existe
+un objeto neutro que no cambia nada al sumarlo, todo objeto tiene un opuesto, etc.). Es la
+generalización de ``lo que se puede hacer con vectores flecha en el plano'' a cualquier
+otro tipo de objeto matemático.
+\end{intuicion}
+
+\begin{teoria}[Definición formal]
 $V$ con operaciones $+$ y $\cdot$ (escalar) es un \textbf{espacio vectorial} si se cumplen
 10 axiomas: cerradura de la suma, conmutativa, asociativa, existencia de neutro $\odot$,
 existencia de inverso aditivo, cerradura del producto por escalar, y las dos distributivas,
@@ -109,6 +125,17 @@ Como ambas cerraduras valen y los demás axiomas se heredan de $M_{2\times2}$,
 
 \subsection{Determinar si un subconjunto es subespacio}
 
+\begin{intuicion}
+Un subespacio es un ``mundo más chico'' viviendo adentro de un espacio vectorial más
+grande, que por sí solo también funciona como espacio vectorial: por ejemplo, un plano
+que pasa por el origen dentro de $\mathbb R^3$, o una recta que pasa por el origen dentro
+de un plano. La clave es que sea \textbf{autocontenido}: si tomás dos elementos de ese
+``mundo chico'' y los sumás (o los escalás), el resultado tiene que seguir estando adentro
+de ese mismo mundo, nunca ``escaparse'' hacia afuera. Por eso alcanza con chequear dos
+cosas (cerradura de la suma y del producto por escalar) en vez de los 10 axiomas
+completos: los demás axiomas ya están garantizados porque $H$ vive dentro de $V$.
+\end{intuicion}
+
 \begin{teoria}[Teorema 1.1.4]
 $H\subseteq V$ no vacío es subespacio si y solo si:
 \textbf{(i)} $x,y\in H\Rightarrow x+y\in H$ y \textbf{(ii)} $x\in H\Rightarrow \alpha x\in H$
@@ -157,6 +184,25 @@ fracciones) $\{(2,1,0),(0,1,2)\}$.
 
 \subsection{Combinación lineal y espacio generado}
 
+\begin{intuicion}
+Una combinación lineal es simplemente \textbf{mezclar} vectores usando ``pesos''
+(escalares): agarrar un poco de cada vector y sumarlos, como una receta de cocina donde
+cada ingrediente entra en cierta proporción. El \textbf{espacio generado} por un conjunto
+de vectores es el conjunto de \emph{todas} las mezclas posibles que se pueden armar con
+esos ``ingredientes'' — es decir, hasta dónde se puede ``llegar'' combinándolos. Si el
+generado es todo el espacio, esos vectores alcanzan para fabricar cualquier otro; si no,
+el generado es un subespacio más chico (una recta, un plano, etc.) dentro del espacio
+ambiente.
+\end{intuicion}
+
+\begin{teoria}
+\textbf{Combinación lineal} de $v_1,\dots,v_n$: cualquier vector de la forma
+$a_1v_1+\dots+a_nv_n$ con $a_i$ escalares. \textbf{Conjunto generador} de $V$: vectores
+$v_1,\dots,v_n$ tales que todo vector de $V$ se escribe como combinación lineal de ellos.
+\textbf{Espacio generado}: $\operatorname{gen}\{v_1,\dots,v_k\}=\{v_1a_1+\dots+a_kv_k:
+a_i\in\mathbb R\}$, que siempre es un subespacio de $V$.
+\end{teoria}
+
 \qpide{(a) Decidir si un vector $w$ es combinación lineal de otros dados (equivalente a
 $w\in\operatorname{gen}\{v_1,\dots,v_k\}$). (b) Hallar la ecuación cartesiana del
 subespacio generado por un conjunto de vectores.}
@@ -193,6 +239,15 @@ subespacio generado por un conjunto de vectores.}
 \end{atencion}
 
 \subsection{Dependencia e independencia lineal}
+
+\begin{intuicion}
+Un conjunto de vectores es linealmente \textbf{independiente} si ninguno ``sobra'': ningún
+vector del conjunto se puede fabricar combinando los demás, es decir, todos aportan una
+dirección genuinamente nueva. Si en cambio alguno es redundante (se puede escribir como
+mezcla de los otros), el conjunto es linealmente \textbf{dependiente}. Es como una lista
+de ingredientes de una receta: si uno de ellos en realidad es una mezcla casera de otros
+dos que ya tenés en la lista, no está aportando nada nuevo.
+\end{intuicion}
 
 \begin{teoria}[Definición]
 $v_1,\dots,v_n$ son LI si $\alpha_1v_1+\dots+\alpha_nv_n=0$ solo se cumple con todos los
@@ -231,6 +286,18 @@ Escalonando se llega a $\alpha=\beta=\gamma=0$ (única solución) $\Rightarrow$ 
 
 \subsection{Base y dimensión}
 
+\begin{intuicion}
+Una \textbf{base} es el conjunto mínimo e imprescindible de vectores necesario para poder
+fabricar (por combinación lineal) cualquier otro vector del espacio, sin que sobre ni
+falte ninguno: tiene que alcanzar para generar todo (como un conjunto generador) y, a la
+vez, no tener redundancia (tiene que ser LI). Pensalo como los colores primarios: con
+rojo, verde y azul se puede fabricar cualquier color de pantalla, y ninguno de los tres se
+puede obtener mezclando los otros dos. La \textbf{dimensión} es simplemente
+\emph{cuántos} vectores tiene una base — la cantidad de ``direcciones independientes''
+que tiene el espacio (por eso $\dim\mathbb R^3=3$: hay tres direcciones genuinamente
+distintas).
+\end{intuicion}
+
 \begin{teoria}[Teoremas clave]
 \textbf{1.2.15:} Cualquier conjunto de $n$ vectores LI en un espacio de dimensión $n$ es
 automáticamente una base (no hace falta probar que genera). \textbf{1.2.13:} en un espacio
@@ -268,6 +335,16 @@ Si tiene más que $n$: nunca es base (no pueden ser LI).
 \end{atencion}
 
 \subsection{Coordenadas y matriz de transición (cambio de base)}
+
+\begin{intuicion}
+Un mismo vector se puede \textbf{describir de distintas formas} según qué vectores uses
+como referencia (como describir una ubicación en ``cuadras desde la plaza'' o en
+``latitud/longitud'': el lugar es el mismo, pero los números que lo describen cambian
+según el sistema de referencia elegido). Las \textbf{coordenadas} de un vector respecto de
+una base son esos ``números descriptivos''. La \textbf{matriz de transición} es el
+``traductor'' que convierte las coordenadas de un sistema de referencia (base) a otro,
+sin que el vector en sí cambie.
+\end{intuicion}
 
 \qpide{Dado un vector en una base, hallar sus coordenadas en otra base; o construir la
 matriz de cambio de base entre $\beta_1$ y $\beta_2$.}
@@ -309,6 +386,17 @@ matriz de cambio de base entre $\beta_1$ y $\beta_2$.}
 
 \subsection{Determinar si una transformación es lineal}
 
+\begin{intuicion}
+Una transformación lineal es una función entre espacios vectoriales que \textbf{respeta}
+la estructura de suma y de escalamiento: no importa si primero mezclás (sumás/escalás)
+los vectores y después aplicás la función, o si primero aplicás la función a cada uno y
+después mezclás los resultados — da exactamente igual. Geométricamente, las
+transformaciones lineales son las que rotan, reflejan, proyectan o estiran el espacio,
+pero \emph{nunca} lo trasladan ni lo ``curvan'': por eso el origen siempre queda fijo en
+el origen ($T(0)=0$), lo cual da un chequeo rapidísimo para descartar transformaciones que
+no son lineales.
+\end{intuicion}
+
 \begin{teoria}[Definición]
 $T:V\to W$ es lineal si $T(u+v)=Tu+Tv$ y $T(\alpha v)=\alpha Tv$ para todo $u,v,\alpha$.
 \end{teoria}
@@ -343,7 +431,26 @@ $\Rightarrow$ \textbf{no es lineal} (no hace falta seguir).
 \end{itemize}
 \end{atencion}
 
+\newpage
 \subsection{Núcleo, imagen, dimensión y clasificación}
+
+\begin{intuicion}
+Pensá una transformación lineal $T$ como una ``máquina'' que procesa vectores de entrada
+y devuelve vectores de salida. El \textbf{núcleo} ($\operatorname{Nu}(T)$) es todo lo que
+esa máquina \textbf{aplasta hasta el cero}: los vectores de entrada que, al pasar por la
+máquina, ``se pierden'' y salen como el vector nulo — es una medida de cuánta información
+se destruye en el proceso. La \textbf{imagen} ($\operatorname{Im}(T)$) es, en cambio, todo
+lo que la máquina efectivamente \textbf{logra producir}: el conjunto de resultados
+posibles que realmente aparecen del otro lado (no necesariamente todo el codominio). Hay
+una especie de ``balance'': cuanto más grande es el núcleo (más información se pierde),
+más chica termina siendo la imagen (menos se logra producir), porque entre las dos se
+reparten toda la dimensión del dominio (eso es justamente lo que dice el teorema de la
+dimensión). Que la transformación sea \textbf{inyectiva} significa que no pierde ninguna
+información (núcleo trivial, cada entrada distinta da una salida distinta); que sea
+\textbf{sobreyectiva} significa que ``llena'' completamente el codominio (no deja ningún
+vector de $W$ sin alcanzar); si hace ambas cosas a la vez, es un \textbf{isomorfismo}: una
+transformación perfectamente reversible, que no pierde ni deja nada afuera.
+\end{intuicion}
 
 \begin{teoria}[Definiciones y teorema de la dimensión]
 $\operatorname{Nu}(T)=\{v: Tv=0\}$, $\operatorname{Im}(T)=\{Tv: v\in V\}$. Ambos son
@@ -382,6 +489,15 @@ clasificar $T$.}
 
 \subsection{Expresión general de un morfismo dado por sus valores}
 
+\begin{intuicion}
+Como una transformación lineal ``respeta'' las combinaciones lineales, si sabés
+exactamente qué le hace a cada vector de una \textbf{base} del dominio, en realidad ya la
+conocés \textbf{por completo}: cualquier otro vector se puede descomponer como combinación
+de esa base, y aplicarle $T$ es tan simple como combinar de la misma manera los
+resultados que ya conocés. Es como tener la receta de tres sabores básicos de helado y
+poder predecir el resultado de cualquier mezcla, sin tener que probarla.
+\end{intuicion}
+
 \qpide{Dados $T(v_1),\dots,T(v_n)$ para una base $\{v_1,\dots,v_n\}$ del dominio, hallar la
 fórmula $T(x,y,z,\dots)$.}
 
@@ -405,6 +521,14 @@ fórmula $T(x,y,z,\dots)$.}
 \end{atencion}
 
 \subsection{Matriz asociada a una transformación lineal}
+
+\begin{intuicion}
+Toda transformación lineal entre espacios de dimensión finita se puede ``guardar''
+completamente dentro de una matriz: en vez de tener que recalcular la fórmula de $T$ cada
+vez, alcanza con multiplicar el vector (en coordenadas) por esa matriz. La matriz es,
+literalmente, una tabla que anota ``a dónde va a parar cada vector de la base'' — una
+especie de instructivo que resume toda la transformación en números.
+\end{intuicion}
 
 \begin{teoria}
 $A_T[v]_{\beta_1}=[Tv]_{\beta_2}$, donde las columnas de $A_T$ son
@@ -444,6 +568,17 @@ coordenadas canónicas del codominio) es una columna de $[T]$.
 \end{atencion}
 
 \subsection{Autovalores y autovectores}
+
+\begin{intuicion}
+Cuando una transformación (matriz) actúa sobre un vector, en general lo rota, lo deforma
+y también lo estira o encoge, todo a la vez. Un \textbf{autovector} es una dirección muy
+particular que la transformación \emph{no rota ni deforma}: solamente la estira o la
+encoge, sin sacarla de su propia recta. El \textbf{autovalor} es justamente ese factor de
+estiramiento (si es mayor a 1 agranda, entre 0 y 1 achica, negativo además invierte el
+sentido). Buscar autovalores y autovectores es preguntarse: ``¿existen direcciones donde
+esta transformación se comporta de la forma más simple posible, como una simple
+multiplicación por un número?''.
+\end{intuicion}
 
 \begin{teoria}[Definiciones y teoremas]
 $Av=\lambda v$ con $v\neq0$. Ecuación característica: $p(\lambda)=\det(A-\lambda I)=0$. La
@@ -490,6 +625,16 @@ v_1=(1,-2)$. Para $\lambda_2=5$: $-3x+y=0\Rightarrow v_2=(1,3)$.
 
 \subsection{Diagonalización y matrices semejantes}
 
+\begin{intuicion}
+Diagonalizar consiste en encontrar esas direcciones ``especiales'' (los autovectores) y
+usarlas como nuevo sistema de referencia (nueva base). Visto desde ese sistema de
+referencia ideal, la transformación deja de ``mezclar'' las variables entre sí: cada
+dirección se estira de forma independiente, como si fueran perillas separadas. Por eso la
+matriz, expresada en esa base, queda diagonal (solo hay números distintos de cero en la
+diagonal principal): es la forma más simple y desenredada de describir la misma
+transformación.
+\end{intuicion}
+
 \begin{teoria}
 $A$ diagonalizable si tiene $n$ autovectores LI: $D=P^{-1}AP$, con $P$ formada por los
 autovectores como columnas y $D$ diagonal con los autovalores en el mismo orden.
@@ -521,6 +666,18 @@ autoespacios distintos).
 \section{Unidad III: Álgebra vectorial y geometría del espacio}
 
 \subsection{Producto escalar, proyección, producto vectorial y producto mixto}
+
+\begin{intuicion}
+El \textbf{producto escalar} mide cuánto ``apuntan en la misma dirección'' dos vectores
+(da positivo si van más o menos para el mismo lado, negativo si van para lados opuestos,
+y cero si son perpendiculares) — por eso sirve para \textbf{proyectar} un vector sobre
+otro, es decir, para ver ``cuánto de un vector apunta en la dirección del otro''. El
+\textbf{producto vectorial} en cambio fabrica un vector totalmente \textbf{nuevo}, que
+apunta perpendicular a los dos originales a la vez (como el eje de un destornillador
+perpendicular a la punta que estás girando) — por eso es la herramienta natural para
+hallar normales a un plano. El \textbf{producto mixto} combina los tres vectores y mide,
+con signo, el \textbf{volumen} del ``cajón'' (paralelepípedo) que forman.
+\end{intuicion}
 
 \begin{teoria}[Fórmulas]
 \begin{align*}
@@ -557,6 +714,15 @@ volúmenes y ortogonalidad.}
 
 \subsection{Bases ortonormales --- Gram-Schmidt}
 
+\begin{intuicion}
+Una base ``cualquiera'' puede tener vectores torcidos entre sí y de distinto tamaño —
+funciona, pero es incómoda para trabajar. El proceso de Gram-Schmidt es una receta para
+\textbf{enderezar} esa base: la convierte en un conjunto de ejes todos perpendiculares
+entre sí (ortogonales) y todos de longitud 1 (normalizados) — como pasar de un sistema de
+ejes ``torcido'' a uno prolijo tipo $x,y,z$ de toda la vida, sin cambiar el subespacio que
+se genera con ellos.
+\end{intuicion}
+
 \qpide{A partir de una base $\{v_1,\dots,v_k\}$, construir una base ortonormal
 $\{u_1,\dots,u_k\}$.}
 
@@ -580,6 +746,15 @@ $\{u_1,\dots,u_k\}$.}
 \end{atencion}
 
 \subsection{Ecuaciones de la recta}
+
+\begin{intuicion}
+Una recta en el espacio queda totalmente determinada con solo dos datos: un
+\textbf{punto de partida} y una \textbf{dirección} hacia dónde avanzar. Cualquier otro
+punto de la recta se consigue ``caminando'' desde ese punto de partida en esa dirección
+una cierta cantidad de pasos (el parámetro $t$, que puede ser positivo, negativo o
+fraccionario). Las tres formas de la ecuación (vectorial, paramétrica, simétrica) son
+simplemente tres maneras distintas de escribir esa misma idea de ``punto + dirección''.
+\end{intuicion}
 
 \begin{teoria}[Formas]
 Vectorial: $(x,y,z)=P+tv$. Paramétrica: $x=x_0+at,\,y=y_0+bt,\,z=z_0+ct$. Simétrica (si
@@ -611,6 +786,15 @@ director, o condiciones de perpendicularidad.}
 \end{atencion}
 
 \subsection{Ecuación del plano}
+
+\begin{intuicion}
+Un plano queda determinado con un \textbf{punto} que le pertenece y una dirección
+\textbf{normal} (perpendicular a todo el plano, como el mástil de una bandera clavado
+perpendicular al piso). Cualquier otro punto pertenece al plano si el vector que lo une
+con el punto de referencia es perpendicular a esa normal — es decir, si ``se mueve
+paralelo al piso'' y nunca en la dirección del mástil. Por eso la ecuación del plano es,
+en esencia, un producto escalar igualado a cero.
+\end{intuicion}
 
 \begin{teoria}
 Con punto $P_0$ y normal $n=(a,b,c)$: $a(x-x_0)+b(y-y_0)+c(z-z_0)=0$.
@@ -645,6 +829,16 @@ condición de paralelismo/perpendicularidad con una recta.}
 \end{atencion}
 
 \subsection{Posiciones relativas}
+
+\begin{intuicion}
+Esto es simplemente preguntarse ``¿cómo se relacionan geométricamente dos figuras (dos
+rectas, dos planos, o una recta y un plano)?'': ¿son en realidad la misma figura
+(\textbf{coincidentes})?, ¿van ``en la misma dirección'' sin tocarse nunca
+(\textbf{paralelas})?, ¿se cruzan en un único punto (\textbf{secantes})?, o —esto solo
+puede pasar con dos rectas en el espacio, nunca en el plano ni con planos— ¿se cruzan sin
+tocarse porque están a distinta ``altura'', como dos calles que pasan una por un puente y
+otra por abajo (\textbf{alabeadas})?
+\end{intuicion}
 
 \begin{proc}[Recta $r$ (director $v_1$) y recta $s$ (director $v_2$)]
 \begin{enumerate}
@@ -686,6 +880,16 @@ $t$, hallar el punto.
 
 \subsection{Distancias}
 
+\begin{intuicion}
+La distancia entre dos objetos geométricos siempre se mide por el camino más corto entre
+ellos, que geométricamente es siempre \textbf{perpendicular} a ambos. Casi todas las
+fórmulas de esta sección son, en el fondo, la misma idea de la geometría básica ``área
+$=$ base $\times$ altura'' o ``volumen $=$ área de la base $\times$ altura'' dada vuelta:
+como el producto vectorial y el producto mixto dan directamente áreas y volúmenes,
+dividir por la ``base'' (el módulo del vector director o de la normal) despeja
+automáticamente la altura, que es la distancia que se busca.
+\end{intuicion}
+
 \begin{teoria}[Fórmulas]
 \begin{align*}
 d(P,Q)&=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}\\
@@ -710,6 +914,17 @@ Rectas/planos paralelos: se reducen a distancia punto-recta / punto-plano.
 
 \subsection{Ángulos}
 
+\begin{intuicion}
+El ángulo entre dos rectas (o entre dos planos) se mide comparando sus direcciones (o sus
+normales, en el caso de los planos) con el producto escalar, y siempre nos quedamos con
+el ángulo más chico posible (agudo, nunca obtuso) — por eso aparece el valor absoluto en
+la fórmula. El caso raro es \textbf{recta con plano}: como no tiene sentido comparar una
+dirección con una normal directamente (son perpendiculares por naturaleza cuando la recta
+``atraviesa de lleno'' el plano), primero se mide el ángulo con la normal y después se le
+resta a $90^\circ$ para ``dar vuelta'' esa comparación y obtener el ángulo real entre la
+recta y el plano.
+\end{intuicion}
+
 \begin{teoria}[Fórmulas]
 Entre rectas ($u,v$ directores) o entre planos ($n_1,n_2$ normales):
 $\cos\alpha=\dfrac{|u\cdot v|}{|u||v|}$. Entre recta ($v$) y plano ($n$): primero
@@ -732,6 +947,16 @@ $\boxed{\alpha=90^\circ-\beta}$.
 \section{Unidad IV: Cónicas y cuádricas}
 
 \subsection{Identificación rápida de una cónica}
+
+\begin{intuicion}
+Las cónicas son las curvas que aparecen al cortar un cono con un plano (de ahí el
+nombre): según el ángulo del corte se obtiene una circunferencia, una elipse, una
+parábola o una hipérbola. Lo notable es que \emph{no hace falta graficar nada} para saber
+qué curva es: la ecuación general siempre tiene $x^2$ e $y^2$, y con solo mirar sus
+coeficientes (si tienen el mismo signo, signos opuestos, o si falta uno de los dos) ya se
+puede saber de qué cónica se trata, igual que reconocer un animal por sus huellas sin
+haberlo visto.
+\end{intuicion}
 
 \begin{teoria}[Regla práctica]
 Dada $Ax^2+Cy^2+Dx+Ey+F=0$ (sin término $Bxy$):
@@ -763,6 +988,12 @@ cuentas más común de todo el tema (ejemplo correcto: $4x^2-8x=4(x^2-2x)=4(x^2-
 
 \subsection{Circunferencia}
 
+\begin{intuicion}
+Es la cónica más simple e intuitiva: el conjunto de todos los puntos que están
+exactamente a la misma distancia (el radio) de un punto fijo (el centro) — literalmente
+la figura que se dibuja atando un hilo tenso a una chinche y girando un lápiz alrededor.
+\end{intuicion}
+
 \begin{teoria}
 $(x-h)^2+(y-k)^2=r^2$, centro $(h,k)$, radio $r$. Con ecuación general
 $x^2+y^2+Dx+Ey+F=0$: existe si $D^2+E^2-4F>0$, con centro $\left(-\frac D2,-\frac
@@ -783,6 +1014,14 @@ real; si da 0, se reduce a un solo punto.
 \end{atencion}
 
 \subsection{Elipse}
+
+\begin{intuicion}
+Es como una circunferencia ``aplastada'' o ``estirada''. Se puede dibujar de forma
+clásica clavando dos chinches (los \textbf{focos}) y atando un hilo flojo entre ambas: al
+tensar el hilo con un lápiz y recorrer todo el contorno posible, se traza una elipse. La
+propiedad que la define es que la \textbf{suma} de las distancias de cualquier punto de
+la curva a esos dos focos es siempre la misma (la longitud del hilo).
+\end{intuicion}
 
 \begin{teoria}
 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ con $a^2=b^2+c^2$ ($a$ = semieje \textbf{mayor}, es
@@ -809,6 +1048,14 @@ centro no es el origen, todo se mide desde el centro $(h,k)$, no desde el origen
 
 \subsection{Parábola}
 
+\begin{intuicion}
+Es el conjunto de puntos que son ``justos'' entre un punto fijo (el \textbf{foco}) y una
+recta fija (la \textbf{directriz}): ningún punto de la curva está más cerca del foco que
+de la directriz, ni al revés, siempre están a la misma distancia de ambos. Es la forma
+que describe, por ejemplo, la trayectoria de un objeto lanzado (tiro parabólico) o el
+perfil de una antena satelital (que concentra las señales justo en el foco).
+\end{intuicion}
+
 \begin{teoria}
 Vértice $(0,0)$: $x^2=4py$ (vertical) o $y^2=4px$ (horizontal). Vértice $(h,k)$:
 $(x-h)^2=4p(y-k)$ o $(y-k)^2=4p(x-h)$. Distancia vértice-foco = vértice-directriz = $|p|$.
@@ -832,6 +1079,14 @@ cuenta.
 \end{atencion}
 
 \subsection{Hipérbola}
+
+\begin{intuicion}
+Es prima hermana de la elipse, pero con una \textbf{resta} en vez de una suma: el
+conjunto de puntos donde la \textbf{diferencia} (en valor absoluto) de las distancias a
+dos focos fijos es siempre la misma. Por eso, en vez de una única curva cerrada como la
+elipse, la hipérbola tiene \textbf{dos ramas} separadas que se van abriendo cada vez más
+hasta ``pegarse'' a dos rectas imaginarias (las \textbf{asíntotas}) sin tocarlas nunca.
+\end{intuicion}
 
 \begin{teoria}
 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$ (horizontal) o $\dfrac{y^2}{a^2}-\dfrac{x^2}{b^2}=1$
@@ -862,6 +1117,15 @@ Asíntotas: reemplazar el ``$1$'' por ``$0$'' y factorizar la diferencia de cuad
 \end{atencion}
 
 \subsection{Superficies cuádricas}
+
+\begin{intuicion}
+Las cuádricas son la versión en 3D de las cónicas. La mejor forma de imaginarlas es
+``rebanarlas'': si cortás la superficie con planos paralelos a los ejes coordenados (por
+ejemplo, fijando $z=k$ para distintos valores de $k$), en cada corte aparece una figura
+2D conocida (una elipse, una hipérbola, un punto, o directamente nada) — y esas rebanadas
+apiladas reconstruyen mentalmente la forma completa de la superficie, igual que las capas
+de una tomografía arman el cuerpo completo.
+\end{intuicion}
 
 \begin{teoria}[Reconocimiento por signos, forma $Ax^2+By^2+Cz^2=R$ o variable lineal]
 \begin{itemize}
