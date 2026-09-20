@@ -1,0 +1,905 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!50!black, urlcolor=blue!50!black, citecolor=black,
+  pdftitle={Resumen Parciales 1 y 2 - Geometria Analitica}, pdfauthor={Facundo Luna}}
+
+\titleformat{\section}{\Large\bfseries\color{blue!35!black}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.5em}
+
+\newtcolorbox{teoria}[1][]{colback=blue!4!white, colframe=blue!40!black, fonttitle=\bfseries,
+  breakable, title={#1}}
+\newtcolorbox{proc}[1][Procedimiento]{colback=green!5!white, colframe=green!30!black, fonttitle=\bfseries,
+  breakable, title={#1}}
+\newtcolorbox{atencion}[1][Atención / trampas frecuentes]{colback=red!4!white, colframe=red!55!black,
+  fonttitle=\bfseries, breakable, title={#1}}
+\newtcolorbox{ejemplo}[1][Ejemplo resuelto]{colback=yellow!6!white, colframe=orange!55!black,
+  fonttitle=\bfseries, breakable, title={#1}}
+
+\newcommand{\qpide}[1]{\textbf{¿Qué pide el ejercicio?} #1\par}
+
+\title{\textbf{\Huge Resumen Teórico-Práctico}\\[0.3cm]
+\Large Geometría Analítica --- Parciales 1 y 2\\[0.2cm]
+\normalsize Unidades I a IV: Espacios vectoriales, Transformaciones lineales,\\
+Álgebra vectorial y Cónicas/Cuádricas}
+\author{Facundo Luna\\ \small Universidad Católica de Salta}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\begin{teoria}[Cómo usar este resumen]
+Cada tema está organizado como un \textbf{``tipo de ejercicio''}: primero un recordatorio
+teórico mínimo, después \textbf{qué pide} el enunciado, después el \textbf{procedimiento}
+paso a paso para resolverlo, un \textbf{ejemplo resuelto} y, por último, una caja roja con
+\textbf{errores típicos} a los que hay que prestar atención en el parcial. La idea es que,
+frente a un ejercicio nuevo, puedas reconocer el ``tipo'' y aplicar directamente los pasos.
+\end{teoria}
+
+\part{PRIMER PARCIAL --- Espacios vectoriales y Transformaciones lineales}
+
+\section{Unidad I: Espacios vectoriales}
+
+\subsection{Determinar si un conjunto es un espacio vectorial}
+
+\begin{teoria}[Definición]
+$V$ con operaciones $+$ y $\cdot$ (escalar) es un \textbf{espacio vectorial} si se cumplen
+10 axiomas: cerradura de la suma, conmutativa, asociativa, existencia de neutro $\odot$,
+existencia de inverso aditivo, cerradura del producto por escalar, y las dos distributivas,
+asociatividad de escalares y $1x=x$.
+\end{teoria}
+
+\qpide{Dado un conjunto $V$ con ciertas operaciones (usuales o definidas ``raro''),
+decidir si es un espacio vectorial.}
+
+\begin{proc}
+\begin{enumerate}
+    \item Identificar el vector nulo candidato. Si $V$ ni siquiera lo contiene, \textbf{no}
+    es espacio vectorial (fin del ejercicio).
+    \item Verificar cerradura de la suma: tomar $u,v\in V$ genéricos, sumarlos y ver si el
+    resultado sigue perteneciendo a $V$.
+    \item Verificar cerradura del producto por escalar: tomar $u\in V$, $\alpha$ escalar, y
+    ver si $\alpha u\in V$.
+    \item Si ambas cerraduras se cumplen, los 8 axiomas restantes casi siempre se heredan
+    directamente de las propiedades de $\mathbb R$ (son rutina algebraica).
+    \item Si se sospecha que \textbf{no} es espacio vectorial, conviene buscar un
+    \textbf{contraejemplo numérico} concreto en vez de trabajar en general.
+\end{enumerate}
+\end{proc}
+
+\begin{ejemplo}
+¿Es espacio vectorial el conjunto de matrices $2\times2$ antisimétricas ($A^t=-A$)?
+
+\textbf{Neutro:} $0^t=-0$, la matriz nula es antisimétrica $\Rightarrow$ pertenece.
+
+\textbf{Suma:} si $A^t=-A$, $B^t=-B$: $(A+B)^t=A^t+B^t=-A-B=-(A+B)$. Cerrado.
+
+\textbf{Escalar:} $(\alpha A)^t=\alpha A^t=\alpha(-A)=-(\alpha A)$. Cerrado.
+
+Como ambas cerraduras valen y los demás axiomas se heredan de $M_{2\times2}$,
+\textbf{sí} es espacio vectorial (de hecho, subespacio de $M_{2\times2}$).
+\end{ejemplo}
+
+\begin{atencion}
+\begin{itemize}
+    \item Un solo axioma que falle alcanza para descartar todo el conjunto.
+    \item El conjunto de polinomios de grado \textbf{exactamente} $n$ (no ``menor o igual'')
+    \textbf{no} es espacio vectorial: la suma de dos de grado $n$ puede bajar de grado
+    (cancelación del término principal), y el polinomio nulo (que debe estar) no tiene
+    grado $n$. Es un clásico ``truco'' de examen.
+    \item Operaciones ``raras'' del tipo $\alpha(x,y)=(\alpha x,0)$ suelen fallar en el
+    axioma $1\cdot x=x$, no en la cerradura: conviene probar ese axioma primero si la
+    multiplicación por escalar se ve sospechosa.
+\end{itemize}
+\end{atencion}
+
+\subsection{Determinar si un subconjunto es subespacio}
+
+\begin{teoria}[Teorema 1.1.4]
+$H\subseteq V$ no vacío es subespacio si y solo si:
+\textbf{(i)} $x,y\in H\Rightarrow x+y\in H$ y \textbf{(ii)} $x\in H\Rightarrow \alpha x\in H$
+$\forall\alpha$. Todo subespacio contiene al $\odot$.
+\end{teoria}
+
+\qpide{Dado $H$ (subconjunto de un espacio conocido, definido por una ecuación o
+condición), decidir si es subespacio.}
+
+\begin{proc}
+\begin{enumerate}
+    \item \textbf{Atajo:} verificar primero si $0\in H$. Si no, \textbf{no} es subespacio
+    (se termina el ejercicio).
+    \item Si $0\in H$: tomar $u,v$ genéricos de $H$ y probar $u+v\in H$.
+    \item Probar $\alpha u\in H$ para $\alpha$ escalar genérico.
+    \item Si ambas valen, $H$ es subespacio. Si se sospecha que no, buscar un
+    contraejemplo numérico simple (probar con valores concretos).
+\end{enumerate}
+\end{proc}
+
+\begin{ejemplo}
+$H=\{(x,y,z)\in\mathbb R^3: x-2y+z=0\}$.
+
+$0$: $(0,0,0)$ cumple $0-0+0=0$ \checkmark.
+
+Suma: $(x_1-2y_1+z_1)+(x_2-2y_2+z_2)=0+0=0\Rightarrow$ la suma está en $H$.
+
+Escalar: $\alpha(x-2y+z)=\alpha\cdot0=0\Rightarrow$ está en $H$.
+
+Es subespacio. Como es 1 ecuación homogénea con 3 incógnitas, $\dim H=3-1=2$. Despejando
+$y=\frac{x+z}{2}$: $(x,\frac{x+z}2,z)=x(1,\tfrac12,0)+z(0,\tfrac12,1)$, con base (sin
+fracciones) $\{(2,1,0),(0,1,2)\}$.
+\end{ejemplo}
+
+\begin{atencion}
+\begin{itemize}
+    \item Ecuaciones con término independiente $\neq0$ (ej. $x+y+z=1$) \textbf{nunca} dan
+    subespacio: el $(0,0,0)$ no las cumple. Revisar esto primero ahorra tiempo.
+    \item Condiciones con valor absoluto o cuadrados ($|y|=|x|$, $y=x^2$) suelen fallar en
+    la cerradura aunque contengan al $0$: buscar un contraejemplo numérico chico.
+    \item El conjunto de matrices con $\det=0$ contiene al $0$ pero \textbf{falla en la
+    suma} (suma de dos singulares puede no ser singular): contraejemplo clásico a
+    recordar de memoria.
+\end{itemize}
+\end{atencion}
+
+\subsection{Combinación lineal y espacio generado}
+
+\qpide{(a) Decidir si un vector $w$ es combinación lineal de otros dados (equivalente a
+$w\in\operatorname{gen}\{v_1,\dots,v_k\}$). (b) Hallar la ecuación cartesiana del
+subespacio generado por un conjunto de vectores.}
+
+\begin{proc}[Procedimiento (a)]
+\begin{enumerate}
+    \item Plantear $w=\alpha_1v_1+\dots+\alpha_kv_k$.
+    \item Igualar componente a componente $\Rightarrow$ sistema lineal en $\alpha_i$.
+    \item Resolver: si es \textbf{compatible}, $w$ es combinación lineal (dar los
+    $\alpha_i$); si es \textbf{incompatible}, no lo es.
+\end{enumerate}
+\end{proc}
+
+\begin{proc}[Procedimiento (b), cuando hay más componentes que vectores generadores]
+\begin{enumerate}
+    \item Plantear $(x,y,z,\dots)=\alpha_1v_1+\dots+\alpha_kv_k$.
+    \item Armar la matriz aumentada con $(x,y,z,\dots)$ como términos independientes y
+    escalonar por Gauss.
+    \item Al quedar más ecuaciones que incógnitas $\alpha$, las filas que se anulan del
+    lado de los $\alpha$ dan, igualadas a $0$, la(s) ecuación(es) cartesiana(s) del
+    espacio generado.
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item Si la cantidad de vectores generadores coincide con la dimensión del espacio
+    ambiente (ej. 3 vectores en $\mathbb R^3$) y son LI, el generado es \textbf{todo} el
+    espacio (no hay ecuación restrictiva): alcanza con un determinante, no hace falta el
+    sistema.
+    \item No confundir ``generar'' (alcanza con que todo vector se escriba como
+    combinación lineal) con ``ser base'' (además deben ser LI).
+\end{itemize}
+\end{atencion}
+
+\subsection{Dependencia e independencia lineal}
+
+\begin{teoria}[Definición]
+$v_1,\dots,v_n$ son LI si $\alpha_1v_1+\dots+\alpha_nv_n=0$ solo se cumple con todos los
+$\alpha_i=0$. Si existe una combinación no trivial que da $0$, son LD.
+\end{teoria}
+
+\qpide{Determinar si un conjunto de vectores (o polinomios, o matrices) es LI o LD.}
+
+\begin{proc}
+\begin{enumerate}
+    \item Plantear $\alpha_1v_1+\dots+\alpha_nv_n=0$ y armar el sistema homogéneo.
+    \item \textbf{Atajo con determinante:} si son $n$ vectores en $\mathbb R^n$, armar la
+    matriz $A$ con los vectores como columnas: $\det A\neq0\Rightarrow$ LI;
+    $\det A=0\Rightarrow$ LD.
+    \item \textbf{Caso general} (matrices, polinomios, o cantidad $\neq$ dimensión):
+    escalonar por Gauss. Solución única (trivial) $\Rightarrow$ LI; infinitas soluciones
+    $\Rightarrow$ LD (exhibir una combinación no trivial dando un valor libre, p.ej.\ $1$).
+\end{enumerate}
+\end{proc}
+
+\begin{ejemplo}
+¿$(1,-2,3),(2,-2,0),(0,1,7)$ son LI? Se arma $\alpha(1,-2,3)+\beta(2,-2,0)+\gamma(0,1,7)=0$,
+que da el sistema $\alpha+2\beta=0$, $-2\alpha-2\beta+\gamma=0$, $3\alpha+7\gamma=0$.
+Escalonando se llega a $\alpha=\beta=\gamma=0$ (única solución) $\Rightarrow$ \textbf{LI}.
+\end{ejemplo}
+
+\begin{atencion}
+\begin{itemize}
+    \item \textbf{Teorema 1.2.3:} un conjunto de $n$ vectores en $\mathbb R^m$ con $n>m$
+    es \textbf{siempre} LD (más vectores que ``grados de libertad''). Revisar esto primero
+    puede evitar todo el cálculo.
+    \item Con solo 2 vectores, alcanza con ver si uno es múltiplo escalar del otro.
+    \item Solo importa si el determinante da \textbf{cero o no}, no su valor ni su signo.
+\end{itemize}
+\end{atencion}
+
+\subsection{Base y dimensión}
+
+\begin{teoria}[Teoremas clave]
+\textbf{1.2.15:} Cualquier conjunto de $n$ vectores LI en un espacio de dimensión $n$ es
+automáticamente una base (no hace falta probar que genera). \textbf{1.2.13:} en un espacio
+de dimensión $n$, no puede haber más de $n$ vectores LI.
+\end{teoria}
+
+\qpide{(a) Verificar si un conjunto dado es base. (b) Hallar una base y la dimensión de un
+subespacio dado por ecuación(es).}
+
+\begin{proc}[Procedimiento (a)]
+Si el conjunto tiene exactamente $\dim V=n$ vectores: \textbf{alcanza con probar que son
+LI} (determinante $\neq0$). Si tiene menos que $n$: nunca es base (no alcanza a generar).
+Si tiene más que $n$: nunca es base (no pueden ser LI).
+\end{proc}
+
+\begin{proc}[Procedimiento (b)]
+\begin{enumerate}
+    \item Despejar las variables ``dependientes'' en función de las ``libres'' usando la(s)
+    ecuación(es).
+    \item Escribir el vector genérico agrupando por cada variable libre (factor común).
+    \item Cada vector que multiplica a una variable libre es un generador; juntos forman
+    una base (son LI automáticamente).
+    \item $\dim=$ cantidad de variables libres $= n - (\text{ecuaciones independientes})$.
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item Con más de una ecuación, verificar que sean independientes entre sí antes de
+    contar los grados de libertad.
+    \item Una base \textbf{nunca} es única: si tu resultado no coincide ``literalmente''
+    con el de otra persona, verificá que genere el mismo subespacio antes de asumir un
+    error.
+\end{itemize}
+\end{atencion}
+
+\subsection{Coordenadas y matriz de transición (cambio de base)}
+
+\qpide{Dado un vector en una base, hallar sus coordenadas en otra base; o construir la
+matriz de cambio de base entre $\beta_1$ y $\beta_2$.}
+
+\begin{proc}[Caso: de la base canónica $\beta_1$ a otra base $\beta_2=\{v_1,\dots,v_n\}$]
+\begin{enumerate}
+    \item Armar $C$ con los $v_i$ (en coordenadas canónicas) como columnas. $C$ es la
+    matriz de transición \textbf{de $\beta_2$ a $\beta_1$}.
+    \item $A=C^{-1}$ es la matriz de transición \textbf{de $\beta_1$ a $\beta_2$}:
+    $[x]_{\beta_2}=A\,[x]_{\beta_1}$.
+\end{enumerate}
+\end{proc}
+
+\begin{proc}[Caso general: ninguna de las dos es canónica]
+\begin{enumerate}
+    \item Expresar cada vector de $\beta_1$ como combinación lineal de los de $\beta_2$
+    (un sistema por cada vector de $\beta_1$).
+    \item Los coeficientes hallados para cada vector de $\beta_1$ forman una columna de la
+    matriz de transición $A$ de $\beta_1$ a $\beta_2$.
+    \item $[x]_{\beta_2}=A\,[x]_{\beta_1}$.
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item Es muy fácil confundir el sentido: la matriz de transición \textbf{de $\beta_1$
+    a $\beta_2$} se arma expresando los vectores \textbf{de $\beta_1$} \textbf{en
+    términos de} $\beta_2$.
+    \item \textbf{Teorema 1.3.4:} si $A$ es la transición de $\beta_1$ a $\beta_2$,
+    $A^{-1}$ es la de $\beta_2$ a $\beta_1$ — evita rehacer cuentas.
+    \item Para verificar independencia lineal en espacios abstractos (polinomios,
+    matrices), convertir todo a coordenadas respecto de una base conocida y aplicar el
+    criterio del determinante (Teorema 1.3.5).
+\end{itemize}
+\end{atencion}
+
+\newpage
+\section{Unidad II: Transformaciones lineales}
+
+\subsection{Determinar si una transformación es lineal}
+
+\begin{teoria}[Definición]
+$T:V\to W$ es lineal si $T(u+v)=Tu+Tv$ y $T(\alpha v)=\alpha Tv$ para todo $u,v,\alpha$.
+\end{teoria}
+
+\qpide{Dada la fórmula de $T$, decidir si es una transformación lineal.}
+
+\begin{proc}
+\begin{enumerate}
+    \item \textbf{Atajo rápido:} calcular $T(0)$. Si $T(0)\neq0$ (el $0$ de $W$),
+    \textbf{no} es lineal (fin del ejercicio, sin más cuentas).
+    \item Si $T(0)=0$: verificar aditividad, $T(u+v)\stackrel{?}{=}T(u)+T(v)$.
+    \item Verificar homogeneidad, $T(\alpha u)\stackrel{?}{=}\alpha T(u)$.
+    \item Si ambas valen, $T$ es lineal.
+\end{enumerate}
+\end{proc}
+
+\begin{ejemplo}
+$T:\mathbb R^2\to\mathbb R^{2\times2}$, $T(x,y)=\begin{pmatrix}x-1&y\\2x&x+y\end{pmatrix}$.
+
+$T(0,0)=\begin{pmatrix}-1&0\\0&0\end{pmatrix}\neq\begin{pmatrix}0&0\\0&0\end{pmatrix}$
+$\Rightarrow$ \textbf{no es lineal} (no hace falta seguir).
+\end{ejemplo}
+
+\begin{atencion}
+\begin{itemize}
+    \item Cualquier término \textbf{constante}, \textbf{cuadrático} ($x^2$), \textbf{producto
+    cruzado} ($xy$) o \textbf{valor absoluto/trigonométrico} de las variables casi siempre
+    rompe la linealidad. Mirar la fórmula antes de hacer cuentas: si hay un término
+    independiente, alcanza con evaluar $T(0)$.
+    \item $f(x)=mx+b$ es una función ``lineal'' en el sentido de recta, pero \textbf{no}
+    es transformación lineal si $b\neq0$.
+\end{itemize}
+\end{atencion}
+
+\subsection{Núcleo, imagen, dimensión y clasificación}
+
+\begin{teoria}[Definiciones y teorema de la dimensión]
+$\operatorname{Nu}(T)=\{v: Tv=0\}$, $\operatorname{Im}(T)=\{Tv: v\in V\}$. Ambos son
+subespacios. \textbf{Teorema:} $\dim V=\dim\operatorname{Nu}(T)+\dim\operatorname{Im}(T)$.
+$T$ inyectiva (monomorfismo) $\Leftrightarrow \operatorname{Nu}(T)=\{0\}$. $T$ sobreyectiva
+(epimorfismo) $\Leftrightarrow \dim\operatorname{Im}(T)=\dim W$. Isomorfismo = ambas.
+\end{teoria}
+
+\qpide{Hallar $\operatorname{Nu}(T)$ (base y dimensión), $\dim\operatorname{Im}(T)$, y
+clasificar $T$.}
+
+\begin{proc}
+\begin{enumerate}
+    \item Plantear $T(v)=0$ (el $0$ de $W$) y resolver el sistema en las variables del
+    dominio.
+    \item Agrupar por variables libres para obtener una base de $\operatorname{Nu}(T)$
+    (igual técnica que en Base y dimensión); $\dim\operatorname{Nu}(T)=$ cantidad de
+    libres.
+    \item Teorema de la dimensión $\Rightarrow \dim\operatorname{Im}(T)=\dim V-\dim
+    \operatorname{Nu}(T)$.
+    \item Clasificar: $\operatorname{Nu}(T)=\{0\}\Rightarrow$ mono;
+    $\dim\operatorname{Im}(T)=\dim W\Rightarrow$ epi; ambas $\Rightarrow$ iso.
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item \textbf{Teorema 2.2.4:} si $\dim V>\dim W$, $T$ \textbf{nunca} es inyectiva; si
+    $\dim V<\dim W$, \textbf{nunca} es sobreyectiva. Revisar dimensiones antes de calcular
+    ahorra trabajo.
+    \item \textbf{Teorema 2.2.3:} si $\dim V=\dim W$, inyectiva $\Leftrightarrow$
+    sobreyectiva — probar una de las dos alcanza.
+    \item Se pide una \textbf{base} del núcleo, no una ecuación: dar vectores generadores.
+\end{itemize}
+\end{atencion}
+
+\subsection{Expresión general de un morfismo dado por sus valores}
+
+\qpide{Dados $T(v_1),\dots,T(v_n)$ para una base $\{v_1,\dots,v_n\}$ del dominio, hallar la
+fórmula $T(x,y,z,\dots)$.}
+
+\begin{proc}
+\begin{enumerate}
+    \item Verificar que $\{v_1,\dots,v_n\}$ es base del dominio (determinante $\neq0$).
+    \item Escribir $(x,y,\dots)=\alpha_1v_1+\dots+\alpha_nv_n$ y resolver para los
+    $\alpha_i$ en función de $x,y,\dots$
+    \item Por linealidad: $T(x,y,\dots)=\alpha_1T(v_1)+\dots+\alpha_nT(v_n)$.
+    \item \textbf{Verificar} sustituyendo los datos originales (debe reproducirlos).
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item Si el conjunto dado \textbf{no} es base del dominio, $T$ no queda unívocamente
+    determinada — revisar el enunciado.
+    \item El paso de verificación final es la mejor forma de pescar un error de cuenta
+    antes de seguir con la clasificación.
+\end{itemize}
+\end{atencion}
+
+\subsection{Matriz asociada a una transformación lineal}
+
+\begin{teoria}
+$A_T[v]_{\beta_1}=[Tv]_{\beta_2}$, donde las columnas de $A_T$ son
+$[Tv_1]_{\beta_2},\dots,[Tv_n]_{\beta_2}$ con $\{v_1,\dots,v_n\}=\beta_1$.
+\end{teoria}
+
+\qpide{Hallar la matriz de $T$ respecto de bases dadas y usarla para hallar la imagen de
+un vector.}
+
+\begin{proc}[Bases canónicas]
+Aplicar $T$ a cada vector de la base canónica del dominio; cada resultado (ya en
+coordenadas canónicas del codominio) es una columna de $[T]$.
+\end{proc}
+
+\begin{proc}[Bases arbitrarias $\beta_1$ (dominio), $\beta_2$ (codominio)]
+\begin{enumerate}
+    \item Aplicar $T$ a cada vector de $\beta_1$.
+    \item Expresar cada resultado como combinación lineal de $\beta_2$ (un sistema por
+    cada uno).
+    \item Esos coeficientes forman las columnas de $[T]_{\beta_1}^{\beta_2}$.
+    \item Para la imagen de $v$ (dado en coordenadas estándar): hallar $[v]_{\beta_1}$,
+    multiplicar $[T]_{\beta_1}^{\beta_2}\cdot[v]_{\beta_1}=[Tv]_{\beta_2}$, y si hace falta,
+    reconstruir en coordenadas estándar combinando los vectores de $\beta_2$ con esos
+    coeficientes.
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item El orden de las columnas sigue el orden de la base del dominio: si se cambia el
+    orden de la base, cambia el orden de las columnas.
+    \item Siempre conviene \textbf{verificar} calculando $T(v)$ directamente por la
+    fórmula y comparando con el resultado matricial.
+    \item No confundir $[Tv]_{\beta_2}$ (coordenadas en $\beta_2$) con $Tv$ en coordenadas
+    estándar: son representaciones distintas del mismo vector.
+\end{itemize}
+\end{atencion}
+
+\subsection{Autovalores y autovectores}
+
+\begin{teoria}[Definiciones y teoremas]
+$Av=\lambda v$ con $v\neq0$. Ecuación característica: $p(\lambda)=\det(A-\lambda I)=0$. La
+multiplicidad geométrica ($\dim E_\lambda$) es siempre $\le$ la algebraica. $A$ es
+diagonalizable $\Leftrightarrow$ para cada $\lambda$, mult.\ geométrica = mult.\ algebraica
+(en particular, si todos los autovalores son distintos, siempre es diagonalizable).
+\end{teoria}
+
+\qpide{Hallar polinomio característico, autovalores, autovectores/autoespacios y decidir
+diagonalizabilidad.}
+
+\begin{proc}
+\begin{enumerate}
+    \item Plantear $p(\lambda)=\det(A-\lambda I)=0$.
+    \item Resolver para hallar $\lambda_1,\dots,\lambda_k$ (con sus multiplicidades
+    algebraicas).
+    \item Para cada $\lambda_i$: resolver $(A-\lambda_iI)v=0$; las soluciones no
+    triviales forman $E_{\lambda_i}$, su dimensión es la mult.\ geométrica.
+    \item Diagonalizable $\Leftrightarrow$ mult.\ geométrica = mult.\ algebraica para
+    \textbf{todos} los autovalores.
+\end{enumerate}
+\end{proc}
+
+\begin{ejemplo}
+$B=\begin{pmatrix}2&1\\6&3\end{pmatrix}$. $\det(B-\lambda I)=(2-\lambda)(3-\lambda)-6=
+\lambda^2-5\lambda=\lambda(\lambda-5)$. Autovalores $\lambda_1=0,\lambda_2=5$ (distintos)
+$\Rightarrow$ diagonalizable automáticamente. Para $\lambda_1=0$: $2x+y=0\Rightarrow
+v_1=(1,-2)$. Para $\lambda_2=5$: $-3x+y=0\Rightarrow v_2=(1,3)$.
+\end{ejemplo}
+
+\begin{atencion}
+\begin{itemize}
+    \item Si $A$ es triangular (o diagonal), los autovalores son directamente los
+    elementos de la diagonal — no hace falta el determinante.
+    \item Al resolver $(A-\lambda I)v=0$ siempre debe aparecer \textbf{al menos una fila de
+    ceros} al escalonar; si no aparece, hay un error en el polinomio característico o en
+    la resolución.
+    \item Si para un autovalor de mult.\ algebraica 2 el autoespacio da dimensión 1, la
+    matriz \textbf{no} es diagonalizable — no hace falta seguir con los demás autovalores.
+    \item \textbf{Verificación rápida:} suma de autovalores = traza($A$); producto de
+    autovalores = $\det(A)$. Chequear esto antes de seguir ahorra errores.
+\end{itemize}
+\end{atencion}
+
+\subsection{Diagonalización y matrices semejantes}
+
+\begin{teoria}
+$A$ diagonalizable si tiene $n$ autovectores LI: $D=P^{-1}AP$, con $P$ formada por los
+autovectores como columnas y $D$ diagonal con los autovalores en el mismo orden.
+\end{teoria}
+
+\qpide{Hallar $P$ y $D$, y verificar la semejanza.}
+
+\begin{proc}
+\begin{enumerate}
+    \item Obtener autovalores y una base de cada autoespacio.
+    \item Armar $P$ con los autovectores como columnas (en cualquier orden, pero fijo).
+    \item Armar $D$ con los autovalores en la diagonal, \textbf{en el mismo orden} que las
+    columnas de $P$.
+    \item Para verificar sin invertir $P$: comprobar $AP=PD$ columna a columna (equivale a
+    $Av_i=\lambda_iv_i$, ya verificado al calcular los autovectores).
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+El orden de columnas de $P$ y de la diagonal de $D$ \textbf{deben coincidir} — es el error
+más común de este tipo de ejercicio. No hace falta calcular $P^{-1}$ para argumentar la
+semejanza: basta mostrar $AP=PD$ y que $P$ es invertible (columnas LI, provenientes de
+autoespacios distintos).
+\end{atencion}
+
+\newpage
+\part{SEGUNDO PARCIAL --- Álgebra vectorial, rectas/planos y Cónicas/Cuádricas}
+
+\section{Unidad III: Álgebra vectorial y geometría del espacio}
+
+\subsection{Producto escalar, proyección, producto vectorial y producto mixto}
+
+\begin{teoria}[Fórmulas]
+\begin{align*}
+\text{Proyección: } &\operatorname{proy}_v u=\frac{u\cdot v}{|v|^2}\,v\\
+\text{Producto vectorial: } &u\times v=\begin{vmatrix}i&j&k\\a_1&b_1&c_1\\a_2&b_2&c_2\end{vmatrix},
+\qquad |u\times v|=|u||v|\sen\varphi\\
+\text{Producto mixto: } &(u,v,w)=(u\times v)\cdot w=\det\begin{pmatrix}u\\v\\w\end{pmatrix}
+\end{align*}
+\end{teoria}
+
+\qpide{Calcular proyecciones, productos vectoriales/mixtos, o usarlos para áreas,
+volúmenes y ortogonalidad.}
+
+\begin{proc}
+\begin{itemize}
+    \item $u\times v$ es \textbf{ortogonal} a $u$ y a $v$ (útil para hallar normales).
+    \item Área del paralelogramo de lados $u,v$: $|u\times v|$. Área del
+    \textbf{triángulo} $ABC$: $\frac12\left|\overrightarrow{AB}\times\overrightarrow{AC}\right|$ (¡la mitad!).
+    \item Volumen del paralelepípedo de aristas $u,v,w$: $|(u,v,w)|$.
+    \item Coplanaridad de 3 vectores (o 4 puntos): $(u,v,w)=0$.
+\end{itemize}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item El producto vectorial \textbf{solo} existe en $\mathbb R^3$ (nunca en el plano).
+    \item $u\times v=-(v\times u)$: el orden importa si se pide una orientación específica
+    (regla de la mano derecha).
+    \item Olvidar el factor $\frac12$ en el área de un triángulo es el error más común.
+    \item La proyección tiene la misma dirección que $v$ si $u\cdot v>0$, opuesta si
+    $u\cdot v<0$, y es nula si $u\perp v$.
+\end{itemize}
+\end{atencion}
+
+\subsection{Bases ortonormales --- Gram-Schmidt}
+
+\qpide{A partir de una base $\{v_1,\dots,v_k\}$, construir una base ortonormal
+$\{u_1,\dots,u_k\}$.}
+
+\begin{proc}
+\begin{enumerate}
+    \item $u_1=v_1/|v_1|$.
+    \item Para cada $v_j$ siguiente: restar la proyección sobre \textbf{todos} los $u$ ya
+    calculados: $v_j'=v_j-(v_j\cdot u_1)u_1-(v_j\cdot u_2)u_2-\dots$
+    \item Normalizar: $u_j=v_j'/|v_j'|$.
+    \item Repetir hasta agotar los vectores.
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item Al construir el tercer vector en adelante, es fácil olvidar restar la
+    proyección sobre \textbf{todos} los $u$ anteriores (no solo el último).
+    \item Verificación rápida: cada $u_i$ debe tener módulo 1, y el producto escalar entre
+    cualquier par debe dar 0.
+\end{itemize}
+\end{atencion}
+
+\subsection{Ecuaciones de la recta}
+
+\begin{teoria}[Formas]
+Vectorial: $(x,y,z)=P+tv$. Paramétrica: $x=x_0+at,\,y=y_0+bt,\,z=z_0+ct$. Simétrica (si
+$a,b,c\neq0$): $\frac{x-x_0}{a}=\frac{y-y_0}{b}=\frac{z-z_0}{c}$.
+\end{teoria}
+
+\qpide{Hallar las tres formas de la ecuación de una recta a partir de puntos, un vector
+director, o condiciones de perpendicularidad.}
+
+\begin{proc}
+\begin{enumerate}
+    \item Vector director: si dan 2 puntos $P,Q$: $v=Q-P$. Si piden perpendicular a uno o
+    dos vectores dados: $v$ = producto vectorial de esos vectores.
+    \item Escribir vectorial, luego separar por componentes (paramétrica), luego despejar
+    $t$ e igualar (simétrica).
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item Si una componente de $v$ es 0 (p.ej.\ $b=0$), \textbf{no} se puede escribir esa
+    fracción en la simétrica (división por 0): esa variable queda como ecuación aparte
+    ($y=y_0$), y la simétrica se escribe solo con las otras dos componentes.
+    \item Las ecuaciones de una recta \textbf{no son únicas} (dependen del punto y de la
+    escala del vector director).
+    \item Para verificar si un punto pertenece a una recta, el \textbf{mismo} valor de $t$
+    debe satisfacer las tres ecuaciones a la vez (no alcanza con una sola componente).
+\end{itemize}
+\end{atencion}
+
+\subsection{Ecuación del plano}
+
+\begin{teoria}
+Con punto $P_0$ y normal $n=(a,b,c)$: $a(x-x_0)+b(y-y_0)+c(z-z_0)=0$.
+\end{teoria}
+
+\qpide{Hallar la ecuación de un plano a partir de (a) punto+normal, (b) tres puntos, (c)
+condición de paralelismo/perpendicularidad con una recta.}
+
+\begin{proc}
+\begin{itemize}
+    \item \textbf{(a)} Aplicar la fórmula directamente.
+    \item \textbf{(b) Tres puntos $P,Q,R$:} $n=\overrightarrow{PQ}\times\overrightarrow{PR}$,
+    luego aplicar (a) con cualquiera de los tres puntos.
+    \item \textbf{(c) Perpendicular a una recta dada:} el vector director de la recta
+    \textbf{es} la normal del plano.
+    \item \textbf{(d) Paralelo a una recta dada:} el vector director de la recta debe ser
+    ortogonal a la normal ($v\cdot n=0$); hace falta un dato más para determinar el plano
+    (otro punto, otra dirección, etc.).
+\end{itemize}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item Confundir ``perpendicular a la recta'' ($v=n$) con ``paralelo a la recta''
+    ($v\cdot n=0$) es el error más frecuente de este tema.
+    \item Con tres puntos, verificar que no sean colineales (si lo son,
+    $\overrightarrow{PQ}\times\overrightarrow{PR}=0$ y no queda determinado un único
+    plano).
+    \item La ecuación de un plano no es única: dos ecuaciones representan el mismo plano
+    si sus coeficientes $(a,b,c,d)$ son proporcionales.
+\end{itemize}
+\end{atencion}
+
+\subsection{Posiciones relativas}
+
+\begin{proc}[Recta $r$ (director $v_1$) y recta $s$ (director $v_2$)]
+\begin{enumerate}
+    \item ¿$v_1,v_2$ proporcionales?
+    \begin{itemize}
+        \item \textbf{Sí:} tomar un punto de $r$ y ver si está en $s$: si sí, son
+        \textbf{coincidentes}; si no, \textbf{paralelas}.
+        \item \textbf{No:} armar el sistema igualando las paramétricas (con parámetros
+        \emph{distintos}, $t$ y $s$). Solución \textbf{única} $\Rightarrow$
+        \textbf{secantes} (calcular el punto). \textbf{Incompatible} $\Rightarrow$
+        \textbf{alabeadas}.
+    \end{itemize}
+\end{enumerate}
+\end{proc}
+
+\begin{proc}[Plano $\pi_1$ (normal $n_1$) y plano $\pi_2$ (normal $n_2$)]
+¿$n_1,n_2$ proporcionales? \textbf{Sí:} punto de $\pi_1$ en $\pi_2$ $\Rightarrow$
+coincidentes; si no, paralelos. \textbf{No:} secantes en una recta (resolver el sistema
+de las dos ecuaciones, queda 1 variable libre).
+\end{proc}
+
+\begin{proc}[Recta $r$ (director $v$) y plano $\pi$ (normal $n$)]
+Calcular $v\cdot n$. \textbf{$=0$:} paralela o contenida — probar un punto de $r$ en
+$\pi$. \textbf{$\neq0$:} secantes — sustituir la paramétrica de $r$ en $\pi$, despejar
+$t$, hallar el punto.
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item Recta-recta usa \textbf{vectores directores}; plano-plano usa \textbf{normales};
+    recta-plano compara el director de la recta con la \textbf{normal} del plano (y aquí
+    ``paralelo'' significa $v\perp n$, ¡al revés que en recta-recta!).
+    \item ``Alabeadas'' no tiene análogo en el plano $\mathbb R^2$: solo existe en el
+    espacio.
+    \item Al intersecar dos rectas, usar letras de parámetro \textbf{distintas} para cada
+    una; igualar con el mismo parámetro es un error muy común.
+\end{itemize}
+\end{atencion}
+
+\subsection{Distancias}
+
+\begin{teoria}[Fórmulas]
+\begin{align*}
+d(P,Q)&=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}\\
+d(P,r)&=\frac{|\overrightarrow{PQ}\times v|}{|v|}\quad(Q\in r)\\
+d(P,\pi)&=\frac{|\overrightarrow{QP}\cdot n|}{|n|}\quad(Q\in\pi)\\
+d(r,s)_{\text{alabeadas}}&=\frac{|\overrightarrow{PQ}\cdot(v_1\times v_2)|}{|v_1\times v_2|}
+\quad(P\in r,\,Q\in s)
+\end{align*}
+Rectas/planos paralelos: se reducen a distancia punto-recta / punto-plano.
+\end{teoria}
+
+\begin{atencion}
+\begin{itemize}
+    \item \textbf{Antes} de aplicar cualquier fórmula, verificar la posición relativa: si
+    se cortan o coinciden, la distancia es $0$ directamente.
+    \item Para rectas alabeadas, \textbf{nunca} usar la fórmula punto-recta: hace falta el
+    producto mixto con ambos directores.
+    \item El punto $Q$ elegido (de la recta o el plano) puede ser cualquiera: el resultado
+    no depende de cuál se use.
+\end{itemize}
+\end{atencion}
+
+\subsection{Ángulos}
+
+\begin{teoria}[Fórmulas]
+Entre rectas ($u,v$ directores) o entre planos ($n_1,n_2$ normales):
+$\cos\alpha=\dfrac{|u\cdot v|}{|u||v|}$. Entre recta ($v$) y plano ($n$): primero
+$\cos\beta=\dfrac{|v\cdot n|}{|v||n|}$, y el ángulo buscado es
+$\boxed{\alpha=90^\circ-\beta}$.
+\end{teoria}
+
+\begin{atencion}
+\begin{itemize}
+    \item El ángulo recta-plano usa el \textbf{complementario} del ángulo con la normal —
+    es el error más frecuente del tema. Motivo: la normal es perpendicular al plano, así
+    que hay que ``compensar'' los $90^\circ$.
+    \item Usar \textbf{siempre} valor absoluto en el numerador: los ángulos entre
+    rectas/planos se definen como el menor posible (agudo).
+    \item $\cos=0\Rightarrow$ perpendiculares; $\cos=1\Rightarrow$ paralelos/coincidentes.
+\end{itemize}
+\end{atencion}
+
+\newpage
+\section{Unidad IV: Cónicas y cuádricas}
+
+\subsection{Identificación rápida de una cónica}
+
+\begin{teoria}[Regla práctica]
+Dada $Ax^2+Cy^2+Dx+Ey+F=0$ (sin término $Bxy$):
+\begin{itemize}
+    \item $AC>0$, $A\neq C$ $\to$ \textbf{Elipse}. \quad $A=C\neq0$ $\to$
+    \textbf{Circunferencia}.
+    \item $AC<0$ $\to$ \textbf{Hipérbola}.
+    \item $AC=0$ (uno de los dos es 0) $\to$ \textbf{Parábola}.
+\end{itemize}
+\end{teoria}
+
+\begin{proc}[Método general: completar cuadrados]
+\begin{enumerate}
+    \item Agrupar los términos en $x$ por un lado y en $y$ por otro.
+    \item \textbf{Sacar como factor común} el coeficiente del término cuadrático de cada
+    grupo \textbf{antes} de completar el cuadrado.
+    \item Completar cuadrados sumando y restando $(\text{mitad del coef.\ lineal})^2$
+    \textbf{dentro} del paréntesis (recordando multiplicar por el factor común sacado al
+    pasar el ``resto'' al otro lado).
+    \item Reordenar para dejar la ecuación en su forma canónica.
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+Olvidar sacar el factor común \textbf{antes} de completar el cuadrado es el error de
+cuentas más común de todo el tema (ejemplo correcto: $4x^2-8x=4(x^2-2x)=4(x^2-2x+1-1)=
+4(x-1)^2-4$, no ``$4x^2-8x+1-1$'').
+\end{atencion}
+
+\subsection{Circunferencia}
+
+\begin{teoria}
+$(x-h)^2+(y-k)^2=r^2$, centro $(h,k)$, radio $r$. Con ecuación general
+$x^2+y^2+Dx+Ey+F=0$: existe si $D^2+E^2-4F>0$, con centro $\left(-\frac D2,-\frac
+E2\right)$ y $r=\frac{\sqrt{D^2+E^2-4F}}{2}$.
+\end{teoria}
+
+\qpide{Hallar centro y radio a partir de la ecuación general, o la ecuación a partir de
+centro/radio/condiciones.}
+
+\begin{proc}
+Completar cuadrados en $x$ y en $y$ por separado (dividiendo primero por el coeficiente
+de $x^2$ si no es 1) y leer directamente centro y radio.
+\end{proc}
+
+\begin{atencion}
+Si tras completar cuadrados el término independiente da negativo, no hay circunferencia
+real; si da 0, se reduce a un solo punto.
+\end{atencion}
+
+\subsection{Elipse}
+
+\begin{teoria}
+$\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ con $a^2=b^2+c^2$ ($a$ = semieje \textbf{mayor}, es
+la ``hipotenusa''). El eje mayor (focos y vértices principales) está siempre bajo el
+denominador \textbf{más grande}, sea $x$ o $y$.
+\end{teoria}
+
+\begin{proc}
+\begin{enumerate}
+    \item Llevar a forma canónica (dividir o completar cuadrados si el centro no es el
+    origen).
+    \item El denominador mayor es $a^2$; el menor, $b^2$. Si $a^2$ está bajo $x$: elipse
+    horizontal; si bajo $y$: vertical.
+    \item $c=\sqrt{a^2-b^2}$. Vértices a distancia $a$ del centro (eje mayor); extremos
+    del eje menor a distancia $b$; focos a distancia $c$ (mismo eje que los vértices).
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+El eje mayor sigue al denominador \textbf{más grande}, independientemente de si acompaña
+a $x$ o a $y$ — asumir que ``$x$ siempre es horizontal=mayor'' es un error común. Si el
+centro no es el origen, todo se mide desde el centro $(h,k)$, no desde el origen.
+\end{atencion}
+
+\subsection{Parábola}
+
+\begin{teoria}
+Vértice $(0,0)$: $x^2=4py$ (vertical) o $y^2=4px$ (horizontal). Vértice $(h,k)$:
+$(x-h)^2=4p(y-k)$ o $(y-k)^2=4p(x-h)$. Distancia vértice-foco = vértice-directriz = $|p|$.
+\end{teoria}
+
+\begin{proc}
+\begin{enumerate}
+    \item Completar cuadrados \textbf{solo en la variable que aparece al cuadrado} (la
+    otra queda lineal).
+    \item Identificar $4p$ (coeficiente de la variable lineal) y despejar $p$.
+    \item Orientación: según qué variable está al cuadrado y el signo de $p$ (positivo:
+    hacia arriba/derecha; negativo: hacia abajo/izquierda).
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+Solo \textbf{una} variable aparece al cuadrado (a diferencia de elipse e hipérbola). Si al
+completar cuadrados quedan ambas al cuadrado, no es una parábola. Verificar que
+$d(\text{vértice,foco})=d(\text{vértice,directriz})$: si no coinciden, hay error de
+cuenta.
+\end{atencion}
+
+\subsection{Hipérbola}
+
+\begin{teoria}
+$\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$ (horizontal) o $\dfrac{y^2}{a^2}-\dfrac{x^2}{b^2}=1$
+(vertical), con $c^2=a^2+b^2$ (aquí $c$ es la hipotenusa, al revés que en la elipse).
+Asíntotas: reemplazar el ``$1$'' por ``$0$'' y factorizar la diferencia de cuadrados.
+\end{teoria}
+
+\begin{proc}
+\begin{enumerate}
+    \item Llevar a forma canónica.
+    \item El término \textbf{positivo} define el eje transversal (vértices y focos).
+    $a^2$ = denominador del término \textbf{positivo} (no importa si es mayor o menor
+    que $b^2$).
+    \item $c=\sqrt{a^2+b^2}$. Asíntotas: poner ``0'', factorizar como diferencia de
+    cuadrados e igualar cada factor a 0.
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item A diferencia de la elipse, $a^2$ \textbf{no} es necesariamente el mayor
+    denominador: es siempre el del término \textbf{positivo}. Aplicar la regla de la
+    elipse acá es un error clásico.
+    \item Asíntotas de la hipérbola horizontal: $y=\pm\frac ba x$. De la vertical:
+    $y=\pm\frac ab x$ (¡el cociente se invierte!).
+    \item Si el centro no es el origen, las asíntotas pasan por el centro $(h,k)$.
+\end{itemize}
+\end{atencion}
+
+\subsection{Superficies cuádricas}
+
+\begin{teoria}[Reconocimiento por signos, forma $Ax^2+By^2+Cz^2=R$ o variable lineal]
+\begin{itemize}
+    \item 3 signos iguales, $R\neq0$ del mismo signo: \textbf{elipsoide} (esfera si
+    $A=B=C$).
+    \item 2 positivos + 1 negativo, $=1$: \textbf{hiperboloide de una hoja}.
+    \item 1 positivo + 2 negativos, $=1$: \textbf{hiperboloide de dos hojas}.
+    \item Suma de 2 cuadrados = variable lineal: \textbf{paraboloide elíptico}.
+    \item Diferencia de 2 cuadrados = variable lineal: \textbf{paraboloide hiperbólico}
+    (``silla de montar'').
+    \item Suma/diferencia de cuadrados $=0$ (dos positivos, uno negativo):
+    \textbf{cono elíptico}.
+    \item Falta una variable en la ecuación: \textbf{cilindro} (elíptico si mismo signo
+    entre las dos presentes, hiperbólico si signos opuestos).
+\end{itemize}
+\end{teoria}
+
+\begin{proc}
+\begin{enumerate}
+    \item ¿Hay una variable \textbf{lineal} (sin elevar al cuadrado) del lado derecho?
+    Familia ``sin centro'' (paraboloides).
+    \item Si todas están al cuadrado: contar signos positivos vs.\ negativos y comparar
+    con la tabla.
+    \item Ayuda visual: hacer secciones fijando $z=k$ (o $x=k$, $y=k$) y ver qué curva 2D
+    resulta (elipse, hipérbola, punto, recta, vacío) para confirmar.
+\end{enumerate}
+\end{proc}
+
+\begin{atencion}
+\begin{itemize}
+    \item Distinguir hiperboloide de \textbf{una} hoja (1 signo negativo) de \textbf{dos}
+    hojas (2 signos negativos) es el error más común: en $z=0$, el de una hoja da una
+    curva real (pasa por el ``cuello''); el de dos hojas no tiene puntos ahí.
+    \item Si falta una variable por completo, es un \textbf{cilindro} que se extiende
+    infinitamente en esa dirección — no es un error, es la definición.
+    \item Ante la duda entre cono y paraboloide hiperbólico, verificar con 2 o 3
+    secciones antes de decidir.
+\end{itemize}
+\end{atencion}
+
+\end{document}
