@@ -1,0 +1,964 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°2},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Geometría Analítica}
+\fancyhead[R]{\small Trabajo Práctico N°2}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Geometría Analítica}
+\newcommand{\trabajo}{Trabajo Práctico N°2}
+\newcommand{\profesor}{Lic. Mauro Vaca}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+    \vspace{0.8em}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.5cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== EJERCICIO 1 ========================
+
+\newpage
+
+\section{Determine si las siguientes transformaciones son lineales o no}
+
+Justifique su respuesta.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    T:\mathcal{P}_2\to\mathbb{R}^3:\ T(ax^2+bx+c)=(a+b,\,b,\,-c)
+    \]
+
+    \solucion
+
+    Sean $P(x)=ax^2+bx+c$ y $Q(x)=a_1x^2+b_1x+c_1$ dos polinomios de
+    $\mathcal{P}_2$, y $\alpha\in\mathbb{R}$.
+
+    \textbf{Cerradura de la suma (aditividad):}
+
+    \[
+    T[P(x)+Q(x)]=T\big[(a+a_1)x^2+(b+b_1)x+(c+c_1)\big]
+    \]
+
+    \[
+    =\big((a+a_1)+(b+b_1),\; b+b_1,\; -(c+c_1)\big)
+    \]
+
+    \[
+    =\big((a+b)+(a_1+b_1),\; b+b_1,\; -c-c_1\big)
+    \]
+
+    \[
+    =(a+b,\,b,\,-c)+(a_1+b_1,\,b_1,\,-c_1)
+    \]
+
+    \[
+    =T[P(x)]+T[Q(x)]
+    \]
+
+    \textbf{Homogeneidad:}
+
+    \[
+    T[\alpha P(x)]=T[\alpha a x^2+\alpha b x+\alpha c]
+    =(\alpha a+\alpha b,\;\alpha b,\;-\alpha c)
+    \]
+
+    \[
+    =\alpha(a+b,\,b,\,-c)=\alpha\,T[P(x)]
+    \]
+
+    Como se cumplen ambas condiciones,
+
+    \[
+    \boxed{T \text{ es una transformación lineal.}}
+    \]
+
+
+    \item
+    \[
+    T:\mathbb{R}^{2\times2}\to\mathcal{P}_3:\
+    T\begin{pmatrix}a&b\\c&d\end{pmatrix}=(a+b)x^3+cx^2+dx-b
+    \]
+
+    \solucion
+
+    Sean $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$,
+    $A_1=\begin{pmatrix}a_1&b_1\\c_1&d_1\end{pmatrix}\in\mathbb{R}^{2\times2}$
+    y $\alpha\in\mathbb{R}$.
+
+    \textbf{Aditividad:}
+
+    \[
+    T(A+A_1)=T\begin{pmatrix}a+a_1&b+b_1\\c+c_1&d+d_1\end{pmatrix}
+    =\big[(a+a_1)+(b+b_1)\big]x^3+(c+c_1)x^2+(d+d_1)x-(b+b_1)
+    \]
+
+    \[
+    =\big[(a+b)x^3+cx^2+dx-b\big]+\big[(a_1+b_1)x^3+c_1x^2+d_1x-b_1\big]
+    \]
+
+    \[
+    =T(A)+T(A_1)
+    \]
+
+    \textbf{Homogeneidad:}
+
+    \[
+    T(\alpha A)=T\begin{pmatrix}\alpha a&\alpha b\\\alpha c&\alpha d\end{pmatrix}
+    =(\alpha a+\alpha b)x^3+\alpha c x^2+\alpha d x-\alpha b
+    =\alpha\big[(a+b)x^3+cx^2+dx-b\big]=\alpha\,T(A)
+    \]
+
+    \[
+    \boxed{T \text{ es una transformación lineal.}}
+    \]
+
+
+    \item
+    \[
+    T:\mathbb{R}^2\to\mathbb{R}^{2\times2}:\
+    T(x,y)=\begin{pmatrix}x-1&y\\2x&x+y\end{pmatrix}
+    \]
+
+    \solucion
+
+    Toda transformación lineal debe cumplir $T(0,0)=0$ (el elemento
+    neutro del dominio debe transformarse en el neutro del codominio).
+    Evaluamos:
+
+    \[
+    T(0,0)=\begin{pmatrix}0-1&0\\2\cdot0&0+0\end{pmatrix}
+    =\begin{pmatrix}-1&0\\0&0\end{pmatrix}\neq
+    \begin{pmatrix}0&0\\0&0\end{pmatrix}
+    \]
+
+    Como $T(0,0)$ no es la matriz nula,
+
+    \[
+    \boxed{T \text{ no es una transformación lineal.}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 2 ========================
+
+\section{Núcleo, base, dimensión del núcleo y dimensión de la imagen}
+
+Para las siguientes transformaciones lineales, hallar el núcleo, una
+base y dimensión para el mismo, además hallar la dimensión de la
+imagen.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    T:\mathcal{P}_2\to\mathbb{R}^3:\ T(ax^2+bx+c)=(a+b,\,b,\,-c)
+    \]
+
+    \solucion
+
+    \[
+    \operatorname{Nu}(T)=\{ax^2+bx+c\ /\ (a+b,\,b,\,-c)=(0,0,0)\}
+    \]
+
+    Del sistema $b=0$, $-c=0$ y $a+b=0$ se obtiene $a=b=c=0$. Por lo
+    tanto,
+
+    \[
+    \boxed{\operatorname{Nu}(T)=\{0\}, \qquad \dim(\operatorname{Nu}(T))=0}
+    \]
+
+    (no admite una base, o bien la base es el conjunto vacío).
+
+    Por el teorema de la dimensión, $\dim(\mathcal{P}_2)=\dim(\operatorname{Nu}(T))+\dim(\operatorname{Im}(T))$,
+    con $\dim(\mathcal{P}_2)=3$, luego
+
+    \[
+    \boxed{\dim(\operatorname{Im}(T))=3-0=3}
+    \]
+
+    es decir, $T$ es sobreyectiva ($\operatorname{Im}(T)=\mathbb{R}^3$).
+
+
+    \item
+    \[
+    T:\mathbb{R}^{2\times2}\to\mathbb{R}^{2\times2}:\
+    T\begin{pmatrix}a&b\\c&d\end{pmatrix}=\begin{pmatrix}a-b+d&c\\2c&a\end{pmatrix}
+    \]
+
+    \solucion
+
+    Igualando a la matriz nula:
+    \[
+    a-b+d=0,\qquad c=0,\qquad 2c=0,\qquad a=0
+    \]
+
+    De $a=0$ y $a-b+d=0$ se obtiene $d=b$, y $c=0$. Luego
+
+    \[
+    \operatorname{Nu}(T)=\left\{\begin{pmatrix}0&b\\0&b\end{pmatrix}\ /\ b\in\mathbb{R}\right\}
+    \]
+
+    \[
+    \boxed{
+    \text{Base de } \operatorname{Nu}(T)=\left\{\begin{pmatrix}0&1\\0&1\end{pmatrix}\right\},
+    \qquad \dim(\operatorname{Nu}(T))=1
+    }
+    \]
+
+    Como $\dim(\mathbb{R}^{2\times2})=4$,
+
+    \[
+    \boxed{\dim(\operatorname{Im}(T))=4-1=3}
+    \]
+
+
+    \item
+    \[
+    T:\mathbb{R}^{2\times2}\to\mathbb{R}^4:\
+    T\begin{pmatrix}a&b\\c&d\end{pmatrix}=(a-b-c,\,0,\,0,\,d)
+    \]
+
+    \solucion
+
+    Igualando a $(0,0,0,0)$: $a-b-c=0$ y $d=0$, con $b,c$ libres y
+    $a=b+c$. Entonces
+
+    \[
+    \operatorname{Nu}(T)=\left\{\begin{pmatrix}b+c&b\\c&0\end{pmatrix}\ /\ b,c\in\mathbb{R}\right\}
+    =\left\{b\begin{pmatrix}1&1\\0&0\end{pmatrix}+c\begin{pmatrix}1&0\\1&0\end{pmatrix}\right\}
+    \]
+
+    \[
+    \boxed{
+    \text{Base de }\operatorname{Nu}(T)=\left\{\begin{pmatrix}1&1\\0&0\end{pmatrix},
+    \begin{pmatrix}1&0\\1&0\end{pmatrix}\right\},
+    \qquad \dim(\operatorname{Nu}(T))=2
+    }
+    \]
+
+    Como $\dim(\mathbb{R}^{2\times2})=4$,
+
+    \[
+    \boxed{\dim(\operatorname{Im}(T))=4-2=2}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 3 ========================
+
+\section{Expresión general de un morfismo dado por sus valores}
+
+Dados los siguientes morfismos, hallar una expresión general para la
+transformación, luego clasificarlas.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{1}
+
+    \item
+    \[
+    T(1,1,1)=(2,2),\qquad T(1,0,-1)=(1,-1),\qquad T(0,1,0)=(-1,3)
+    \]
+
+    \solucion
+
+    Como $\{(1,1,1),(1,0,-1),(0,1,0)\}$ es base de $\mathbb{R}^3$,
+    escribimos $(x,y,z)$ como combinación lineal de estos vectores:
+
+    \[
+    (x,y,z)=\alpha(1,1,1)+\beta(1,0,-1)+\gamma(0,1,0)
+    \]
+
+    lo que da el sistema $\alpha+\beta=x$, $\alpha+\gamma=y$,
+    $\alpha-\beta=z$, cuya solución es
+
+    \[
+    \alpha=\frac{x+z}{2},\qquad \beta=\frac{x-z}{2},\qquad \gamma=y-\frac{x+z}{2}
+    \]
+
+    Por linealidad,
+    $T(x,y,z)=\alpha\,T(1,1,1)+\beta\,T(1,0,-1)+\gamma\,T(0,1,0)$.
+    Reemplazando y operando:
+
+    \[
+    \boxed{T(x,y,z)=(2x-y+z,\; -x+3y)}
+    \]
+
+    \textbf{Verificación:} $T(1,1,1)=(2-1+1,-1+3)=(2,2)$ \checkmark;
+    $T(1,0,-1)=(2-0-1,-1+0)=(1,-1)$ \checkmark; $T(0,1,0)=(0-1+0,0+3)=(-1,3)$ \checkmark.
+
+    \textbf{Clasificación:} la matriz asociada respecto de las bases
+    canónicas es
+    \[
+    A=\begin{pmatrix}2&-1&1\\-1&3&0\end{pmatrix}
+    \]
+    cuyas filas son linealmente independientes, por lo que
+    $\operatorname{rg}(A)=2=\dim(\mathbb{R}^2)$. Luego $T$ es
+    \textbf{sobreyectiva (epimorfismo)}. Por el teorema de la
+    dimensión, $\dim(\operatorname{Nu}(T))=3-2=1\neq0$, por lo que $T$
+    \textbf{no es inyectiva}, y en consecuencia no es isomorfismo.
+    (El núcleo es $\operatorname{Nu}(T)=\operatorname{gen}\{(3,1,-5)\}$.)
+
+    \[
+    \boxed{T \text{ es un epimorfismo (no es monomorfismo ni isomorfismo).}}
+    \]
+
+
+    \item
+    \[
+    T(1,2,-4)=(3,2,4),\qquad T(0,4,-1)=(3,3,-1),\qquad T(1,-2,2)=(1,0,2)
+    \]
+
+    \solucion
+
+    Los vectores $\{(1,2,-4),(0,4,-1),(1,-2,2)\}$ forman una base de
+    $\mathbb{R}^3$, ya que
+    \[
+    \det\begin{pmatrix}1&2&-4\\0&4&-1\\1&-2&2\end{pmatrix}=20\neq0
+    \]
+
+    Escribiendo $(x,y,z)=\alpha(1,2,-4)+\beta(0,4,-1)+\gamma(1,-2,2)$ y
+    resolviendo el sistema resultante se obtiene
+
+    \[
+    \alpha=\frac{6x-y-4z}{20},\qquad
+    \beta=\frac{4x+6y+4z}{20},\qquad
+    \gamma=\frac{14x+y+4z}{20}
+    \]
+
+    Por linealidad, $T(x,y,z)=\alpha\,T(1,2,-4)+\beta\,T(0,4,-1)+\gamma\,T(1,-2,2)$,
+    lo que da
+
+    \[
+    \boxed{
+    T(x,y,z)=\left(\frac{11x+4y+z}{5},\ \frac{6x+4y+z}{5},\ \frac{12x-2y-3z}{5}\right)
+    }
+    \]
+
+    \textbf{Verificación:} $T(1,2,-4)=\left(\frac{11+8-4}{5},\frac{6+8-4}{5},\frac{12-4+12}{5}\right)=(3,2,4)$ \checkmark
+    (análogamente se verifican los otros dos datos).
+
+    \textbf{Clasificación:} la matriz asociada es
+    \[
+    A=\frac15\begin{pmatrix}11&4&1\\6&4&1\\12&-2&-3\end{pmatrix},
+    \qquad \det(A)=\frac{1}{125}\cdot(-50)=-\frac{2}{5}\neq0
+    \]
+
+    Como $\det(A)\neq0$, $A$ es invertible, $\operatorname{Nu}(T)=\{0\}$
+    y $\operatorname{Im}(T)=\mathbb{R}^3$.
+
+    \[
+    \boxed{T \text{ es biyectiva: es un isomorfismo.}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 4 ========================
+
+\section{Matriz asociada a \texorpdfstring{$T:\mathbb{R}^2\to\mathbb{R}^3$}{T}}
+
+Encontrar la matriz asociada a la transformación
+$T:\mathbb{R}^2\to\mathbb{R}^3$ con $T(x,y)=(x-y,\,x+y,\,2x)$.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Respecto de la base canónica de $\mathbb{R}^2$ y
+    $\mathbb{R}^3$, con ello hallar el transformado de $(2,-3)$.
+
+    \solucion
+
+    \[
+    T(1,0)=(1,1,2), \qquad T(0,1)=(-1,1,0)
+    \]
+
+    \[
+    \boxed{
+    [T]=\begin{pmatrix}1&-1\\1&1\\2&0\end{pmatrix}
+    }
+    \]
+
+    El transformado de $(2,-3)$:
+
+    \[
+    T(2,-3)=(2-(-3),\ 2+(-3),\ 2\cdot2)=\boxed{(5,\,-1,\,4)}
+    \]
+
+    (Verificación matricial:
+    $[T]\begin{pmatrix}2\\-3\end{pmatrix}
+    =\begin{pmatrix}2+3\\2-3\\4+0\end{pmatrix}
+    =\begin{pmatrix}5\\-1\\4\end{pmatrix}$.)
+
+
+    \item Con respecto a las bases
+    $\beta_1=\{(1,-1),(2,1)\}$ y
+    $\beta_2=\{(1,0,-2),(1,1,1),(-1,-1,1)\}$, con ello hallar la
+    imagen de $(2,-1)$.
+
+    \solucion
+
+    Calculamos las imágenes de los vectores de $\beta_1$:
+
+    \[
+    T(1,-1)=(2,0,2), \qquad T(2,1)=(1,3,4)
+    \]
+
+    Expresamos cada una en la base $\beta_2$. Para $(2,0,2)$:
+    $a(1,0,-2)+b(1,1,1)+c(-1,-1,1)=(2,0,2)$ da $a=2,\,b=3,\,c=3$.
+
+    Para $(1,3,4)$: $a(1,0,-2)+b(1,1,1)+c(-1,-1,1)=(1,3,4)$ da
+    $a=-2,\,b=\tfrac32,\,c=-\tfrac32$.
+
+    \[
+    \boxed{
+    [T]_{\beta_1}^{\beta_2}=
+    \begin{pmatrix}2&-2\\[2pt]3&\tfrac32\\[2pt]3&-\tfrac32\end{pmatrix}
+    }
+    \]
+
+    Para hallar la imagen de $(2,-1)$, lo expresamos primero en la
+    base $\beta_1$: $p(1,-1)+q(2,1)=(2,-1)$ da $p=\tfrac43$, $q=\tfrac13$.
+    Entonces
+
+    \[
+    [T(2,-1)]_{\beta_2}=\frac43\begin{pmatrix}2\\3\\3\end{pmatrix}
+    +\frac13\begin{pmatrix}-2\\[2pt]\tfrac32\\[2pt]-\tfrac32\end{pmatrix}
+    =\boxed{\left(2,\ \frac92,\ \frac72\right)}
+    \]
+
+    En coordenadas estándar: $T(2,-1)=(2-(-1),2+(-1),2\cdot2)=(3,1,4)$,
+    que coincide con
+    $2(1,0,-2)+\tfrac92(1,1,1)+\tfrac72(-1,-1,1)=(3,1,4)$. \checkmark
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 5 ========================
+
+\section{Matriz asociada a \texorpdfstring{$T:\mathbb{R}^3\to\mathbb{R}^2$}{T}}
+
+Encontrar la matriz asociada a la transformación
+$T:\mathbb{R}^3\to\mathbb{R}^2$ con $T(x,y,z)=(2x+y,\,x+y+z)$.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Respecto de la base canónica de $\mathbb{R}^3$ y
+    $\mathbb{R}^2$, con ello hallar el transformado de $(5,1,-2)$.
+
+    \solucion
+
+    \[
+    T(1,0,0)=(2,1),\qquad T(0,1,0)=(1,1),\qquad T(0,0,1)=(0,1)
+    \]
+
+    \[
+    \boxed{
+    [T]=\begin{pmatrix}2&1&0\\1&1&1\end{pmatrix}
+    }
+    \]
+
+    \[
+    T(5,1,-2)=(2\cdot5+1,\ 5+1-2)=\boxed{(11,\,4)}
+    \]
+
+
+    \item Con respecto a las bases
+    $\beta_1=\{(1,0,-1),(0,2,1),(1,1,1)\}$ y $\beta_2=\{(1,-2),(2,3)\}$,
+    con ello hallar la imagen de $(5,1,-2)$.
+
+    \solucion
+
+    Calculamos las imágenes de los vectores de $\beta_1$:
+
+    \[
+    T(1,0,-1)=(2,0),\qquad T(0,2,1)=(2,3),\qquad T(1,1,1)=(3,3)
+    \]
+
+    Expresamos cada una en la base $\beta_2=\{(1,-2),(2,3)\}$:
+    $a(1,-2)+b(2,3)=(2,0)\Rightarrow a=\tfrac67,\,b=\tfrac47$;
+    $(2,3)\Rightarrow a=0,\,b=1$;
+    $(3,3)\Rightarrow a=\tfrac37,\,b=\tfrac97$.
+
+    \[
+    \boxed{
+    [T]_{\beta_1}^{\beta_2}=
+    \begin{pmatrix}\tfrac67&0&\tfrac37\\[4pt]\tfrac47&1&\tfrac97\end{pmatrix}
+    }
+    \]
+
+    Expresamos $(5,1,-2)$ en la base $\beta_1$:
+    $p(1,0,-1)+q(0,2,1)+r(1,1,1)=(5,1,-2)$ da
+    $p=\tfrac{10}{3},\,q=-\tfrac13,\,r=\tfrac53$. Entonces
+
+    \[
+    [T(5,1,-2)]_{\beta_2}=\frac{10}{3}\begin{pmatrix}\tfrac67\\[2pt]\tfrac47\end{pmatrix}
+    -\frac13\begin{pmatrix}0\\1\end{pmatrix}
+    +\frac53\begin{pmatrix}\tfrac37\\[2pt]\tfrac97\end{pmatrix}
+    =\boxed{\left(\frac{25}{7},\ \frac{26}{7}\right)}
+    \]
+
+    En coordenadas estándar: $T(5,1,-2)=(11,4)$, que coincide con
+    $\tfrac{25}{7}(1,-2)+\tfrac{26}{7}(2,3)=(11,4)$. \checkmark
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 7 ========================
+
+\setcounter{section}{6}
+
+\section{Polinomio característico, autovalores y autovectores}
+
+Encontrar el polinomio característico, autovalores y autovectores de
+las siguientes matrices. ¿Son diagonalizables?
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{1}
+
+    \item
+    \[
+    B=\begin{pmatrix}2&1\\6&3\end{pmatrix}
+    \]
+
+    \solucion
+
+    \[
+    \det(B-\lambda I)=(2-\lambda)(3-\lambda)-6=\lambda^2-5\lambda
+    =\lambda(\lambda-5)
+    \]
+
+    \[
+    \boxed{\lambda_1=0,\qquad \lambda_2=5}
+    \]
+
+    Para $\lambda_1=0$: $2x+y=0\Rightarrow y=-2x$, autovector
+    $v_1=(1,-2)$.
+
+    Para $\lambda_2=5$: $-3x+y=0\Rightarrow y=3x$, autovector
+    $v_2=(1,3)$.
+
+    Como son 2 autovalores distintos para una matriz $2\times2$,
+
+    \[
+    \boxed{B \text{ es diagonalizable, con } D=\begin{pmatrix}0&0\\0&5\end{pmatrix}
+    \text{ y } P=\begin{pmatrix}1&1\\-2&3\end{pmatrix}}
+    \]
+
+
+    \item
+    \[
+    D=\begin{pmatrix}3&2&4\\2&0&2\\4&2&3\end{pmatrix}
+    \]
+
+    \solucion
+
+    \[
+    \det(D-\lambda I)=-\lambda^3+6\lambda^2+15\lambda+8
+    =-(\lambda-8)(\lambda+1)^2
+    \]
+
+    \[
+    \boxed{\lambda_1=8 \ (\text{mult. } 1), \qquad \lambda_2=-1\ (\text{mult. } 2)}
+    \]
+
+    Para $\lambda_1=8$: resolviendo $(D-8I)v=0$ se obtiene
+    $x=2y,\, z=2y$, autovector $v_1=(2,1,2)$.
+
+    Para $\lambda_2=-1$: $(D+I)v=0$ equivale a la única ecuación
+    $2x+y+2z=0$, que da un autoespacio de dimensión 2, con base
+    $v_2=(1,-2,0)$, $v_3=(0,-2,1)$.
+
+    Como la multiplicidad geométrica coincide con la algebraica para
+    ambos autovalores ($1=1$ y $2=2$),
+
+    \[
+    \boxed{
+    D \text{ es diagonalizable, con } D_{\text{diag}}=\begin{pmatrix}8&0&0\\0&-1&0\\0&0&-1\end{pmatrix},
+    \ P=\begin{pmatrix}2&1&0\\1&-2&-2\\2&0&1\end{pmatrix}
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 8 ========================
+
+\section{Diagonalización y matriz de paso}
+
+Verificar si las siguientes matrices son diagonalizables, en caso de
+serlo, hallar la matriz de paso $P$ y verificar que son semejantes.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{1}
+
+    \item
+    \[
+    B=\begin{pmatrix}3&-2\\-2&1\end{pmatrix}
+    \]
+
+    \solucion
+
+    \[
+    \det(B-\lambda I)=(3-\lambda)(1-\lambda)-4=\lambda^2-4\lambda-1=0
+    \]
+
+    \[
+    \boxed{\lambda=2\pm\sqrt5}
+    \]
+
+    Al ser 2 autovalores reales y distintos (matriz simétrica $2\times2$),
+
+    \[
+    \boxed{B \text{ es diagonalizable}}
+    \]
+
+    Autovector para $\lambda_1=2+\sqrt5$: de $(1-\sqrt5)x-2y=0$,
+    $v_1=(2,\,1-\sqrt5)$.
+
+    Autovector para $\lambda_2=2-\sqrt5$: $v_2=(2,\,1+\sqrt5)$.
+
+    \[
+    P=\begin{pmatrix}2&2\\1-\sqrt5&1+\sqrt5\end{pmatrix},\qquad
+    D=\begin{pmatrix}2+\sqrt5&0\\0&2-\sqrt5\end{pmatrix}
+    \]
+
+    Se verifica que $BP=PD$ (equivalentemente $P^{-1}BP=D$), ya que
+    cada columna de $P$ es autovector de $B$ con el autovalor
+    correspondiente en $D$.
+
+
+    \item
+    \[
+    C=\begin{pmatrix}0&0&-2\\1&2&1\\1&0&3\end{pmatrix}
+    \]
+
+    \solucion
+
+    \[
+    \det(C-\lambda I)=-(\lambda-2)^2(\lambda-1)
+    \]
+
+    \[
+    \boxed{\lambda_1=1\ (\text{mult. } 1), \qquad \lambda_2=2\ (\text{mult. } 2)}
+    \]
+
+    Para $\lambda_1=1$: $(C-I)v=0$ da $x=-2z$, $y=z$, autovector
+    $v_1=(-2,1,1)$.
+
+    Para $\lambda_2=2$: $(C-2I)v=0$ se reduce a la ecuación
+    $x+z=0$ (con $y$ libre), lo que da un autoespacio de dimensión 2
+    con base $v_2=(0,1,0)$, $v_3=(-1,0,1)$.
+
+    Como la multiplicidad geométrica coincide con la algebraica en
+    ambos casos,
+
+    \[
+    \boxed{C \text{ es diagonalizable, con } P=\begin{pmatrix}-2&0&-1\\1&1&0\\1&0&1\end{pmatrix},
+    \quad D=\begin{pmatrix}1&0&0\\0&2&0\\0&0&2\end{pmatrix}}
+    \]
+
+    \textbf{Verificación} ($CP=PD$, columna a columna):
+    \[
+    C\begin{pmatrix}-2\\1\\1\end{pmatrix}=\begin{pmatrix}-2\\1\\1\end{pmatrix}=1\cdot v_1,
+    \quad
+    C\begin{pmatrix}0\\1\\0\end{pmatrix}=\begin{pmatrix}0\\2\\0\end{pmatrix}=2\cdot v_2,
+    \quad
+    C\begin{pmatrix}-1\\0\\1\end{pmatrix}=\begin{pmatrix}-2\\0\\2\end{pmatrix}=2\cdot v_3
+    \]
+
+    Como $v_1,v_2,v_3$ son linealmente independientes (provienen de
+    autoespacios distintos), $P$ es inversible y por lo tanto
+    $P^{-1}CP=D$, es decir $C$ y $D$ son semejantes.
+
+
+    \item
+    \[
+    D=\begin{pmatrix}2&0&-2\\0&3&0\\0&0&3\end{pmatrix}
+    \]
+
+    \solucion
+
+    Al ser triangular superior, sus autovalores son los elementos de
+    la diagonal:
+
+    \[
+    \boxed{\lambda_1=2\ (\text{mult. } 1), \qquad \lambda_2=3\ (\text{mult. } 2)}
+    \]
+
+    Para $\lambda_1=2$: $(D-2I)v=0$ da $y=0,\,z=0$, autovector
+    $v_1=(1,0,0)$.
+
+    Para $\lambda_2=3$: $(D-3I)v=0$ se reduce a $x+2z=0$ (con $y$
+    libre), autoespacio de dimensión 2, con base $v_2=(0,1,0)$,
+    $v_3=(-2,0,1)$.
+
+    Como las multiplicidades coinciden,
+
+    \[
+    \boxed{D \text{ es diagonalizable, con } P=\begin{pmatrix}1&0&-2\\0&1&0\\0&0&1\end{pmatrix},
+    \quad D_{\text{diag}}=\begin{pmatrix}2&0&0\\0&3&0\\0&0&3\end{pmatrix}}
+    \]
+
+    \textbf{Verificación:}
+    $D\,(1,0,0)^{t}=(2,0,0)^t=2v_1$,
+    $D\,(0,1,0)^t=(0,3,0)^t=3v_2$,
+    $D\,(-2,0,1)^t=(-6,0,3)^t=3v_3$, lo que confirma $DP=PD_{\text{diag}}$.
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 9 ========================
+
+\section{Parámetro \texorpdfstring{$k$}{k} y diagonalización}
+
+Sea $A=\begin{pmatrix}k&0&0\\1&1&0\\0&0&2\end{pmatrix}$, obtener los
+valores del parámetro $k\in\mathbb{R}$ tales que:
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Sus autovalores sean distintos. ¿$A$ es diagonalizable para
+    tales valores?
+
+    \solucion
+
+    Al ser $A$ triangular inferior, sus autovalores son
+    $\lambda_1=k$, $\lambda_2=1$, $\lambda_3=2$ (las entradas de la
+    diagonal). Para que los tres sean distintos entre sí se necesita
+
+    \[
+    \boxed{k\in\mathbb{R}\setminus\{1,2\}}
+    \]
+
+    Como una matriz $3\times3$ con 3 autovalores distintos siempre es
+    diagonalizable,
+
+    \[
+    \boxed{A \text{ es diagonalizable para todo } k\neq1,2}
+    \]
+
+
+    \item $A$ tenga un autovalor de multiplicidad 2. ¿Es
+    diagonalizable?
+
+    \solucion
+
+    Esto ocurre cuando $k=1$ o cuando $k=2$.
+
+    \textbf{Caso $k=1$} (autovalores $1,1,2$): $(A-I)v=0$ da el
+    sistema $0=0$, $x=0$, $z=0$, con $y$ libre. El autoespacio de
+    $\lambda=1$ tiene dimensión 1, menor que su multiplicidad
+    algebraica (2).
+
+    \[
+    \boxed{\text{Para } k=1,\ A \text{ NO es diagonalizable.}}
+    \]
+
+    \textbf{Caso $k=2$} (autovalores $2,1,2$): $(A-2I)v=0$ da la
+    única ecuación $x-y=0$ (con $z$ libre), es decir un autoespacio de
+    dimensión 2 para $\lambda=2$, con base $\{(1,1,0),(0,0,1)\}$, que
+    coincide con su multiplicidad algebraica.
+
+    \[
+    \boxed{\text{Para } k=2,\ A \text{ SÍ es diagonalizable.}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 10 ========================
+
+\section{Parámetros de un autovector dado}
+
+Dada la matriz $A=\begin{pmatrix}1&a\\2&b\end{pmatrix}$ determine los
+valores de los parámetros $a$ y $b$ para que el vector
+$v=\begin{pmatrix}1\\1\end{pmatrix}$ sea un autovector asociado al
+autovalor $\lambda=3$.
+
+\solucion
+
+Por definición de autovector, $Av=\lambda v$:
+
+\[
+\begin{pmatrix}1&a\\2&b\end{pmatrix}\begin{pmatrix}1\\1\end{pmatrix}
+=\begin{pmatrix}1+a\\2+b\end{pmatrix}
+=3\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}3\\3\end{pmatrix}
+\]
+
+De donde $1+a=3\Rightarrow a=2$, y $2+b=3\Rightarrow b=1$.
+
+\[
+\boxed{a=2,\qquad b=1}
+\]
+
+\textbf{Verificación:}
+$\begin{pmatrix}1&2\\2&1\end{pmatrix}\begin{pmatrix}1\\1\end{pmatrix}
+=\begin{pmatrix}3\\3\end{pmatrix}=3\begin{pmatrix}1\\1\end{pmatrix}$. \checkmark
+
+\volverindice
+\newpage
+
+\end{document}
