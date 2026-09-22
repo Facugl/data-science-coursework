@@ -216,7 +216,7 @@ Justifique su respuesta.
     \boxed{T \text{ es una transformación lineal.}}
     \]
 
-
+			\newpage
     \item
     \[
     T:\mathbb{R}^{2\times2}\to\mathcal{P}_3:\
@@ -284,7 +284,6 @@ Justifique su respuesta.
 \end{enumerate}
 
 \volverindice
-\newpage
 
 % ======================== EJERCICIO 2 ========================
 
@@ -323,9 +322,7 @@ imagen.
     \boxed{\dim(\operatorname{Im}(T))=3-0=3}
     \]
 
-    es decir, $T$ es sobreyectiva ($\operatorname{Im}(T)=\mathbb{R}^3$).
-
-
+				\newpage
     \item
     \[
     T:\mathbb{R}^{2\times2}\to\mathbb{R}^{2\times2}:\
@@ -353,6 +350,41 @@ imagen.
     \]
 
     Como $\dim(\mathbb{R}^{2\times2})=4$,
+
+    \[
+    \boxed{\dim(\operatorname{Im}(T))=4-1=3}
+    \]
+
+
+    \item
+    \[
+    T:\mathcal{P}_3\to\mathbb{R}^{2\times2}:\
+    T(ax^3+bx^2+cx+d)=\begin{pmatrix}a+b&c\\c+d&d\end{pmatrix}
+    \]
+
+    \solucion
+
+    Igualando a la matriz nula:
+    \[
+    a+b=0,\qquad c=0,\qquad c+d=0,\qquad d=0
+    \]
+
+    De $c=0$ y $d=0$ se verifica automáticamente $c+d=0$ (ecuación
+    redundante). De $a+b=0$ se obtiene $b=-a$, con $a$ libre. Luego
+
+    \[
+    \operatorname{Nu}(T)=\left\{ax^3-ax^2\ /\ a\in\mathbb{R}\right\}
+    =\left\{a(x^3-x^2)\right\}
+    \]
+
+    \[
+    \boxed{
+    \text{Base de }\operatorname{Nu}(T)=\{x^3-x^2\},
+    \qquad \dim(\operatorname{Nu}(T))=1
+    }
+    \]
+
+    Como $\dim(\mathcal{P}_3)=4$,
 
     \[
     \boxed{\dim(\operatorname{Im}(T))=4-1=3}
@@ -403,8 +435,58 @@ transformación, luego clasificarlas.
 
 \begin{enumerate}[label=\alph*.-]
 
+    \item
+    \[
+    T(1,2)=(3,-3),\qquad T(2,5)=(7,-7)
+    \]
+
+    \solucion
+
+    Como $\{(1,2),(2,5)\}$ es base de $\mathbb{R}^2$ (su determinante
+    es $1\cdot5-2\cdot2=1\neq0$), escribimos $(x,y)$ como combinación
+    lineal de estos vectores:
+
+    \[
+    (x,y)=\alpha(1,2)+\beta(2,5)
+    \]
+
+    lo que da el sistema $\alpha+2\beta=x$, $2\alpha+5\beta=y$, cuya
+    solución es
+
+    \[
+    \alpha=5x-2y,\qquad \beta=y-2x
+    \]
+
+    Por linealidad, $T(x,y)=\alpha\,T(1,2)+\beta\,T(2,5)$. Reemplazando
+    y operando:
+
+    \[
+    \boxed{T(x,y)=(x+y,\,-x-y)}
+    \]
+
+    \textbf{Verificación:} $T(1,2)=(1+2,-1-2)=(3,-3)$ \checkmark;
+    $T(2,5)=(2+5,-2-5)=(7,-7)$ \checkmark.
+
+    \textbf{Clasificación:} la matriz asociada respecto de las bases
+    canónicas es
+    \[
+    A=\begin{pmatrix}1&1\\-1&-1\end{pmatrix}
+    \]
+    cuyas filas son linealmente dependientes (la segunda es opuesta a
+    la primera), por lo que $\operatorname{rg}(A)=1$. Luego
+    $\dim(\operatorname{Im}(T))=1\neq2=\dim(\mathbb{R}^2)$, así que
+    $T$ \textbf{no es sobreyectiva}. Por el teorema de la dimensión,
+    $\dim(\operatorname{Nu}(T))=2-1=1\neq0$, por lo que $T$
+    \textbf{no es inyectiva}.
+    (El núcleo es $\operatorname{Nu}(T)=\operatorname{gen}\{(1,-1)\}$.)
+
+    \[
+    \boxed{T \text{ no es monomorfismo, ni epimorfismo, ni isomorfismo.}}
+    \]
+
     \setcounter{enumi}{1}
 
+				\newpage
     \item
     \[
     T(1,1,1)=(2,2),\qquad T(1,0,-1)=(1,-1),\qquad T(0,1,0)=(-1,3)
@@ -453,7 +535,7 @@ transformación, luego clasificarlas.
     \boxed{T \text{ es un epimorfismo (no es monomorfismo ni isomorfismo).}}
     \]
 
-
+				\newpage
     \item
     \[
     T(1,2,-4)=(3,2,4),\qquad T(0,4,-1)=(3,3,-1),\qquad T(1,-2,2)=(1,0,2)
@@ -520,26 +602,37 @@ $T:\mathbb{R}^2\to\mathbb{R}^3$ con $T(x,y)=(x-y,\,x+y,\,2x)$.
 
     \solucion
 
+    Sean $\beta_1$ y $\beta_2$ las bases canónicas de $\mathbb{R}^2$
+    y $\mathbb{R}^3$. Transformamos la base del dominio:
+
     \[
     T(1,0)=(1,1,2), \qquad T(0,1)=(-1,1,0)
     \]
 
+    Como $\beta_2$ es canónica, estas ternas son directamente las
+    coordenadas $[T(e_i)]_{\beta_2}$, así que forman las columnas de
+    $A_T$:
+
     \[
     \boxed{
-    [T]=\begin{pmatrix}1&-1\\1&1\\2&0\end{pmatrix}
+    A_T=\begin{pmatrix}1&-1\\1&1\\2&0\end{pmatrix}
     }
     \]
 
-    El transformado de $(2,-3)$:
+    Verificamos el Teorema 2.3.1 con $v=(2,-3)$. Directamente,
+    $Tv=(2-(-3),\,2+(-3),\,2\cdot2)=(5,-1,4)$. Como $\beta_1$
+    también es canónica, $[v]_{\beta_1}=(2,-3)$; multiplicando
+    $A_T$ por $(2,-3)$ (cada fila de $A_T$, producto escalar contra
+    el vector):
 
     \[
-    T(2,-3)=(2-(-3),\ 2+(-3),\ 2\cdot2)=\boxed{(5,\,-1,\,4)}
+    A_T[v]_{\beta_1}=\big((1,-1)\cdot(2,-3),\ (1,1)\cdot(2,-3),\ (2,0)\cdot(2,-3)\big)
+    =(5,-1,4)
     \]
 
-    (Verificación matricial:
-    $[T]\begin{pmatrix}2\\-3\end{pmatrix}
-    =\begin{pmatrix}2+3\\2-3\\4+0\end{pmatrix}
-    =\begin{pmatrix}5\\-1\\4\end{pmatrix}$.)
+    \[
+    \boxed{T(2,-3)=(5,-1,4)}
+    \]
 
 
     \item Con respecto a las bases
@@ -549,38 +642,48 @@ $T:\mathbb{R}^2\to\mathbb{R}^3$ con $T(x,y)=(x-y,\,x+y,\,2x)$.
 
     \solucion
 
-    Calculamos las imágenes de los vectores de $\beta_1$:
+    Transformamos la base del dominio:
 
     \[
     T(1,-1)=(2,0,2), \qquad T(2,1)=(1,3,4)
     \]
 
-    Expresamos cada una en la base $\beta_2$. Para $(2,0,2)$:
-    $a(1,0,-2)+b(1,1,1)+c(-1,-1,1)=(2,0,2)$ da $a=2,\,b=3,\,c=3$.
-
-    Para $(1,3,4)$: $a(1,0,-2)+b(1,1,1)+c(-1,-1,1)=(1,3,4)$ da
-    $a=-2,\,b=\tfrac32,\,c=-\tfrac32$.
+    Como $\beta_2$ no es canónica, expresamos cada resultado como
+    combinación lineal de $\beta_2$. Para $(2,0,2)$:
+    $a(1,0,-2)+b(1,1,1)+c(-1,-1,1)=(2,0,2)\Rightarrow a=2,\,b=3,\,c=3$.
+    Para $(1,3,4)$, análogamente, $a=-2,\,b=\tfrac32,\,c=-\tfrac32$.
+    Estas ternas son las columnas de $A_T$:
 
     \[
     \boxed{
-    [T]_{\beta_1}^{\beta_2}=
+    A_T=
     \begin{pmatrix}2&-2\\[2pt]3&\tfrac32\\[2pt]3&-\tfrac32\end{pmatrix}
     }
     \]
 
-    Para hallar la imagen de $(2,-1)$, lo expresamos primero en la
-    base $\beta_1$: $p(1,-1)+q(2,1)=(2,-1)$ da $p=\tfrac43$, $q=\tfrac13$.
-    Entonces
+    Como $\beta_1$ tampoco es canónica, para usar el teorema
+    $[T(v)]_{\beta_2}=A_T[v]_{\beta_1}$ necesitamos primero
+    $[v]_{\beta_1}$: $p(1,-1)+q(2,1)=(2,-1)\Rightarrow
+    p=\tfrac43,\,q=\tfrac13$. Multiplicando $A_T$ por
+    $(\tfrac43,\tfrac13)$ (fila por vector):
 
     \[
-    [T(2,-1)]_{\beta_2}=\frac43\begin{pmatrix}2\\3\\3\end{pmatrix}
-    +\frac13\begin{pmatrix}-2\\[2pt]\tfrac32\\[2pt]-\tfrac32\end{pmatrix}
-    =\boxed{\left(2,\ \frac92,\ \frac72\right)}
+    [T(2,-1)]_{\beta_2}=\Big((2,-2)\cdot(\tfrac43,\tfrac13),\
+    (3,\tfrac32)\cdot(\tfrac43,\tfrac13),\
+    (3,-\tfrac32)\cdot(\tfrac43,\tfrac13)\Big)
+    =\left(2,\ \tfrac92,\ \tfrac72\right)
     \]
 
-    En coordenadas estándar: $T(2,-1)=(2-(-1),2+(-1),2\cdot2)=(3,1,4)$,
-    que coincide con
-    $2(1,0,-2)+\tfrac92(1,1,1)+\tfrac72(-1,-1,1)=(3,1,4)$. \checkmark
+    Este resultado son coordenadas respecto de $\beta_2$, no el
+    vector en sí (porque $\beta_2$ no es canónica); lo traducimos
+    combinándolo con los vectores de $\beta_2$:
+
+    \[
+    \boxed{2(1,0,-2)+\tfrac92(1,1,1)+\tfrac72(-1,-1,1)=(3,1,4)}
+    \]
+
+    que coincide con $T(2,-1)=(2-(-1),2+(-1),2\cdot2)=(3,1,4)$.
+    \checkmark
 
 \end{enumerate}
 
@@ -601,18 +704,36 @@ $T:\mathbb{R}^3\to\mathbb{R}^2$ con $T(x,y,z)=(2x+y,\,x+y+z)$.
 
     \solucion
 
+    Sean $\beta_1$ y $\beta_2$ las bases canónicas de $\mathbb{R}^3$
+    y $\mathbb{R}^2$. Transformamos la base del dominio:
+
     \[
     T(1,0,0)=(2,1),\qquad T(0,1,0)=(1,1),\qquad T(0,0,1)=(0,1)
     \]
 
+    Como $\beta_2$ es canónica, estos pares son directamente las
+    coordenadas $[T(e_i)]_{\beta_2}$, así que forman las columnas de
+    $A_T$:
+
     \[
     \boxed{
-    [T]=\begin{pmatrix}2&1&0\\1&1&1\end{pmatrix}
+    A_T=\begin{pmatrix}2&1&0\\1&1&1\end{pmatrix}
     }
     \]
 
+    Verificamos el Teorema 2.3.1 con $v=(5,1,-2)$. Directamente,
+    $Tv=(2\cdot5+1,\ 5+1-2)=(11,4)$. Como $\beta_1$ también es
+    canónica, $[v]_{\beta_1}=(5,1,-2)$; multiplicando $A_T$ por
+    $(5,1,-2)$ (cada fila de $A_T$, producto escalar contra el
+    vector):
+
     \[
-    T(5,1,-2)=(2\cdot5+1,\ 5+1-2)=\boxed{(11,\,4)}
+    A_T[v]_{\beta_1}=\big((2,1,0)\cdot(5,1,-2),\ (1,1,1)\cdot(5,1,-2)\big)
+    =(11,4)
+    \]
+
+    \[
+    \boxed{T(5,1,-2)=(11,4)}
     \]
 
 
@@ -622,37 +743,46 @@ $T:\mathbb{R}^3\to\mathbb{R}^2$ con $T(x,y,z)=(2x+y,\,x+y+z)$.
 
     \solucion
 
-    Calculamos las imágenes de los vectores de $\beta_1$:
+    Transformamos la base del dominio:
 
     \[
     T(1,0,-1)=(2,0),\qquad T(0,2,1)=(2,3),\qquad T(1,1,1)=(3,3)
     \]
 
-    Expresamos cada una en la base $\beta_2=\{(1,-2),(2,3)\}$:
+    Como $\beta_2$ no es canónica, expresamos cada resultado como
+    combinación lineal de $\beta_2=\{(1,-2),(2,3)\}$:
     $a(1,-2)+b(2,3)=(2,0)\Rightarrow a=\tfrac67,\,b=\tfrac47$;
-    $(2,3)\Rightarrow a=0,\,b=1$;
-    $(3,3)\Rightarrow a=\tfrac37,\,b=\tfrac97$.
+    para $(2,3)$, $a=0,\,b=1$; para $(3,3)$, $a=\tfrac37,\,b=\tfrac97$.
+    Estos pares son las columnas de $A_T$:
 
     \[
     \boxed{
-    [T]_{\beta_1}^{\beta_2}=
+    A_T=
     \begin{pmatrix}\tfrac67&0&\tfrac37\\[4pt]\tfrac47&1&\tfrac97\end{pmatrix}
     }
     \]
 
-    Expresamos $(5,1,-2)$ en la base $\beta_1$:
-    $p(1,0,-1)+q(0,2,1)+r(1,1,1)=(5,1,-2)$ da
-    $p=\tfrac{10}{3},\,q=-\tfrac13,\,r=\tfrac53$. Entonces
+    Como $\beta_1$ tampoco es canónica, para usar el teorema
+    $[T(v)]_{\beta_2}=A_T[v]_{\beta_1}$ necesitamos primero
+    $[v]_{\beta_1}$: $p(1,0,-1)+q(0,2,1)+r(1,1,1)=(5,1,-2)\Rightarrow
+    p=\tfrac{10}{3},\,q=-\tfrac13,\,r=\tfrac53$. Multiplicando $A_T$
+    por $(\tfrac{10}{3},-\tfrac13,\tfrac53)$ (fila por vector):
 
     \[
-    [T(5,1,-2)]_{\beta_2}=\frac{10}{3}\begin{pmatrix}\tfrac67\\[2pt]\tfrac47\end{pmatrix}
-    -\frac13\begin{pmatrix}0\\1\end{pmatrix}
-    +\frac53\begin{pmatrix}\tfrac37\\[2pt]\tfrac97\end{pmatrix}
-    =\boxed{\left(\frac{25}{7},\ \frac{26}{7}\right)}
+    [T(5,1,-2)]_{\beta_2}=\Big((\tfrac67,0,\tfrac37)\cdot(\tfrac{10}{3},-\tfrac13,\tfrac53),\
+    (\tfrac47,1,\tfrac97)\cdot(\tfrac{10}{3},-\tfrac13,\tfrac53)\Big)
+    =\left(\tfrac{25}{7},\ \tfrac{26}{7}\right)
     \]
 
-    En coordenadas estándar: $T(5,1,-2)=(11,4)$, que coincide con
-    $\tfrac{25}{7}(1,-2)+\tfrac{26}{7}(2,3)=(11,4)$. \checkmark
+    Este resultado son coordenadas respecto de $\beta_2$, no el
+    vector en sí; lo traducimos combinándolo con los vectores de
+    $\beta_2$:
+
+    \[
+    \boxed{\tfrac{25}{7}(1,-2)+\tfrac{26}{7}(2,3)=(11,4)}
+    \]
+
+    que coincide con $T(5,1,-2)=(11,4)$. \checkmark
 
 \end{enumerate}
 
@@ -670,7 +800,73 @@ las siguientes matrices. ¿Son diagonalizables?
 
 \begin{enumerate}[label=\alph*.-]
 
-    \setcounter{enumi}{1}
+    \item
+    \[
+    A=\begin{pmatrix}4&2\\2&4\end{pmatrix}
+    \]
+
+    \solucion
+
+    Para encontrar el polinomio característico planteamos
+    $p(\lambda)=|A-\lambda I|$:
+
+    \[
+    p(\lambda)=\left|\begin{pmatrix}4&2\\2&4\end{pmatrix}
+    -\lambda\begin{pmatrix}1&0\\0&1\end{pmatrix}\right|
+    =\begin{vmatrix}4-\lambda&2\\2&4-\lambda\end{vmatrix}
+    =(4-\lambda)^2-4
+    \]
+
+    \[
+    \boxed{p(\lambda)=\lambda^2-8\lambda+12}
+    \]
+
+    Para determinar los autovalores resolvemos $p(\lambda)=0$:
+
+    \[
+    \lambda^2-8\lambda+12=0\ \Rightarrow\
+    \lambda_{1,2}=\frac{8\pm\sqrt{64-4\cdot12}}{2}=\frac{8\pm4}{2}
+    \]
+
+    \[
+    \boxed{\lambda_1=6,\qquad \lambda_2=2}
+    \]
+
+    Calculamos los autovectores particularizando $(A-\lambda I)v=0$
+    para cada valor de $\lambda$ obtenido.
+
+    Para $\lambda_1=6$:
+
+    \[
+    \left(\begin{pmatrix}4&2\\2&4\end{pmatrix}-6\begin{pmatrix}1&0\\0&1\end{pmatrix}\right)
+    \begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}0\\0\end{pmatrix}
+    \ \Rightarrow\
+    \begin{pmatrix}-2&2\\2&-2\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}0\\0\end{pmatrix}
+    \ \Rightarrow\
+    \begin{cases}-2x+2y=0\\2x-2y=0\end{cases}
+    \]
+
+    Del sistema se deduce que $x=y$, autovector $v_1=(1,1)$.
+
+    Para $\lambda_2=2$:
+
+    \[
+    \begin{pmatrix}2&2\\2&2\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}0\\0\end{pmatrix}
+    \ \Rightarrow\
+    \begin{cases}2x+2y=0\\2x+2y=0\end{cases}
+    \ \Rightarrow\ x=-y
+    \]
+
+    autovector $v_2=(1,-1)$.
+
+    Luego es diagonalizable porque $\lambda$ tiene multiplicidad
+    simple (los 2 autovalores son distintos para una matriz
+    $2\times2$),
+
+    \[
+    \boxed{A \text{ es diagonalizable, con } D=\begin{pmatrix}6&0\\0&2\end{pmatrix}
+    \text{ y } P=\begin{pmatrix}1&1\\1&-1\end{pmatrix}}
+    \]
 
     \item
     \[
@@ -701,6 +897,7 @@ las siguientes matrices. ¿Son diagonalizables?
     \text{ y } P=\begin{pmatrix}1&1\\-2&3\end{pmatrix}}
     \]
 
+    \setcounter{enumi}{3}
 
     \item
     \[
