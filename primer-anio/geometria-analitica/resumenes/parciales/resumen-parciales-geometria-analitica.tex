@@ -540,7 +540,7 @@ un vector.}
 
 \begin{proc}[Bases canónicas]
 Aplicar $T$ a cada vector de la base canónica del dominio; cada resultado (ya en
-coordenadas canónicas del codominio) es una columna de $[T]$.
+coordenadas canónicas del codominio) es una columna de $A_T$.
 \end{proc}
 
 \begin{proc}[Bases arbitrarias $\beta_1$ (dominio), $\beta_2$ (codominio)]
@@ -548,9 +548,9 @@ coordenadas canónicas del codominio) es una columna de $[T]$.
     \item Aplicar $T$ a cada vector de $\beta_1$.
     \item Expresar cada resultado como combinación lineal de $\beta_2$ (un sistema por
     cada uno).
-    \item Esos coeficientes forman las columnas de $[T]_{\beta_1}^{\beta_2}$.
+    \item Esos coeficientes forman las columnas de $A_T$.
     \item Para la imagen de $v$ (dado en coordenadas estándar): hallar $[v]_{\beta_1}$,
-    multiplicar $[T]_{\beta_1}^{\beta_2}\cdot[v]_{\beta_1}=[Tv]_{\beta_2}$, y si hace falta,
+    multiplicar $A_T\,[v]_{\beta_1}=[Tv]_{\beta_2}$, y si hace falta,
     reconstruir en coordenadas estándar combinando los vectores de $\beta_2$ con esos
     coeficientes.
 \end{enumerate}
@@ -564,8 +564,48 @@ coordenadas canónicas del codominio) es una columna de $[T]$.
     fórmula y comparando con el resultado matricial.
     \item No confundir $[Tv]_{\beta_2}$ (coordenadas en $\beta_2$) con $Tv$ en coordenadas
     estándar: son representaciones distintas del mismo vector.
+    \item Si $\beta_1$ y $\beta_2$ son ambas canónicas, $[v]_{\beta_1}=v$ y $[Tv]_{\beta_2}=Tv$
+    directamente, porque las coordenadas de un vector respecto de la base canónica son sus
+    propias componentes. Esa igualdad \textbf{deja de valer} apenas alguna de las dos bases
+    no es la canónica: ahí hay que resolver un sistema para pasar del vector a sus
+    coordenadas (y viceversa).
+    \item Para multiplicar $A_T$ por un vector sin confundirse con filas/columnas, conviene
+    pensarlo como: cada componente del resultado sale de tomar una fila de $A_T$ y hacer el
+    producto escalar (elemento a elemento, sumando) con el vector.
 \end{itemize}
 \end{atencion}
+
+\begin{ejemplo}[Caso con bases no canónicas]
+Sea $T:\mathbb{R}^2\to\mathbb{R}^3$, $T(x,y)=(x-y,\,x+y,\,2x)$, con
+$\beta_1=\{(1,-1),(2,1)\}$ y $\beta_2=\{(1,0,-2),(1,1,1),(-1,-1,1)\}$. Se pide la imagen de
+$(2,-1)$.
+
+\textbf{1) Transformar la base del dominio:} $T(1,-1)=(2,0,2)$, $T(2,1)=(1,3,4)$.
+
+\textbf{2) Pasar cada resultado a coordenadas de $\beta_2$} (como $\beta_2$ no es canónica,
+hay que resolver un sistema por cada uno): $a(1,0,-2)+b(1,1,1)+c(-1,-1,1)=(2,0,2)$ da
+$a=2,\,b=3,\,c=3$; y $a(1,0,-2)+b(1,1,1)+c(-1,-1,1)=(1,3,4)$ da $a=-2,\,b=\tfrac32,\,c=-\tfrac32$.
+Esas ternas son las columnas de $A_T$:
+\[
+A_T=\begin{pmatrix}2&-2\\[2pt]3&\tfrac32\\[2pt]3&-\tfrac32\end{pmatrix}
+\]
+
+\textbf{3) Coordenadas de $(2,-1)$ en $\beta_1$} (tampoco es canónica, otro sistema):
+$p(1,-1)+q(2,1)=(2,-1)\Rightarrow p=\tfrac43,\,q=\tfrac13$.
+
+\textbf{4) Multiplicar $A_T$ por $[v]_{\beta_1}=(\tfrac43,\tfrac13)$, fila por vector:}
+\[
+[T(2,-1)]_{\beta_2}=\Big((2,-2)\cdot(\tfrac43,\tfrac13),\ (3,\tfrac32)\cdot(\tfrac43,\tfrac13),\
+(3,-\tfrac32)\cdot(\tfrac43,\tfrac13)\Big)=\left(2,\ \tfrac92,\ \tfrac72\right)
+\]
+
+\textbf{5) Traducir el resultado:} $(2,\tfrac92,\tfrac72)$ son coordenadas respecto de
+$\beta_2$, no el vector real. Se recupera combinándolas con los vectores de $\beta_2$:
+\[
+2(1,0,-2)+\tfrac92(1,1,1)+\tfrac72(-1,-1,1)=(3,1,4)
+\]
+que coincide con $T(2,-1)=(2-(-1),2+(-1),2\cdot2)=(3,1,4)$, verificando el resultado.
+\end{ejemplo}
 
 \subsection{Autovalores y autovectores}
 
@@ -587,6 +627,25 @@ diagonalizable $\Leftrightarrow$ para cada $\lambda$, mult.\ geométrica = mult.
 (en particular, si todos los autovalores son distintos, siempre es diagonalizable).
 \end{teoria}
 
+\begin{proc}[Cómo justificar la diagonalizabilidad]
+\begin{enumerate}
+    \item Factorizar $p(\lambda)$ y anotar la multiplicidad algebraica de cada autovalor
+    (cuántas veces aparece como raíz).
+    \item Si \textbf{todos} los autovalores son distintos (todas las multiplicidades
+    algebraicas son 1): alcanza con decir ``los autovalores son todos distintos, por lo
+    tanto $A$ es diagonalizable'' — no hace falta calcular ningún autoespacio.
+    \item Si algún autovalor $\lambda_i$ tiene multiplicidad algebraica $k>1$: hay que
+    resolver $(A-\lambda_iI)v=0$ y calcular $\dim E_{\lambda_i}$ (mult.\ geométrica).
+    \begin{itemize}
+        \item Si $\dim E_{\lambda_i}=k$: ese autovalor no impide la diagonalización.
+        \item Si $\dim E_{\lambda_i}<k$: $A$ \textbf{no} es diagonalizable, y ya no hace
+        falta revisar los demás autovalores.
+    \end{itemize}
+    \item La conclusión final es diagonalizable solo si esto se cumple para
+    \textbf{todos} los autovalores (los de multiplicidad 1 la cumplen automáticamente).
+\end{enumerate}
+\end{proc}
+
 \qpide{Hallar polinomio característico, autovalores, autovectores/autoespacios y decidir
 diagonalizabilidad.}
 
@@ -602,11 +661,48 @@ diagonalizabilidad.}
 \end{enumerate}
 \end{proc}
 
-\begin{ejemplo}
+\begin{ejemplo}[Autovalores distintos: no hace falta revisar autoespacios]
 $B=\begin{pmatrix}2&1\\6&3\end{pmatrix}$. $\det(B-\lambda I)=(2-\lambda)(3-\lambda)-6=
 \lambda^2-5\lambda=\lambda(\lambda-5)$. Autovalores $\lambda_1=0,\lambda_2=5$ (distintos)
 $\Rightarrow$ diagonalizable automáticamente. Para $\lambda_1=0$: $2x+y=0\Rightarrow
 v_1=(1,-2)$. Para $\lambda_2=5$: $-3x+y=0\Rightarrow v_2=(1,3)$.
+\end{ejemplo}
+
+\begin{ejemplo}[Autovalor repetido: hay que revisar el autoespacio]
+$D=\begin{pmatrix}3&2&4\\2&0&2\\4&2&3\end{pmatrix}$.
+Desarrollando, $\det(D-\lambda I)=-\lambda^3+6\lambda^2+15\lambda+8$, que factoriza como
+$-(\lambda-8)(\lambda+1)^2$. Autovalores: $\lambda_1=8$ (mult.\ algebraica 1) y
+$\lambda_2=-1$ (mult.\ algebraica 2). Como $\lambda_2$ se repite, \textbf{no alcanza} con
+decir que es diagonalizable: hay que resolver $(D+I)v=0$ para calcular su autoespacio.
+
+\[
+D+I=\begin{pmatrix}4&2&4\\2&1&2\\4&2&4\end{pmatrix}
+\]
+
+Las tres filas son múltiplos de $(2,1,2)$, así que el sistema se reduce a la única
+ecuación $2x+y+2z=0$, con dos variables libres ($x$ y $z$). Por lo tanto
+$\dim E_{-1}=2$, que coincide con la multiplicidad algebraica de $\lambda_2$. Como esto se
+cumple para los dos autovalores (el de mult.\ 1 automáticamente, y el de mult.\ 2 recién
+verificado), $D$ \textbf{sí es diagonalizable}. Un autoespacio de $\lambda_2=-1$ es
+$\{(1,-2,0),\,(0,-2,1)\}$ (dando valores a las dos variables libres de $2x+y+2z=0$).
+\end{ejemplo}
+
+\begin{ejemplo}[Autovalor repetido: NO es diagonalizable (ejemplo del apunte)]
+$A=\begin{pmatrix}4&1\\0&4\end{pmatrix}$. Por ser triangular, su único autovalor es
+$\lambda=4$, con multiplicidad algebraica 2 (el cupo completo, ya que $n=2$). Resolvemos
+$(A-4I)v=0$:
+\[
+A-4I=\begin{pmatrix}0&1\\0&0\end{pmatrix}\ \Rightarrow\ y=0,\ x \text{ libre}
+\]
+El autoespacio $E_4=\{(x,0)\}$ tiene dimensión 1, que es \textbf{menor} que la
+multiplicidad algebraica (2). Por lo tanto $A$ \textbf{no es diagonalizable}: al único
+autovalor le faltó un autovector independiente para completar su cupo, y no hay otro
+autovalor que lo compense.
+
+El apunte da además un argumento alternativo, por el absurdo: si $A$ fuera
+diagonalizable, como su único autovalor es 4, la matriz diagonal tendría que ser
+$D=4I$, y de $P^{-1}AP=4I$ se deduce $A=P(4I)P^{-1}=4I$. Pero $A\neq4I$ (tiene ese 1 fuera
+de la diagonal), contradicción. Por lo tanto no existe tal $P$.
 \end{ejemplo}
 
 \begin{atencion}
