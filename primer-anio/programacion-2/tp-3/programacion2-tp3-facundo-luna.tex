@@ -1,0 +1,649 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% TIPOGRAFÍA
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% COMILLAS TIPOGRÁFICAS (compatibles con babel/español)
+% ============================================================
+\usepackage{csquotes}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{caption}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CÓDIGO / PYTHON
+% ============================================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+% Estilo para código Python
+\lstdefinestyle{python}{
+    style=estilo_base,
+    language=Python,
+}
+\renewcommand{\lstlistingname}{Código}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% Comando corto para importar la solución de un ejercicio desde ejercicios/
+% Uso: \codigopython{02}{Caption del ejercicio}
+% Espera encontrar el archivo ejercicios/TP3_Ejercicio_#1.py
+\newcommand{\codigopython}[2]{%
+    \lstinputlisting[style=python, caption={#2}]{ejercicios/TP3_Ejercicio_#1.py}%
+}
+
+% ============================================================
+% LISTAS
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N° 3 - Programación II},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Programación II}
+\fancyhead[R]{\small Trabajo Práctico N° 3}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Programación II}
+\newcommand{\trabajo}{Trabajo Práctico N° 3}
+\newcommand{\profesor}{Ing. Mario Martínez}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+% COMANDO PARA EL ENUNCIADO DE CADA EJERCICIO
+% ============================================================
+\newcommand{\enunciado}[1]{%
+    \begin{quote}
+        \itshape #1
+    \end{quote}
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== CUERPO ============================
+
+\newpage
+
+\phantomsection
+\section*{Aclaraciones previas}
+\addcontentsline{toc}{section}{Aclaraciones previas}
+
+El presente trabajo práctico consiste en la codificación en Python de 30 ejercicios de la Unidad correspondiente de Programación II, referidos al uso de estructuras condicionales (\texttt{if}, \texttt{elif}, \texttt{else}) y estructuras repetitivas (\texttt{for}, \texttt{while}, \texttt{range}). Cada ejercicio se resuelve en un archivo independiente, nombrado según el formato exigido por la cátedra (\texttt{TP3\_Ejercicio\_XX.py}), incluyendo como primera línea un comentario con el apellido y nombre del alumno.
+
+El código fuente completo de cada ejercicio se encuentra disponible en el siguiente repositorio de GitHub, con el fin de facilitar su verificación y prueba:
+
+\begin{center}
+    \url{https://github.com/Facugl/data-science-coursework/tree/main/primer-anio/programacion-2/tp-3/ejercicios}
+\end{center}
+
+% ======================== EJERCICIO 1 ========================
+
+\newpage
+\section{Kilómetros por litro recorridos por un auto}
+
+\enunciado{Escribir un programa que solicite la cantidad de kilómetros recorridos por un auto y la cantidad total de litros que consumió en ese recorrido. Luego mostrar por pantalla cuántos kilómetros hace por litro.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{01}{Kilómetros por litro recorridos por un auto}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 2 ========================
+
+\section{Resta del 15\% a un número}
+
+\enunciado{Escribir un programa que solicite un número, luego le reste el 15\%, almacenando todo en una única variable. A continuación, mostrar el resultado final por pantalla.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{02}{Resta del 15\% a un número}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 3 ========================
+
+\section{Número par o impar}
+
+\enunciado{Escribir un programa que solicite un número entero y luego muestre por pantalla si el número es par o no. (Usar función resto)}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{03}{Número par o impar}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 4 ========================
+
+\section{Vocal o no vocal}
+
+\enunciado{Escribir un programa que solicite el ingreso de una letra, luego valide si es una vocal, mostrando el mensaje \enquote{Es vocal} o \enquote{No es vocal}.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{04}{Vocal o no vocal}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 5 ========================
+
+\section{Suma, promedio y multiplicación de tres números}
+
+\enunciado{Escribir un programa que solicite el ingreso de 3 números. Luego muestre por pantalla: la suma de los números, el promedio de los números y la multiplicación de los 3 números (todo en un mismo programa).}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{05}{Suma, promedio y multiplicación de tres números}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 6 ========================
+
+\section{Conversión de Fahrenheit a Celsius}
+
+\enunciado{Escribir un programa que solicite al usuario el ingreso de una temperatura en escala Fahrenheit (debe permitir decimales), y luego muestre por pantalla el equivalente en grados Celsius. La fórmula de conversión que se usa para este cálculo es: Celsius = (5/9) * (Fahrenheit-32).}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{06}{Conversión de Fahrenheit a Celsius}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 7 ========================
+
+\section{Examen tipo múltiple choice}
+
+\enunciado{Escribir un programa que funcione como un examen tipo múltiple choice. Pregunte al usuario: \enquote{¿Qué color se genera mezclando azul y amarillo?} y muestre las opciones \enquote{1- Rojo; 2- Violeta; 3- Verde; 4- Negro}. Luego de recibida la respuesta muestre el mensaje de \enquote{Respuesta Correcta} o \enquote{Respuesta incorrecta} según corresponda.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{07}{Examen tipo múltiple choice}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 8 ========================
+
+\section{Calificación según la nota del examen}
+
+\enunciado{Solicitar al usuario el ingreso de la nota del Examen. Luego mostrar por pantalla:}
+
+\begin{itemize}[noitemsep]
+    \item[a.] \enquote{Sobresaliente! Felicitaciones!} (nota 10)
+    \item[b.] \enquote{Promocionado! Bravo!} (7 a 9)
+    \item[c.] \enquote{Aprobado. Bien pero a poner más empeño!} (4 a 6)
+    \item[d.] \enquote{Desaprobado. Prepararse para el recuperatorio!} (0 a 3)
+\end{itemize}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{08}{Calificación según la nota del examen}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 9 ========================
+
+\section{Comparación y verificación de dos números}
+
+\enunciado{Solicitar el ingreso de dos números y mostrar: cuál de los dos números es mayor; verificar si el primer número es positivo, negativo o cero; verificar si el segundo número es mayor a 0 y menor a 100.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{09}{Comparación y verificación de dos números}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 10 ========================
+
+\section{Diferencia entre dos números: positiva, negativa o cero}
+
+\enunciado{Realice un programa que solicite 2 números. Calcule la diferencia entre ellos e informe por pantalla si el resultado es positivo, negativo o cero.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{10}{Diferencia entre dos números: positiva, negativa o cero}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 11 ========================
+
+\section{Paridad de tres números enteros}
+
+\enunciado{Realice un programa que solicite el ingreso de tres números enteros, y luego en cada caso informe si el número es par o impar.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{11}{Paridad de tres números enteros}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 12 ========================
+
+\section{Máxima, mínima y promedio de tres temperaturas}
+
+\enunciado{Realice un programa que solicite ingresar tres valores de temperatura. De las temperaturas ingresadas determinar cuál de ellas es la máxima temperatura ingresada, cuál es la mínima temperatura ingresada y cuál es el promedio de las temperaturas ingresadas.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{12}{Máxima, mínima y promedio de tres temperaturas}
+
+\volverindice
+
+% ======================== SECCIÓN BUCLES ========================
+
+\newpage
+\phantomsection
+\section*{Bucles}
+\addcontentsline{toc}{section}{Bucles}
+
+A partir de este punto, los ejercicios requieren el uso de estructuras repetitivas (\texttt{for} y \texttt{while}) para resolver problemas que implican recorrer secuencias de valores, acumular resultados o repetir una acción un número determinado de veces.
+
+% ======================== EJERCICIO 13 ========================
+
+\newpage
+\section{Números del 1 al 30 en forma ascendente}
+
+\enunciado{Mostrar los números del 1 al 30 en forma ascendente.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{13}{Números del 1 al 30 en forma ascendente}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 14 ========================
+
+\section{Números del 20 al 1 en forma descendente}
+
+\enunciado{Mostrar los números del 20 al 1 en forma descendente.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{14}{Números del 20 al 1 en forma descendente}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 15 ========================
+
+\section{Números pares entre 10 y 40}
+
+\enunciado{Mostrar los números pares entre 10 y 40 en forma ascendente.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{15}{Números pares entre 10 y 40}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 16 ========================
+
+\section{Números impares del 60 al 30 en forma descendente}
+
+\enunciado{Mostrar los números impares del 60 al 30 en forma descendente.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{16}{Números impares del 60 al 30 en forma descendente}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 17 ========================
+
+\section{Tabla de multiplicar del 6}
+
+\enunciado{Mostrar la tabla de multiplicar del 6 (Ej. 6x1=6; 6x2=12; 6x3=18, etc. hasta 6x10).}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{17}{Tabla de multiplicar del 6}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 18 ========================
+
+\section{Múltiplos de 5 entre 1 y 100}
+
+\enunciado{Mostrar los múltiplos de 5 desde el 1 al 100. (usar mod)}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{18}{Múltiplos de 5 entre 1 y 100}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 19 ========================
+
+\section{Números desde N hasta P}
+
+\enunciado{Desde un número N y otro P ingresados por el usuario, mostrar todos los números desde N hasta P. (suponer que P es mayor que N)}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{19}{Números desde N hasta P}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 20 ========================
+
+\section{Repetición de un nombre N veces}
+
+\enunciado{Dado el nombre de una persona y un número N ingresados por el usuario, mostrarlo N veces seguidas, tanto el nombre como su repetición. Por Ej: Ana 1, Ana 2, Ana 3.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{20}{Repetición de un nombre N veces}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 21 ========================
+
+\section{Todas las tablas de multiplicar del 1 al 10}
+
+\enunciado{Mostrar todas las tablas de multiplicar del 1 al 10, con un subtítulo entre cada tabla separando las mismas. Ej: \enquote{Tabla del 1; 1x1=1; 1x2=2; 1x3=3…1x10=10; Tabla del 2; 2x1=2; 2x2=4….}}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{21}{Todas las tablas de multiplicar del 1 al 10}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 22 ========================
+
+\section{Suma total y producto de 5 números}
+
+\enunciado{Solicitar 5 números al usuario. Luego mostrar: la suma total de todos los números y el producto de todos los números.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{22}{Suma total y producto de 5 números}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 23 ========================
+
+\section{Promedio de edad de un curso}
+
+\enunciado{Dada la cantidad de alumnos de un curso ingresada por el usuario, solicitar todas las edades y mostrar el promedio general de edad del curso.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{23}{Promedio de edad de un curso}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 24 ========================
+
+\section{Suma de pares y producto de impares en una lista de 10 números}
+
+\enunciado{Dada una lista de 10 números ingresados por el usuario, calcular y mostrar la suma de todos los números pares y el producto de todos los números impares.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{24}{Suma de pares y producto de impares en una lista de 10 números}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 25 ========================
+
+\section{Suma de múltiplos de 3 y producto de múltiplos de 5}
+
+\enunciado{Dada una lista de 10 números ingresados por el usuario, calcular y mostrar la suma de todos los números múltiplos de 3 y el producto de todos los números múltiplos de 5.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{25}{Suma de múltiplos de 3 y producto de múltiplos de 5}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 26 ========================
+
+\section{Cantidad de múltiplos de 4, de 2, positivos y negativos}
+
+\enunciado{Dada una lista de 10 números ingresados por el usuario, calcular y mostrar la cantidad de números múltiplo de 4, la cantidad de números múltiplo de 2, la cantidad de números positivos y la cantidad de números negativos.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{26}{Cantidad de múltiplos de 4, de 2, positivos y negativos}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 27 ========================
+
+\section{Promedio general y promedio de los números positivos}
+
+\enunciado{Dada una lista de 10 números ingresados por el usuario, calcular y mostrar el promedio de todos los números ingresados y el promedio de los números positivos.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{27}{Promedio general y promedio de los números positivos}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 28 ========================
+
+\section{Conteo de negativos y no negativos en un rango}
+
+\enunciado{Pedir por consola dos números que representen el principio y fin de una secuencia numérica. Realizar un bucle \enquote{for} que recorra esa secuencia armada con \enquote{range} y cuente cuántos números son negativos y cuántos números son mayor o igual a cero. Tener en cuenta que \enquote{range} no incluye el número de \enquote{fin} en su secuencia, sino que va hasta el anterior.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{28}{Conteo de negativos y no negativos en un rango}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 29 ========================
+
+\section{Cantidad y sumatoria de números en un rango}
+
+\enunciado{Realice un programa que pida por consola dos números que representen el principio y fin de una secuencia numérica. Realizar un bucle \enquote{for} que recorra esa secuencia armada con \enquote{range} y cuente cuántos números ingresados hay, y la sumatoria de todos los números. Al finalizar el bucle, utilice la variable \texttt{cantidad\_numeros} y la variable \texttt{sumatoria} para calcular el promedio de todos los números ingresados. Tener en cuenta que \enquote{range} no incluye el número de \enquote{fin} en su secuencia, sino que va hasta el anterior.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{29}{Cantidad y sumatoria de números en un rango}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 30 ========================
+
+\section{Calculadora con bucle y operador FIN}
+
+\enunciado{Realice una calculadora: dentro de un bucle se debe ingresar por línea de comando dos números. Luego se ingresará como tercera entrada al programa el símbolo de la operación que se desea ejecutar: suma (+), resta (-), multiplicación (*), división (/), exponente/potencia (**).}
+
+\enunciado{Se debe efectuar el cálculo correcto según la operación ingresada por consola. Imprimir en pantalla la operación realizada y el resultado. El programa se debe repetir dentro del bucle hasta que como operador se ingrese la palabra \enquote{FIN}, en ese momento debe terminar el programa. Se debe mostrar un mensaje de error si el operador ingresado no es alguno de los soportados o no es la palabra \enquote{FIN}.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{30}{Calculadora con bucle y operador FIN}
+
+\volverindice
+
+\end{document}
