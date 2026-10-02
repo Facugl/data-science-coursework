@@ -1,0 +1,1925 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°2 - Parte 2},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Cálculo Diferencial e Integral II}
+\fancyhead[R]{\small Trabajo Práctico N°2 - Parte 2}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Cálculo Diferencial e Integral II}
+\newcommand{\trabajo}{Trabajo Práctico N°2 - Parte 2}
+\newcommand{\profesor}{Lic. Mauro Vaca}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% La parte 2 continúa la numeración de la parte 1 (ejercicios 1 a 8).
+\setcounter{section}{8}
+
+% ======================== EJERCICIO 9 ========================
+
+\newpage
+
+\section{Propiedades de la integral definida}
+
+Suponiendo conocidos:
+\[
+\int_{-4}^{5}f(x)\,dx=10,
+\qquad
+\int_{0}^{3}f(x)\,dx=7,
+\qquad
+\int_{3}^{5}f(x)\,dx=-4,
+\]
+\[
+\int_{-4}^{-2}f(x)\,dx=-5,
+\qquad
+\int_{-4}^{-2}g(x)\,dx=-2,
+\qquad
+\int_{-4}^{0}g(x)\,dx=0.
+\]
+
+Utilice propiedades de la integral definida para calcular:
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    \int_{3}^{5}4f(x)\,dx
+    \]
+
+    \solucion
+
+    Una constante multiplicativa puede salir fuera de la integral:
+    \[
+    \int_{3}^{5}4f(x)\,dx=4\int_{3}^{5}f(x)\,dx=4\cdot(-4).
+    \]
+
+    \[
+    \boxed{
+    \int_{3}^{5}4f(x)\,dx=-16
+    }
+    \]
+
+
+    \item
+    \[
+    \int_{-2}^{0}g(x)\,dx+\int_{-2}^{-4}g(x)\,dx
+    \]
+
+    \solucion
+
+    Por la aditividad respecto del intervalo,
+    \[
+    \int_{-4}^{0}g(x)\,dx=\int_{-4}^{-2}g(x)\,dx+\int_{-2}^{0}g(x)\,dx
+    \quad\Rightarrow\quad
+    \int_{-2}^{0}g(x)\,dx=0-(-2)=2.
+    \]
+
+    Al invertir los límites de integración cambia el signo de la integral:
+    \[
+    \int_{-2}^{-4}g(x)\,dx=-\int_{-4}^{-2}g(x)\,dx=-(-2)=2.
+    \]
+
+    Sumando:
+    \[
+    \boxed{
+    \int_{-2}^{0}g(x)\,dx+\int_{-2}^{-4}g(x)\,dx=2+2=4
+    }
+    \]
+
+
+    \item
+    \[
+    \int_{-4}^{-2}\left[3g(x)-2f(x)\right]dx
+    \]
+
+    \solucion
+
+    Por la linealidad de la integral definida:
+    \[
+    \int_{-4}^{-2}\left[3g(x)-2f(x)\right]dx
+    =3\int_{-4}^{-2}g(x)\,dx-2\int_{-4}^{-2}f(x)\,dx
+    =3(-2)-2(-5)=-6+10.
+    \]
+
+    \[
+    \boxed{
+    \int_{-4}^{-2}\left[3g(x)-2f(x)\right]dx=4
+    }
+    \]
+
+
+    \item
+    \[
+    \int_{0}^{5}\frac52f(x)\,dx+\int_{-4}^{0}\frac12f(x)\,dx
+    \]
+
+    \solucion
+
+    Primero obtenemos las dos integrales de $f$ que necesitamos. Por la
+    aditividad respecto del intervalo:
+    \[
+    \int_{0}^{5}f(x)\,dx=\int_{0}^{3}f(x)\,dx+\int_{3}^{5}f(x)\,dx=7+(-4)=3,
+    \]
+    \[
+    \int_{-4}^{0}f(x)\,dx=\int_{-4}^{5}f(x)\,dx-\int_{0}^{5}f(x)\,dx=10-3=7.
+    \]
+
+    Entonces
+    \[
+    \int_{0}^{5}\frac52f(x)\,dx+\int_{-4}^{0}\frac12f(x)\,dx
+    =\frac52\cdot3+\frac12\cdot7=\frac{15}{2}+\frac72=\frac{22}{2}.
+    \]
+
+    \[
+    \boxed{
+    \int_{0}^{5}\frac52f(x)\,dx+\int_{-4}^{0}\frac12f(x)\,dx=11
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 10 ========================
+
+\section{Cambio de variable en la integral definida}
+
+Utilizando propiedades de la integral definida determine los valores de
+$A$, $B$ y $C$, de modo que se satisfaga:
+\[
+\int_{0}^{2}x\,f(1-x^2)\,dx=C\int_{A}^{B}f(u)\,du.
+\]
+
+\solucion
+
+Hacemos el cambio de variable sugerido por el argumento de $f$:
+\[
+u=1-x^2,
+\qquad
+du=-2x\,dx
+\quad\Rightarrow\quad
+x\,dx=-\frac12\,du.
+\]
+
+Al ser una integral definida, también cambiamos los límites de
+integración:
+\[
+x=0\ \Rightarrow\ u=1-0^2=1,
+\qquad
+x=2\ \Rightarrow\ u=1-2^2=-3.
+\]
+
+Sustituyendo:
+\[
+\int_{0}^{2}x\,f(1-x^2)\,dx
+=\int_{1}^{-3}f(u)\left(-\frac12\right)du
+=-\frac12\int_{1}^{-3}f(u)\,du.
+\]
+
+Invirtiendo los límites de integración (lo que cambia el signo):
+\[
+\int_{0}^{2}x\,f(1-x^2)\,dx=\frac12\int_{-3}^{1}f(u)\,du.
+\]
+
+\[
+\boxed{
+A=-3,\qquad B=1,\qquad C=\frac12
+}
+\]
+
+Observación: también es válida la terna equivalente $A=1$, $B=-3$,
+$C=-\frac12$, que corresponde a la expresión antes de invertir los
+límites.
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 11 ========================
+
+\section{Área de regiones planas}
+
+Encuentre el área de la región sombreada.
+
+\begin{enumerate}[label=\alph*.-]
+
+    % ----------------------------------------------------------
+    % 11 a)
+    % ----------------------------------------------------------
+
+    \item Región entre $y=5x-x^2$ e $y=x$.
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=9cm, height=7cm,
+            axis lines=middle,
+            xlabel={$x$}, ylabel={$y$},
+            xmin=-0.8, xmax=5.8,
+            ymin=-1.5, ymax=7.5,
+            samples=100,
+            axis line style={-Latex},
+        ]
+            \addplot[name path=f, thick, magenta, domain=-0.3:5.3] {5*x-x^2};
+            \addplot[name path=g, thick, cyan!70!blue, domain=-0.5:5.5] {x};
+            \addplot[blue!15] fill between[of=f and g, soft clip={domain=0:4}];
+            \addplot[only marks, mark=*, mark size=2pt, black]
+                coordinates {(0,0) (4,4)};
+            \node[anchor=west] at (axis cs:4.1,4) {$(4,4)$};
+            \node[magenta] at (axis cs:3.6,7) {$y=5x-x^2$};
+            \node[cyan!70!blue] at (axis cs:4.8,5.8) {$y=x$};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \solucion
+
+    Puntos de intersección:
+    \[
+    5x-x^2=x
+    \quad\Rightarrow\quad
+    x^2-4x=0
+    \quad\Rightarrow\quad
+    x(x-4)=0
+    \quad\Rightarrow\quad
+    x=0,\ x=4.
+    \]
+
+    En $[0,4]$ la parábola está por encima de la recta (por ejemplo, en
+    $x=1$: $4>1$). Entonces
+    \[
+    A=\int_{0}^{4}\left[(5x-x^2)-x\right]dx
+    =\int_{0}^{4}\left(4x-x^2\right)dx
+    =\left[2x^2-\frac{x^3}{3}\right]_{0}^{4}
+    =32-\frac{64}{3}.
+    \]
+
+    \[
+    \boxed{
+    A=\frac{32}{3}\approx10{,}67
+    }
+    \]
+
+
+    \newpage
+    % ----------------------------------------------------------
+    % 11 b)
+    % ----------------------------------------------------------
+
+    \item Región entre $y=\sqrt{x+2}$, $y=\dfrac{1}{x+1}$, el eje $y$
+    y la recta $x=2$.
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=9cm, height=7cm,
+            axis lines=middle,
+            xlabel={$x$}, ylabel={$y$},
+            xmin=-1.2, xmax=3.3,
+            ymin=-0.5, ymax=3.3,
+            samples=150,
+            axis line style={-Latex},
+        ]
+            \addplot[name path=f, thick, magenta, domain=-2:3] {sqrt(x+2)};
+            \addplot[name path=g, thick, cyan!70!blue, domain=-0.65:3] {1/(x+1)};
+            \addplot[blue!15] fill between[of=f and g, soft clip={domain=0:2}];
+            \draw[thick] (axis cs:2,0) -- (axis cs:2,2);
+            \node[magenta] at (axis cs:1.2,2.6) {$y=\sqrt{x+2}$};
+            \node[cyan!70!blue] at (axis cs:2.65,0.8) {$y=\dfrac{1}{x+1}$};
+            \node[anchor=west] at (axis cs:2.05,1.3) {$x=2$};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \solucion
+
+    En $[0,2]$ la curva $y=\sqrt{x+2}$ está por encima de
+    $y=\frac{1}{x+1}$ (en $x=0$: $\sqrt2>1$, y luego la primera crece
+    mientras la segunda decrece). Entonces
+    \[
+    A=\int_{0}^{2}\left[\sqrt{x+2}-\frac{1}{x+1}\right]dx
+    =\left[\frac23(x+2)^{3/2}-\ln|x+1|\right]_{0}^{2}.
+    \]
+
+    Evaluando:
+    \[
+    A=\left(\frac23\cdot4^{3/2}-\ln3\right)-\left(\frac23\cdot2^{3/2}-\ln1\right)
+    =\frac{16}{3}-\ln3-\frac{4\sqrt2}{3}.
+    \]
+
+    \[
+    \boxed{
+    A=\frac{16-4\sqrt2}{3}-\ln3\approx2{,}35
+    }
+    \]
+
+
+    \newpage
+    % ----------------------------------------------------------
+    % 11 c)
+    % ----------------------------------------------------------
+
+    \item Región entre $x=e^y$, $x=y^2-2$, $y=-1$ e $y=1$.
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=9cm, height=7cm,
+            axis lines=middle,
+            xlabel={$x$}, ylabel={$y$},
+            xmin=-2.6, xmax=4.2,
+            ymin=-2.2, ymax=2.2,
+            samples=150,
+            axis line style={-Latex},
+        ]
+            \fill[blue!15]
+                plot[domain=-1:1, variable=\y, samples=60] ({exp(\y)},{\y})
+                -- plot[domain=1:-1, variable=\y, samples=60] ({\y*\y-2},{\y})
+                -- cycle;
+            \addplot[thick, magenta, variable=\t, domain=-2.2:1.4]
+                ({exp(t)},{t});
+            \addplot[thick, cyan!70!blue, variable=\t, domain=-2.1:2.1]
+                ({t^2-2},{t});
+            \draw[thick] (axis cs:-1,1) -- (axis cs:2.718,1);
+            \draw[thick] (axis cs:-1,-1) -- (axis cs:0.368,-1);
+            \node[magenta] at (axis cs:3.5,0.6) {$x=e^y$};
+            \node[cyan!70!blue] at (axis cs:-1.4,1.8) {$x=y^2-2$};
+            \node[anchor=south] at (axis cs:3,1) {$y=1$};
+            \node[anchor=north] at (axis cs:1.1,-1) {$y=-1$};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \solucion
+
+    Conviene integrar respecto de $y$, ya que las curvas están dadas
+    como funciones de $y$. Para $-1\le y\le1$ la curva de la derecha es
+    $x=e^y$ y la de la izquierda es $x=y^2-2$. Entonces
+    \[
+    A=\int_{-1}^{1}\left[e^y-(y^2-2)\right]dy
+    =\int_{-1}^{1}\left(e^y-y^2+2\right)dy
+    =\left[e^y-\frac{y^3}{3}+2y\right]_{-1}^{1}.
+    \]
+
+    Evaluando:
+    \[
+    A=\left(e-\frac13+2\right)-\left(e^{-1}+\frac13-2\right)
+    =e-\frac1e+4-\frac23.
+    \]
+
+    \[
+    \boxed{
+    A=e-\frac1e+\frac{10}{3}\approx5{,}68
+    }
+    \]
+
+
+    \newpage
+    % ----------------------------------------------------------
+    % 11 d)
+    % ----------------------------------------------------------
+
+    \item Región entre $x=y^2-4y$ y $x=2y-y^2$.
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=9cm, height=7cm,
+            axis lines=middle,
+            xlabel={$x$}, ylabel={$y$},
+            xmin=-5.5, xmax=2.5,
+            ymin=-1, ymax=4.5,
+            samples=150,
+            axis line style={-Latex},
+        ]
+            \addplot[name path=f, thick, magenta, variable=\t, domain=-0.6:3.7]
+                ({2*t-t^2},{t});
+            \addplot[name path=g, thick, cyan!70!blue, variable=\t, domain=-0.5:4.3]
+                ({t^2-4*t},{t});
+            \addplot[blue!15] fill between[of=f and g,
+                soft clip={(axis cs:-6,0) rectangle (axis cs:3,3)}];
+            \addplot[only marks, mark=*, mark size=2pt, black]
+                coordinates {(0,0) (-3,3)};
+            \node[anchor=east] at (axis cs:-3.1,3.1) {$(-3,3)$};
+            \node[cyan!70!blue] at (axis cs:-2.4,4.1) {$x=y^2-4y$};
+            \node[magenta] at (axis cs:-3.6,0.5) {$x=2y-y^2$};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \solucion
+
+    Integramos respecto de $y$. Puntos de intersección:
+    \[
+    y^2-4y=2y-y^2
+    \quad\Rightarrow\quad
+    2y^2-6y=0
+    \quad\Rightarrow\quad
+    2y(y-3)=0
+    \quad\Rightarrow\quad
+    y=0,\ y=3,
+    \]
+    que corresponden a los puntos $(0,0)$ y $(-3,3)$.
+
+    En $[0,3]$ la curva de la derecha es $x=2y-y^2$ (en $y=1$: $1>-3$).
+    Entonces
+    \[
+    A=\int_{0}^{3}\left[(2y-y^2)-(y^2-4y)\right]dy
+    =\int_{0}^{3}\left(6y-2y^2\right)dy
+    =\left[3y^2-\frac23y^3\right]_{0}^{3}
+    =27-18.
+    \]
+
+    \[
+    \boxed{
+    A=9
+    }
+    \]
+
+
+    \newpage
+    % ----------------------------------------------------------
+    % 11 e)
+    % ----------------------------------------------------------
+
+    \item Región entre $y=\frac12\sec^2t$ e $y=-4\sen^2t$, para
+    $-\frac\pi3\le t\le\frac\pi3$.
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=9cm, height=7.5cm,
+            axis lines=middle,
+            xlabel={$t$}, ylabel={$y$},
+            xtick={-1.0471975512, 1.0471975512},
+            xticklabels={$-\frac{\pi}{3}$, $\frac{\pi}{3}$},
+            ytick={-4,-2,1,2},
+            xmin=-1.6, xmax=1.6,
+            ymin=-4.6, ymax=3.2,
+            samples=150,
+            restrict y to domain=-5:4,
+            axis line style={-Latex},
+        ]
+            \addplot[name path=f, thick, magenta, domain=-1.2:1.2]
+                {0.5/(cos(deg(x)))^2};
+            \addplot[name path=g, thick, cyan!70!blue, domain=-1.5:1.5]
+                {-4*(sin(deg(x)))^2};
+            \addplot[blue!15] fill between[of=f and g,
+                soft clip={domain=-1.0471975512:1.0471975512}];
+            \draw[dashed] (axis cs:-1.0471975512,-3) -- (axis cs:-1.0471975512,2);
+            \draw[dashed] (axis cs:1.0471975512,-3) -- (axis cs:1.0471975512,2);
+            \node[magenta] at (axis cs:0.55,2.1) {$y=\frac12\sec^2t$};
+            \node[cyan!70!blue] at (axis cs:0.6,-4.2) {$y=-4\sen^2t$};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \solucion
+
+    En $\left[-\frac\pi3,\frac\pi3\right]$ se tiene
+    $\frac12\sec^2t>0\ge-4\sen^2t$, de modo que
+    \[
+    A=\int_{-\pi/3}^{\pi/3}\left[\frac12\sec^2t+4\sen^2t\right]dt.
+    \]
+
+    Como el integrando es una función par, podemos integrar en
+    $\left[0,\frac\pi3\right]$ y duplicar:
+    \[
+    A=2\int_{0}^{\pi/3}\left[\frac12\sec^2t+4\sen^2t\right]dt.
+    \]
+
+    Calculamos cada parte. La primera es inmediata:
+    \[
+    \int_{0}^{\pi/3}\frac12\sec^2t\,dt=\frac12\Big[\tan t\Big]_{0}^{\pi/3}
+    =\frac{\sqrt3}{2}.
+    \]
+
+    Para la segunda usamos $\sen^2t=\dfrac{1-\cos(2t)}{2}$:
+    \[
+    \int_{0}^{\pi/3}4\sen^2t\,dt
+    =\int_{0}^{\pi/3}\left(2-2\cos(2t)\right)dt
+    =\Big[2t-\sen(2t)\Big]_{0}^{\pi/3}
+    =\frac{2\pi}{3}-\frac{\sqrt3}{2}.
+    \]
+
+    Sumando: $\dfrac{\sqrt3}{2}+\dfrac{2\pi}{3}-\dfrac{\sqrt3}{2}=\dfrac{2\pi}{3}$.
+    Por lo tanto
+    \[
+    \boxed{
+    A=2\cdot\frac{2\pi}{3}=\frac{4\pi}{3}\approx4{,}19
+    }
+    \]
+
+
+    \newpage
+    % ----------------------------------------------------------
+    % 11 f)
+    % ----------------------------------------------------------
+
+    \item (*) Región entre $y=-x^2+3x$ e $y=2x^3-x^2-5x$.
+
+    \begin{center}
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=9cm, height=7.5cm,
+            axis lines=middle,
+            xlabel={$x$}, ylabel={$y$},
+            xmin=-2.6, xmax=2.8,
+            ymin=-11.5, ymax=4.5,
+            ytick={-5},
+            samples=150,
+            restrict y to domain=-13:6,
+            axis line style={-Latex},
+        ]
+            \addplot[name path=f, thick, cyan!70!blue, domain=-2.1:3]
+                {-x^2+3*x};
+            \addplot[name path=g, thick, black, domain=-2.05:2.4]
+                {2*x^3-x^2-5*x};
+            \addplot[blue!15] fill between[of=f and g, soft clip={domain=-2:2}];
+            \addplot[only marks, mark=*, mark size=2pt, black]
+                coordinates {(-2,-10) (0,0) (2,2)};
+            \node[anchor=west] at (axis cs:-1.95,-10.3) {$(-2,-10)$};
+            \node[anchor=west] at (axis cs:2.05,1.6) {$(2,2)$};
+            \node[cyan!70!blue] at (axis cs:1.45,3.9) {$y=-x^2+3x$};
+            \node[black] at (axis cs:1.5,-6) {$y=2x^3-x^2-5x$};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \solucion
+
+    Puntos de intersección:
+    \[
+    2x^3-x^2-5x=-x^2+3x
+    \quad\Rightarrow\quad
+    2x^3-8x=0,
+    \]
+    \[
+    2x(x-2)(x+2)=0
+    \quad\Rightarrow\quad
+    x=-2,\ 0,\ 2.
+    \]
+
+    Las curvas se cruzan en $x=0$, por lo que el área se divide en dos
+    partes:
+    \begin{itemize}
+        \item En $[-2,0]$ la cúbica está arriba (en $x=-1$: $2>-4$).
+        \item En $[0,2]$ la parábola está arriba (en $x=1$: $2>-4$).
+    \end{itemize}
+
+    La diferencia entre ambas es $(2x^3-x^2-5x)-(-x^2+3x)=2x^3-8x$. Entonces
+    \[
+    A=\int_{-2}^{0}\left(2x^3-8x\right)dx+\int_{0}^{2}\left(8x-2x^3\right)dx.
+    \]
+
+    \[
+    \int_{-2}^{0}\left(2x^3-8x\right)dx
+    =\left[\frac{x^4}{2}-4x^2\right]_{-2}^{0}=0-(8-16)=8,
+    \]
+    \[
+    \int_{0}^{2}\left(8x-2x^3\right)dx
+    =\left[4x^2-\frac{x^4}{2}\right]_{0}^{2}=16-8=8.
+    \]
+
+    \[
+    \boxed{
+    A=8+8=16
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 12 ========================
+
+\section{Integrales impropias}
+
+Determine si cada una de las siguientes integrales es convergente o
+divergente. Evalúe las que sean convergentes.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    \int_{1}^{\infty}\frac{\ln y}{y^3}\,dy
+    \]
+
+    \solucion
+
+    Es una integral impropia de primera especie (intervalo no acotado):
+    \[
+    \int_{1}^{\infty}\frac{\ln y}{y^3}\,dy
+    =\lim_{b\to\infty}\int_{1}^{b}\frac{\ln y}{y^3}\,dy.
+    \]
+
+    Calculamos la primitiva por partes, eligiendo
+    \[
+    u=\ln y,\qquad dv=y^{-3}\,dy
+    \quad\Rightarrow\quad
+    du=\frac1y\,dy,\qquad v=-\frac{1}{2y^2}.
+    \]
+    \[
+    \int\frac{\ln y}{y^3}\,dy
+    =-\frac{\ln y}{2y^2}+\int\frac{1}{2y^3}\,dy
+    =-\frac{\ln y}{2y^2}-\frac{1}{4y^2}+C.
+    \]
+
+    Entonces
+    \[
+    \int_{1}^{b}\frac{\ln y}{y^3}\,dy
+    =\left(-\frac{\ln b}{2b^2}-\frac{1}{4b^2}\right)-\left(0-\frac14\right).
+    \]
+
+    Por la regla de L'Hôpital,
+    $\displaystyle\lim_{b\to\infty}\frac{\ln b}{b^2}=\lim_{b\to\infty}\frac{1/b}{2b}=0$,
+    y también $\dfrac{1}{4b^2}\to0$. Por lo tanto el límite existe y vale
+    $\frac14$.
+
+    \[
+    \boxed{
+    \int_{1}^{\infty}\frac{\ln y}{y^3}\,dy=\frac14
+    \quad\text{(convergente)}
+    }
+    \]
+
+
+    \item
+    \[
+    \int_{-\infty}^{0}t\,e^{2t}\,dt
+    \]
+
+    \solucion
+
+    \[
+    \int_{-\infty}^{0}t\,e^{2t}\,dt=\lim_{a\to-\infty}\int_{a}^{0}t\,e^{2t}\,dt.
+    \]
+
+    Por partes, con $u=t$, $dv=e^{2t}\,dt$ ($du=dt$, $v=\frac12e^{2t}$):
+    \[
+    \int t\,e^{2t}\,dt=\frac{t}{2}e^{2t}-\frac12\int e^{2t}\,dt
+    =\frac{t}{2}e^{2t}-\frac14e^{2t}+C.
+    \]
+
+    Entonces
+    \[
+    \int_{a}^{0}t\,e^{2t}\,dt
+    =\left(0-\frac14\right)-\left(\frac{a}{2}e^{2a}-\frac14e^{2a}\right).
+    \]
+
+    Cuando $a\to-\infty$: $e^{2a}\to0$ y, por L'Hôpital,
+    \[
+    \lim_{a\to-\infty}a\,e^{2a}=\lim_{a\to-\infty}\frac{a}{e^{-2a}}
+    =\lim_{a\to-\infty}\frac{1}{-2e^{-2a}}=0.
+    \]
+
+    \[
+    \boxed{
+    \int_{-\infty}^{0}t\,e^{2t}\,dt=-\frac14
+    \quad\text{(convergente)}
+    }
+    \]
+
+
+    \item
+    \[
+    \int_{-\infty}^{\infty}z\,e^{-z^2}\,dz
+    \]
+
+    \solucion
+
+    Separamos en $z=0$; la integral converge sólo si convergen ambas
+    partes:
+    \[
+    \int_{-\infty}^{\infty}z\,e^{-z^2}\,dz
+    =\int_{-\infty}^{0}z\,e^{-z^2}\,dz+\int_{0}^{\infty}z\,e^{-z^2}\,dz.
+    \]
+
+    Con $w=-z^2$, $dw=-2z\,dz$, la primitiva es
+    $\displaystyle\int z\,e^{-z^2}\,dz=-\frac12e^{-z^2}+C$. Entonces
+    \[
+    \int_{0}^{\infty}z\,e^{-z^2}\,dz
+    =\lim_{b\to\infty}\left[-\frac12e^{-z^2}\right]_{0}^{b}
+    =\lim_{b\to\infty}\left(-\frac12e^{-b^2}+\frac12\right)=\frac12,
+    \]
+    \[
+    \int_{-\infty}^{0}z\,e^{-z^2}\,dz
+    =\lim_{a\to-\infty}\left[-\frac12e^{-z^2}\right]_{a}^{0}
+    =\lim_{a\to-\infty}\left(-\frac12+\frac12e^{-a^2}\right)=-\frac12.
+    \]
+
+    Ambas convergen, así que
+    \[
+    \boxed{
+    \int_{-\infty}^{\infty}z\,e^{-z^2}\,dz=-\frac12+\frac12=0
+    \quad\text{(convergente)}
+    }
+    \]
+
+
+    \item
+    \[
+    \int_{-\infty}^{\infty}\frac{e^x}{1+e^{2x}}\,dx
+    \]
+
+    \solucion
+
+    Con la sustitución $u=e^x$, $du=e^x\,dx$:
+    \[
+    \int\frac{e^x}{1+e^{2x}}\,dx=\int\frac{du}{1+u^2}=\arctan(e^x)+C.
+    \]
+
+    Separamos en $x=0$:
+    \[
+    \int_{0}^{\infty}\frac{e^x}{1+e^{2x}}\,dx
+    =\lim_{b\to\infty}\Big[\arctan(e^x)\Big]_{0}^{b}
+    =\frac\pi2-\frac\pi4=\frac\pi4,
+    \]
+    ya que $e^b\to\infty$ y $\arctan(e^b)\to\frac\pi2$.
+    \[
+    \int_{-\infty}^{0}\frac{e^x}{1+e^{2x}}\,dx
+    =\lim_{a\to-\infty}\Big[\arctan(e^x)\Big]_{a}^{0}
+    =\frac\pi4-0=\frac\pi4,
+    \]
+    ya que $e^a\to0$ y $\arctan(e^a)\to0$.
+
+    \[
+    \boxed{
+    \int_{-\infty}^{\infty}\frac{e^x}{1+e^{2x}}\,dx=\frac\pi4+\frac\pi4=\frac\pi2
+    \quad\text{(convergente)}
+    }
+    \]
+
+
+    \item
+    \[
+    \int_{0}^{1}\frac{x+1}{\sqrt{x^2+2x}}\,dx
+    \]
+
+    \solucion
+
+    Es una integral impropia de segunda especie: en $x=0$ el denominador
+    se anula ($\sqrt{0^2+2\cdot0}=0$) y el integrando no está acotado.
+    \[
+    \int_{0}^{1}\frac{x+1}{\sqrt{x^2+2x}}\,dx
+    =\lim_{a\to0^+}\int_{a}^{1}\frac{x+1}{\sqrt{x^2+2x}}\,dx.
+    \]
+
+    Con $u=x^2+2x$, $du=2(x+1)\,dx$:
+    \[
+    \int\frac{x+1}{\sqrt{x^2+2x}}\,dx=\frac12\int u^{-1/2}\,du=\sqrt u+C
+    =\sqrt{x^2+2x}+C.
+    \]
+
+    Entonces
+    \[
+    \lim_{a\to0^+}\left[\sqrt{x^2+2x}\right]_{a}^{1}
+    =\lim_{a\to0^+}\left(\sqrt3-\sqrt{a^2+2a}\right)=\sqrt3.
+    \]
+
+    \[
+    \boxed{
+    \int_{0}^{1}\frac{x+1}{\sqrt{x^2+2x}}\,dx=\sqrt3
+    \quad\text{(convergente)}
+    }
+    \]
+
+
+    \item
+    \[
+    \int_{0}^{4}\frac{dx}{\sqrt{16-x^2}}
+    \]
+
+    \solucion
+
+    El integrando no está acotado en $x=4$, por lo que
+    \[
+    \int_{0}^{4}\frac{dx}{\sqrt{16-x^2}}
+    =\lim_{b\to4^-}\int_{0}^{b}\frac{dx}{\sqrt{16-x^2}}.
+    \]
+
+    La primitiva es inmediata:
+    $\displaystyle\int\frac{dx}{\sqrt{16-x^2}}=\operatorname{arcsen}\left(\frac x4\right)+C$.
+    Entonces
+    \[
+    \lim_{b\to4^-}\left[\operatorname{arcsen}\left(\frac x4\right)\right]_{0}^{b}
+    =\operatorname{arcsen}(1)-\operatorname{arcsen}(0)=\frac\pi2.
+    \]
+
+    \[
+    \boxed{
+    \int_{0}^{4}\frac{dx}{\sqrt{16-x^2}}=\frac\pi2
+    \quad\text{(convergente)}
+    }
+    \]
+
+
+    \item (*)
+    \[
+    \int_{-1}^{1}\frac{1}{x^2}\,dx
+    \]
+
+    \solucion
+
+    El integrando no está definido en $x=0$, que es un punto interior del
+    intervalo. Separamos:
+    \[
+    \int_{-1}^{1}\frac{dx}{x^2}=\int_{-1}^{0}\frac{dx}{x^2}+\int_{0}^{1}\frac{dx}{x^2}.
+    \]
+
+    Analizamos la segunda:
+    \[
+    \int_{0}^{1}\frac{dx}{x^2}
+    =\lim_{a\to0^+}\left[-\frac1x\right]_{a}^{1}
+    =\lim_{a\to0^+}\left(-1+\frac1a\right)=+\infty.
+    \]
+
+    Como una de las partes diverge, la integral completa diverge.
+
+    \[
+    \boxed{
+    \int_{-1}^{1}\frac{1}{x^2}\,dx\ \text{ es divergente}
+    }
+    \]
+
+    Observación: si se ignorara la discontinuidad y se aplicara
+    directamente la regla de Barrow, se obtendría
+    $\left[-\frac1x\right]_{-1}^{1}=-2$, un resultado absurdo, ya que el
+    integrando es siempre positivo.
+
+
+    \item (*)
+    \[
+    \int_{0}^{2}\frac{dx}{x^2-6x+5}
+    \]
+
+    \solucion
+
+    Factorizamos el denominador: $x^2-6x+5=(x-1)(x-5)$. En el intervalo
+    $[0,2]$ el integrando no está definido en $x=1$, así que
+    \[
+    \int_{0}^{2}\frac{dx}{x^2-6x+5}
+    =\int_{0}^{1}\frac{dx}{(x-1)(x-5)}+\int_{1}^{2}\frac{dx}{(x-1)(x-5)}.
+    \]
+
+    Por fracciones parciales,
+    $\dfrac{1}{(x-1)(x-5)}=\dfrac{A}{x-1}+\dfrac{B}{x-5}$ con
+    $A=-\frac14$ y $B=\frac14$, de modo que
+    \[
+    \int\frac{dx}{(x-1)(x-5)}=\frac14\ln\left|\frac{x-5}{x-1}\right|+C.
+    \]
+
+    Analizamos la primera parte:
+    \[
+    \int_{0}^{1}\frac{dx}{(x-1)(x-5)}
+    =\lim_{b\to1^-}\left[\frac14\ln\left|\frac{x-5}{x-1}\right|\right]_{0}^{b}
+    =\lim_{b\to1^-}\frac14\ln\left|\frac{b-5}{b-1}\right|-\frac14\ln5=+\infty,
+    \]
+    ya que $\left|\frac{b-5}{b-1}\right|\to+\infty$ cuando $b\to1^-$.
+
+    \[
+    \boxed{
+    \int_{0}^{2}\frac{dx}{x^2-6x+5}\ \text{ es divergente}
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 13 ========================
+
+\section{Longitud de arco}
+
+Determine la longitud de arco de las siguientes curvas.
+
+Recordamos que la longitud de arco de una curva $y=f(x)$, con
+$a\le x\le b$, es
+\[
+L=\int_{a}^{b}\sqrt{1+\left[f'(x)\right]^2}\,dx,
+\]
+y análogamente, para una curva $x=g(y)$ con $c\le y\le d$,
+\[
+L=\int_{c}^{d}\sqrt{1+\left[g'(y)\right]^2}\,dy.
+\]
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $y=1+6x^{3/2}$, \quad $0\le x\le1$.
+
+    \solucion
+
+    Derivando: $y'=6\cdot\frac32x^{1/2}=9\sqrt x$, de donde
+    $(y')^2=81x$. Entonces
+    \[
+    L=\int_{0}^{1}\sqrt{1+81x}\,dx.
+    \]
+
+    Con $u=1+81x$, $du=81\,dx$ (si $x=0$, $u=1$; si $x=1$, $u=82$):
+    \[
+    L=\frac{1}{81}\int_{1}^{82}u^{1/2}\,du
+    =\frac{1}{81}\cdot\frac23\Big[u^{3/2}\Big]_{1}^{82}
+    =\frac{2}{243}\left(82^{3/2}-1\right).
+    \]
+
+    \[
+    \boxed{
+    L=\frac{2}{243}\left(82\sqrt{82}-1\right)\approx6{,}10
+    }
+    \]
+
+
+    \item $x=\dfrac{y^4}{8}+\dfrac{1}{4y^2}$, \quad $1\le y\le2$.
+
+    \solucion
+
+    Derivando respecto de $y$:
+    \[
+    \frac{dx}{dy}=\frac{y^3}{2}-\frac{1}{2y^3}.
+    \]
+
+    Elevando al cuadrado:
+    \[
+    \left(\frac{dx}{dy}\right)^2=\frac{y^6}{4}-\frac12+\frac{1}{4y^6},
+    \]
+    y sumando 1 se obtiene un cuadrado perfecto:
+    \[
+    1+\left(\frac{dx}{dy}\right)^2=\frac{y^6}{4}+\frac12+\frac{1}{4y^6}
+    =\left(\frac{y^3}{2}+\frac{1}{2y^3}\right)^2.
+    \]
+
+    Como $\frac{y^3}{2}+\frac{1}{2y^3}>0$ en $[1,2]$:
+    \[
+    L=\int_{1}^{2}\left(\frac{y^3}{2}+\frac{1}{2y^3}\right)dy
+    =\left[\frac{y^4}{8}-\frac{1}{4y^2}\right]_{1}^{2}
+    =\left(2-\frac{1}{16}\right)-\left(\frac18-\frac14\right)
+    =\frac{31}{16}+\frac18.
+    \]
+
+    \[
+    \boxed{
+    L=\frac{33}{16}
+    }
+    \]
+
+
+    \item $x=\dfrac13\sqrt y\,(y-3)$, \quad $1\le y\le9$.
+
+    \solucion
+
+    Escribimos $x=\frac13\left(y^{3/2}-3y^{1/2}\right)$ y derivamos:
+    \[
+    \frac{dx}{dy}=\frac13\left(\frac32y^{1/2}-\frac32y^{-1/2}\right)
+    =\frac12\left(y^{1/2}-y^{-1/2}\right).
+    \]
+
+    Entonces
+    \[
+    1+\left(\frac{dx}{dy}\right)^2
+    =1+\frac14\left(y-2+\frac1y\right)
+    =\frac14\left(y+2+\frac1y\right)
+    =\left[\frac12\left(y^{1/2}+y^{-1/2}\right)\right]^2.
+    \]
+
+    Por lo tanto
+    \[
+    L=\int_{1}^{9}\frac12\left(y^{1/2}+y^{-1/2}\right)dy
+    =\frac12\left[\frac23y^{3/2}+2y^{1/2}\right]_{1}^{9},
+    \]
+    \[
+    L=\frac12\left[(18+6)-\left(\frac23+2\right)\right]
+    =\frac12\cdot\frac{64}{3}.
+    \]
+
+    \[
+    \boxed{
+    L=\frac{32}{3}
+    }
+    \]
+
+
+    \item $y=\ln(\cos x)$, \quad $0\le x\le\dfrac\pi3$.
+
+    \solucion
+
+    Derivando: $y'=\dfrac{-\sen x}{\cos x}=-\tan x$. Por la identidad
+    pitagórica:
+    \[
+    1+(y')^2=1+\tan^2x=\sec^2x.
+    \]
+
+    Como $\sec x>0$ en $\left[0,\frac\pi3\right]$:
+    \[
+    L=\int_{0}^{\pi/3}\sec x\,dx
+    =\Big[\ln|\sec x+\tan x|\Big]_{0}^{\pi/3}
+    =\ln\left(2+\sqrt3\right)-\ln(1+0).
+    \]
+
+    \[
+    \boxed{
+    L=\ln\left(2+\sqrt3\right)\approx1{,}32
+    }
+    \]
+
+
+    \item (*) $y=\dfrac14x^2-\dfrac12\ln x$, \quad $1\le x\le2$.
+
+    \solucion
+
+    Derivando: $y'=\dfrac x2-\dfrac{1}{2x}$. Entonces
+    \[
+    1+(y')^2=1+\frac{x^2}{4}-\frac12+\frac{1}{4x^2}
+    =\frac{x^2}{4}+\frac12+\frac{1}{4x^2}
+    =\left(\frac x2+\frac{1}{2x}\right)^2.
+    \]
+
+    Por lo tanto
+    \[
+    L=\int_{1}^{2}\left(\frac x2+\frac{1}{2x}\right)dx
+    =\left[\frac{x^2}{4}+\frac12\ln x\right]_{1}^{2}
+    =\left(1+\frac12\ln2\right)-\frac14.
+    \]
+
+    \[
+    \boxed{
+    L=\frac34+\frac12\ln2\approx1{,}10
+    }
+    \]
+
+
+    \item (*) $y=1-e^{-x}$, \quad $0\le x\le2$.
+
+    \solucion
+
+    Derivando: $y'=e^{-x}$, así que
+    \[
+    L=\int_{0}^{2}\sqrt{1+e^{-2x}}\,dx.
+    \]
+
+    Sustituimos $w=e^{-x}$, $dw=-e^{-x}\,dx=-w\,dx$, es decir,
+    $dx=-\dfrac{dw}{w}$. Los límites cambian a $x=0\Rightarrow w=1$ y
+    $x=2\Rightarrow w=e^{-2}$:
+    \[
+    L=\int_{1}^{e^{-2}}\sqrt{1+w^2}\left(-\frac{dw}{w}\right)
+    =\int_{e^{-2}}^{1}\frac{\sqrt{1+w^2}}{w}\,dw.
+    \]
+
+    Esta integral fue resuelta por sustitución trigonométrica en el
+    ejercicio 7.c de la parte 1:
+    \[
+    \int\frac{\sqrt{1+w^2}}{w}\,dw
+    =\sqrt{1+w^2}-\ln\left|\frac{1+\sqrt{1+w^2}}{w}\right|+C.
+    \]
+
+    Evaluando en $w=1$:
+    \[
+    \sqrt2-\ln\left(1+\sqrt2\right).
+    \]
+
+    Evaluando en $w=e^{-2}$, y usando que
+    $\ln\left(\dfrac{1+\sqrt{1+e^{-4}}}{e^{-2}}\right)=\ln\left(1+\sqrt{1+e^{-4}}\right)+2$:
+    \[
+    \sqrt{1+e^{-4}}-\ln\left(1+\sqrt{1+e^{-4}}\right)-2.
+    \]
+
+    Restando:
+    \[
+    \boxed{
+    L=2+\sqrt2-\sqrt{1+e^{-4}}+\ln\left(\frac{1+\sqrt{1+e^{-4}}}{1+\sqrt2}\right)
+    \approx2{,}22
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 14 ========================
+
+\section{Trabajo}
+
+Resolver lo pedido en cada caso. Recordamos que el trabajo realizado por
+una fuerza variable $F(x)$ al mover un objeto desde $x=a$ hasta $x=b$ es
+\[
+W=\int_{a}^{b}F(x)\,dx,
+\]
+y que, por la ley de Hooke, la fuerza necesaria para mantener un
+resorte estirado $x$ unidades más allá de su longitud natural es
+$F(x)=kx$.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Una fuerza variable de $5x^{-2}\ \text{N}$ mueve un objeto a
+    lo largo de una línea recta cuando está a $x$ metros del origen.
+    Calcule el trabajo realizado para mover el objeto desde $x=1\ \text{m}$
+    a $x=10\ \text{m}$.
+
+    \solucion
+
+    \[
+    W=\int_{1}^{10}5x^{-2}\,dx
+    =5\left[-\frac1x\right]_{1}^{10}
+    =5\left(-\frac{1}{10}+1\right)
+    =5\cdot\frac{9}{10}.
+    \]
+
+    \[
+    \boxed{
+    W=4{,}5\ \text{J}
+    }
+    \]
+
+
+    \item Cuando una partícula se localiza a una distancia de $x$ metros
+    desde el origen, una fuerza de $\cos(\pi x/3)$ newtons actúa sobre
+    ella. ¿Cuánto trabajo se realiza al mover la partícula desde $x=1$
+    hasta $x=2$? Interprete su respuesta considerando el trabajo
+    realizado desde $x=1$ hasta $x=1{,}5$ y desde $x=1{,}5$ hasta $x=2$.
+
+    \solucion
+
+    La primitiva de $\cos\left(\frac{\pi x}{3}\right)$ es
+    $\frac3\pi\sen\left(\frac{\pi x}{3}\right)$. Entonces
+    \[
+    W=\int_{1}^{2}\cos\left(\frac{\pi x}{3}\right)dx
+    =\frac3\pi\left[\sen\left(\frac{\pi x}{3}\right)\right]_{1}^{2},
+    \]
+    \[
+    W=\frac3\pi\left(\sen\frac{2\pi}{3}-\sen\frac\pi3\right)
+    =\frac3\pi\left(\frac{\sqrt3}{2}-\frac{\sqrt3}{2}\right).
+    \]
+
+    \[
+    \boxed{
+    W=0\ \text{J}
+    }
+    \]
+
+    \textbf{Interpretación.} Calculamos el trabajo en cada mitad del
+    recorrido:
+    \[
+    W_1=\int_{1}^{1{,}5}\cos\left(\frac{\pi x}{3}\right)dx
+    =\frac3\pi\left(\sen\frac\pi2-\sen\frac\pi3\right)
+    =\frac3\pi\left(1-\frac{\sqrt3}{2}\right)\approx0{,}128\ \text{J},
+    \]
+    \[
+    W_2=\int_{1{,}5}^{2}\cos\left(\frac{\pi x}{3}\right)dx
+    =\frac3\pi\left(\sen\frac{2\pi}{3}-\sen\frac\pi2\right)
+    =\frac3\pi\left(\frac{\sqrt3}{2}-1\right)\approx-0{,}128\ \text{J}.
+    \]
+
+    La fuerza $\cos\left(\frac{\pi x}{3}\right)$ se anula en $x=1{,}5$:
+    entre $x=1$ y $x=1{,}5$ es positiva (actúa en el sentido del
+    movimiento y realiza trabajo positivo), mientras que entre $x=1{,}5$
+    y $x=2$ es negativa (se opone al movimiento). Por la simetría del
+    coseno respecto de $x=1{,}5$, ambos trabajos tienen el mismo valor
+    absoluto y signos opuestos, por lo que se cancelan y el trabajo
+    neto es nulo.
+
+
+    \item Un resorte tiene una longitud natural de $20\ \text{cm}$. Si
+    se requiere una fuerza de $25\ \text{N}$ para mantenerlo estirado a
+    una longitud de $30\ \text{cm}$, ¿cuánto trabajo se requiere para
+    estirarlo desde $20$ hasta $25\ \text{cm}$?
+
+    \solucion
+
+    Al estar a $30\ \text{cm}$, el resorte está estirado
+    $30-20=10\ \text{cm}=0{,}1\ \text{m}$. Por la ley de Hooke:
+    \[
+    25=k\cdot0{,}1
+    \quad\Rightarrow\quad
+    k=250\ \text{N/m}.
+    \]
+
+    Estirarlo desde $20$ hasta $25\ \text{cm}$ equivale a llevar el
+    estiramiento desde $x=0$ hasta $x=0{,}05\ \text{m}$:
+    \[
+    W=\int_{0}^{0{,}05}250x\,dx
+    =125\Big[x^2\Big]_{0}^{0{,}05}
+    =125\cdot0{,}0025.
+    \]
+
+    \[
+    \boxed{
+    W=0{,}3125\ \text{J}
+    }
+    \]
+
+
+    \item Suponga que se necesitan $2\ \text{J}$ de trabajo para estirar
+    un resorte desde su longitud natural de $30\ \text{cm}$ hasta una
+    longitud de $42\ \text{cm}$.
+
+    \solucion
+
+    Primero hallamos la constante $k$. Estirar de $30$ a $42\ \text{cm}$
+    es llevar el estiramiento de $0$ a $0{,}12\ \text{m}$:
+    \[
+    2=\int_{0}^{0{,}12}kx\,dx=\frac k2(0{,}12)^2=0{,}0072\,k,
+    \]
+    \[
+    k=\frac{2}{0{,}0072}=\frac{2500}{9}\ \text{N/m}\approx277{,}8\ \text{N/m}.
+    \]
+
+    \begin{enumerate}[label=\roman*)]
+
+        \item ¿Cuánto trabajo se requiere para estirarlo desde $35$
+        hasta $40\ \text{cm}$?
+
+        Corresponde a estiramientos desde $x=0{,}05$ hasta
+        $x=0{,}10\ \text{m}$:
+        \[
+        W=\int_{0{,}05}^{0{,}10}\frac{2500}{9}x\,dx
+        =\frac{1250}{9}\Big[x^2\Big]_{0{,}05}^{0{,}10}
+        =\frac{1250}{9}\left(0{,}01-0{,}0025\right)
+        =\frac{1250}{9}\cdot0{,}0075.
+        \]
+
+        \[
+        \boxed{
+        W=\frac{25}{24}\ \text{J}\approx1{,}04\ \text{J}
+        }
+        \]
+
+        \item (*) ¿Cuánto más allá de su longitud natural, una fuerza
+        de $30\ \text{N}$ mantendrá el resorte estirado?
+
+        Por la ley de Hooke:
+        \[
+        30=\frac{2500}{9}\,x
+        \quad\Rightarrow\quad
+        x=\frac{270}{2500}=0{,}108\ \text{m}.
+        \]
+
+        \[
+        \boxed{
+        x=10{,}8\ \text{cm}
+        }
+        \]
+
+    \end{enumerate}
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 15 ========================
+
+\section{Masa y centro de masa de una barra}
+
+Calcule la masa total y el centro de masa de la barra indicada.
+
+Si una barra ocupa el intervalo $[a,b]$ y su densidad lineal es
+$\rho(x)$, su masa total y su centro de masa son
+\[
+M=\int_{a}^{b}\rho(x)\,dx,
+\qquad
+\bar x=\frac{1}{M}\int_{a}^{b}x\,\rho(x)\,dx.
+\]
+
+En todos los casos ubicamos el extremo de referencia de la barra en
+$x=0$.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item La longitud de una barra es de $6\ \text{m}$ y la densidad
+    lineal de la barra en un punto que está a $x$ metros de un extremo es
+    $2x+3\ \text{kg/m}$.
+
+    \solucion
+
+    \[
+    M=\int_{0}^{6}(2x+3)\,dx=\Big[x^2+3x\Big]_{0}^{6}=36+18=54\ \text{kg}.
+    \]
+
+    Momento respecto del origen:
+    \[
+    \int_{0}^{6}x(2x+3)\,dx=\int_{0}^{6}\left(2x^2+3x\right)dx
+    =\left[\frac23x^3+\frac32x^2\right]_{0}^{6}=144+54=198.
+    \]
+
+    \[
+    \bar x=\frac{198}{54}=\frac{11}{3}.
+    \]
+
+    \[
+    \boxed{
+    M=54\ \text{kg},
+    \qquad
+    \bar x=\frac{11}{3}\ \text{m}\approx3{,}67\ \text{m del extremo}
+    }
+    \]
+
+    Como era de esperar, el centro de masa está desplazado hacia el
+    extremo más denso (más allá del punto medio, $x=3$).
+
+
+    \item La longitud de la barra es de $9\ \text{pulg}$ y la densidad
+    lineal de la barra en un punto que está a $x$ pulgadas de un extremo
+    es $4x+1\ \text{slugs/pulg}$.
+
+    \solucion
+
+    \[
+    M=\int_{0}^{9}(4x+1)\,dx=\Big[2x^2+x\Big]_{0}^{9}=162+9=171\ \text{slugs}.
+    \]
+
+    Momento respecto del origen:
+    \[
+    \int_{0}^{9}x(4x+1)\,dx=\int_{0}^{9}\left(4x^2+x\right)dx
+    =\left[\frac43x^3+\frac12x^2\right]_{0}^{9}=972+\frac{81}{2}=\frac{2025}{2}.
+    \]
+
+    \[
+    \bar x=\frac{2025/2}{171}=\frac{2025}{342}=\frac{225}{38}.
+    \]
+
+    \[
+    \boxed{
+    M=171\ \text{slugs},
+    \qquad
+    \bar x=\frac{225}{38}\ \text{pulg}\approx5{,}92\ \text{pulg del extremo}
+    }
+    \]
+
+
+    \item La longitud de la barra es de $12\ \text{cm}$ y la medida de
+    la densidad lineal de la barra en un punto es una función lineal de
+    la medida de la distancia del punto al extremo izquierdo de la barra.
+    La densidad lineal en el extremo izquierdo es $3\ \text{g/cm}$ y en
+    el extremo derecho es $4\ \text{g/cm}$.
+
+    \solucion
+
+    Ubicamos el extremo izquierdo en $x=0$. Como la densidad es lineal,
+    $\rho(x)=mx+n$, con $\rho(0)=3$ y $\rho(12)=4$:
+    \[
+    n=3,
+    \qquad
+    m=\frac{4-3}{12-0}=\frac{1}{12}
+    \quad\Rightarrow\quad
+    \rho(x)=3+\frac{x}{12}.
+    \]
+
+    Masa total:
+    \[
+    M=\int_{0}^{12}\left(3+\frac{x}{12}\right)dx
+    =\left[3x+\frac{x^2}{24}\right]_{0}^{12}=36+6=42\ \text{g}.
+    \]
+
+    Momento respecto del extremo izquierdo:
+    \[
+    \int_{0}^{12}x\left(3+\frac{x}{12}\right)dx
+    =\left[\frac32x^2+\frac{x^3}{36}\right]_{0}^{12}=216+48=264.
+    \]
+
+    \[
+    \bar x=\frac{264}{42}=\frac{44}{7}.
+    \]
+
+    \[
+    \boxed{
+    M=42\ \text{g},
+    \qquad
+    \bar x=\frac{44}{7}\ \text{cm}\approx6{,}29\ \text{cm del extremo izquierdo}
+    }
+    \]
+
+
+    \item (*) La medida de la densidad lineal en cualquier punto de una
+    barra de $6\ \text{m}$ de longitud varía directamente como la
+    distancia del punto a un punto externo situado a $4\ \text{m}$ de un
+    extremo, donde la densidad es $3\ \text{kg/m}$.
+
+    \solucion
+
+    Colocamos el punto externo en el origen, sobre la recta de la barra.
+    Entonces el extremo más cercano está en $x=4$ y el más lejano en
+    $x=10$. Como la densidad varía directamente con la distancia al
+    origen, $\rho(x)=kx$. En el extremo cercano ($x=4$) la densidad es
+    $3\ \text{kg/m}$:
+    \[
+    3=4k
+    \quad\Rightarrow\quad
+    k=\frac34
+    \quad\Rightarrow\quad
+    \rho(x)=\frac34x.
+    \]
+
+    Masa total:
+    \[
+    M=\int_{4}^{10}\frac34x\,dx=\frac38\Big[x^2\Big]_{4}^{10}
+    =\frac38(100-16)=\frac{63}{2}=31{,}5\ \text{kg}.
+    \]
+
+    Momento respecto del punto externo:
+    \[
+    \int_{4}^{10}\frac34x^2\,dx=\frac14\Big[x^3\Big]_{4}^{10}
+    =\frac14(1000-64)=234.
+    \]
+
+    \[
+    \bar x=\frac{234}{63/2}=\frac{468}{63}=\frac{52}{7}\ \text{m}
+    \]
+    medidos desde el punto externo. Respecto del extremo más cercano a
+    dicho punto: $\frac{52}{7}-4=\frac{24}{7}$.
+
+    \[
+    \boxed{
+    M=31{,}5\ \text{kg},
+    \qquad
+    \bar x=\frac{24}{7}\ \text{m}\approx3{,}43\ \text{m del extremo más cercano al punto externo}
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 16 ========================
+
+\section{Verificación de soluciones de ecuaciones diferenciales}
+
+Verifique si las siguientes expresiones son soluciones de las EDO dadas.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $y=Cxe^x$, con $C\in\mathbb{R}$, es solución de
+    $y''-2y'+y=0$.
+
+    \solucion
+
+    Derivamos aplicando la regla del producto:
+    \[
+    y'=C\left(e^x+xe^x\right)=Ce^x(x+1),
+    \]
+    \[
+    y''=C\left[e^x(x+1)+e^x\right]=Ce^x(x+2).
+    \]
+
+    Reemplazando en el primer miembro de la ecuación:
+    \[
+    y''-2y'+y
+    =Ce^x(x+2)-2Ce^x(x+1)+Cxe^x,
+    \]
+    \[
+    y''-2y'+y=Ce^x\left[(x+2)-2(x+1)+x\right]
+    =Ce^x\cdot0=0.
+    \]
+
+    \[
+    \boxed{
+    y=Cxe^x\ \text{ es solución de } y''-2y'+y=0\ \text{ para todo } C\in\mathbb{R}
+    }
+    \]
+
+
+    \item $y=e^{3x}\cos(2x)$ es solución de
+    $\dfrac{d^2y}{dx^2}-6\dfrac{dy}{dx}+13y=0$.
+
+    \solucion
+
+    Primera derivada (regla del producto):
+    \[
+    \frac{dy}{dx}=3e^{3x}\cos(2x)-2e^{3x}\sen(2x)
+    =e^{3x}\left[3\cos(2x)-2\sen(2x)\right].
+    \]
+
+    Segunda derivada:
+    \[
+    \frac{d^2y}{dx^2}
+    =3e^{3x}\left[3\cos(2x)-2\sen(2x)\right]
+    +e^{3x}\left[-6\sen(2x)-4\cos(2x)\right],
+    \]
+    \[
+    \frac{d^2y}{dx^2}=e^{3x}\left[5\cos(2x)-12\sen(2x)\right].
+    \]
+
+    Reemplazando:
+    \[
+    \frac{d^2y}{dx^2}-6\frac{dy}{dx}+13y
+    =e^{3x}\Big[\left(5\cos2x-12\sen2x\right)
+    -\left(18\cos2x-12\sen2x\right)
+    +13\cos2x\Big].
+    \]
+
+    Agrupando términos:
+    \[
+    \cos(2x):\ 5-18+13=0,
+    \qquad
+    \sen(2x):\ -12+12=0.
+    \]
+
+    \[
+    \boxed{
+    y=e^{3x}\cos(2x)\ \text{ es solución de }
+    \frac{d^2y}{dx^2}-6\frac{dy}{dx}+13y=0
+    }
+    \]
+
+
+    \item $x^2+y^2=2C$ es solución de $\dfrac{dy}{dx}=-\dfrac xy$, donde
+    $C\in\mathbb{R}$.
+
+    \solucion
+
+    La expresión define a $y$ implícitamente como función de $x$.
+    Derivamos implícitamente respecto de $x$:
+    \[
+    2x+2y\frac{dy}{dx}=0
+    \quad\Rightarrow\quad
+    \frac{dy}{dx}=-\frac{x}{y}\qquad(y\neq0).
+    \]
+
+    Se obtiene exactamente la ecuación diferencial dada.
+
+    \[
+    \boxed{
+    x^2+y^2=2C\ \text{ es solución (implícita) de } \frac{dy}{dx}=-\frac xy
+    }
+    \]
+
+    Observación: para que la expresión represente una curva real se
+    necesita $C>0$; en ese caso se trata de la familia de circunferencias
+    centradas en el origen de radio $\sqrt{2C}$.
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 17 ========================
+
+\section{Ecuaciones diferenciales de variables separables}
+
+Resuelve las siguientes ecuaciones diferenciales de variables
+separables.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item
+    \[
+    \frac{dy}{dx}=\frac xy
+    \]
+
+    \solucion
+
+    Separamos las variables e integramos:
+    \[
+    y\,dy=x\,dx
+    \quad\Rightarrow\quad
+    \int y\,dy=\int x\,dx
+    \quad\Rightarrow\quad
+    \frac{y^2}{2}=\frac{x^2}{2}+C.
+    \]
+
+    Multiplicando por 2 y llamando $K=2C$:
+    \[
+    \boxed{
+    y^2-x^2=K,\qquad K\in\mathbb{R}
+    }
+    \]
+
+    La solución general es una familia de hipérbolas equiláteras (y, para
+    $K=0$, el par de rectas $y=\pm x$).
+
+
+    \item
+    \[
+    y'=\frac{\ln x}{xy},\qquad y(1)=2
+    \]
+
+    \solucion
+
+    Separamos las variables:
+    \[
+    y\,dy=\frac{\ln x}{x}\,dx.
+    \]
+
+    Integrando (en el segundo miembro, con $u=\ln x$, $du=\frac1x\,dx$):
+    \[
+    \frac{y^2}{2}=\frac{(\ln x)^2}{2}+C.
+    \]
+
+    Aplicamos la condición inicial $y(1)=2$:
+    \[
+    \frac{4}{2}=\frac{(\ln1)^2}{2}+C
+    \quad\Rightarrow\quad
+    C=2.
+    \]
+
+    Entonces $y^2=(\ln x)^2+4$. Como $y(1)=2>0$, tomamos la raíz positiva:
+    \[
+    \boxed{
+    y=\sqrt{(\ln x)^2+4},\qquad x>0
+    }
+    \]
+
+
+    \item
+    \[
+    \frac{dy}{dx}-ky=0,\qquad k\in\mathbb{R}\ \wedge\ k\neq0
+    \]
+
+    \solucion
+
+    Reescribimos la ecuación como $\dfrac{dy}{dx}=ky$ y separamos las
+    variables (para $y\neq0$):
+    \[
+    \frac{dy}{y}=k\,dx
+    \quad\Rightarrow\quad
+    \int\frac{dy}{y}=\int k\,dx
+    \quad\Rightarrow\quad
+    \ln|y|=kx+C.
+    \]
+
+    Despejando:
+    \[
+    |y|=e^{kx+C}=e^C e^{kx}
+    \quad\Rightarrow\quad
+    y=\pm e^Ce^{kx}.
+    \]
+
+    Llamando $A=\pm e^C$, e incluyendo la solución $y=0$ (que también
+    verifica la ecuación) con $A=0$:
+    \[
+    \boxed{
+    y=Ae^{kx},\qquad A\in\mathbb{R}
+    }
+    \]
+
+    Es el modelo de crecimiento ($k>0$) o decaimiento ($k<0$) exponencial.
+
+
+    \item
+    \[
+    y'-y=0,\qquad y(0)=2
+    \]
+
+    \solucion
+
+    Es el caso particular $k=1$ del inciso anterior:
+    \[
+    \frac{dy}{y}=dx
+    \quad\Rightarrow\quad
+    \ln|y|=x+C
+    \quad\Rightarrow\quad
+    y=Ae^{x}.
+    \]
+
+    Aplicamos la condición inicial:
+    \[
+    y(0)=Ae^0=A=2.
+    \]
+
+    \[
+    \boxed{
+    y=2e^{x}
+    }
+    \]
+
+
+    \item (*)
+    \[
+    x(x+2)\frac{dy}{dx}-y(2x+6)=0
+    \]
+
+    \solucion
+
+    Separamos las variables:
+    \[
+    \frac{dy}{y}=\frac{2x+6}{x(x+2)}\,dx.
+    \]
+
+    Descomponemos en fracciones parciales:
+    \[
+    \frac{2x+6}{x(x+2)}=\frac Ax+\frac{B}{x+2}
+    \quad\Rightarrow\quad
+    2x+6=A(x+2)+Bx.
+    \]
+
+    Con $x=0$: $6=2A\Rightarrow A=3$.
+    Con $x=-2$: $2=-2B\Rightarrow B=-1$.
+
+    Integrando:
+    \[
+    \ln|y|=3\ln|x|-\ln|x+2|+C=\ln\left|\frac{x^3}{x+2}\right|+C.
+    \]
+
+    \[
+    \boxed{
+    y=\frac{Kx^3}{x+2},\qquad K\in\mathbb{R}
+    }
+    \]
+
+
+    \item (*)
+    \[
+    xy-(1+x^2)y'=0,\qquad y(0)=1
+    \]
+
+    \solucion
+
+    Reescribimos como $(1+x^2)\dfrac{dy}{dx}=xy$ y separamos:
+    \[
+    \frac{dy}{y}=\frac{x}{1+x^2}\,dx.
+    \]
+
+    Integrando (en el segundo miembro, con $u=1+x^2$, $du=2x\,dx$):
+    \[
+    \ln|y|=\frac12\ln\left(1+x^2\right)+C
+    \quad\Rightarrow\quad
+    y=K\sqrt{1+x^2}.
+    \]
+
+    Aplicamos la condición inicial:
+    \[
+    y(0)=K\sqrt1=K=1.
+    \]
+
+    \[
+    \boxed{
+    y=\sqrt{1+x^2}
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+\end{document}
