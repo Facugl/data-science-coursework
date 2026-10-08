@@ -1,0 +1,5 @@
+Una empresa de autopistas tiene instalada una cámara que cuenta el número de vehículos que pasa por una autopista, y cuentan el número de ruedas de los vehículos que pasan por la autopista.
+
+La empresa quiere contratar a un programador para que elabore un algoritmo que a partir del número de vehículos y el número de ruedas, extraiga la cantidad de coches y motos que pasan por la autopista.
+
+¿Cómo lo harías?

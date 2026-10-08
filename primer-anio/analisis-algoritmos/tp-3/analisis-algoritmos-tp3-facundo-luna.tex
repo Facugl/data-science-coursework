@@ -1,0 +1,772 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% TIPOGRAFÍA
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CÓDIGO / PSEUDOCÓDIGO
+% ============================================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+% Estilo para pseudocódigo (PSeInt)
+\lstdefinestyle{pseint}{
+    style=estilo_base,
+    language=Pascal,
+}
+
+% Estilo para código Python
+\lstdefinestyle{python}{
+    style=estilo_base,
+    language=Python,
+}
+
+\renewcommand{\lstlistingname}{Algoritmo}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% Comando corto para importar un ejercicio desde la carpeta ejercicios/
+% Uso: \pseudocodigo{nombre-archivo-sin-extension}{Caption del ejercicio}
+\newcommand{\pseudocodigo}[2]{%
+    \lstinputlisting[style=pseint, caption={#2}]{ejercicios/#1.psc}%
+}
+
+% Uso: \codigopython{nombre-archivo-sin-extension}{Caption del ejercicio}
+\newcommand{\codigopython}[2]{%
+    \lstinputlisting[style=python, caption={#2}]{ejercicios/#1.py}%
+}
+
+% ============================================================
+% LISTAS
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N° 3 - Análisis de algoritmos computacionales},
+    pdfauthor   = {Grupo 5 - Baldoma, Fagnani, Luna, Marquetti, Semino Giaccone, Vidal Bernal},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Análisis de algoritmos computacionales}
+\fancyhead[R]{\small Trabajo Práctico N° 3}
+\fancyfoot[L]{\small \grupo}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Análisis de algoritmos computacionales}
+\newcommand{\trabajo}{Trabajo Práctico N° 3}
+\newcommand{\profesor}{Ing. Guillermo Saravia Sanchez}
+\newcommand{\grupo}{Grupo 5}
+\newcommand{\integrantes}{%
+    Baldoma, Fatima \\
+    Fagnani, Gianella Maria \\
+    Luna, Facundo Gaston \\
+    Marquetti, Marcelo Sergio \\
+    Semino Giaccone, Esteban David \\
+    Vidal Bernal, America
+}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+% COMANDO PARA EL ENUNCIADO DE CADA EJERCICIO
+% ============================================================
+\newcommand{\enunciado}[1]{%
+    \begin{quote}
+        \itshape #1
+    \end{quote}
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    {\large\bfseries \grupo}\\[1cm]
+
+    \textbf{Integrantes:}\\[0.4cm]
+    \begin{tabular}{c}
+        \integrantes
+    \end{tabular}
+
+    \vspace{1.2cm}
+
+    \begin{tabular}{rl}
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== CUERPO ============================
+
+\newpage
+
+\phantomsection
+\section*{Aclaraciones previas}
+\addcontentsline{toc}{section}{Aclaraciones previas}
+
+La primera parte de este trabajo (puntos 1 a 7) desarrolla los conceptos teóricos de la Unidad III referidos al análisis de la eficiencia de algoritmos. La segunda parte (punto 8) presenta la resolución de siete algoritmos en pseudocódigo, utilizando la sintaxis del software PSeInt, manteniendo el criterio adoptado en el Trabajo Práctico N° 1: centrar el análisis en la lógica de resolución, evitando que la sintaxis de un lenguaje particular interfiera en la evaluación del razonamiento algorítmico.
+
+El código fuente completo de cada ejercicio se encuentra disponible en el siguiente repositorio de GitHub, con el fin de facilitar su verificación y prueba en el entorno de PSeInt. Cada ejercicio corresponde a un archivo \texttt{.psc} independiente:
+
+\begin{center}
+    \url{https://github.com/Facugl/data-science-coursework/tree/main/primer-anio/analisis-algoritmos/tp-3/ejercicios}
+\end{center}
+
+\phantomsection
+\section*{Introducción}
+\addcontentsline{toc}{section}{Introducción}
+
+Un mismo problema admite, en general, infinitas soluciones algorítmicas correctas. Lo que distingue a unas de otras es la cantidad de recursos que consumen: tiempo de procesamiento y espacio de memoria. El análisis de la eficiencia proporciona las herramientas formales para comparar esas soluciones de manera objetiva e independiente del equipo donde se ejecuten, permitiendo anticipar el comportamiento de un algoritmo antes de implementarlo y predecir cómo escalará cuando el volumen de datos crezca.
+
+% ======================== PUNTO 1 ========================
+
+\newpage
+\section{Eficiencia de un algoritmo}
+
+\enunciado{Definir eficiencia de un algoritmo.}
+
+La \textbf{eficiencia} de un algoritmo es la medida de la cantidad de recursos computacionales que éste consume para resolver un problema de un tamaño determinado. Un algoritmo es más eficiente que otro cuando, resolviendo el mismo problema y produciendo el mismo resultado correcto, requiere menos recursos.
+
+Los dos recursos que se analizan son:
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Eficiencia temporal (complejidad en tiempo):} el tiempo que el algoritmo tarda en producir la salida. Se mide en cantidad de operaciones elementales ejecutadas, no en segundos, para independizar el análisis del hardware.
+    \item \textbf{Eficiencia espacial (complejidad en espacio):} la cantidad de memoria que el algoritmo necesita durante su ejecución, por encima de la ocupada por los datos de entrada.
+\end{itemize}
+
+Es importante señalar que la eficiencia es una propiedad \emph{relativa}: sólo tiene sentido al comparar algoritmos que resuelven el mismo problema. Además, suele existir un compromiso (\emph{trade-off}) entre ambos recursos: con frecuencia un algoritmo puede reducir su tiempo de ejecución a costa de consumir más memoria, y viceversa.
+
+Finalmente, la eficiencia es una cualidad distinta de la corrección. Un algoritmo debe ser, ante todo, correcto; la eficiencia es el criterio que permite elegir entre varias soluciones correctas.
+
+\volverindice
+\newpage
+
+% ======================== PUNTO 2 ========================
+
+\section{Fases en el análisis de la eficiencia}
+
+\enunciado{¿Cuáles son las dos fases en el análisis de la eficiencia de algoritmos?}
+
+El análisis de la eficiencia se realiza en dos fases sucesivas y complementarias:
+
+\subsection{Análisis a priori (teórico)}
+
+Se efectúa \textbf{antes} de ejecutar el algoritmo, trabajando sobre su descripción (pseudocódigo o código fuente). Consiste en obtener una función matemática $T(n)$ que acote la cantidad de operaciones elementales ejecutadas en función del tamaño $n$ de la entrada.
+
+Sus características son:
+
+\begin{itemize}[leftmargin=2em]
+    \item Es \textbf{independiente} del lenguaje de programación, del compilador y de la máquina donde se ejecute.
+    \item No requiere implementar el algoritmo.
+    \item El resultado se expresa mediante notación asintótica, por ejemplo $O(n^2)$.
+\end{itemize}
+
+\subsection{Análisis a posteriori (empírico o experimental)}
+
+Se realiza \textbf{después} de implementar el algoritmo, ejecutándolo con juegos de datos reales y midiendo los tiempos y consumos obtenidos.
+
+Sus características son:
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Depende} del hardware, del sistema operativo, del lenguaje y del compilador utilizados.
+    \item Permite verificar experimentalmente las predicciones del análisis a priori.
+    \item Revela el peso de las constantes ocultas que la notación asintótica descarta, factor decisivo cuando se comparan algoritmos del mismo orden de complejidad.
+\end{itemize}
+
+Ambas fases son complementarias: el análisis a priori indica cómo escalará el algoritmo cuando el volumen de datos crezca, mientras que el análisis a posteriori informa cuánto cuesta realmente ejecutarlo en un entorno concreto.
+
+\volverindice
+\newpage
+
+% ======================== PUNTO 3 ========================
+
+\section{Tamaño o talla de un problema}
+
+\enunciado{¿Cuál es el tamaño o talla de un problema?}
+
+El \textbf{tamaño} o \textbf{talla} de un problema, habitualmente denotado con la letra $n$, es el parámetro que cuantifica el volumen de los datos de entrada y respecto del cual se expresa el tiempo de ejecución del algoritmo.
+
+La elección de $n$ no es arbitraria: debe ser la magnitud de la entrada que realmente determina el trabajo que el algoritmo debe realizar. Según el problema, la talla puede ser:
+
+\begin{itemize}[leftmargin=2em]
+    \item La \textbf{cantidad de elementos} de un arreglo o lista, en algoritmos de búsqueda y ordenamiento.
+    \item El \textbf{valor} de un número entero, en algoritmos como el cálculo del factorial o la determinación de primalidad.
+    \item La \textbf{cantidad de dígitos o bits} de un número, en algoritmos aritméticos sobre enteros grandes.
+    \item La \textbf{cantidad de vértices y aristas} de un grafo, en algoritmos de recorrido o camino mínimo.
+    \item Las \textbf{dimensiones} de una matriz, por ejemplo $n \times m$.
+\end{itemize}
+
+Un problema puede requerir más de un parámetro de talla. En la multiplicación de una matriz de $n \times m$ por otra de $m \times p$, el tiempo depende de los tres valores y la función de costo se expresa como $T(n, m, p)$.
+
+Definir correctamente la talla es el primer paso de todo análisis, porque la función $T(n)$ y el orden de complejidad resultante carecen de sentido sin indicar respecto de qué magnitud se están midiendo.
+
+\volverindice
+\newpage
+
+% ======================== PUNTO 4 ========================
+
+\section{Métodos para medir el tiempo de ejecución}
+
+\enunciado{Explicar al menos 2 métodos para medir el tiempo de ejecución en un algoritmo.}
+
+\subsection{Método teórico: conteo de operaciones elementales}
+
+Consiste en determinar analíticamente, a partir del pseudocódigo, cuántas operaciones elementales ejecuta el algoritmo en función de la talla $n$. Se considera \textbf{operación elemental} a toda instrucción cuyo tiempo de ejecución está acotado por una constante independiente de $n$: una asignación, una comparación, una operación aritmética, el acceso a una posición de un arreglo o la escritura de un valor.
+
+El procedimiento se apoya en tres reglas:
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Instrucciones simples:} cada una cuenta como $1$, tiempo constante $O(1)$.
+    \item \textbf{Regla de la suma (secuencia):} si dos bloques consecutivos cuestan $T_1(n)$ y $T_2(n)$, el bloque completo cuesta $T_1(n) + T_2(n)$, cuyo orden es $O(\max(T_1(n),\, T_2(n)))$.
+    \item \textbf{Regla del producto (anidamiento):} si un bucle que itera $f(n)$ veces contiene un cuerpo de costo $g(n)$, el costo total es $f(n) \cdot g(n)$.
+\end{itemize}
+
+A las estructuras condicionales se les asigna, en el análisis del peor caso, el costo de la rama más costosa más el de evaluar la condición.
+
+\textbf{Ejemplo.} Para el siguiente fragmento:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Instrucción} & \textbf{Veces que se ejecuta} \\
+\midrule
+\codigo{suma <- 0} & $1$ \\
+\codigo{Para i <- 1 Hasta n} & $n+1$ (incluye la comparación final) \\
+\codigo{\quad suma <- suma + i} & $n$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+El total es $T(n) = 1 + (n+1) + n = 2n + 2$, que pertenece a $O(n)$.
+
+\textbf{Ventajas:} es independiente de la máquina, del lenguaje y de los datos concretos, y permite predecir el comportamiento para cualquier valor de $n$, incluso para tallas que sería imposible ejecutar.
+
+\textbf{Limitaciones:} ignora las constantes multiplicativas, que en la práctica pueden ser determinantes, y su cálculo resulta complejo en algoritmos recursivos o con muchas ramificaciones.
+
+\subsection{Método empírico: medición de tiempos de ejecución}
+
+Consiste en implementar el algoritmo y cronometrar su ejecución real sobre distintos juegos de datos, registrando el instante inicial y el final mediante los relojes que provee el sistema (por ejemplo \codigo{time.perf\_counter()} en Python o \codigo{System.nanoTime()} en Java).
+
+El procedimiento habitual es:
+
+\begin{enumerate}[leftmargin=2em]
+    \item Ejecutar el algoritmo con entradas de talla creciente, por ejemplo $n = 100$, $1.000$, $10.000$, $100.000$.
+    \item Repetir cada medición varias veces y promediar, para atenuar el ruido introducido por otros procesos del sistema operativo.
+    \item Tabular y graficar los tiempos obtenidos en función de $n$, verificando si la curva resultante se ajusta a la forma prevista por el análisis teórico.
+\end{enumerate}
+
+\textbf{Ventajas:} refleja el costo real en un entorno concreto, incorpora el efecto de las constantes ocultas y permite discriminar entre algoritmos del mismo orden asintótico.
+
+\textbf{Limitaciones:} los resultados sólo son válidos para el hardware, el lenguaje y los datos utilizados; exige implementar el algoritmo; y no permite extrapolar con seguridad a tallas mucho mayores que las ensayadas.
+
+\subsection{Método intermedio: conteo de la operación crítica por instrumentación}
+
+Una alternativa que combina ambos enfoques consiste en instrumentar el código con un contador que se incrementa cada vez que se ejecuta la \textbf{operación crítica} o característica del algoritmo —la comparación entre elementos en un ordenamiento, por ejemplo— y ejecutarlo con entradas de talla creciente.
+
+Este método conserva la independencia del hardware propia del análisis teórico, porque cuenta operaciones y no segundos, pero obtiene los valores de manera experimental, lo que evita la dificultad del cálculo analítico en algoritmos complejos.
+
+\volverindice
+\newpage
+
+% ======================== PUNTO 5 ========================
+
+\section{Complejidad de un algoritmo y órdenes de complejidad}
+
+\enunciado{¿Qué es la complejidad de un algoritmo? ¿Cuáles son los órdenes de complejidad?}
+
+\subsection{Concepto de complejidad}
+
+La \textbf{complejidad} de un algoritmo es la función que describe cómo crece el consumo de recursos a medida que aumenta la talla $n$ del problema. No interesa el valor exacto de $T(n)$ sino su \textbf{tasa de crecimiento}, es decir, la forma en que la curva se comporta cuando $n$ tiende a infinito.
+
+Por eso, al expresar la complejidad se descartan:
+
+\begin{itemize}[leftmargin=2em]
+    \item Las \textbf{constantes multiplicativas}: $5n$ y $100n$ pertenecen ambas a $O(n)$.
+    \item Los \textbf{términos de menor orden}: en $3n^2 + 7n + 12$ sólo subsiste $n^2$, porque para valores grandes de $n$ domina sobre los demás.
+\end{itemize}
+
+Dado que el costo puede variar con la disposición concreta de los datos, se distinguen tres casos:
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Mejor caso:} la entrada más favorable. En una búsqueda lineal, que el elemento buscado esté en la primera posición: $\Omega(1)$.
+    \item \textbf{Peor caso:} la entrada más desfavorable. En la misma búsqueda, que el elemento esté al final o no esté: $O(n)$. Es el caso más utilizado, porque ofrece una garantía: el algoritmo nunca tardará más que eso.
+    \item \textbf{Caso promedio:} el valor esperado sobre todas las entradas posibles, ponderado por su probabilidad. Es el más realista, pero también el más difícil de calcular.
+\end{itemize}
+
+\subsection{Órdenes de complejidad}
+
+Los órdenes más frecuentes, de menor a mayor costo, son:
+
+\begin{center}
+\small
+\begin{tabular}{lll}
+\toprule
+\textbf{Orden} & \textbf{Denominación} & \textbf{Ejemplo típico} \\
+\midrule
+$O(1)$        & Constante      & Acceder a un elemento de un arreglo por su índice \\
+$O(\log n)$   & Logarítmica    & Búsqueda binaria en un arreglo ordenado \\
+$O(n)$        & Lineal         & Búsqueda secuencial; recorrer una lista \\
+$O(n \log n)$ & Cuasi-lineal   & Mergesort, Quicksort (caso promedio), Heapsort \\
+$O(n^2)$      & Cuadrática     & Ordenamiento burbuja, selección, inserción \\
+$O(n^3)$      & Cúbica         & Multiplicación clásica de matrices $n \times n$ \\
+$O(n^k)$      & Polinómica     & Algoritmos con $k$ bucles anidados \\
+$O(2^n)$      & Exponencial    & Subconjuntos de un conjunto; Fibonacci recursivo ingenuo \\
+$O(n!)$       & Factorial      & Permutaciones; fuerza bruta del viajante de comercio \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+La relación de dominancia entre ellos es:
+
+\[
+O(1) \subset O(\log n) \subset O(n) \subset O(n \log n) \subset O(n^2) \subset O(n^3) \subset O(2^n) \subset O(n!)
+\]
+
+Habitualmente se agrupan en dos grandes familias:
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Algoritmos tratables:} los de complejidad polinómica —hasta $O(n^k)$—, considerados computacionalmente viables.
+    \item \textbf{Algoritmos intratables:} los de complejidad exponencial o factorial, cuyo tiempo de ejecución se vuelve prohibitivo incluso para tallas moderadas.
+\end{itemize}
+
+La diferencia práctica es enorme. Suponiendo una máquina que ejecuta $10^6$ operaciones por segundo y una talla $n = 50$: un algoritmo $O(n^2)$ termina en microsegundos, mientras que uno $O(2^n)$ requeriría aproximadamente $35$ años.
+
+\volverindice
+\newpage
+
+% ======================== PUNTO 6 ========================
+
+\section{Notación asintótica}
+
+\enunciado{Explicar notación asintótica y para qué se utiliza.}
+
+La \textbf{notación asintótica} es el conjunto de herramientas matemáticas que permite describir el comportamiento límite de una función de costo cuando la talla del problema tiende a infinito, prescindiendo de los detalles que no afectan esa tendencia.
+
+El término proviene del concepto matemático de \emph{asíntota}: así como una curva se aproxima indefinidamente a una recta sin necesariamente alcanzarla, la función $T(n)$ se aproxima a un cierto patrón de crecimiento para valores grandes de $n$.
+
+\subsection{Notación $O$ (O grande): cota superior}
+
+Se dice que $f(n) \in O(g(n))$ si existen constantes positivas $c$ y $n_0$ tales que:
+
+\[
+0 \le f(n) \le c \cdot g(n) \qquad \text{para todo } n \ge n_0
+\]
+
+Significa que $f$ no crece más rápido que $g$. Es la notación más utilizada, porque expresa una \textbf{garantía sobre el peor caso}: el algoritmo nunca tardará más que el orden indicado.
+
+\textbf{Ejemplo.} $3n^2 + 7n + 12 \in O(n^2)$, tomando $c = 22$ y $n_0 = 1$.
+
+\subsection{Notación $\Omega$ (Omega): cota inferior}
+
+Se dice que $f(n) \in \Omega(g(n))$ si existen constantes positivas $c$ y $n_0$ tales que:
+
+\[
+0 \le c \cdot g(n) \le f(n) \qquad \text{para todo } n \ge n_0
+\]
+
+Significa que $f$ crece al menos tan rápido como $g$. Describe el \textbf{mejor caso} y establece un piso: el algoritmo no puede ser más rápido que ese orden.
+
+\subsection{Notación $\Theta$ (Theta): cota ajustada}
+
+Se dice que $f(n) \in \Theta(g(n))$ si $f(n) \in O(g(n))$ y $f(n) \in \Omega(g(n))$ simultáneamente, es decir, si existen constantes positivas $c_1$, $c_2$ y $n_0$ tales que:
+
+\[
+0 \le c_1 \cdot g(n) \le f(n) \le c_2 \cdot g(n) \qquad \text{para todo } n \ge n_0
+\]
+
+Es la caracterización más precisa, porque indica que la función crece \emph{exactamente} al ritmo de $g$. Sólo puede emplearse cuando el mejor y el peor caso coinciden en orden.
+
+\subsection{Para qué se utiliza}
+
+La notación asintótica se emplea para:
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Comparar algoritmos objetivamente}, con independencia del lenguaje, el compilador y la máquina en que se ejecuten.
+    \item \textbf{Predecir la escalabilidad}: si se duplica la talla de la entrada, un algoritmo $O(n)$ duplica su tiempo mientras que uno $O(n^2)$ lo cuadruplica.
+    \item \textbf{Simplificar el análisis}, descartando constantes y términos de menor orden que no alteran la tendencia de crecimiento.
+    \item \textbf{Fundamentar decisiones de diseño}, permitiendo elegir la estructura de datos o la estrategia adecuada antes de escribir una sola línea de código.
+\end{itemize}
+
+\textbf{Advertencia.} El análisis asintótico es válido para valores grandes de $n$. Para tallas pequeñas, un algoritmo de orden superior pero con constantes bajas puede resultar más rápido en la práctica: por eso varias implementaciones reales de Quicksort conmutan a ordenamiento por inserción cuando el subarreglo tiene menos de una decena de elementos.
+
+\volverindice
+\newpage
+
+% ======================== PUNTO 7 ========================
+
+\section{Determinación del orden de complejidad}
+
+\enunciado{Determinar el orden de complejidad de los siguientes algoritmos, justificando su elección.}
+
+\subsection{a) Condicional con bucles anidados}
+
+\codigopython{ej07_a_condicional_anidado}{Algoritmo con bucles dependientes de una condición}
+
+\subsubsection*{Análisis}
+
+El algoritmo está estructurado como un condicional cuyas dos ramas tienen costos muy distintos. La talla del problema es $n$, la variable que gobierna los bucles. El valor de \codigo{b}, en cambio, es un dato de entrada que no depende de $n$ y sólo determina qué rama se ejecuta.
+
+\textbf{Costo fijo previo.} Las dos primeras líneas —la asignación \codigo{a=0} y la lectura de \codigo{b}— y la evaluación de la condición \codigo{if b==100} son operaciones elementales de costo constante $O(1)$.
+
+\textbf{Rama verdadera ($b = 100$).} Se ejecutan dos bucles anidados. El bucle externo realiza $n$ iteraciones y, para cada una de ellas, el bucle interno realiza otras $n$ iteraciones con un cuerpo de costo constante (\codigo{a+=1}). Por la regla del producto:
+
+\[
+T_{\text{si}}(n) = n \cdot n \cdot O(1) = n^2 \in O(n^2)
+\]
+
+\textbf{Rama falsa ($b \ne 100$).} Se ejecuta un único bucle de $n$ iteraciones con cuerpo de costo constante:
+
+\[
+T_{\text{sino}}(n) = n \cdot O(1) = n \in O(n)
+\]
+
+\subsubsection*{Conclusión}
+
+Dado que el análisis de complejidad se expresa convencionalmente en términos del peor caso, y que la rama más costosa es la que se ejecuta cuando $b = 100$:
+
+\[
+\boxed{T(n) \in O(n^2) \quad \text{— complejidad cuadrática}}
+\]
+
+De manera más precisa, el comportamiento puede caracterizarse en los tres casos:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Caso} & \textbf{Condición} & \textbf{Orden} \\
+\midrule
+Mejor caso & $b \ne 100$ & $\Omega(n)$ \\
+Peor caso  & $b = 100$   & $O(n^2)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+No es posible dar una cota ajustada $\Theta$ para el algoritmo completo, porque el mejor y el peor caso pertenecen a órdenes distintos. Sí puede darse para cada rama por separado: $\Theta(n^2)$ para la primera y $\Theta(n)$ para la segunda.
+
+\textbf{Observación sobre el código.} Cabe señalar que el fragmento presenta un error de implementación: la variable \codigo{n} que controla los bucles nunca es definida ni leída, por lo que su ejecución produciría un \codigo{NameError}. El análisis se realiza asumiendo que \codigo{n} contiene la talla del problema, que es la intención evidente del enunciado.
+
+\newpage
+
+\subsection{b) Función con bucles secuenciales}
+
+\pseudocodigo{ej07_b_funcion_ejemplo}{Función con dos bucles consecutivos}
+
+\subsubsection*{Análisis}
+
+A diferencia del caso anterior, aquí los dos bucles son \textbf{consecutivos}, no anidados. La talla del problema es $n$, el parámetro de la función.
+
+\textbf{Primer bucle.} La variable \codigo{j} recorre los valores desde $1$ hasta $n$, realizando $n$ iteraciones. El cuerpo contiene una única operación elemental (\codigo{a=a+j}), de costo constante:
+
+\[
+T_1(n) = n \cdot O(1) = n
+\]
+
+\textbf{Segundo bucle.} La variable \codigo{k} recorre los valores desde $n$ hasta $1$ en orden descendente, realizando también $n$ iteraciones. El cuerpo contiene dos operaciones elementales (\codigo{a=a-1} y \codigo{a=a*2}), igualmente de costo constante:
+
+\[
+T_2(n) = n \cdot 2 \cdot O(1) = 2n
+\]
+
+\textbf{Declaraciones y retorno.} La declaración de variables y la instrucción \codigo{Devolver a} aportan un costo constante $c$.
+
+\subsubsection*{Costo total}
+
+Por la regla de la suma, los bloques consecutivos se adicionan:
+
+\[
+T(n) = T_1(n) + T_2(n) + c = n + 2n + c = 3n + c
+\]
+
+Descartando la constante aditiva $c$ y el factor multiplicativo $3$, que no alteran la tasa de crecimiento:
+
+\[
+\boxed{T(n) \in \Theta(n) \quad \text{— complejidad lineal}}
+\]
+
+En este caso sí corresponde emplear la notación $\Theta$, porque ambos bucles se ejecutan siempre la misma cantidad de veces, independientemente de los valores que tomen los datos. No existen ramificaciones, y por lo tanto el mejor caso, el peor caso y el caso promedio coinciden: $T(n) \in O(n)$ y $T(n) \in \Omega(n)$.
+
+\textbf{Observación clave.} El punto central de este ejercicio es distinguir el \textbf{anidamiento} de la \textbf{secuencia}. Si el segundo bucle estuviese contenido dentro del primero, se aplicaría la regla del producto y el orden resultaría $O(n^2)$. Al estar uno a continuación del otro, se aplica la regla de la suma y el orden se mantiene lineal, $O(\max(n, n)) = O(n)$.
+
+\textbf{Observación sobre el código.} El pseudocódigo utiliza la variable \codigo{a} sin inicializarla previamente, lo que constituye un error de implementación. Dicha omisión no afecta al análisis de complejidad, dado que una asignación inicial agregaría únicamente una operación de costo constante.
+
+\volverindice
+\newpage
+
+% ======================== PUNTO 8 ========================
+
+\section{Resolución de algoritmos}
+
+\enunciado{Resolver los siguientes algoritmos.}
+
+\subsection{a) Perímetro de una circunferencia con validación del radio}
+
+\enunciado{Mostrar el perímetro de una circunferencia, siempre y cuando el radio que se ingresa sea mayor a cero (controlar dicho ingreso).}
+
+El perímetro se calcula mediante la fórmula $P = 2\pi r$. La validación del radio se implementa con una estructura \codigo{Repetir...Hasta Que}, que garantiza al menos una lectura y vuelve a solicitar el dato mientras el valor ingresado no sea válido.
+
+\pseudocodigo{ej08_a_perimetro_circunferencia}{Perímetro de una circunferencia con validación}
+
+Complejidad: $O(1)$ en cantidad de operaciones por cada ingreso válido. El bucle de validación depende de la cantidad de intentos fallidos del usuario, no de la talla del problema.
+
+\volverindice
+\newpage
+
+\subsection{b) Seno y coseno de un ángulo en grados}
+
+\enunciado{Se lee desde el teclado el valor de un ángulo en grados. Se desea mostrar el coseno y el seno.}
+
+Las funciones trigonométricas de PSeInt —al igual que las de la mayoría de los lenguajes de programación— esperan el argumento expresado en \textbf{radianes}. Por lo tanto, es necesario convertir previamente el valor ingresado aplicando:
+
+\[
+\text{radianes} = \text{grados} \cdot \frac{\pi}{180}
+\]
+
+Omitir esta conversión constituye el error más frecuente en este tipo de ejercicios: el programa no fallaría, pero devolvería valores incorrectos.
+
+\pseudocodigo{ej08_b_seno_coseno}{Seno y coseno de un ángulo ingresado en grados}
+
+Complejidad: $O(1)$. El algoritmo ejecuta una cantidad fija de operaciones, independiente de cualquier talla.
+
+\volverindice
+\newpage
+
+\subsection{c) Hipotenusa de un triángulo rectángulo}
+
+\enunciado{Se ingresan por teclado los catetos de un triángulo rectángulo. Se desea hallar y mostrar su hipotenusa.}
+
+Por el teorema de Pitágoras, la hipotenusa se obtiene como:
+
+\[
+h = \sqrt{c_1^{\,2} + c_2^{\,2}}
+\]
+
+Se incorpora la validación de ambos catetos, dado que una longitud debe ser estrictamente positiva para que el triángulo exista.
+
+\pseudocodigo{ej08_c_hipotenusa}{Cálculo de la hipotenusa de un triángulo rectángulo}
+
+Complejidad: $O(1)$.
+
+\volverindice
+\newpage
+
+\subsection{d) Cara de un dado mostrada en letras}
+
+\enunciado{Mostrar en letras el número de la cara de un dado obtenido al azar.}
+
+Se emplea \codigo{Aleatorio(1, 6)}, que devuelve un entero al azar entre ambos extremos inclusive, modelando el lanzamiento de un dado de seis caras. Para convertir ese número a letras se utiliza la selección múltiple \codigo{Segun...FinSegun}, más legible que una cadena de seis condicionales anidados. La rama \codigo{De Otro Modo} se incluye por buena práctica defensiva.
+
+\pseudocodigo{ej08_d_cara_dado_letras}{Cara de un dado al azar mostrada en letras}
+
+Complejidad: $O(1)$. La selección múltiple evalúa a lo sumo seis alternativas, cantidad fija e independiente de la entrada.
+
+\volverindice
+\newpage
+
+\subsection{e) Sumatoria de 10 números generados al azar}
+
+\enunciado{Hallar la sumatoria de 10 números generados al azar. Los números deben comprender el siguiente rango de valores [1...20].}
+
+Se emplea un bucle \codigo{Para} de diez iteraciones —la cantidad es conocida de antemano, lo que hace preferible esta estructura frente a \codigo{Mientras}— y un acumulador inicializado en cero antes de ingresar al ciclo.
+
+Cada número se genera con \codigo{Aleatorio(1, 20)}, respetando el rango solicitado por el enunciado. Se muestra cada valor obtenido además del total, para permitir la verificación del resultado.
+
+\pseudocodigo{ej08_e_sumatoria_azar}{Sumatoria de 10 números aleatorios en el rango [1..20]}
+
+Complejidad: $O(1)$, dado que la cantidad de iteraciones es una constante fijada por el enunciado. Si en lugar de diez números se solicitaran $n$, el orden sería $O(n)$.
+
+\volverindice
+\newpage
+
+\subsection{f) Promedio de edades en una veterinaria}
+
+\enunciado{En una veterinaria se desea saber el promedio de edad de gatos y perros (por separados) que fueron asistidos durante un mes. En total se registraron 30 animales y la veterinaria solo atiende gatos y perros.}
+
+El problema requiere mantener \textbf{cuatro acumuladores} de manera simultánea: la suma de edades y el contador de animales, para cada una de las dos especies. El promedio de cada grupo se obtiene recién al finalizar el recorrido, dividiendo la suma correspondiente por su contador.
+
+Se validan tanto el tipo de animal —que debe ser \codigo{"G"} o \codigo{"P"}, las únicas especies que atiende la veterinaria— como la edad, que no puede ser negativa. Antes de calcular cada promedio se verifica además que el contador correspondiente sea mayor que cero, evitando una división por cero en el caso límite de que durante el mes se hubiese atendido una sola especie.
+
+\pseudocodigo{ej08_f_veterinaria_promedios}{Promedio de edad de gatos y perros atendidos en un mes}
+
+Complejidad: $O(1)$ con la talla fija de 30 animales establecida por el enunciado; $O(n)$ en el caso general de $n$ registros, ya que cada animal se procesa exactamente una vez.
+
+\volverindice
+\newpage
+
+\subsection{g) Factorial de un número}
+
+\enunciado{El factorial de un número entero se denota de la siguiente manera «n!» y su resultado es $n! = n \cdot (n-1) \cdot (n-2) \cdot \ldots \cdot 1$. Por ejemplo: $5! = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1$ siendo el resultado 120. Se pide desarrollar un programa que lee un valor N y determine su factorial.}
+
+Formalmente, el factorial se define de manera recursiva como $n! = n \cdot (n-1)!$ para $n > 0$, con el caso base $0! = 1$.
+
+La resolución iterativa emplea un acumulador \textbf{multiplicativo} inicializado en $1$ —y no en $0$, como sería el caso de un acumulador de sumas— que se multiplica sucesivamente por cada entero desde $2$ hasta $n$. Se valida que el número ingresado no sea negativo, ya que el factorial no está definido para dichos valores; el caso $n = 0$ se resuelve naturalmente, porque el bucle no llega a ejecutarse y el acumulador conserva su valor inicial $1$, que es precisamente $0!$. El acumulador se declara como \codigo{Real} y no como \codigo{Entero} debido al crecimiento explosivo de la función: $13!$ ya excede el rango de un entero de 32 bits.
+
+\pseudocodigo{ej08_g_factorial}{Cálculo del factorial de un número por método iterativo}
+
+Complejidad: $O(n)$, donde la talla $n$ es el \emph{valor} del número ingresado y no la cantidad de datos.
+
+\volverindice
+\newpage
+
+% ======================== CONCLUSIÓN ========================
+
+\phantomsection
+\section*{Conclusión}
+\addcontentsline{toc}{section}{Conclusión}
+
+El desarrollo de este trabajo permitió integrar los dos planos que aborda la Unidad III. En el plano teórico, se establecieron las herramientas que permiten evaluar un algoritmo con independencia de la máquina donde se ejecute: la distinción entre el análisis a priori y el a posteriori, la definición de la talla del problema como parámetro de referencia, y la notación asintótica como lenguaje común para expresar tasas de crecimiento.
+
+El punto 7 mostró con claridad que la diferencia entre un algoritmo lineal y uno cuadrático no reside en la cantidad de instrucciones escritas sino en su \textbf{estructura}: dos bucles secuenciales mantienen el orden lineal, mientras que los mismos dos bucles anidados lo elevan a cuadrático. Esta distinción, aparentemente menor en el código, determina la diferencia entre un programa que escala y uno que se vuelve inutilizable al crecer el volumen de datos.
+
+En el plano práctico, los algoritmos del punto 8 —todos de complejidad constante o lineal— pusieron el énfasis en aspectos complementarios a la eficiencia asintótica pero igualmente determinantes para la calidad de una solución: la validación sistemática de los datos de entrada, la elección de la estructura de control adecuada a cada situación (\codigo{Para} cuando la cantidad de iteraciones es conocida, \codigo{Repetir} para la validación de ingresos, \codigo{Segun} para la selección múltiple), el tratamiento de los casos límite como $0!$ o la división por cero, y la selección correcta del tipo de dato según el rango de valores esperado.
+
+\volverindice
+
+\end{document}
