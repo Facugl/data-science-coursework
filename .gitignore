@@ -21,3 +21,8 @@ Thumbs.db
 
 # VS Code
 .vscode/
+
+# Entornos virtuales de Python
+.venv/
+venv/
+__pycache__/
