@@ -1,0 +1,655 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% Margen extra de elasticidad para los párrafos con nombres de variables
+% y de archivos en \texttt, que no admiten corte de línea
+\setlength{\emergencystretch}{1.5em}
+
+% ============================================================
+% TIPOGRAFÍA
+% ============================================================
+\usepackage{lmodern}
+
+% ============================================================
+% COMILLAS TIPOGRÁFICAS (compatibles con babel/español)
+% ============================================================
+\usepackage{csquotes}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{caption}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+% ============================================================
+% CÓDIGO / PYTHON
+% ============================================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+\lstdefinestyle{estilo_base}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\small,
+    commentstyle=\color{codecomment}\itshape,
+    keywordstyle=\color{codekeyword}\bfseries,
+    stringstyle=\color{codestring},
+    numberstyle=\tiny\color{codenumber},
+    numbers=left,
+    numbersep=8pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {¿}{{?`}}1 {¡}{{!`}}1,
+}
+
+% Estilo para código Python
+\lstdefinestyle{python}{
+    style=estilo_base,
+    language=Python,
+}
+\renewcommand{\lstlistingname}{Código}
+
+\newcommand{\codigo}[1]{\texttt{\small #1}}
+
+% Comando corto para importar la solución de un ejercicio desde ejercicios/
+% Uso: \codigopython{02}{Caption del ejercicio}
+% Espera encontrar el archivo ejercicios/TP4_Ejercicio_#1.py
+\newcommand{\codigopython}[2]{%
+    \lstinputlisting[style=python, caption={#2}]{ejercicios/TP4_Ejercicio_#1.py}%
+}
+
+% ============================================================
+% LISTAS
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N° 4 - Programación II},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Programación II}
+\fancyhead[R]{\small Trabajo Práctico N° 4}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Programación II}
+\newcommand{\trabajo}{Trabajo Práctico N° 4}
+\newcommand{\profesor}{Ing. Mario Martínez}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoomitido}{\vspace{1cm}}
+
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+% COMANDO PARA EL ENUNCIADO DE CADA EJERCICIO
+% ============================================================
+\newcommand{\enunciado}[1]{%
+    \begin{quote}
+        \itshape #1
+    \end{quote}
+}
+
+% ============================================================
+
+% ============================================================
+% COMANDO PARA LA SALIDA POR CONSOLA
+% ============================================================
+\lstdefinestyle{salida}{
+    style=estilo_base,
+    numbers=none,
+    keywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+}
+
+% ============================================================
+% COMANDO PARA LA FIGURA GENERADA POR CADA EJERCICIO
+% Espera encontrar el archivo assets/ejercicio_#1.png
+% ============================================================
+\newcommand{\figuraejercicio}[2][0.85]{%
+    \begin{center}
+        \includegraphics[width=#1\textwidth]{./assets/ejercicio_#2.png}
+    \end{center}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== CUERPO ============================
+
+\newpage
+
+\phantomsection
+\section*{Aclaraciones previas}
+\addcontentsline{toc}{section}{Aclaraciones previas}
+
+El presente trabajo práctico consiste en la codificación en Python de 14 ejercicios de la Unidad correspondiente de Programación II, referidos al uso de diccionarios, lectura de archivos CSV con el módulo \texttt{csv}, generación de gráficos con \texttt{matplotlib} y manipulación de arrays con \texttt{numpy}. Cada ejercicio se resuelve en un archivo independiente, nombrado según el formato exigido por la cátedra (\texttt{TP4\_Ejercicio\_XX.py}), incluyendo como primera línea un comentario con el apellido y nombre del alumno.
+
+Los archivos de datos provistos por la cátedra se ubican en la misma carpeta que los programas, de modo que cada ejercicio abre \texttt{stock.csv}, \texttt{propiedades.csv} o \texttt{poblacion.csv} directamente por su nombre. El ejercicio final integrador incorpora además un archivo \texttt{ventas.csv} de elaboración propia.
+
+Las figuras que acompañan a los ejercicios de \texttt{matplotlib} son la salida real de cada programa, obtenida al ejecutarlo.
+
+El código fuente completo de cada ejercicio se encuentra disponible en el siguiente repositorio de GitHub, con el fin de facilitar su verificación y prueba:
+
+\begin{center}
+    \url{https://github.com/Facugl/data-science-coursework/tree/main/primer-anio/programacion-2/tp-4/ejercicios}
+\end{center}
+
+% ======================== EJERCICIO 1 ========================
+
+\newpage
+\section{Diccionario de stock}
+
+\enunciado{Crear un diccionario vacío. El diccionario debe llamarse \enquote{stock}. Luego de crear el diccionario complételo con el siguiente stock: tornillos = 100; tuercas = 150; arandelas = 300. Los nombres tornillos, tuercas y arandelas son las claves (keys) del diccionario mientras que las cantidades son los valores (values). Una vez armado el diccionario imprimirlo en pantalla con print.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{01}{Diccionario de stock}
+
+\subsection*{Resultado obtenido}
+
+\begin{lstlisting}[style=salida]
+{'tornillos': 100, 'tuercas': 150, 'arandelas': 300}
+\end{lstlisting}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 2 ========================
+
+\section{Carga acumulativa de stock por consola}
+
+\enunciado{Basado en el ejercicio anterior, utilizaremos el diccionario como una base de datos. Comenzaremos con un diccionario de stock de nuestros productos en cero: \texttt{stock = \{'tornillos': 0, 'tuercas': 0, 'arandelas': 0\}}. Crear un bucle utilizando while que se ejecute de forma infinita \texttt{while True}. Dentro de ese bucle consultar al usuario por consola qué producto desea agregar al stock. Si el usuario ingresa \enquote{FIN} como producto se debe finalizar el bucle. Si el usuario ingresa un producto no definido en el stock se debe enviar un mensaje de error (esto se resuelve utilizando el operador \enquote{in} con diccionarios).}
+
+\enunciado{Luego de haber ingresado el producto se debe ingresar por consola cuánto stock de ese producto se desea agregar al stock. Si teníamos 20 tornillos y el usuario desea agregar 10 tornillos más, en nuestro diccionario deben quedar 30 tornillos (debe acumular). Cuando el usuario ingrese \enquote{FIN} y se termine el bucle, debe imprimir en pantalla con print el diccionario con el stock final.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{02}{Carga acumulativa de stock por consola}
+
+\subsection*{Resultado obtenido}
+
+Ejemplo de ejecución cargando 20 y luego 10 tornillos, un producto inexistente y 5 tuercas:
+
+\begin{lstlisting}[style=salida]
+Ingrese el producto a agregar al stock ('FIN' para terminar): tornillos
+Ingrese la cantidad de tornillos a agregar: 20
+Ingrese el producto a agregar al stock ('FIN' para terminar): tornillos
+Ingrese la cantidad de tornillos a agregar: 10
+Ingrese el producto a agregar al stock ('FIN' para terminar): clavos
+Error: el producto no está definido en el stock
+Ingrese el producto a agregar al stock ('FIN' para terminar): tuercas
+Ingrese la cantidad de tuercas a agregar: 5
+Ingrese el producto a agregar al stock ('FIN' para terminar): FIN
+{'tornillos': 30, 'tuercas': 5, 'arandelas': 0}
+\end{lstlisting}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 3 ========================
+
+\section{Stock total de tornillos desde un archivo CSV}
+
+\enunciado{Realice un programa que abra el archivo \enquote{stock.csv} (se adjunta) en modo lectura y cuente el stock total de tornillos a lo largo de todo el archivo, sumando el stock en cada fila del archivo. Para eso debe leer los datos del archivo con \enquote{csv.DictReader}, y luego recorrer los datos dentro de un bucle y solo acceder a la columna \enquote{tornillos} para cumplir con el enunciado del ejercicio.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{03}{Stock total de tornillos desde un archivo CSV}
+
+\subsection*{Resultado obtenido}
+
+\begin{lstlisting}[style=salida]
+El stock total de tornillos es: 445
+\end{lstlisting}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 4 ========================
+
+\section{Conteo de departamentos de 2 y 3 ambientes}
+
+\enunciado{Realice un programa que abra el archivo CSV \enquote{propiedades.csv} (se adjunta) en modo lectura. Recorrer dicho archivo y contar la cantidad de departamentos de 2 ambientes y la cantidad de departamentos de 3 ambientes disponibles. Al finalizar el proceso, imprima en pantalla los resultados. Tener cuidado que hay departamentos que no tienen definidos la cantidad de ambientes, verifique que el texto no esté vacío antes de convertirlo a entero con \enquote{int( .. )}. Si desea investigar puede evitar que el programa explote utilizando \enquote{try except}.}
+
+\subsection*{Ejercicio en Python}
+
+De las 1049 filas del archivo, 7 tienen la columna \texttt{ambientes} vacía. Por eso el valor se guarda primero en una variable de texto y recién se convierte con \texttt{int()} después de comprobar que no esté vacía; cuando lo está, \texttt{continue} descarta la fila y el recorrido sigue con la siguiente. El \texttt{strip()} previo contempla el caso de que el campo traiga espacios en lugar de estar realmente vacío.
+
+\codigopython{04}{Conteo de departamentos de 2 y 3 ambientes}
+
+\subsection*{Resultado obtenido}
+
+\begin{lstlisting}[style=salida]
+Departamentos de 2 ambientes: 382
+Departamentos de 3 ambientes: 239
+\end{lstlisting}
+
+\volverindice
+
+% ======================== SECCIÓN MATPLOTLIB ========================
+
+\newpage
+\phantomsection
+\section*{Matplotlib}
+\addcontentsline{toc}{section}{Matplotlib}
+
+A partir de este punto, los ejercicios requieren el uso de la biblioteca \texttt{matplotlib} para la construcción de gráficos. En todos los casos se trabaja con el módulo \texttt{pyplot}, importado con el alias habitual \texttt{plt}, y la figura se muestra en pantalla con \texttt{plt.show()}.
+
+% ======================== EJERCICIO 5 ========================
+
+\newpage
+\section{Gráfico de líneas de población histórica}
+
+\enunciado{Realizar un gráfico \enquote{plot} con: years como \enquote{x} y poblacion como \enquote{y}; con los siguientes datos: Years: 1900, 1970, 1990, 2000, 2020. Población: 1650, 3692, 5263, 6070, 7800.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{05}{Gráfico de líneas de población histórica}
+
+\subsection*{Resultado obtenido}
+
+\figuraejercicio{05}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 6 ========================
+
+\section{Gráfico multilínea de gastos mensuales}
+
+\enunciado{Realizar un gráfico \enquote{multi line plot}. A partir de los siguientes datos: Mes: 3, 4, 5, 6; gasto\_carne: 1650, 2600, 3100, 4000; gasto\_verdura: 2500, 2200, 1800, 600. Calcular el gasto total como la suma de las listas gasto\_carne y gasto\_verdura. Realizar un gráfico \enquote{plot} con: mes como \enquote{x}; gasto\_carne como \enquote{y1}; gasto\_verdura como \enquote{y2}; gasto\_total como \enquote{y3}.}
+
+\subsection*{Ejercicio en Python}
+
+El gasto total se calcula recorriendo ambas listas con un bucle y sumando los valores correspondientes a un mismo mes, de modo que se obtiene una tercera lista de la misma longitud que las anteriores.
+
+\codigopython{06}{Gráfico multilínea de gastos mensuales}
+
+\subsection*{Resultado obtenido}
+
+\figuraejercicio{06}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 7 ========================
+
+\section{Gráficos conjuntos \enquote{plot} y \enquote{scatter}}
+
+\enunciado{Realizar dos gráficos conjuntos \enquote{plot} y \enquote{scatter} (dentro de un mismo figure). Utilizar los datos del archivo poblacion.csv (adjunto). Year como \enquote{x} y población como \enquote{y}. Título del gráfico \enquote{Población Histórica Mundial}. Plot con líneas verdes; Scatter con puntos rojos.}
+
+\subsection*{Ejercicio en Python}
+
+Al llamar a \texttt{plt.plot()} y \texttt{plt.scatter()} de forma consecutiva, ambos gráficos se dibujan sobre la misma figura activa.
+
+Las filas de \texttt{poblacion.csv} no vienen ordenadas por año, y \texttt{plot} une los puntos en el orden en que los recibe. Sin ordenar previamente, la línea retrocede dos veces sobre el eje horizontal y cruza todo el gráfico. Por eso los datos se ordenan por año antes de graficarlos. A \texttt{scatter} esto no lo afecta, porque dibuja cada punto en su posición sin unirlos entre sí.
+
+\codigopython{07}{Gráficos conjuntos plot y scatter}
+
+\subsection*{Resultado obtenido}
+
+\figuraejercicio{07}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 8 ========================
+
+\section{Gráfico de barras de población histórica}
+
+\enunciado{Realizar un gráfico de barras. Utilizar los datos del archivo poblacion.csv (adjunto). Year como \enquote{x} y población como \enquote{y}. Título del gráfico \enquote{Población Histórica Mundial}. Visualizar solo los datos de los años 2000, 2005, 2010, 2015, 2020. Es decir, partiendo del csv mencionado, recorrerlo creando la estructura de datos necesaria para luego graficar la población de los años mencionados.}
+
+\subsection*{Ejercicio en Python}
+
+La estructura de datos elegida es un diccionario que vincula cada año buscado con su población. De esta forma el archivo se recorre una sola vez y luego los valores se extraen en el orden deseado, con independencia del orden en que aparecen en el CSV.
+
+\codigopython{08}{Gráfico de barras de población histórica}
+
+\subsection*{Resultado obtenido}
+
+\figuraejercicio{08}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 9 ========================
+
+\section{Gráfico de la parábola horizontal}
+
+\enunciado{Realizar el código necesario para visualizar el gráfico propuesto en el enunciado: una parábola de eje horizontal, titulada \enquote{Valores x e y}, con línea verde y la referencia \enquote{Ej\_9}.}
+
+\subsection*{Ejercicio en Python}
+
+La curva del enunciado corresponde a la relación $x = y^2$: el eje horizontal recorre valores de 0 a 100 mientras que el vertical va de $-10$ a 10. Por eso se genera primero el arreglo de valores de $y$ con \texttt{np.linspace()} y a partir de él se calcula $x$, invirtiendo los roles habituales de ambos ejes al momento de graficar.
+
+\codigopython{09}{Gráfico de la parábola horizontal}
+
+\subsection*{Resultado obtenido}
+
+\figuraejercicio{09}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 10 ========================
+
+\section{Gráfico de las funciones cuadrática y cúbica}
+
+\enunciado{Realizar el código necesario para visualizar el gráfico propuesto en el enunciado: las curvas correspondientes a $x^2$ y $x^3$ en un mismo gráfico, titulado \enquote{Ejercicio\_10}, con las referencias \enquote{**2} y \enquote{**3}.}
+
+\subsection*{Ejercicio en Python}
+
+Ambas curvas se construyen sobre un mismo arreglo de valores de $x$ entre $-4$ y 4, generado con \texttt{np.linspace()}, y se dibujan sobre la misma figura. La grilla se activa con \texttt{plt.grid(True)}.
+
+\codigopython{10}{Gráfico de las funciones cuadrática y cúbica}
+
+\subsection*{Resultado obtenido}
+
+\figuraejercicio{10}
+
+\volverindice
+
+% ======================== SECCIÓN NUMPY ========================
+
+\newpage
+\phantomsection
+\section*{NumPy}
+\addcontentsline{toc}{section}{NumPy}
+
+Los ejercicios siguientes utilizan la biblioteca \texttt{numpy}, importada con el alias habitual \texttt{np}, para operar sobre arrays de forma vectorizada, es decir, aplicando una operación sobre todos los elementos del array sin necesidad de recorrerlo con un bucle.
+
+% ======================== EJERCICIO 11 ========================
+
+\newpage
+\section{Suma, promedio y ordenamiento de un array}
+
+\enunciado{Dado el siguiente array numpy: [1, 5, -2, 10, 2], realizar las siguientes operaciones: a. Suma; b. Promedio; c. Ordenarlo. Mostrar todos los resultados.}
+
+\subsection*{Ejercicio en Python}
+
+\codigopython{11}{Suma, promedio y ordenamiento de un array}
+
+\subsection*{Resultado obtenido}
+
+\begin{lstlisting}[style=salida]
+Array original: [ 1  5 -2 10  2]
+Suma: 16
+Promedio: 3.2
+Ordenado: [-2  1  2  5 10]
+\end{lstlisting}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 12 ========================
+
+\section{Uso de where sobre un array}
+
+\enunciado{Crear un array a partir de una lista: \texttt{l1 = list(range(10))}. Luego, usando where: a) Crear un nuevo array que solo tenga los números mayores a 3 del array numpy y los demás reemplazar por cero; b) Crear un nuevo array que solo tenga los números pares del array numpy y los demás reemplazar por cero. Mostrar todos los resultados.}
+
+\subsection*{Ejercicio en Python}
+
+La función \texttt{np.where()} recibe una condición y dos valores alternativos: conserva el elemento del array cuando la condición es verdadera y lo reemplaza por cero cuando es falsa, devolviendo un array nuevo sin modificar el original.
+
+\codigopython{12}{Uso de where sobre un array}
+
+\subsection*{Resultado obtenido}
+
+\begin{lstlisting}[style=salida]
+Array original: [0 1 2 3 4 5 6 7 8 9]
+Mayores a 3 (el resto en cero): [0 0 0 0 4 5 6 7 8 9]
+Pares (el resto en cero): [0 0 2 0 4 0 6 0 8 0]
+\end{lstlisting}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 13 ========================
+
+\section{Máscaras booleanas sobre un array}
+
+\enunciado{Crear un array numpy: [1, 2, 4, 7]. Luego: a. Crear la máscara para solo quedarnos con los números mayores a 1; b. Crear la máscara para solo quedarnos con los números pares. Mostrar todos los resultados.}
+
+\subsection*{Ejercicio en Python}
+
+Una máscara es un array de valores booleanos, del mismo tamaño que el original, que resulta de aplicarle una condición. Al usar esa máscara como índice del array se obtienen únicamente los elementos que cumplen la condición. A diferencia de \texttt{np.where()}, aquí el array resultante es más corto que el original.
+
+\codigopython{13}{Máscaras booleanas sobre un array}
+
+\subsection*{Resultado obtenido}
+
+\begin{lstlisting}[style=salida]
+Array original: [1 2 4 7]
+Máscara de mayores a 1: [False  True  True  True]
+Números mayores a 1: [2 4 7]
+Máscara de pares: [False  True  True False]
+Números pares: [2 4]
+\end{lstlisting}
+
+\volverindice
+
+% ======================== SECCIÓN INTEGRADOR ========================
+
+\newpage
+\phantomsection
+\section*{Ejercicio final integrador}
+\addcontentsline{toc}{section}{Ejercicio final integrador}
+
+\enunciado{Inventar un ejercicio de enunciado propio y desarrollo individual, que contenga todo lo visto en la materia, al menos una vez cada herramienta vista. Es decir, la resolución del enunciado debe tener: cálculos secuenciales; ingreso de datos por parte del usuario, y mostrarle resultados; funciones para el tratamiento de cadenas de texto; estructuras de selección; bucles; diccionario de datos; lectura de un archivo csv; gráficos con Matplotlib; array NumPy.}
+
+% ======================== EJERCICIO 14 ========================
+
+\newpage
+\section{Análisis anual de ventas y merma de un supermercado}
+
+\subsection*{Enunciado propuesto}
+
+Una sucursal de supermercado registra sus ventas del año en el archivo \texttt{ventas.csv}, con una fila por cada mes y sector del salón. El archivo tiene las columnas \texttt{mes}, \texttt{sector}, \texttt{unidades}, \texttt{precio\_unitario} y \texttt{unidades\_merma}, donde la merma son las unidades que se perdieron por vencimiento, rotura o deterioro y que, por lo tanto, nunca llegaron a venderse.
+
+El control de gestión de la sucursal necesita un programa que:
+
+\begin{enumerate}[label=\alph*)]
+    \item Solicite el nombre del usuario y la sucursal, normalizando el texto ingresado.
+    \item Lea el archivo y calcule, para cada fila, la facturación como el producto entre las unidades vendidas y el precio unitario, y la merma en pesos como el producto entre las unidades perdidas y ese mismo precio.
+    \item Acumule en diccionarios la facturación y la merma anual de cada sector, y la facturación total de cada mes.
+    \item Muestre, sector por sector, la facturación, la merma en pesos y la merma como porcentaje de la facturación, señalando con la leyenda \enquote{ALERTA} aquellos sectores que superan el 3\% admitido por la cadena.
+    \item Solicite al usuario un sector e informe su porcentaje de merma, o un mensaje de error si el sector no existe.
+    \item Calcule, sobre un array NumPy con la facturación mensual, el total anual, el promedio mensual, el mejor y el peor mes, y determine qué meses superaron el promedio.
+    \item Grafique la evolución mensual de la facturación y la merma porcentual de cada sector.
+\end{enumerate}
+
+\subsection*{Herramientas utilizadas}
+
+\begin{itemize}[noitemsep]
+    \item \textbf{Cálculos secuenciales:} la facturación y la merma de cada fila, el porcentaje de merma por sector y el resumen anual.
+    \item \textbf{Ingreso de datos y salida por pantalla:} el nombre del usuario, la sucursal y el sector a consultar, con sus respectivos \texttt{print}.
+    \item \textbf{Tratamiento de cadenas:} \texttt{strip()}, \texttt{title()}, \texttt{upper()} y \texttt{capitalize()} para normalizar lo ingresado por el usuario y los valores leídos del archivo, y \texttt{ljust()} para alinear la tabla de resultados.
+    \item \textbf{Estructuras de selección:} el control de claves ya existentes en los diccionarios, la comparación de la merma contra el límite admitido, el control de los datos vacíos ingresados por el usuario y la validación del sector consultado, mediante un \texttt{if} / \texttt{elif} / \texttt{else} con el operador \texttt{in}.
+    \item \textbf{Bucles:} el recorrido del archivo y de los diccionarios con \texttt{for}, y la revalidación de los datos ingresados con \texttt{while}.
+    \item \textbf{Diccionarios:} los acumuladores \texttt{ventas\_por\_sector}, \texttt{merma\_por\_sector} y \texttt{ventas\_por\_mes}, y el resultado del cálculo en \texttt{porcentajes\_merma}.
+    \item \textbf{Lectura de archivo CSV:} \texttt{csv.DictReader} sobre \texttt{ventas.csv}.
+    \item \textbf{Gráficos con Matplotlib:} un gráfico de líneas con puntos y un gráfico de barras, dispuestos en una misma figura con \texttt{plt.subplots()}.
+    \item \textbf{Array NumPy:} el array de facturación mensual, sobre el que se aplican \texttt{sum()}, \texttt{mean()}, \texttt{argmax()}, \texttt{argmin()}, \texttt{np.where()} y una división vectorizada para expresar los importes en millones.
+\end{itemize}
+
+\newpage
+\subsection*{Ejercicio en Python}
+
+\codigopython{14}{Análisis anual de ventas y merma de un supermercado}
+
+\newpage
+\subsection*{Resultado obtenido}
+
+\begin{lstlisting}[style=salida]
+Ingrese su nombre: facundo luna
+Ingrese la sucursal: sucursal norte
+Bienvenido/a al control de gestión, Facundo Luna
+Sucursal: SUCURSAL NORTE
+
+Facturación y merma anual por sector:
+  Sector           Facturación         Merma  % merma   Estado
+  Almacen         821457000.00    2603330.00    0.32%   OK
+  Bebidas         492892200.00    1036510.00    0.21%   OK
+  Carniceria      890182800.00   28222270.00    3.17%   ALERTA
+  Fiambreria      438246600.00   11581900.00    2.64%   OK
+  Verduleria      319560000.00   21949310.00    6.87%   ALERTA
+  Limpieza        401770800.00     426420.00    0.11%   OK
+
+Ingrese un sector para consultar su merma: carniceria
+El sector Carniceria tuvo una merma del 3.17%
+
+Resumen anual de la sucursal:
+  Facturación total: $3364109400.00
+  Promedio mensual: $280342450.00
+  Mejor mes: Diciembre
+  Peor mes: Febrero
+  Meses por encima del promedio:
+    Julio        $289.2 millones
+    Septiembre   $294.6 millones
+    Octubre      $313.9 millones
+    Noviembre    $336.6 millones
+    Diciembre    $389.8 millones
+\end{lstlisting}
+
+Los dos sectores señalados con \enquote{ALERTA} son los de productos frescos, que es donde la merma se concentra en la operación real de un supermercado.
+
+\figuraejercicio[1.0]{14}
+
+\volverindice
+
+\end{document}
