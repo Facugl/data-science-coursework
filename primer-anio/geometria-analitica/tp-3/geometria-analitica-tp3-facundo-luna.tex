@@ -1,0 +1,2202 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°3},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Geometría Analítica}
+\fancyhead[R]{\small Trabajo Práctico N°3}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Geometría Analítica}
+\newcommand{\trabajo}{Trabajo Práctico N°3}
+\newcommand{\profesor}{Lic. Mauro Vaca}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+    \vspace{0.8em}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.5cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+% ======================== EJERCICIO 1 ========================
+
+\newpage
+
+\section{Producto escalar: ortogonalidad, paralelismo y módulos}
+
+Realizar lo pedido en cada caso.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Dado el vector $u=(3,-1,5)$ dar dos vectores ortogonales y dos
+    vectores paralelos a él.
+
+    \solucion
+
+    \textbf{Vectores ortogonales.} Un vector $v=(a,b,c)$ es ortogonal a $u$
+    si $u\cdot v=0$, es decir
+
+    \[
+    3a-b+5c=0
+    \]
+
+    Esta única ecuación con tres incógnitas admite infinitas soluciones.
+    Eligiendo valores arbitrarios para dos de las componentes se obtiene la
+    tercera:
+
+    \begin{itemize}
+        \item Con $a=1$, $c=0$: $3(1)-b+0=0\Rightarrow b=3$, luego $v_1=(1,3,0)$.
+        \item Con $a=0$, $c=1$: $0-b+5=0\Rightarrow b=5$, luego $v_2=(0,5,1)$.
+    \end{itemize}
+
+    Verificación: $u\cdot v_1=3-3+0=0$ y $u\cdot v_2=0-5+5=0$.
+
+    \[
+    \boxed{v_1=(1,3,0),\qquad v_2=(0,5,1)}
+    \]
+
+    \textbf{Vectores paralelos.} Un vector $w$ es paralelo a $u$ si
+    $w=\lambda u$ con $\lambda\in\mathbb{R}$, $\lambda\neq0$:
+
+    \begin{itemize}
+        \item $\lambda=2$: $w_1=2u=(6,-2,10)$.
+        \item $\lambda=-1$: $w_2=-u=(-3,1,-5)$.
+    \end{itemize}
+
+    \[
+    \boxed{w_1=(6,-2,10),\qquad w_2=(-3,1,-5)}
+    \]
+
+    \item Determinar el/los valores del parámetro para que los vectores
+    $u=(x^2,\,x-1,\,3)$ y $v=(1,-1,-1)$ sean ortogonales.
+
+    \solucion
+
+    Dos vectores son ortogonales si y sólo si su producto escalar es nulo:
+
+    \[
+    u\cdot v=x^2\cdot1+(x-1)(-1)+3(-1)=x^2-x+1-3=x^2-x-2=0
+    \]
+
+    Resolviendo la ecuación cuadrática:
+
+    \[
+    x=\frac{1\pm\sqrt{1+8}}{2}=\frac{1\pm3}{2}
+    \]
+
+    \[
+    \boxed{x_1=2,\qquad x_2=-1}
+    \]
+
+    \textbf{Verificación:} para $x=2$ es $u=(4,1,3)$ y
+    $u\cdot v=4-1-3=0$. \checkmark \\
+    Para $x=-1$ es $u=(1,-2,3)$ y $u\cdot v=1+2-3=0$. \checkmark
+
+    \item Determinar los valores de $x$ e $y$ para que los vectores
+    $u=(y-1,\,x,\,5)$ y $v=\left(3,\,1,\,\tfrac{5}{2}\right)$ sean paralelos.
+
+    \solucion
+
+    $u\parallel v$ si existe $\lambda\in\mathbb{R}$ tal que $u=\lambda v$:
+
+    \[
+    (y-1,\,x,\,5)=\lambda\left(3,\,1,\,\tfrac{5}{2}\right)
+    \]
+
+    De la tercera componente, que es la única totalmente conocida:
+
+    \[
+    5=\lambda\cdot\frac{5}{2}\quad\Longrightarrow\quad \lambda=2
+    \]
+
+    Reemplazando en las dos primeras componentes:
+
+    \[
+    y-1=2\cdot3=6\ \Longrightarrow\ y=7,\qquad x=2\cdot1=2
+    \]
+
+    \[
+    \boxed{x=2,\qquad y=7}
+    \]
+
+    En efecto, $u=(6,2,5)=2\left(3,1,\tfrac{5}{2}\right)$. \checkmark
+
+    \item Determinar los valores de $x$ e $y$ para que los vectores
+    $u=(y,1,1)$ y $v=(3,x,-1)$ tengan producto escalar igual a $1$ y el
+    módulo de $u$ sea $\sqrt{2}$. En base a ello, dar el módulo del vector $v$.
+
+    \solucion
+
+    \textbf{Condición sobre el módulo de $u$:}
+
+    \[
+    \|u\|=\sqrt{y^2+1^2+1^2}=\sqrt{y^2+2}=\sqrt{2}
+    \]
+
+    \[
+    y^2+2=2\quad\Longrightarrow\quad y^2=0\quad\Longrightarrow\quad y=0
+    \]
+
+    Por lo tanto $u=(0,1,1)$.
+
+    \textbf{Condición sobre el producto escalar:}
+
+    \[
+    u\cdot v=0\cdot3+1\cdot x+1\cdot(-1)=x-1=1
+    \quad\Longrightarrow\quad x=2
+    \]
+
+    \[
+    \boxed{x=2,\qquad y=0}
+    \]
+
+    \textbf{Módulo de $v$:} con $x=2$ resulta $v=(3,2,-1)$, luego
+
+    \[
+    \|v\|=\sqrt{3^2+2^2+(-1)^2}=\sqrt{9+4+1}
+    \]
+
+    \[
+    \boxed{\|v\|=\sqrt{14}}
+    \]
+
+    \item Determinar el producto escalar de los vectores $u$ y $v$ teniendo
+    como datos que ambos son unitarios y que el ángulo que forman es de
+    $\pi/3$.
+
+    \solucion
+
+    Por la definición geométrica del producto escalar,
+
+    \[
+    u\cdot v=\|u\|\,\|v\|\cos\theta
+    \]
+
+    Como ambos vectores son unitarios, $\|u\|=\|v\|=1$, y
+    $\cos(\pi/3)=\tfrac{1}{2}$:
+
+    \[
+    u\cdot v=1\cdot1\cdot\frac{1}{2}
+    \]
+
+    \[
+    \boxed{u\cdot v=\frac{1}{2}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 2 ========================
+
+\section{Operaciones con vectores: productos escalar, vectorial y mixto}
+
+Dados los vectores $u=(3,-1,5)$, $v=(1,-1,2)$ y $w=(3,2,-1)$ realizar los
+siguientes cálculos cuando éstos sean posibles.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $u\times v$
+
+    \solucion
+
+    \[
+    u\times v=\begin{vmatrix}
+    i & j & k\\
+    3 & -1 & 5\\
+    1 & -1 & 2
+    \end{vmatrix}
+    =i\begin{vmatrix}-1&5\\-1&2\end{vmatrix}
+    -j\begin{vmatrix}3&5\\1&2\end{vmatrix}
+    +k\begin{vmatrix}3&-1\\1&-1\end{vmatrix}
+    \]
+
+    \[
+    =i(-2+5)-j(6-5)+k(-3+1)=3i-j-2k
+    \]
+
+    \[
+    \boxed{u\times v=(3,-1,-2)}
+    \]
+
+    \item $(u\times v)\times w$
+
+    \solucion
+
+    Usando el resultado anterior, $u\times v=(3,-1,-2)$:
+
+    \[
+    (u\times v)\times w=\begin{vmatrix}
+    i & j & k\\
+    3 & -1 & -2\\
+    3 & 2 & -1
+    \end{vmatrix}
+    =i(1+4)-j(-3+6)+k(6+3)
+    \]
+
+    \[
+    \boxed{(u\times v)\times w=(5,-3,9)}
+    \]
+
+    \item $u\times(v\cdot w)$
+
+    \solucion
+
+    El producto escalar $v\cdot w$ da como resultado un \emph{número real}
+    (en este caso $v\cdot w=3-2-2=-1$), mientras que el producto vectorial
+    sólo está definido entre dos \emph{vectores} de $\mathbb{R}^3$.
+
+    \[
+    \boxed{\text{No es posible: se intenta multiplicar vectorialmente un
+    vector por un escalar.}}
+    \]
+
+    \item $v\times w$
+
+    \solucion
+
+    \[
+    v\times w=\begin{vmatrix}
+    i & j & k\\
+    1 & -1 & 2\\
+    3 & 2 & -1
+    \end{vmatrix}
+    =i(1-4)-j(-1-6)+k(2+3)
+    \]
+
+    \[
+    \boxed{v\times w=(-3,7,5)}
+    \]
+
+    \item $(u\cdot v)\times w$
+
+    \solucion
+
+    Al igual que en el inciso c.-, $u\cdot v=3+1+10=14$ es un escalar, de
+    modo que no puede multiplicarse vectorialmente por $w$.
+
+    \[
+    \boxed{\text{No es posible.}}
+    \]
+
+    \item $(u,v,w)$
+
+    \solucion
+
+    El producto mixto se calcula como $u\cdot(v\times w)$, o directamente
+    como el determinante de la matriz formada por los tres vectores:
+
+    \[
+    (u,v,w)=\begin{vmatrix}
+    3 & -1 & 5\\
+    1 & -1 & 2\\
+    3 & 2 & -1
+    \end{vmatrix}
+    =3(1-4)-(-1)(-1-6)+5(2+3)
+    \]
+
+    \[
+    =3(-3)+1(-7)+5(5)=-9-7+25
+    \]
+
+    \[
+    \boxed{(u,v,w)=9}
+    \]
+
+    Alternativamente, usando el inciso d.-:
+    $u\cdot(v\times w)=(3,-1,5)\cdot(-3,7,5)=-9-7+25=9$. \checkmark
+
+    Como $(u,v,w)\neq0$, los tres vectores \textbf{no} son coplanares.
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 3 ========================
+
+\section{Producto vectorial: ortogonalidad, módulo y propiedades}
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Encontrar un vector ortogonal simultáneamente a los vectores
+    $u=(-1,1,5)$ y $v=(1,-2,3)$.
+
+    \solucion
+
+    El producto vectorial $u\times v$ es, por definición, ortogonal a ambos
+    factores:
+
+    \[
+    u\times v=\begin{vmatrix}
+    i & j & k\\
+    -1 & 1 & 5\\
+    1 & -2 & 3
+    \end{vmatrix}
+    =i(3+10)-j(-3-5)+k(2-1)
+    \]
+
+    \[
+    \boxed{u\times v=(13,8,1)}
+    \]
+
+    \textbf{Verificación:}
+    $(13,8,1)\cdot(-1,1,5)=-13+8+5=0$ \checkmark \quad y \quad
+    $(13,8,1)\cdot(1,-2,3)=13-16+3=0$ \checkmark
+
+    \item Sabiendo que dos vectores $u$ y $v$ tienen módulo dos, y que forman
+    un ángulo de $\pi/4$, determinar el módulo de $u\times v$.
+
+    \solucion
+
+    \[
+    \|u\times v\|=\|u\|\,\|v\|\operatorname{sen}\theta
+    =2\cdot2\cdot\operatorname{sen}\frac{\pi}{4}
+    =4\cdot\frac{\sqrt{2}}{2}
+    \]
+
+    \[
+    \boxed{\|u\times v\|=2\sqrt{2}\approx2{,}83}
+    \]
+
+    \item Sabiendo que $u\times v=(1,3,-2)$, determinar:
+
+    \begin{enumerate}[label=\roman*)]
+
+        \item $v\times u$
+
+        \solucion
+
+        El producto vectorial es anticonmutativo: $v\times u=-(u\times v)$.
+
+        \[
+        \boxed{v\times u=(-1,-3,2)}
+        \]
+
+        \item $v\cdot(u\times v)$
+
+        \solucion
+
+        El vector $u\times v$ es ortogonal a $v$, por lo tanto su producto
+        escalar con $v$ es nulo. (También puede verse como un producto mixto
+        con dos factores repetidos.)
+
+        \[
+        \boxed{v\cdot(u\times v)=0}
+        \]
+
+        \item $(2u)\times v$
+
+        \solucion
+
+        Por la homogeneidad del producto vectorial,
+        $(\lambda u)\times v=\lambda(u\times v)$:
+
+        \[
+        (2u)\times v=2\,(1,3,-2)
+        \]
+
+        \[
+        \boxed{(2u)\times v=(2,6,-4)}
+        \]
+
+        \item $u\times u$
+
+        \solucion
+
+        El producto vectorial de un vector por sí mismo es siempre el vector
+        nulo, ya que el ángulo entre ambos es $0$ y
+        $\operatorname{sen}0=0$ (equivalentemente, el determinante tiene dos
+        filas iguales).
+
+        \[
+        \boxed{u\times u=(0,0,0)}
+        \]
+
+    \end{enumerate}
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 4 ========================
+
+\section{Áreas de paralelogramos y triángulos en el espacio}
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item El área del paralelogramo que forman los vectores $u=(1,3,-3)$ y
+    $w=-3i+j-k$.
+
+    \solucion
+
+    En componentes, $w=(-3,1,-1)$. El área del paralelogramo determinado por
+    dos vectores es el módulo de su producto vectorial:
+
+    \[
+    u\times w=\begin{vmatrix}
+    i & j & k\\
+    1 & 3 & -3\\
+    -3 & 1 & -1
+    \end{vmatrix}
+    =i(-3+3)-j(-1-9)+k(1+9)=(0,10,10)
+    \]
+
+    \[
+    A=\|u\times w\|=\sqrt{0^2+10^2+10^2}=\sqrt{200}
+    \]
+
+    \[
+    \boxed{A=10\sqrt{2}\approx14{,}14\ \text{u.a.}}
+    \]
+
+    \item El área del paralelogramo en el espacio de vértices
+    $P=(1,-2,1)$, $Q=(3,-1,-1)$ y $R=(1,0,-2)$.
+
+    \solucion
+
+    Tomamos $P$ como vértice común y construimos los dos lados concurrentes:
+
+    \[
+    \overrightarrow{PQ}=Q-P=(2,1,-2),\qquad
+    \overrightarrow{PR}=R-P=(0,2,-3)
+    \]
+
+    \[
+    \overrightarrow{PQ}\times\overrightarrow{PR}=\begin{vmatrix}
+    i & j & k\\
+    2 & 1 & -2\\
+    0 & 2 & -3
+    \end{vmatrix}
+    =i(-3+4)-j(-6-0)+k(4-0)=(1,6,4)
+    \]
+
+    \[
+    A=\sqrt{1^2+6^2+4^2}=\sqrt{1+36+16}
+    \]
+
+    \[
+    \boxed{A=\sqrt{53}\approx7{,}28\ \text{u.a.}}
+    \]
+
+    \item El área del triángulo en el espacio de vértices $A=(1,1,-4)$,
+    $B=(-2,3,1)$ y $C=(0,1,-1)$.
+
+    \solucion
+
+    El triángulo es la mitad del paralelogramo determinado por
+    $\overrightarrow{AB}$ y $\overrightarrow{AC}$:
+
+    \[
+    \overrightarrow{AB}=(-3,2,5),\qquad \overrightarrow{AC}=(-1,0,3)
+    \]
+
+    \[
+    \overrightarrow{AB}\times\overrightarrow{AC}=\begin{vmatrix}
+    i & j & k\\
+    -3 & 2 & 5\\
+    -1 & 0 & 3
+    \end{vmatrix}
+    =i(6-0)-j(-9+5)+k(0+2)=(6,4,2)
+    \]
+
+    \[
+    \|\overrightarrow{AB}\times\overrightarrow{AC}\|=\sqrt{36+16+4}
+    =\sqrt{56}=2\sqrt{14}
+    \]
+
+    \[
+    A_{\triangle}=\frac{1}{2}\cdot2\sqrt{14}
+    \]
+
+    \[
+    \boxed{A_{\triangle}=\sqrt{14}\approx3{,}74\ \text{u.a.}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 5 ========================
+
+\section{Producto mixto: coplanaridad y volumen}
+
+Realizar lo pedido en cada caso.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Determinar el valor de $x$ para que los vectores $u=(1,x,1)$,
+    $v=(2,0,-1)$ y $w=(3,1,1)$ sean coplanares.
+
+    \solucion
+
+    Tres vectores son coplanares si y sólo si su producto mixto es nulo, es
+    decir, si el determinante que forman se anula:
+
+    \[
+    (u,v,w)=\begin{vmatrix}
+    1 & x & 1\\
+    2 & 0 & -1\\
+    3 & 1 & 1
+    \end{vmatrix}
+    =1(0+1)-x(2+3)+1(2-0)=1-5x+2=3-5x
+    \]
+
+    \[
+    3-5x=0\quad\Longrightarrow\quad x=\frac{3}{5}
+    \]
+
+    \[
+    \boxed{x=\frac{3}{5}}
+    \]
+
+    \textbf{Verificación:} con $x=\tfrac{3}{5}$,
+    $(u,v,w)=3-5\cdot\tfrac{3}{5}=3-3=0$. \checkmark
+
+    \item Dé un ejemplo de tres vectores coplanares.
+
+    \solucion
+
+    Basta con tomar tres vectores contenidos en un mismo plano, por ejemplo
+    el plano $z=0$:
+
+    \[
+    u=(1,0,0),\qquad v=(0,1,0),\qquad w=(1,1,0)
+    \]
+
+    Su producto mixto es
+
+    \[
+    (u,v,w)=\begin{vmatrix}
+    1 & 0 & 0\\
+    0 & 1 & 0\\
+    1 & 1 & 0
+    \end{vmatrix}=0
+    \]
+
+    \[
+    \boxed{u=(1,0,0),\quad v=(0,1,0),\quad w=(1,1,0)\ \text{son coplanares}}
+    \]
+
+    Obsérvese además que $w=u+v$: el tercer vector es combinación lineal de
+    los dos primeros, que es la lectura algebraica de la coplanaridad.
+
+    \item Encuentre el volumen del paralelepípedo de lados los vectores
+    $u=(2,-2,1)$, $v=(3,1,1)$ y $w=(-4,1,5)$.
+
+    \solucion
+
+    El volumen del paralelepípedo es el valor absoluto del producto mixto:
+
+    \[
+    (u,v,w)=\begin{vmatrix}
+    2 & -2 & 1\\
+    3 & 1 & 1\\
+    -4 & 1 & 5
+    \end{vmatrix}
+    =2(5-1)-(-2)(15+4)+1(3+4)
+    \]
+
+    \[
+    =2(4)+2(19)+1(7)=8+38+7=53
+    \]
+
+    \[
+    V=|(u,v,w)|
+    \]
+
+    \[
+    \boxed{V=53\ \text{u.v.}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 6 ========================
+
+\section{Bases ortonormales: proceso de Gram-Schmidt}
+
+Determine una base ortonormal para los siguientes espacios.
+
+En todos los casos se aplica el proceso de Gram-Schmidt: a partir de una
+base $\{v_1,v_2,\dots\}$ se construye una base ortogonal
+$\{w_1,w_2,\dots\}$ mediante
+
+\[
+w_1=v_1,\qquad
+w_k=v_k-\sum_{i=1}^{k-1}\frac{v_k\cdot w_i}{w_i\cdot w_i}\,w_i
+\]
+
+y finalmente se normaliza cada vector, $e_k=\dfrac{w_k}{\|w_k\|}$.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Para $\mathbb{R}^3$ a partir de la base
+    $\{(-1,0,1),\,(0,1,1),\,(0,0,1)\}$.
+
+    \solucion
+
+    \textbf{Primer vector.} $w_1=v_1=(-1,0,1)$, con
+    $\|w_1\|=\sqrt{1+0+1}=\sqrt{2}$.
+
+    \[
+    e_1=\frac{1}{\sqrt{2}}(-1,0,1)
+    =\left(-\frac{\sqrt{2}}{2},\,0,\,\frac{\sqrt{2}}{2}\right)
+    \]
+
+    \textbf{Segundo vector.} Con $v_2=(0,1,1)$:
+
+    \[
+    v_2\cdot w_1=0+0+1=1,\qquad w_1\cdot w_1=2
+    \]
+
+    \[
+    w_2=(0,1,1)-\frac{1}{2}(-1,0,1)
+    =\left(\frac{1}{2},\,1,\,\frac{1}{2}\right)
+    \]
+
+    Multiplicando por $2$ (lo que no altera la dirección),
+    $w_2'=(1,2,1)$ con $\|w_2'\|=\sqrt{1+4+1}=\sqrt{6}$:
+
+    \[
+    e_2=\frac{1}{\sqrt{6}}(1,2,1)
+    =\left(\frac{\sqrt{6}}{6},\,\frac{\sqrt{6}}{3},\,\frac{\sqrt{6}}{6}\right)
+    \]
+
+    \textbf{Tercer vector.} Con $v_3=(0,0,1)$:
+
+    \[
+    v_3\cdot w_1=1,\qquad v_3\cdot w_2'=1,\qquad w_2'\cdot w_2'=6
+    \]
+
+    \[
+    w_3=(0,0,1)-\frac{1}{2}(-1,0,1)-\frac{1}{6}(1,2,1)
+    \]
+
+    \[
+    =\left(0+\frac{1}{2}-\frac{1}{6},\;0+0-\frac{1}{3},\;
+    1-\frac{1}{2}-\frac{1}{6}\right)
+    =\left(\frac{1}{3},\,-\frac{1}{3},\,\frac{1}{3}\right)
+    \]
+
+    Multiplicando por $3$, $w_3'=(1,-1,1)$ con $\|w_3'\|=\sqrt{3}$:
+
+    \[
+    e_3=\frac{1}{\sqrt{3}}(1,-1,1)
+    \]
+
+    \[
+    \boxed{
+    B=\left\{
+    \frac{(-1,0,1)}{\sqrt{2}},\;
+    \frac{(1,2,1)}{\sqrt{6}},\;
+    \frac{(1,-1,1)}{\sqrt{3}}
+    \right\}
+    }
+    \]
+
+    \textbf{Verificación de ortogonalidad:}
+    $(-1,0,1)\cdot(1,2,1)=-1+0+1=0$;
+    $(-1,0,1)\cdot(1,-1,1)=-1+0+1=0$;
+    $(1,2,1)\cdot(1,-1,1)=1-2+1=0$. \checkmark
+
+    \item Para $\mathbb{R}^2$ a partir de la base $\{(1,5),\,(-1,1)\}$.
+
+    \solucion
+
+    \textbf{Primer vector.} $w_1=(1,5)$, con $\|w_1\|=\sqrt{1+25}=\sqrt{26}$.
+
+    \[
+    e_1=\frac{1}{\sqrt{26}}(1,5)
+    \]
+
+    \textbf{Segundo vector.} Con $v_2=(-1,1)$:
+
+    \[
+    v_2\cdot w_1=-1+5=4,\qquad w_1\cdot w_1=26
+    \]
+
+    \[
+    w_2=(-1,1)-\frac{4}{26}(1,5)=(-1,1)-\frac{2}{13}(1,5)
+    =\left(-\frac{15}{13},\,\frac{3}{13}\right)
+    \]
+
+    Multiplicando por $\tfrac{13}{3}$, $w_2'=(-5,1)$ con
+    $\|w_2'\|=\sqrt{25+1}=\sqrt{26}$:
+
+    \[
+    e_2=\frac{1}{\sqrt{26}}(-5,1)
+    \]
+
+    \[
+    \boxed{
+    B=\left\{
+    \frac{(1,5)}{\sqrt{26}},\;
+    \frac{(-5,1)}{\sqrt{26}}
+    \right\}
+    }
+    \]
+
+    \textbf{Verificación:} $(1,5)\cdot(-5,1)=-5+5=0$. \checkmark
+
+    \item $\{(x,y,z):\ 3x-y+6z=0\}$.
+
+    \solucion
+
+    \textbf{Base del subespacio.} Despejando $y=3x+6z$, un vector genérico es
+
+    \[
+    (x,\,3x+6z,\,z)=x(1,3,0)+z(0,6,1)
+    \]
+
+    de modo que $B_0=\{(1,3,0),(0,6,1)\}$ es una base (el subespacio es un
+    plano por el origen, $\dim=2$).
+
+    \textbf{Gram-Schmidt.} $w_1=(1,3,0)$, con $\|w_1\|=\sqrt{10}$.
+
+    \[
+    v_2\cdot w_1=(0,6,1)\cdot(1,3,0)=18,\qquad w_1\cdot w_1=10
+    \]
+
+    \[
+    w_2=(0,6,1)-\frac{18}{10}(1,3,0)=(0,6,1)-\frac{9}{5}(1,3,0)
+    =\left(-\frac{9}{5},\,\frac{3}{5},\,1\right)
+    \]
+
+    Multiplicando por $5$, $w_2'=(-9,3,5)$ con
+    $\|w_2'\|=\sqrt{81+9+25}=\sqrt{115}$.
+
+    \[
+    \boxed{
+    B=\left\{
+    \frac{(1,3,0)}{\sqrt{10}},\;
+    \frac{(-9,3,5)}{\sqrt{115}}
+    \right\}
+    }
+    \]
+
+    \textbf{Verificación:} $(1,3,0)\cdot(-9,3,5)=-9+9+0=0$ \checkmark, y ambos
+    vectores satisfacen la ecuación del plano:
+    $3(1)-3+6(0)=0$ y $3(-9)-3+6(5)=-27-3+30=0$. \checkmark
+
+    \item $\{(x,y,z)\in\mathbb{R}^3:\ x=-2y,\ z=x+y\}$.
+
+    \solucion
+
+    \textbf{Base del subespacio.} Tomando $y=t$ como parámetro libre:
+
+    \[
+    x=-2t,\qquad z=x+y=-2t+t=-t
+    \]
+
+    \[
+    (x,y,z)=(-2t,\,t,\,-t)=t\,(-2,1,-1)
+    \]
+
+    El subespacio es una recta por el origen, $\dim=1$, con base
+    $\{(-2,1,-1)\}$. Al haber un solo vector no hay nada que ortogonalizar:
+    basta normalizarlo.
+
+    \[
+    \|(-2,1,-1)\|=\sqrt{4+1+1}=\sqrt{6}
+    \]
+
+    \[
+    \boxed{
+    B=\left\{\frac{(-2,1,-1)}{\sqrt{6}}
+    =\left(-\frac{\sqrt{6}}{3},\,\frac{\sqrt{6}}{6},\,-\frac{\sqrt{6}}{6}\right)
+    \right\}
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 7 ========================
+
+\section{Ecuaciones de la recta en el espacio}
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Obtener la ecuación vectorial, paramétrica y simétrica de la recta
+    que cumple con las siguientes condiciones:
+
+    \begin{enumerate}[label=\roman*)]
+
+        \item Recta que pasa por los puntos $A=(1,-2,-1)$ y $B=(3,0,-2)$.
+
+        \solucion
+
+        El vector director es
+
+        \[
+        d=\overrightarrow{AB}=B-A=(3-1,\,0-(-2),\,-2-(-1))=(2,2,-1)
+        \]
+
+        \textbf{Ecuación vectorial:}
+        \[
+        (x,y,z)=(1,-2,-1)+t\,(2,2,-1),\qquad t\in\mathbb{R}
+        \]
+
+        \textbf{Ecuaciones paramétricas:}
+        \[
+        \begin{cases}
+        x=1+2t\\
+        y=-2+2t\\
+        z=-1-t
+        \end{cases}
+        \]
+
+        \textbf{Ecuaciones simétricas:} despejando $t$ de cada una,
+        \[
+        \boxed{\frac{x-1}{2}=\frac{y+2}{2}=\frac{z+1}{-1}}
+        \]
+
+        \item Recta que pasa por el punto $P=(4,-3,6)$ y es paralela al
+        vector $u=(1,2,-3)$.
+
+        \solucion
+
+        Al ser paralela a $u$, éste puede tomarse directamente como vector
+        director.
+
+        \textbf{Vectorial:}
+        \[
+        (x,y,z)=(4,-3,6)+t\,(1,2,-3)
+        \]
+
+        \textbf{Paramétricas:}
+        \[
+        \begin{cases}
+        x=4+t\\
+        y=-3+2t\\
+        z=6-3t
+        \end{cases}
+        \]
+
+        \textbf{Simétricas:}
+        \[
+        \boxed{\frac{x-4}{1}=\frac{y+3}{2}=\frac{z-6}{-3}}
+        \]
+
+        \item Recta que pasa por el punto $P=(2,5,-3)$ y es perpendicular al
+        vector $v=(1,2,-3)$.
+
+        \solucion
+
+        La condición de perpendicularidad a un \emph{único} vector no
+        determina una recta de manera unívoca: existen infinitas rectas por
+        $P$ perpendiculares a $v$ (todas las contenidas en el plano que pasa
+        por $P$ con normal $v$). Basta entonces elegir un vector director
+        $d=(a,b,c)$ que cumpla $d\cdot v=0$:
+
+        \[
+        a+2b-3c=0
+        \]
+
+        Tomando $c=0$ y $a=2$, resulta $2+2b=0\Rightarrow b=-1$, es decir
+        $d=(2,-1,0)$. En efecto, $d\cdot v=2-2+0=0$. \checkmark
+
+        \textbf{Vectorial:}
+        \[
+        (x,y,z)=(2,5,-3)+t\,(2,-1,0)
+        \]
+
+        \textbf{Paramétricas:}
+        \[
+        \begin{cases}
+        x=2+2t\\
+        y=5-t\\
+        z=-3
+        \end{cases}
+        \]
+
+        \textbf{Simétricas:} como la tercera componente del director es nula,
+        \[
+        \boxed{\frac{x-2}{2}=\frac{y-5}{-1},\qquad z=-3}
+        \]
+
+        \item Recta que pasa por el punto $P=(1,5,-1)$ y es perpendicular
+        simultáneamente a los vectores $u=(1,1,0)$ y $v=(2,1,-1)$.
+
+        \solucion
+
+        Un vector perpendicular a $u$ y a $v$ a la vez es su producto
+        vectorial:
+
+        \[
+        d=u\times v=\begin{vmatrix}
+        i & j & k\\
+        1 & 1 & 0\\
+        2 & 1 & -1
+        \end{vmatrix}
+        =i(-1-0)-j(-1-0)+k(1-2)=(-1,1,-1)
+        \]
+
+        \textbf{Vectorial:}
+        \[
+        (x,y,z)=(1,5,-1)+t\,(-1,1,-1)
+        \]
+
+        \textbf{Paramétricas:}
+        \[
+        \begin{cases}
+        x=1-t\\
+        y=5+t\\
+        z=-1-t
+        \end{cases}
+        \]
+
+        \textbf{Simétricas:}
+        \[
+        \boxed{\frac{x-1}{-1}=\frac{y-5}{1}=\frac{z+1}{-1}}
+        \]
+
+    \end{enumerate}
+
+    \item Dada la recta $(x,y,z)=(1,-1,-1)+t\,(5,4,-3)$:
+
+    \begin{enumerate}[label=\roman*)]
+
+        \item Determinar si el punto $P=(-9,-9,5)$ está en la recta.
+
+        \solucion
+
+        Un punto pertenece a la recta si existe un \emph{único} valor de $t$
+        que satisface las tres ecuaciones paramétricas a la vez.
+
+        \[
+        1+5t=-9\ \Longrightarrow\ t=-2
+        \]
+
+        Verificamos ese valor en las otras dos componentes:
+
+        \[
+        y=-1+4(-2)=-9\ \checkmark \qquad
+        z=-1-3(-2)=-1+6=5\ \checkmark
+        \]
+
+        \[
+        \boxed{P \text{ pertenece a la recta (con } t=-2\text{).}}
+        \]
+
+        \item Determinar si el punto $Q=(3,1,-5)$ está en la recta.
+
+        \solucion
+
+        \[
+        1+5t=3\ \Longrightarrow\ t=\frac{2}{5}
+        \]
+
+        Con ese valor,
+
+        \[
+        y=-1+4\cdot\frac{2}{5}=-1+\frac{8}{5}=\frac{3}{5}\neq1
+        \]
+
+        No existe un valor de $t$ común a las tres ecuaciones.
+
+        \[
+        \boxed{Q \text{ no pertenece a la recta.}}
+        \]
+
+        \item Dar un ejemplo de un punto que esté en la recta.
+
+        \solucion
+
+        Basta asignar cualquier valor al parámetro. Con $t=1$:
+
+        \[
+        (x,y,z)=(1+5,\,-1+4,\,-1-3)
+        \]
+
+        \[
+        \boxed{R=(6,3,-4)\ \text{pertenece a la recta}}
+        \]
+
+        \item ¿Cuánto deben valer $x,y$ para que el punto $R=(2x,11,y)$ esté
+        en la recta?
+
+        \solucion
+
+        La segunda componente está completamente determinada, así que
+        partimos de ella:
+
+        \[
+        -1+4t=11\ \Longrightarrow\ 4t=12\ \Longrightarrow\ t=3
+        \]
+
+        Con $t=3$ las otras dos componentes quedan fijadas:
+
+        \[
+        2x=1+5(3)=16\ \Longrightarrow\ x=8
+        \]
+        \[
+        y=-1-3(3)=-10
+        \]
+
+        \[
+        \boxed{x=8,\qquad y=-10,\qquad R=(16,11,-10)}
+        \]
+
+    \end{enumerate}
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 8 ========================
+
+\section{Ecuaciones del plano}
+
+Realizar lo pedido en cada caso.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Dar la ecuación general del plano que pasa por el punto
+    $P=(2,1,-1)$ y es ortogonal al vector $w=(3,1,-2)$.
+
+    \solucion
+
+    Si el plano es ortogonal a $w$, entonces $w$ es su vector normal. La
+    ecuación normal del plano es
+
+    \[
+    w\cdot\big((x,y,z)-P\big)=0
+    \]
+
+    \[
+    (3,1,-2)\cdot(x-2,\,y-1,\,z+1)=0
+    \]
+
+    \[
+    3(x-2)+1(y-1)-2(z+1)=0
+    \]
+
+    \[
+    3x-6+y-1-2z-2=0
+    \]
+
+    \[
+    \boxed{\pi:\ 3x+y-2z-9=0}
+    \]
+
+    \textbf{Verificación:} $3(2)+1-2(-1)-9=6+1+2-9=0$. \checkmark
+
+    \item Dar la ecuación normal y general del plano que pasa por los puntos
+    $A=(1,-2,2)$, $B=(3,2,-5)$ y $C=(2,0,-1)$.
+
+    \solucion
+
+    \textbf{Vector normal.} Dos vectores contenidos en el plano son
+
+    \[
+    \overrightarrow{AB}=(2,4,-7),\qquad \overrightarrow{AC}=(1,2,-3)
+    \]
+
+    y su producto vectorial da la normal:
+
+    \[
+    n=\overrightarrow{AB}\times\overrightarrow{AC}=\begin{vmatrix}
+    i & j & k\\
+    2 & 4 & -7\\
+    1 & 2 & -3
+    \end{vmatrix}
+    =i(-12+14)-j(-6+7)+k(4-4)=(2,-1,0)
+    \]
+
+    \textbf{Ecuación normal:}
+
+    \[
+    \boxed{(2,-1,0)\cdot(x-1,\,y+2,\,z-2)=0}
+    \]
+
+    \textbf{Ecuación general:}
+
+    \[
+    2(x-1)-1(y+2)+0(z-2)=0\ \Longrightarrow\ 2x-2-y-2=0
+    \]
+
+    \[
+    \boxed{\pi:\ 2x-y-4=0}
+    \]
+
+    \textbf{Verificación:} $A$: $2(1)-(-2)-4=0$ \checkmark;\;
+    $B$: $2(3)-2-4=0$ \checkmark;\;
+    $C$: $2(2)-0-4=0$ \checkmark
+
+    (El plano no contiene a la variable $z$: es un plano paralelo al eje $z$.)
+
+    \item Dar la ecuación general del plano perpendicular a la recta
+    $(x,y,z)=\left(1,3,\tfrac{1}{2}\right)+t(1,-2,5)$ y que pasa por el punto
+    $P=(-7,2,3)$.
+
+    \solucion
+
+    Si el plano es perpendicular a la recta, el vector director de ésta es
+    la normal del plano: $n=(1,-2,5)$.
+
+    \[
+    1(x+7)-2(y-2)+5(z-3)=0
+    \]
+
+    \[
+    x+7-2y+4+5z-15=0
+    \]
+
+    \[
+    \boxed{\pi:\ x-2y+5z-4=0}
+    \]
+
+    \textbf{Verificación:} $-7-2(2)+5(3)-4=-7-4+15-4=0$. \checkmark
+
+    \item Dar la ecuación general del plano que pasa por el punto
+    $P=(-2,1,1)$ y es paralelo a la recta
+    $r:\ \dfrac{x-14}{5}=\dfrac{y+1}{-1}=\dfrac{z+2}{-3}$.
+
+    \solucion
+
+    El vector director de la recta es $d=(5,-1,-3)$. Que el plano sea
+    paralelo a $r$ significa que $d$ es perpendicular a la normal del plano,
+    esto es, $n\cdot d=0$. Esta única condición deja un grado de libertad:
+    hay infinitos planos por $P$ paralelos a $r$, y basta exhibir uno.
+
+    Buscamos $n=(a,b,c)$ con
+
+    \[
+    5a-b-3c=0
+    \]
+
+    Tomando $c=0$ y $a=1$ resulta $b=5$, es decir $n=(1,5,0)$, que verifica
+    $n\cdot d=5-5-0=0$. \checkmark
+
+    \[
+    1(x+2)+5(y-1)+0(z-1)=0\ \Longrightarrow\ x+2+5y-5=0
+    \]
+
+    \[
+    \boxed{\pi:\ x+5y-3=0}
+    \]
+
+    \textbf{Verificaciones:}
+
+    \begin{itemize}
+        \item $P\in\pi$: $-2+5(1)-3=0$. \checkmark
+        \item $\pi$ es paralelo a $r$ y no la contiene: el punto
+        $(14,-1,-2)$ de la recta da $14+5(-1)-3=6\neq0$, luego la recta es
+        efectivamente exterior al plano. \checkmark
+    \end{itemize}
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 9 ========================
+
+\section{Posiciones relativas entre rectas}
+
+Determinar las posiciones relativas entre los siguientes pares de rectas.
+
+El criterio utilizado en todos los incisos es el siguiente. Sean
+$r:\ A+t\,u$ y $s:\ B+\lambda\,v$:
+
+\begin{itemize}
+    \item Si $u\times v=0$ (directores paralelos), las rectas son
+    \textbf{coincidentes} cuando $B\in r$, y \textbf{paralelas distintas}
+    en caso contrario.
+    \item Si $u\times v\neq0$, se calcula el producto mixto
+    $\big(\overrightarrow{AB},u,v\big)$. Si vale $0$ las rectas son
+    \textbf{secantes} (coplanares y no paralelas); si no, son
+    \textbf{alabeadas} (se cruzan sin cortarse).
+\end{itemize}
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $r:(x,y,z)=\left(1,3,\tfrac{1}{2}\right)+t\,(1,-2,5)$ \quad
+    $s:\begin{cases}
+    x=3-\tfrac{t}{2}\\[2pt]
+    y=1+t\\[2pt]
+    z=-2-\tfrac{5}{2}t
+    \end{cases}$
+
+    \solucion
+
+    De las paramétricas de $s$ se leen el punto $B=(3,1,-2)$ y el director
+
+    \[
+    v=\left(-\frac{1}{2},\,1,\,-\frac{5}{2}\right)
+    =-\frac{1}{2}\,(1,-2,5)=-\frac{1}{2}\,u
+    \]
+
+    Los directores son proporcionales, de modo que las rectas son paralelas
+    o coincidentes. Verificamos si $B=(3,1,-2)$ pertenece a $r$:
+
+    \[
+    1+t=3\ \Longrightarrow\ t=2,\qquad
+    y=3-2(2)=-1\neq1
+    \]
+
+    El punto $B$ no está en $r$.
+
+    \[
+    \boxed{r \text{ y } s \text{ son paralelas distintas.}}
+    \]
+
+    \item $r:\ \dfrac{x-14}{5}=\dfrac{y+1}{-1}=\dfrac{z+2}{\tfrac{1}{2}}$
+    \quad $s:(x,y,z)=(3,-2,0)+t\,(1,1,3)$
+
+    \solucion
+
+    \[
+    A=(14,-1,-2),\quad u=\left(5,-1,\tfrac{1}{2}\right);\qquad
+    B=(3,-2,0),\quad v=(1,1,3)
+    \]
+
+    Los directores no son proporcionales ($5/1\neq-1/1$), así que las rectas
+    no son paralelas. Calculamos el producto mixto con
+    $\overrightarrow{AB}=B-A=(-11,-1,2)$:
+
+    \[
+    \big(\overrightarrow{AB},u,v\big)=\begin{vmatrix}
+    -11 & -1 & 2\\[2pt]
+    5 & -1 & \tfrac{1}{2}\\[2pt]
+    1 & 1 & 3
+    \end{vmatrix}
+    =-11\left(-3-\tfrac{1}{2}\right)+1\left(15-\tfrac{1}{2}\right)+2(5+1)
+    \]
+
+    \[
+    =-11\left(-\frac{7}{2}\right)+\frac{29}{2}+12
+    =\frac{77}{2}+\frac{29}{2}+12=53+12=65\neq0
+    \]
+
+    \[
+    \boxed{r \text{ y } s \text{ son alabeadas (se cruzan).}}
+    \]
+
+    \item $r:\begin{cases}
+    x=1+2t\\
+    y=-1-t\\
+    z=-\tfrac{1}{5}+3t
+    \end{cases}$
+    \quad
+    $s:\ \dfrac{x-3}{2/3}=\dfrac{-y-2}{1/3}=\dfrac{z-\tfrac{14}{5}}{1}$
+
+    \solucion
+
+    De $r$: $A=\left(1,-1,-\tfrac{1}{5}\right)$ y $u=(2,-1,3)$.
+
+    De $s$, reescribiendo el término central como
+    $\dfrac{-y-2}{1/3}=\dfrac{y+2}{-1/3}$, resulta
+    $B=\left(3,-2,\tfrac{14}{5}\right)$ y
+    $v=\left(\tfrac{2}{3},-\tfrac{1}{3},1\right)$.
+
+    Los directores son proporcionales:
+
+    \[
+    u=(2,-1,3)=3\left(\frac{2}{3},-\frac{1}{3},1\right)=3v
+    \]
+
+    Verificamos si $A$ pertenece a $s$ sustituyendo en las simétricas:
+
+    \[
+    \frac{1-3}{2/3}=-3,\qquad
+    \frac{-1+2}{-1/3}=-3,\qquad
+    \frac{-\tfrac{1}{5}-\tfrac{14}{5}}{1}=-\frac{15}{5}=-3
+    \]
+
+    Los tres cocientes coinciden, luego $A\in s$.
+
+    \[
+    \boxed{r \text{ y } s \text{ son coincidentes (la misma recta).}}
+    \]
+
+    \item $r:(x,y,z)=(0,1,3)+t\,(5,1,1)$ \quad
+    $s:\begin{cases}
+    x=-1+\lambda\\
+    y=2-\lambda\\
+    z=5-\lambda
+    \end{cases}$
+
+    \solucion
+
+    \[
+    A=(0,1,3),\quad u=(5,1,1);\qquad B=(-1,2,5),\quad v=(1,-1,-1)
+    \]
+
+    No son proporcionales. Con $\overrightarrow{AB}=(-1,1,2)$:
+
+    \[
+    \big(\overrightarrow{AB},u,v\big)=\begin{vmatrix}
+    -1 & 1 & 2\\
+    5 & 1 & 1\\
+    1 & -1 & -1
+    \end{vmatrix}
+    =-1(-1+1)-1(-5-1)+2(-5-1)
+    \]
+
+    \[
+    =0+6-12=-6\neq0
+    \]
+
+    \[
+    \boxed{r \text{ y } s \text{ son alabeadas (se cruzan).}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 10 ========================
+
+\section{Posiciones relativas entre planos}
+
+Estudiar las posiciones relativas entre los siguientes planos.
+
+Dados $\pi_1: a_1x+b_1y+c_1z+d_1=0$ y $\pi_2: a_2x+b_2y+c_2z+d_2=0$ con
+normales $n_1$ y $n_2$:
+
+\begin{itemize}
+    \item Si $n_1\times n_2\neq0$ los planos son \textbf{secantes} (se
+    cortan en una recta).
+    \item Si $n_2=k\,n_1$, los planos son \textbf{coincidentes} cuando
+    además $d_2=k\,d_1$, y \textbf{paralelos distintos} en caso contrario.
+\end{itemize}
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $\pi_1:\ \tfrac{1}{5}x+3y-2z-\tfrac{6}{5}=0$ \qquad
+    $\pi_2:\ -\tfrac{x}{3}-5y+\tfrac{10}{3}z+2=0$
+
+    \solucion
+
+    \[
+    n_1=\left(\tfrac{1}{5},\,3,\,-2\right),\qquad
+    n_2=\left(-\tfrac{1}{3},\,-5,\,\tfrac{10}{3}\right)
+    \]
+
+    Buscamos la constante de proporcionalidad a partir de la primera
+    componente:
+
+    \[
+    k=\frac{-1/3}{1/5}=-\frac{5}{3}
+    \]
+
+    y comprobamos en las otras dos:
+
+    \[
+    3\left(-\frac{5}{3}\right)=-5\ \checkmark\qquad
+    -2\left(-\frac{5}{3}\right)=\frac{10}{3}\ \checkmark
+    \]
+
+    Las normales son paralelas. Falta ver el término independiente:
+
+    \[
+    k\,d_1=-\frac{5}{3}\cdot\left(-\frac{6}{5}\right)=2=d_2\ \checkmark
+    \]
+
+    En efecto, multiplicando $\pi_1$ por $-\tfrac{5}{3}$ se obtiene
+    exactamente $\pi_2$.
+
+    \[
+    \boxed{\pi_1 \text{ y } \pi_2 \text{ son coincidentes.}}
+    \]
+
+    \item $\pi_1:\ (x-1,\,y,\,z+2)\cdot(1,-1,3)=0$ \qquad
+    $\pi_2:\ x+y+z+1=0$
+
+    \solucion
+
+    Desarrollamos $\pi_1$ a su forma general:
+
+    \[
+    (x-1)-y+3(z+2)=0\ \Longrightarrow\ x-y+3z+5=0
+    \]
+
+    \[
+    n_1=(1,-1,3),\qquad n_2=(1,1,1)
+    \]
+
+    No son proporcionales ($1/1=1$ pero $-1/1=-1$).
+
+    \[
+    \boxed{\pi_1 \text{ y } \pi_2 \text{ son secantes: se cortan según una recta.}}
+    \]
+
+    \item $\pi_1:\ 3x-2y+\tfrac{1}{5}z+1=0$ \qquad
+    $\pi_2:\ -2x+\tfrac{4}{3}y-\tfrac{2}{15}z+2=0$
+
+    \solucion
+
+    \[
+    n_1=\left(3,\,-2,\,\tfrac{1}{5}\right),\qquad
+    n_2=\left(-2,\,\tfrac{4}{3},\,-\tfrac{2}{15}\right)
+    \]
+
+    \[
+    k=\frac{-2}{3},\qquad
+    -2\left(-\frac{2}{3}\right)=\frac{4}{3}\ \checkmark,\qquad
+    \frac{1}{5}\left(-\frac{2}{3}\right)=-\frac{2}{15}\ \checkmark
+    \]
+
+    Las normales son paralelas. Para el término independiente:
+
+    \[
+    k\,d_1=-\frac{2}{3}\cdot1=-\frac{2}{3}\neq2=d_2
+    \]
+
+    \[
+    \boxed{\pi_1 \text{ y } \pi_2 \text{ son paralelos distintos.}}
+    \]
+
+    \item $\pi_1:\ x-y+z+1=0$ \qquad $\pi_2:\ -2x+3y-2z+2=0$
+
+    \solucion
+
+    \[
+    n_1=(1,-1,1),\qquad n_2=(-2,3,-2)
+    \]
+
+    De la primera componente saldría $k=-2$, pero
+    $-1\cdot(-2)=2\neq3$. Las normales no son paralelas.
+
+    \[
+    \boxed{\pi_1 \text{ y } \pi_2 \text{ son secantes: se cortan según una recta.}}
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 11 ========================
+
+\section{Posiciones relativas entre recta y plano}
+
+Estudiar la posición relativa entre los siguientes planos y rectas.
+
+Siendo $n$ la normal del plano y $u$ el director de la recta:
+
+\begin{itemize}
+    \item Si $n\cdot u\neq0$, la recta y el plano son \textbf{secantes}
+    (se cortan en un punto).
+    \item Si $n\cdot u=0$, la recta es \textbf{paralela} al plano; está
+    \textbf{contenida} en él cuando además un punto de la recta satisface
+    su ecuación.
+\end{itemize}
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $\pi:\ 5x-y-z+3=0$ \qquad $r:(x,y,z)=(1,1,7)+t\,(1,2,3)$
+
+    \solucion
+
+    \[
+    n=(5,-1,-1),\qquad u=(1,2,3)
+    \]
+
+    \[
+    n\cdot u=5-2-3=0
+    \]
+
+    La recta es paralela al plano. Verificamos si el punto $(1,1,7)$ lo
+    satisface:
+
+    \[
+    5(1)-1-7+3=5-1-7+3=0
+    \]
+
+    \[
+    \boxed{r \text{ está contenida en } \pi.}
+    \]
+
+    \item $\pi:\ -2x+y+5=9$ \qquad $r:(x,y,z)=(1,1,2)+t\,(1,-3,1)$
+
+    \solucion
+
+    Llevando el plano a su forma general: $-2x+y-4=0$, con $n=(-2,1,0)$.
+
+    \[
+    n\cdot u=(-2)(1)+(1)(-3)+(0)(1)=-5\neq0
+    \]
+
+    Son secantes. Buscamos el punto de corte sustituyendo las paramétricas
+    de la recta en la ecuación del plano:
+
+    \[
+    -2(1+t)+(1-3t)-4=0
+    \]
+    \[
+    -2-2t+1-3t-4=0\ \Longrightarrow\ -5t-5=0\ \Longrightarrow\ t=-1
+    \]
+
+    \[
+    (x,y,z)=(1-1,\,1+3,\,2-1)=(0,4,1)
+    \]
+
+    \[
+    \boxed{\text{Secantes; el punto de intersección es } (0,4,1).}
+    \]
+
+    \textbf{Verificación:} $-2(0)+4-4=0$. \checkmark
+
+    \item $\pi:\ 3x-y+z-1=0$ \qquad
+    $r:\ \dfrac{x-1}{1}=\dfrac{y}{2}=\dfrac{z-1}{-2}$
+
+    \solucion
+
+    De las simétricas: punto $(1,0,1)$ y director $u=(1,2,-2)$. La normal es
+    $n=(3,-1,1)$.
+
+    \[
+    n\cdot u=3-2-2=-1\neq0
+    \]
+
+    Son secantes. Con las paramétricas $x=1+t$, $y=2t$, $z=1-2t$:
+
+    \[
+    3(1+t)-2t+(1-2t)-1=3+3t-2t+1-2t-1=3-t=0
+    \ \Longrightarrow\ t=3
+    \]
+
+    \[
+    (x,y,z)=(1+3,\,6,\,1-6)=(4,6,-5)
+    \]
+
+    \[
+    \boxed{\text{Secantes; el punto de intersección es } (4,6,-5).}
+    \]
+
+    \textbf{Verificación:} $3(4)-6+(-5)-1=12-6-5-1=0$. \checkmark
+
+    \item $\pi:\ 2-2y+z+1=0$ \qquad
+    $r:\begin{cases} x=1+2t\\ y=1+t\\ z=-1 \end{cases}$
+
+    \solucion
+
+    La ecuación del plano, tal como está enunciada, no contiene a la
+    variable $x$; agrupando los términos independientes queda
+    $\pi:\ -2y+z+3=0$, un plano paralelo al eje $x$ con normal
+    $n=(0,-2,1)$. El director de la recta es $u=(2,1,0)$.
+
+    \[
+    n\cdot u=0\cdot2+(-2)(1)+1\cdot0=-2\neq0
+    \]
+
+    Son secantes. Sustituyendo:
+
+    \[
+    -2(1+t)+(-1)+3=0\ \Longrightarrow\ -2-2t+2=0
+    \ \Longrightarrow\ -2t=0\ \Longrightarrow\ t=0
+    \]
+
+    \[
+    (x,y,z)=(1,1,-1)
+    \]
+
+    \[
+    \boxed{\text{Secantes; el punto de intersección es } (1,1,-1).}
+    \]
+
+    \textbf{Verificación:} $-2(1)+(-1)+3=0$. \checkmark
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 12 ========================
+
+\section{Ángulos entre rectas y planos}
+
+Determinar el ángulo entre:
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item El plano y la recta del ejercicio 11.b).
+
+    \solucion
+
+    Se trata de $\pi:\ -2x+y-4=0$, con $n=(-2,1,0)$, y
+    $r:(1,1,2)+t(1,-3,1)$, con $u=(1,-3,1)$.
+
+    El ángulo $\theta$ entre una recta y un plano es el complemento del
+    ángulo entre el director y la normal, de modo que se calcula con el
+    seno:
+
+    \[
+    \operatorname{sen}\theta=\frac{|n\cdot u|}{\|n\|\,\|u\|}
+    \]
+
+    \[
+    n\cdot u=-2-3+0=-5,\qquad
+    \|n\|=\sqrt{4+1+0}=\sqrt{5},\qquad
+    \|u\|=\sqrt{1+9+1}=\sqrt{11}
+    \]
+
+    \[
+    \operatorname{sen}\theta=\frac{5}{\sqrt{5}\sqrt{11}}=\frac{5}{\sqrt{55}}
+    =\frac{\sqrt{55}}{11}\approx0{,}6742
+    \]
+
+    \[
+    \boxed{\theta=\arcsin\left(\frac{\sqrt{55}}{11}\right)\approx42^{\circ}24'}
+    \]
+
+    (es decir, $\theta\approx42{,}39^{\circ}$).
+
+    \item Los planos:
+    $2x-y+5z-3=0\ \wedge\ x+y-\tfrac{1}{5}z+2=0$
+
+    \solucion
+
+    El ángulo entre dos planos es el ángulo entre sus normales:
+
+    \[
+    n_1=(2,-1,5),\qquad n_2=\left(1,\,1,\,-\tfrac{1}{5}\right)
+    \]
+
+    \[
+    n_1\cdot n_2=2(1)+(-1)(1)+5\left(-\frac{1}{5}\right)=2-1-1=0
+    \]
+
+    El producto escalar es nulo, por lo que las normales son ortogonales y
+    los planos también lo son.
+
+    \[
+    \boxed{\theta=90^{\circ}\ \left(\tfrac{\pi}{2}\right):\
+    \text{los planos son perpendiculares.}}
+    \]
+
+    \item Las rectas $(x,y,z)=(2,0,1)+t\,(2,-1,1)\ \wedge\
+    \dfrac{x-1}{1}=\dfrac{y}{3}=\dfrac{z-1}{2}$
+
+    \solucion
+
+    Los directores son $u=(2,-1,1)$ y $v=(1,3,2)$. El ángulo entre rectas se
+    obtiene con
+
+    \[
+    \cos\theta=\frac{|u\cdot v|}{\|u\|\,\|v\|}
+    \]
+
+    \[
+    u\cdot v=2-3+2=1,\qquad
+    \|u\|=\sqrt{4+1+1}=\sqrt{6},\qquad
+    \|v\|=\sqrt{1+9+4}=\sqrt{14}
+    \]
+
+    \[
+    \cos\theta=\frac{1}{\sqrt{6}\sqrt{14}}=\frac{1}{\sqrt{84}}
+    =\frac{1}{2\sqrt{21}}=\frac{\sqrt{21}}{42}\approx0{,}1091
+    \]
+
+    \[
+    \boxed{\theta=\arccos\left(\frac{\sqrt{21}}{42}\right)\approx83^{\circ}44'}
+    \]
+
+    (es decir, $\theta\approx83{,}74^{\circ}$: las rectas son casi
+    perpendiculares, pero no lo son.)
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 13 ========================
+
+\section{Distancia de un punto a una recta}
+
+Dada la recta $(x,y,z)=(1,2,-1)+t\,(5,2,-1)$.
+
+La distancia de un punto $P$ a una recta que pasa por $A$ con director $u$
+se calcula como
+
+\[
+d(P,r)=\frac{\big\|\overrightarrow{AP}\times u\big\|}{\|u\|}
+\]
+
+(el numerador es el área del paralelogramo que forman
+$\overrightarrow{AP}$ y $u$, y al dividirla por la base $\|u\|$ se obtiene
+la altura, que es justamente la distancia buscada).
+
+En ambos incisos, $A=(1,2,-1)$, $u=(5,2,-1)$ y
+$\|u\|=\sqrt{25+4+1}=\sqrt{30}$.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item Determinar la distancia del punto $(1,0,-3)$ a la recta.
+
+    \solucion
+
+    \[
+    \overrightarrow{AP}=(1,0,-3)-(1,2,-1)=(0,-2,-2)
+    \]
+
+    \[
+    \overrightarrow{AP}\times u=\begin{vmatrix}
+    i & j & k\\
+    0 & -2 & -2\\
+    5 & 2 & -1
+    \end{vmatrix}
+    =i(2+4)-j(0+10)+k(0+10)=(6,-10,10)
+    \]
+
+    \[
+    \big\|\overrightarrow{AP}\times u\big\|=\sqrt{36+100+100}=\sqrt{236}
+    =2\sqrt{59}
+    \]
+
+    \[
+    d=\frac{2\sqrt{59}}{\sqrt{30}}=\frac{2\sqrt{1770}}{30}
+    =\frac{\sqrt{1770}}{15}
+    \]
+
+    \[
+    \boxed{d\approx2{,}80\ \text{u.l.}}
+    \]
+
+    \item Determinar la distancia del punto $(-4,0,0)$ a la recta.
+
+    \solucion
+
+    \[
+    \overrightarrow{AP}=(-4,0,0)-(1,2,-1)=(-5,-2,1)
+    \]
+
+    \[
+    \overrightarrow{AP}\times u=\begin{vmatrix}
+    i & j & k\\
+    -5 & -2 & 1\\
+    5 & 2 & -1
+    \end{vmatrix}
+    =i(2-2)-j(5-5)+k(-10+10)=(0,0,0)
+    \]
+
+    El producto vectorial es nulo porque $\overrightarrow{AP}=-u$: el vector
+    que une $A$ con $P$ tiene la misma dirección que la recta, es decir, el
+    punto pertenece a ella.
+
+    \[
+    \boxed{d=0:\ \text{el punto } (-4,0,0) \text{ está sobre la recta.}}
+    \]
+
+    \textbf{Verificación:} $1+5t=-4\Rightarrow t=-1$; entonces
+    $y=2+2(-1)=0$ \checkmark\ y $z=-1-(-1)=0$ \checkmark
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 14 ========================
+
+\section{Distancia entre rectas}
+
+Determinar la distancia entre los siguientes pares de rectas.
+
+Según la posición relativa, se emplea:
+
+\begin{itemize}
+    \item \textbf{Rectas paralelas:} se reduce a la distancia de un punto de
+    una de ellas a la otra.
+    \item \textbf{Rectas alabeadas:} $d=\dfrac{\big|\big(\overrightarrow{AB},u,v\big)\big|}{\|u\times v\|}$
+    \item \textbf{Rectas secantes o coincidentes:} $d=0$.
+\end{itemize}
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $(x,y,z)=(1,2,-1)+t\,(5,2,-1)$ \quad y \quad
+    $\dfrac{x-1}{5}=\dfrac{y}{2}=\dfrac{z-1}{-1}$
+
+    \solucion
+
+    \[
+    A=(1,2,-1),\ u=(5,2,-1);\qquad B=(1,0,1),\ v=(5,2,-1)
+    \]
+
+    Los directores son iguales, luego las rectas son paralelas. No son
+    coincidentes: con $1+5t=1$ se obtiene $t=0$, que da el punto
+    $(1,2,-1)\neq B$.
+
+    La distancia es entonces la del punto $B$ a la primera recta:
+
+    \[
+    \overrightarrow{AB}=(1,0,1)-(1,2,-1)=(0,-2,2)
+    \]
+
+    \[
+    \overrightarrow{AB}\times u=\begin{vmatrix}
+    i & j & k\\
+    0 & -2 & 2\\
+    5 & 2 & -1
+    \end{vmatrix}
+    =i(2-4)-j(0-10)+k(0+10)=(-2,10,10)
+    \]
+
+    \[
+    \big\|\overrightarrow{AB}\times u\big\|=\sqrt{4+100+100}=\sqrt{204}
+    =2\sqrt{51}
+    \]
+
+    \[
+    d=\frac{2\sqrt{51}}{\sqrt{30}}=2\sqrt{\frac{51}{30}}
+    =2\sqrt{\frac{17}{10}}=\frac{\sqrt{170}}{5}
+    \]
+
+    \[
+    \boxed{d=\frac{\sqrt{170}}{5}\approx2{,}61\ \text{u.l.}}
+    \]
+
+    \item $(x,y,z)=(0,0,3)+t\,(-5,5,-10)$ \quad y \quad
+    $\dfrac{x-1}{1}=\dfrac{-y+2}{2}=\dfrac{z-1}{1}$
+
+    \solucion
+
+    De la segunda recta, reescribiendo $\dfrac{-y+2}{2}=\dfrac{y-2}{-2}$:
+
+    \[
+    A=(0,0,3),\ u=(-5,5,-10);\qquad B=(1,2,1),\ v=(1,-2,1)
+    \]
+
+    Los directores no son proporcionales
+    ($u=-5\,(1,-1,2)$ y $v=(1,-2,1)$), de modo que las rectas no son
+    paralelas.
+
+    \[
+    u\times v=\begin{vmatrix}
+    i & j & k\\
+    -5 & 5 & -10\\
+    1 & -2 & 1
+    \end{vmatrix}
+    =i(5-20)-j(-5+10)+k(10-5)=(-15,-5,5)
+    \]
+
+    \[
+    \overrightarrow{AB}=(1,2,-2)
+    \]
+
+    \[
+    \big(\overrightarrow{AB},u,v\big)=\overrightarrow{AB}\cdot(u\times v)
+    =1(-15)+2(-5)+(-2)(5)=-15-10-10=-35
+    \]
+
+    Como el producto mixto no es nulo, las rectas son alabeadas y
+
+    \[
+    \|u\times v\|=\sqrt{225+25+25}=\sqrt{275}=5\sqrt{11}
+    \]
+
+    \[
+    d=\frac{|-35|}{5\sqrt{11}}=\frac{7}{\sqrt{11}}=\frac{7\sqrt{11}}{11}
+    \]
+
+    \[
+    \boxed{d=\frac{7\sqrt{11}}{11}\approx2{,}11\ \text{u.l.}}
+    \]
+
+    \item $(x,y,z)=(0,-1,3)+t\,(-1,-2,1)$ \quad y \quad
+    $\begin{cases} x=-2-s\\ y=7+2s\\ z=5+s \end{cases}$
+
+    \solucion
+
+    \[
+    A=(0,-1,3),\ u=(-1,-2,1);\qquad B=(-2,7,5),\ v=(-1,2,1)
+    \]
+
+    No son paralelas. Calculamos
+
+    \[
+    u\times v=\begin{vmatrix}
+    i & j & k\\
+    -1 & -2 & 1\\
+    -1 & 2 & 1
+    \end{vmatrix}
+    =i(-2-2)-j(-1+1)+k(-2-2)=(-4,0,-4)
+    \]
+
+    \[
+    \overrightarrow{AB}=(-2,8,2)
+    \]
+
+    \[
+    \big(\overrightarrow{AB},u,v\big)=(-2)(-4)+8(0)+2(-4)=8+0-8=0
+    \]
+
+    El producto mixto se anula: las rectas son coplanares y, al no ser
+    paralelas, se cortan. Por lo tanto la distancia es nula.
+
+    \[
+    \boxed{d=0:\ \text{las rectas son secantes.}}
+    \]
+
+    \textbf{Punto de intersección.} Igualando las paramétricas:
+
+    \[
+    \begin{cases}
+    -t=-2-s\\
+    -1-2t=7+2s\\
+    3+t=5+s
+    \end{cases}
+    \]
+
+    De la primera, $t=2+s$. Sustituyendo en la segunda:
+    $-1-2(2+s)=-5-2s=7+2s\Rightarrow -12=4s\Rightarrow s=-3$, luego $t=-1$.
+    La tercera se verifica: $3-1=2$ y $5-3=2$. \checkmark
+
+    El punto común es $(1,1,2)$.
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 15 ========================
+
+\section{Distancia entre planos}
+
+Determinar la distancia entre los planos
+$\pi_1:\ x-y-z-1=0$ y $\pi_2:\ 3x-3y-3z+5=0$.
+
+\solucion
+
+\textbf{Posición relativa.} Las normales son $n_1=(1,-1,-1)$ y
+$n_2=(3,-3,-3)=3\,n_1$: los planos son paralelos. Para que la distancia sea
+no nula deben ser distintos, lo cual se comprueba al dividir $\pi_2$ por
+$3$:
+
+\[
+\pi_2:\ x-y-z+\frac{5}{3}=0
+\]
+
+Los términos independientes son $-1$ y $\tfrac{5}{3}$, distintos, de modo
+que se trata de dos planos paralelos no coincidentes.
+
+\textbf{Distancia.} Con ambas ecuaciones escritas con la misma normal,
+
+\[
+d(\pi_1,\pi_2)=\frac{|d_2-d_1|}{\|n\|}
+\]
+
+\[
+d=\frac{\left|\tfrac{5}{3}-(-1)\right|}{\sqrt{1^2+(-1)^2+(-1)^2}}
+=\frac{\tfrac{8}{3}}{\sqrt{3}}=\frac{8}{3\sqrt{3}}=\frac{8\sqrt{3}}{9}
+\]
+
+\[
+\boxed{d=\frac{8\sqrt{3}}{9}\approx1{,}54\ \text{u.l.}}
+\]
+
+\textbf{Comprobación por otro camino.} Tomamos un punto cualquiera de
+$\pi_1$, por ejemplo $P=(1,0,0)$ (verifica $1-0-0-1=0$), y calculamos su
+distancia a $\pi_2$ en la forma original:
+
+\[
+d(P,\pi_2)=\frac{|3(1)-3(0)-3(0)+5|}{\sqrt{9+9+9}}
+=\frac{8}{3\sqrt{3}}=\frac{8\sqrt{3}}{9}\ \checkmark
+\]
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 16 ========================
+
+\section{Distancia entre una recta y un plano}
+
+Determinar la distancia entre la recta $(x,y,z)=(1,1,3)+t\,(2,1,1)$ y el
+plano $x-y-z-3=0$.
+
+\solucion
+
+\textbf{Posición relativa.} El director de la recta es $u=(2,1,1)$ y la
+normal del plano es $n=(1,-1,-1)$:
+
+\[
+n\cdot u=2-1-1=0
+\]
+
+La recta es paralela al plano. Verificamos que no esté contenida en él
+evaluando el punto $P=(1,1,3)$:
+
+\[
+1-1-3-3=-6\neq0
+\]
+
+En efecto, la recta es exterior al plano, por lo que la distancia entre
+ambos es constante e igual a la distancia de cualquiera de sus puntos al
+plano.
+
+\textbf{Distancia.}
+
+\[
+d(r,\pi)=d(P,\pi)=\frac{|a x_0+b y_0+c z_0+d|}{\sqrt{a^2+b^2+c^2}}
+=\frac{|-6|}{\sqrt{1^2+(-1)^2+(-1)^2}}=\frac{6}{\sqrt{3}}
+\]
+
+\[
+\boxed{d=2\sqrt{3}\approx3{,}46\ \text{u.l.}}
+\]
+
+\textbf{Comprobación.} Tomando otro punto de la recta, por ejemplo con
+$t=1$, $Q=(3,2,4)$:
+
+\[
+d(Q,\pi)=\frac{|3-2-4-3|}{\sqrt{3}}=\frac{6}{\sqrt{3}}=2\sqrt{3}\ \checkmark
+\]
+
+La distancia no depende del punto elegido, como corresponde al paralelismo
+entre la recta y el plano.
+
+\volverindice
+\newpage
+
+\end{document}
