@@ -26,3 +26,6 @@ Thumbs.db
 .venv/
 venv/
 __pycache__/
+
+# Entregables comprimidos (se regeneran a partir de los archivos del proyecto)
+*.zip
