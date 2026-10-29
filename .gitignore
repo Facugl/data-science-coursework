@@ -29,3 +29,7 @@ __pycache__/
 
 # Entregables comprimidos (se regeneran a partir de los archivos del proyecto)
 *.zip
+
+# Salidas que genera el examen integrador de Programacion II al ejecutarse
+primer-anio/programacion-2/examen-integrador/informe_*.txt
+primer-anio/programacion-2/examen-integrador/analisis_*.csv
