@@ -1,0 +1,1577 @@
+\documentclass[12pt]{article}
+
+% ============================================================
+% IDIOMA Y CODIFICACIÓN
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-noshorthands]{babel}
+
+% ============================================================
+% COLOR
+% ============================================================
+\usepackage[dvipsnames]{xcolor}
+
+% ============================================================
+% MÁRGENES Y GEOMETRÍA
+% ============================================================
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% ============================================================
+% ESPACIADO MEJORADO
+% ============================================================
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ============================================================
+% FORMATO DE TÍTULOS
+% ============================================================
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\Large\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.8em}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath, amssymb, amsfonts}
+
+% ============================================================
+% CÓDIGO FUENTE
+% ============================================================
+\usepackage{listings}
+
+% ============================================================
+% GRÁFICOS
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
+
+% ============================================================
+% TABLAS
+% ============================================================
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeframe}{RGB}{200, 200, 200}
+\definecolor{codecomment}{RGB}{106, 153, 85}
+\definecolor{codekeyword}{RGB}{86, 156, 214}
+\definecolor{codestring}{RGB}{206, 145, 120}
+\definecolor{codenumber}{RGB}{181, 206, 168}
+
+% ============================================================
+% LISTAS Y NUMERACIÓN
+% ============================================================
+\usepackage{enumitem}
+
+% ============================================================
+% ENLACES E HIPERTEXTO
+% ============================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks  = true,
+    linkcolor   = black,
+    urlcolor    = blue!60!black,
+    citecolor   = black,
+    pdftitle    = {Trabajo Práctico N°3},
+    pdfauthor   = {Facundo Luna},
+}
+
+% ============================================================
+% ENCABEZADO Y PIE DE PÁGINA
+% ============================================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small Cálculo Diferencial e Integral II}
+\fancyhead[R]{\small Trabajo Práctico N°3}
+\fancyfoot[L]{\small Facundo Luna}
+\fancyfoot[R]{\small \thepage}
+
+% ============================================================
+% DATOS DEL TRABAJO
+% ============================================================
+
+\newcommand{\universidad}{Universidad Católica de Salta}
+\newcommand{\carrera}{Licenciatura en Ciencia de Datos}
+\newcommand{\materia}{Cálculo Diferencial e Integral II}
+\newcommand{\trabajo}{Trabajo Práctico N°3}
+\newcommand{\profesor}{Lic. Mauro Vaca}
+\newcommand{\alumno}{Facundo Luna}
+\newcommand{\fecha}{\today}
+
+\newcommand{\logoincluido}{%
+    \includegraphics[width=3.5cm]{../../../assets/ucasal-logo.png}\\[0.5cm]%
+}
+\newcommand{\logoportada}{\logoincluido}
+
+% ============================================================
+% COMANDO SOLUCIÓN
+% ============================================================
+\newcommand{\solucion}{%
+    \vspace{0.8em}%
+    \textbf{Solución:}%
+}
+
+% ============================================================
+% COMANDO VOLVER AL ÍNDICE
+% ============================================================
+\newcommand{\volverindice}{%
+    \vspace{1em}%
+    \begin{flushright}%
+        \hyperlink{indice}{\small $\uparrow$ Volver al índice}%
+    \end{flushright}%
+}
+
+% ============================================================
+
+\begin{document}
+
+% ======================== PORTADA ===========================
+
+\begin{titlepage}
+    \centering
+
+    \logoportada
+
+    \rule{\linewidth}{1.5pt}\\[0.4cm]
+
+    {\large\scshape \universidad}\\[0.2cm]
+    {\large \carrera}\\[0.1cm]
+
+    \rule{\linewidth}{0.5pt}\\[1.5cm]
+
+    {\Huge\bfseries \trabajo}\\[0.8cm]
+    {\LARGE \materia}\\[2cm]
+
+    \begin{tabular}{rl}
+        \textbf{Alumno:}   & \alumno   \\[0.3cm]
+        \textbf{Profesor:} & \profesor \\[0.3cm]
+        \textbf{Fecha:}    & \fecha    \\
+    \end{tabular}
+
+    \vfill
+
+    \rule{\linewidth}{1.5pt}
+
+\end{titlepage}
+
+% ======================== ÍNDICE ============================
+
+\newpage
+\tableofcontents
+\hypertarget{indice}{}
+\setcounter{tocdepth}{2}
+
+
+% ======================== EJERCICIO 1 ========================
+
+\newpage
+
+\section{Conceptos fundamentales sobre sucesiones}
+
+Responder las siguientes preguntas:
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item ¿Qué es una sucesión?
+
+    \solucion
+
+    Una \textbf{sucesión} de números reales es una función cuyo dominio es el
+    conjunto de los enteros positivos:
+    \[
+    a:\mathbb{N}\longrightarrow\mathbb{R},
+    \qquad
+    n\longmapsto a(n)=a_n .
+    \]
+
+    En lugar de la notación funcional $a(n)$ se escribe $a_n$, que recibe el
+    nombre de \emph{término $n$-ésimo} o \emph{término general}. La sucesión
+    completa se denota $\{a_n\}$, $\{a_n\}_{n=1}^{\infty}$, o bien listando sus
+    términos en orden:
+    \[
+    a_1,\;a_2,\;a_3,\;\dots,\;a_n,\;\dots
+    \]
+
+    Dicho de otro modo, una sucesión es una lista ordenada e infinita de números
+    reales en la que a cada posición $n$ le corresponde exactamente un valor
+    $a_n$. Lo esencial es que el orden importa y que la lista nunca termina.
+
+    Por ejemplo, la fórmula $a_n=\dfrac{1}{n}$ genera la sucesión
+    \[
+    1,\;\frac12,\;\frac13,\;\frac14,\;\frac15,\;\dots
+    \]
+
+    \item ¿Qué significa decir que $\lim\limits_{n\to\infty}a_n=8$?
+
+    \solucion
+
+    Significa que la sucesión \textbf{converge} al número $8$. Formalmente:
+    \[
+    \lim_{n\to\infty}a_n=8
+    \quad\Longleftrightarrow\quad
+    \forall\,\varepsilon>0\;\;\exists\,N\in\mathbb{N}
+    \;\;\text{tal que}\;\;
+    n>N\;\Longrightarrow\;|a_n-8|<\varepsilon .
+    \]
+
+    La lectura de la definición es la siguiente: por más pequeña que se elija la
+    tolerancia $\varepsilon$, siempre puede encontrarse un índice $N$ a partir
+    del cual \emph{todos} los términos de la sucesión quedan dentro de la banda
+    \[
+    (8-\varepsilon,\;8+\varepsilon).
+    \]
+
+    Es decir, los términos se aproximan a $8$ tanto como se quiera y se mantienen
+    ahí: fuera de esa banda puede haber a lo sumo una cantidad finita de términos
+    (los primeros $N$). No se exige que algún término valga exactamente $8$.
+
+    \item ¿Qué significa decir que $\lim\limits_{n\to\infty}a_n=\infty$?
+
+    \solucion
+
+    Significa que la sucesión \textbf{crece sin cota}. Formalmente:
+    \[
+    \lim_{n\to\infty}a_n=\infty
+    \quad\Longleftrightarrow\quad
+    \forall\,M>0\;\;\exists\,N\in\mathbb{N}
+    \;\;\text{tal que}\;\;
+    n>N\;\Longrightarrow\;a_n>M .
+    \]
+
+    O sea: fijada cualquier cota $M$, por grande que sea, a partir de cierto
+    índice todos los términos la superan.
+
+    Es importante notar que $\infty$ \textbf{no es un número real}, por lo que en
+    este caso la sucesión \emph{no converge}: se dice que \textbf{diverge a
+    infinito}. La notación $\lim a_n=\infty$ sólo describe la forma en que la
+    sucesión deja de estar acotada, no un valor al que la sucesión se aproxime.
+
+    Por ejemplo, $a_n=n^2$ cumple $\lim\limits_{n\to\infty}n^2=\infty$.
+
+    \item ¿Qué es una sucesión convergente? De ejemplos.
+
+    \solucion
+
+    Una sucesión $\{a_n\}$ es \textbf{convergente} si existe un número real
+    finito $L$ tal que
+    \[
+    \lim_{n\to\infty}a_n=L .
+    \]
+
+    A ese número $L$ se lo llama \emph{límite} de la sucesión, y se demuestra que
+    es único. Además, toda sucesión convergente está acotada.
+
+    \textbf{Ejemplos:}
+
+    \begin{enumerate}[label=\roman*.-]
+
+        \item $a_n=\dfrac{1}{n}$:
+        \[
+        1,\;\frac12,\;\frac13,\;\frac14,\;\dots
+        \qquad
+        \lim_{n\to\infty}\frac1n=0 .
+        \]
+
+        \item $a_n=\dfrac{n}{n+1}$:
+        \[
+        \frac12,\;\frac23,\;\frac34,\;\frac45,\;\dots
+        \qquad
+        \lim_{n\to\infty}\frac{n}{n+1}
+        =\lim_{n\to\infty}\frac{1}{1+\frac1n}=1 .
+        \]
+
+        \item $a_n=(0{,}2)^n$:
+        \[
+        0{,}2;\quad 0{,}04;\quad 0{,}008;\quad\dots
+        \qquad
+        \lim_{n\to\infty}(0{,}2)^n=0,
+        \]
+        porque es una sucesión geométrica de razón $|r|=0{,}2<1$.
+
+        \item $a_n=3$ (sucesión constante): converge a $3$.
+
+    \end{enumerate}
+
+				\newpage
+    \item ¿Qué es una sucesión divergente? De ejemplos.
+
+    \solucion
+
+    Una sucesión es \textbf{divergente} cuando \emph{no} es convergente, es
+    decir, cuando no existe ningún número real $L$ al que se aproxime. Esto
+    puede ocurrir de dos maneras distintas:
+
+    \begin{enumerate}[label=\roman*.-]
+
+        \item \textbf{Divergencia a infinito:} los términos crecen (o decrecen)
+        sin cota.
+
+        \item \textbf{Divergencia por oscilación:} los términos no se estabilizan
+        en ningún valor, aun cuando la sucesión esté acotada.
+
+    \end{enumerate}
+
+    \textbf{Ejemplos:}
+
+    \begin{enumerate}[label=\roman*.-]
+
+        \item $a_n=n$:
+        \[
+        1,\;2,\;3,\;4,\;\dots
+        \qquad
+        \lim_{n\to\infty}n=\infty .
+        \]
+        Diverge a infinito.
+
+        \item $a_n=\ln n$: también diverge a infinito, aunque muy lentamente.
+
+        \item $a_n=(-1)^n$:
+        \[
+        -1,\;1,\;-1,\;1,\;\dots
+        \]
+        Está acotada, pero oscila entre $-1$ y $1$ sin acercarse a ningún valor:
+        el límite no existe. Diverge por oscilación.
+
+        \item $a_n=2^n$: diverge a infinito, por ser geométrica de razón
+        $|r|=2>1$.
+
+    \end{enumerate}
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 2 ========================
+
+\section{Primeros términos y convergencia de una sucesión}
+
+Escriba los primeros cuatro elementos de cada sucesión y determine si es
+convergente o divergente.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $\left\{\dfrac{n^3}{n+1}\right\}$
+
+    \solucion
+
+    \textbf{Primeros cuatro términos:}
+    \[
+    a_1=\frac{1^3}{2}=\frac12,
+    \qquad
+    a_2=\frac{2^3}{3}=\frac83,
+    \qquad
+    a_3=\frac{3^3}{4}=\frac{27}{4},
+    \qquad
+    a_4=\frac{4^3}{5}=\frac{64}{5}.
+    \]
+
+    Es decir,
+    \[
+    \frac12,\;\frac83,\;\frac{27}{4},\;\frac{64}{5},\;\dots
+    \]
+    que en forma decimal son, aproximadamente,
+    \[
+    0{,}5;\quad 2{,}67;\quad 6{,}75;\quad 12{,}8;\quad\dots
+    \]
+
+    \textbf{Convergencia:} dividimos numerador y denominador por $n$, la mayor
+    potencia del denominador:
+    \[
+    \lim_{n\to\infty}\frac{n^3}{n+1}
+    =\lim_{n\to\infty}\frac{n^2}{1+\frac1n}
+    =\frac{+\infty}{1}=+\infty .
+    \]
+
+    El numerador es de grado $3$ y el denominador de grado $1$, de modo que los
+    términos crecen sin cota.
+
+    \[
+    \boxed{
+    \text{La sucesión \textbf{diverge} (a infinito).}
+    }
+    \]
+
+    \setcounter{enumi}{2} % salta a c)
+
+    \item $\left\{\left(1+\dfrac{2}{n}\right)^{n}\right\}$
+
+    \solucion
+
+    \textbf{Primeros cuatro términos:}
+    \[
+    a_1=\left(1+\frac21\right)^{1}=3,
+    \qquad
+    a_2=\left(1+\frac22\right)^{2}=2^2=4,
+    \]
+    \[
+    a_3=\left(1+\frac23\right)^{3}=\left(\frac53\right)^{3}=\frac{125}{27},
+    \qquad
+    a_4=\left(1+\frac24\right)^{4}=\left(\frac32\right)^{4}=\frac{81}{16}.
+    \]
+
+    Es decir,
+    \[
+    3,\;4,\;\frac{125}{27},\;\frac{81}{16},\;\dots
+    \]
+    que en forma decimal son, aproximadamente,
+    \[
+    3;\quad 4;\quad 4{,}63;\quad 5{,}06;\quad\dots
+    \]
+
+    \textbf{Convergencia:} se trata del límite notable
+    \[
+    \lim_{n\to\infty}\left(1+\frac{x}{n}\right)^{n}=e^{x},
+    \]
+    aplicado aquí con $x=2$.
+
+    Para justificarlo, llamamos $L=\lim\limits_{n\to\infty}a_n$ y tomamos
+    logaritmo natural:
+    \[
+    \ln L
+    =\lim_{n\to\infty}n\ln\left(1+\frac2n\right)
+    =\lim_{n\to\infty}\frac{\ln\left(1+\frac2n\right)}{\frac1n},
+    \]
+    que es una indeterminación $\frac00$. Aplicando la regla de L'Hôpital
+    respecto de $n$:
+    \[
+    \ln L
+    =\lim_{n\to\infty}
+    \frac{\dfrac{1}{1+\frac2n}\cdot\left(-\dfrac{2}{n^2}\right)}
+         {-\dfrac{1}{n^2}}
+    =\lim_{n\to\infty}\frac{2}{1+\frac2n}
+    =2 .
+    \]
+
+    Por lo tanto $L=e^{2}$.
+
+    \[
+    \boxed{
+    \text{La sucesión \textbf{converge} y }
+    \lim_{n\to\infty}\left(1+\frac2n\right)^{n}=e^{2}\approx 7{,}389 .
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 3 ========================
+
+\section{Término general de una sucesión}
+
+Encuentre una fórmula para el término general $a_n$ de la sucesión, suponiendo
+que se mantenga el patrón de los primeros términos.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $\left\{1,\;\dfrac13,\;\dfrac15,\;\dfrac17,\;\dfrac19,\;\dots\right\}$
+
+    \solucion
+
+    Todos los términos tienen numerador $1$, de modo que basta describir el
+    denominador. Ordenando los denominadores según la posición:
+    \[
+    \begin{array}{c|ccccc}
+    n           & 1 & 2 & 3 & 4 & 5\\\hline
+    \text{denominador} & 1 & 3 & 5 & 7 & 9
+    \end{array}
+    \]
+
+    Se trata de los números impares, que forman una progresión aritmética de
+    primer término $1$ y diferencia $2$:
+    \[
+    d_n=1+2(n-1)=2n-1 .
+    \]
+
+    Por lo tanto:
+
+    \[
+    \boxed{
+    a_n=\frac{1}{2n-1},\qquad n\ge 1
+    }
+    \]
+
+    \textbf{Verificación:}
+    $a_1=\frac11=1$, $a_2=\frac13$, $a_3=\frac15$, $a_4=\frac17$,
+    $a_5=\frac19$.
+
+    \item $\left\{1,\;-\dfrac13,\;\dfrac19,\;-\dfrac{1}{27},\;\dfrac{1}{81},
+    \;\dots\right\}$
+
+    \solucion
+
+    Los signos se alternan empezando en positivo, lo que se modela con
+    $(-1)^{n-1}$. En valor absoluto, los términos son
+    \[
+    1,\;\frac13,\;\frac19,\;\frac{1}{27},\;\frac{1}{81},\;\dots
+    =\frac{1}{3^{\,0}},\;\frac{1}{3^{\,1}},\;\frac{1}{3^{\,2}},
+     \;\frac{1}{3^{\,3}},\;\frac{1}{3^{\,4}},\;\dots
+    \]
+
+    es decir, el exponente de $3$ es $n-1$. Combinando signo y módulo:
+
+    \[
+    \boxed{
+    a_n=\frac{(-1)^{n-1}}{3^{\,n-1}}=\left(-\frac13\right)^{n-1},
+    \qquad n\ge 1
+    }
+    \]
+
+    Se trata de una sucesión geométrica de primer término $1$ y razón
+    $r=-\frac13$.
+
+    \textbf{Verificación:}
+    $a_1=1$, $a_2=-\frac13$, $a_3=\frac19$, $a_4=-\frac{1}{27}$,
+    $a_5=\frac{1}{81}$.
+
+    \item $\left\{-3,\;2,\;-\dfrac43,\;\dfrac89,\;-\dfrac{16}{27},\;\dots\right\}$
+
+    \solucion
+
+    Calculamos el cociente entre términos consecutivos para detectar si la
+    sucesión es geométrica:
+    \[
+    \frac{a_2}{a_1}=\frac{2}{-3}=-\frac23,
+    \qquad
+    \frac{a_3}{a_2}=\frac{-\frac43}{2}=-\frac23,
+    \qquad
+    \frac{a_4}{a_3}=\frac{\frac89}{-\frac43}=-\frac23 .
+    \]
+
+    El cociente es constante, de modo que la sucesión es geométrica con primer
+    término $a_1=-3$ y razón $r=-\dfrac23$. Entonces:
+
+    \[
+    \boxed{
+    a_n=-3\left(-\frac23\right)^{n-1},\qquad n\ge 1
+    }
+    \]
+
+    \textbf{Verificación:}
+    \[
+    a_1=-3,
+    \qquad
+    a_2=-3\left(-\frac23\right)=2,
+    \qquad
+    a_3=-3\cdot\frac49=-\frac43,
+    \]
+    \[
+    a_4=-3\left(-\frac{8}{27}\right)=\frac89,
+    \qquad
+    a_5=-3\cdot\frac{16}{81}=-\frac{16}{27}.
+    \]
+
+    Una forma equivalente, separando signo y módulo, es
+    \[
+    a_n=(-1)^{n}\,\frac{2^{\,n-1}}{3^{\,n-2}} .
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 4 ========================
+
+\section{Convergencia y límite de sucesiones}
+
+Determine si la sucesión converge o diverge. Si converge, encuentre el límite.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{2} % comienza en c)
+
+    \item $a_n=\dfrac{3+5n^2}{n^2+n}$
+
+    \solucion
+
+    Numerador y denominador son ambos de grado $2$, por lo que el cociente
+    presenta la indeterminación $\frac{\infty}{\infty}$. Dividimos ambos por
+    $n^2$:
+    \[
+    \lim_{n\to\infty}\frac{3+5n^2}{n^2+n}
+    =\lim_{n\to\infty}\frac{\dfrac{3}{n^2}+5}{1+\dfrac1n} .
+    \]
+
+    Como $\dfrac{3}{n^2}\to 0$ y $\dfrac1n\to 0$:
+    \[
+    \lim_{n\to\infty}\frac{3+5n^2}{n^2+n}=\frac{0+5}{1+0}=5 .
+    \]
+
+    \[
+    \boxed{
+    \text{\textbf{Converge} y }\;\lim_{n\to\infty}a_n=5
+    }
+    \]
+
+    \setcounter{enumi}{4} % salta a e)
+
+    \item $a_n=e^{\frac1n}$
+
+    \solucion
+
+    El exponente tiende a cero:
+    \[
+    \lim_{n\to\infty}\frac1n=0 .
+    \]
+
+    Como la función exponencial $f(x)=e^{x}$ es continua en todo $\mathbb{R}$,
+    puede intercambiarse el límite con la función:
+    \[
+    \lim_{n\to\infty}e^{\frac1n}
+    =e^{\,\lim\limits_{n\to\infty}\frac1n}
+    =e^{0}=1 .
+    \]
+
+    \[
+    \boxed{
+    \text{\textbf{Converge} y }\;\lim_{n\to\infty}e^{\frac1n}=1
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 5 ========================
+
+\section{Convergencia por el teorema fundamental}
+
+Demuestre que las siguientes sucesiones son convergentes aplicando el teorema
+fundamental.
+
+\vspace{0.5em}
+\textbf{Teorema fundamental (sucesiones monótonas y acotadas).}
+\emph{Toda sucesión monótona y acotada es convergente.} Más precisamente, si
+$\{a_n\}$ es creciente y acotada superiormente, converge; y si es decreciente y
+acotada inferiormente, también converge. Basta con que la monotonía valga a
+partir de algún índice, porque modificar una cantidad finita de términos no
+altera el carácter de la sucesión.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{1} % comienza en b)
+
+    \item $\left\{\dfrac{3^{n}}{1+3^{n}}\right\}$
+
+    \solucion
+
+    \textbf{1. Reescritura.} Conviene separar la parte constante:
+    \[
+    a_n=\frac{3^{n}}{1+3^{n}}
+    =\frac{(1+3^{n})-1}{1+3^{n}}
+    =1-\frac{1}{1+3^{n}} .
+    \]
+
+    \textbf{2. La sucesión es creciente.} Como $3^{n}$ es estrictamente
+    creciente, $1+3^{n}$ también lo es, y por lo tanto
+    $\dfrac{1}{1+3^{n}}$ es estrictamente decreciente. Al restarle a $1$ una
+    cantidad cada vez menor, $a_n$ resulta estrictamente creciente:
+    \[
+    a_{n+1}-a_n
+    =\frac{1}{1+3^{n}}-\frac{1}{1+3^{n+1}}
+    =\frac{3^{n+1}-3^{n}}{(1+3^{n})(1+3^{n+1})}
+    =\frac{2\cdot 3^{n}}{(1+3^{n})(1+3^{n+1})}>0 .
+    \]
+
+    \textbf{3. La sucesión está acotada.} Por un lado, $3^n>0$ implica
+    $a_n>0$. Por el otro, $\dfrac{1}{1+3^{n}}>0$ implica
+    \[
+    a_n=1-\frac{1}{1+3^{n}}<1 .
+    \]
+    Entonces $0<a_n<1$ para todo $n$: la sucesión está acotada superiormente
+    por $1$.
+
+    \textbf{4. Conclusión.} Al ser creciente y acotada superiormente, por el
+    teorema fundamental la sucesión \textbf{converge}. Su límite es
+    \[
+    \lim_{n\to\infty}\left(1-\frac{1}{1+3^{n}}\right)=1-0=1 .
+    \]
+
+    \[
+    \boxed{
+    \left\{\frac{3^{n}}{1+3^{n}}\right\}
+    \text{ es creciente y acotada}\;\Rightarrow\;\text{converge, con límite }1
+    }
+    \]
+
+				\newpage
+    \item $\left\{\dfrac{n^{2}}{2^{n}}\right\}$
+
+    \solucion
+
+    \textbf{1. Primeros términos.}
+    \[
+    a_1=\frac12,\qquad
+    a_2=\frac44=1,\qquad
+    a_3=\frac98,\qquad
+    a_4=\frac{16}{16}=1,\qquad
+    a_5=\frac{25}{32}.
+    \]
+
+    La sucesión no es monótona desde el comienzo, de modo que estudiamos a
+    partir de qué índice lo es.
+
+    \textbf{2. La sucesión es decreciente a partir de $n=3$.} Todos los términos
+    son positivos, así que comparamos mediante el cociente:
+    \[
+    \frac{a_{n+1}}{a_n}
+    =\frac{(n+1)^{2}}{2^{\,n+1}}\cdot\frac{2^{n}}{n^{2}}
+    =\frac12\left(\frac{n+1}{n}\right)^{2}
+    =\frac12\left(1+\frac1n\right)^{2}.
+    \]
+
+    Este cociente es menor que $1$ cuando
+    \[
+    \left(1+\frac1n\right)^{2}<2
+    \iff
+    1+\frac1n<\sqrt2
+    \iff
+    \frac1n<\sqrt2-1 ,
+    \]
+    es decir,
+    \[
+    n>\frac{1}{\sqrt2-1}=\sqrt2+1\approx 2{,}41 .
+    \]
+
+    Por lo tanto $a_{n+1}<a_n$ para todo $n\ge 3$: la sucesión es estrictamente
+    decreciente a partir del tercer término.
+
+    \textbf{3. La sucesión está acotada inferiormente.} Como $n^{2}>0$ y
+    $2^{n}>0$, se tiene $a_n>0$ para todo $n$.
+
+    \textbf{4. Conclusión.} A partir de $n=3$ la sucesión es decreciente y está
+    acotada inferiormente por $0$; por el teorema fundamental \textbf{converge}.
+    Para calcular el límite usamos que la exponencial domina a la potencia
+    (o bien L'Hôpital dos veces sobre $f(x)=x^{2}/2^{x}$):
+    \[
+    \lim_{n\to\infty}\frac{n^{2}}{2^{n}}
+    =\lim_{x\to\infty}\frac{x^{2}}{2^{x}}
+    =\lim_{x\to\infty}\frac{2x}{2^{x}\ln 2}
+    =\lim_{x\to\infty}\frac{2}{2^{x}(\ln 2)^{2}}
+    =0 .
+    \]
+
+    \[
+    \boxed{
+    \left\{\frac{n^{2}}{2^{n}}\right\}
+    \text{ es decreciente (desde }n=3\text{) y acotada}
+    \;\Rightarrow\;\text{converge, con límite }0
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 6 ========================
+
+\section{Sumas parciales y suma de una serie}
+
+Determine los primeros cuatro elementos de la sucesión de sumas parciales
+$S_1$, $S_2$, $S_3$ y $S_4$ para cada serie y obtenga la fórmula que define
+$S_n$. También determine si cada serie es convergente o divergente. En caso de
+que sea convergente determine su suma.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{2} % salta a c)
+
+    \item $\displaystyle\sum_{n=1}^{\infty}\frac{2^{\,n-1}}{3^{n}}$
+
+    \solucion
+
+    \textbf{1. Identificación de la serie.} Reescribimos el término general
+    separando la potencia:
+    \[
+    a_n=\frac{2^{\,n-1}}{3^{n}}
+    =\frac{1}{3}\cdot\frac{2^{\,n-1}}{3^{\,n-1}}
+    =\frac13\left(\frac23\right)^{n-1}.
+    \]
+
+    Se trata entonces de una \textbf{serie geométrica} de primer término
+    $a=\dfrac13$ y razón $r=\dfrac23$.
+
+    \textbf{2. Primeras cuatro sumas parciales.} Los primeros términos son
+    \[
+    a_1=\frac13,\qquad
+    a_2=\frac{2}{9},\qquad
+    a_3=\frac{4}{27},\qquad
+    a_4=\frac{8}{81}.
+    \]
+
+    Acumulando:
+    \[
+    S_1=\frac13,
+    \]
+    \[
+    S_2=\frac13+\frac29=\frac{3}{9}+\frac29=\frac59,
+    \]
+    \[
+    S_3=\frac59+\frac{4}{27}=\frac{15}{27}+\frac{4}{27}=\frac{19}{27},
+    \]
+    \[
+    S_4=\frac{19}{27}+\frac{8}{81}=\frac{57}{81}+\frac{8}{81}=\frac{65}{81}.
+    \]
+
+    \textbf{3. Fórmula de $S_n$.} Para una serie geométrica,
+    \[
+    S_n=a\,\frac{1-r^{n}}{1-r}
+    =\frac13\cdot\frac{1-\left(\frac23\right)^{n}}{1-\frac23}
+    =\frac13\cdot\frac{1-\left(\frac23\right)^{n}}{\frac13},
+    \]
+    de donde
+    \[
+    \boxed{
+    S_n=1-\left(\frac23\right)^{n}
+    }
+    \]
+
+    \textbf{Verificación:}
+    \[
+    S_1=1-\frac23=\frac13,\quad
+    S_2=1-\frac49=\frac59,\quad
+    S_3=1-\frac{8}{27}=\frac{19}{27},\quad
+    S_4=1-\frac{16}{81}=\frac{65}{81}. \checkmark
+    \]
+
+    \textbf{4. Carácter y suma.} Como $|r|=\dfrac23<1$, se tiene
+    $\left(\frac23\right)^{n}\to 0$, por lo que
+    \[
+    \lim_{n\to\infty}S_n=\lim_{n\to\infty}\left[1-\left(\frac23\right)^{n}\right]
+    =1-0=1 .
+    \]
+
+    \[
+    \boxed{
+    \text{La serie \textbf{converge} y }\;
+    \sum_{n=1}^{\infty}\frac{2^{\,n-1}}{3^{n}}=1
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% El ejercicio 7 no forma parte de los ejercicios mínimos solicitados.
+\setcounter{section}{7}
+
+% ======================== EJERCICIO 8 ========================
+
+\section{Series geométricas}
+
+En cada caso determine si las siguientes series geométricas son convergentes o
+divergentes. En caso de ser convergente, determine su suma.
+
+\vspace{0.5em}
+\textbf{Criterio.} Una serie geométrica $\sum a\,r^{\,k}$ converge si y sólo si
+$|r|<1$, y en ese caso su suma es
+\[
+\sum_{k=0}^{\infty}a\,r^{k}=\frac{a}{1-r}
+\qquad\text{(con $a$ el primer término efectivo de la serie).}
+\]
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{1} % comienza en b)
+
+    \item $\displaystyle\sum_{n=0}^{\infty}\frac{\pi^{n}}{3^{\,n+1}}$
+
+    \solucion
+
+    Reescribimos el término general para exhibir la razón:
+    \[
+    a_n=\frac{\pi^{n}}{3^{\,n+1}}
+    =\frac{\pi^{n}}{3\cdot 3^{n}}
+    =\frac13\left(\frac{\pi}{3}\right)^{n}.
+    \]
+
+    Es una serie geométrica de primer término $a=\dfrac13$ (que corresponde a
+    $n=0$) y razón
+    \[
+    r=\frac{\pi}{3}\approx\frac{3{,}1416}{3}\approx 1{,}0472 .
+    \]
+
+    Como $\pi>3$, resulta $|r|=\dfrac{\pi}{3}>1$. Por lo tanto el término
+    general no tiende a cero (de hecho $a_n\to\infty$) y la serie no puede
+    converger.
+
+    \[
+    \boxed{
+    \text{La serie \textbf{diverge}, porque }r=\frac{\pi}{3}>1 .
+    }
+    \]
+
+    \item $\displaystyle\sum_{n=1}^{\infty}\frac{e^{n}}{(-3)^{\,n-1}}$
+
+    \solucion
+
+    Escribimos los primeros términos para identificar $a$ y $r$:
+    \[
+    a_1=\frac{e}{(-3)^{0}}=e,
+    \qquad
+    a_2=\frac{e^{2}}{-3},
+    \qquad
+    a_3=\frac{e^{3}}{9},
+    \qquad
+    a_4=\frac{e^{4}}{-27}.
+    \]
+
+    El cociente entre términos consecutivos es constante:
+    \[
+    r=\frac{a_{n+1}}{a_n}
+    =\frac{e^{\,n+1}}{(-3)^{n}}\cdot\frac{(-3)^{\,n-1}}{e^{n}}
+    =\frac{e}{-3}=-\frac{e}{3}.
+    \]
+
+    Se trata entonces de una serie geométrica con $a=e$ y $r=-\dfrac{e}{3}$.
+    Como
+    \[
+    |r|=\frac{e}{3}\approx\frac{2{,}71828}{3}\approx 0{,}9061<1,
+    \]
+    la serie \textbf{converge}. Su suma es
+    \[
+    S=\frac{a}{1-r}
+    =\frac{e}{1-\left(-\frac{e}{3}\right)}
+    =\frac{e}{1+\frac{e}{3}}
+    =\frac{e}{\frac{3+e}{3}}
+    =\frac{3e}{3+e}.
+    \]
+
+    \[
+    \boxed{
+    \text{La serie \textbf{converge} y }\;
+    \sum_{n=1}^{\infty}\frac{e^{n}}{(-3)^{\,n-1}}=\frac{3e}{3+e}\approx 1{,}426
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 9 ========================
+
+\section{Criterios de comparación}
+
+Determine si la serie es convergente o divergente aplicando el criterio de
+comparación o el criterio de comparación por límite.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{2} % comienza en c)
+
+    \item $\displaystyle\sum_{n=1}^{\infty}\operatorname{sen}\left(\frac1n\right)$
+
+    \solucion
+
+    \textbf{1. Los términos son positivos.} Para todo $n\ge 1$ se tiene
+    $0<\dfrac1n\le 1<\pi$, y el seno es positivo en $(0,\pi)$, de modo que
+    $\operatorname{sen}\left(\frac1n\right)>0$. Esto habilita el uso de los
+    criterios de comparación.
+
+    \textbf{2. Elección de la serie de comparación.} Como $\frac1n\to 0$ y
+    $\operatorname{sen}x\approx x$ cerca de cero, el término general se comporta
+    como $\dfrac1n$. Comparamos entonces con la \textbf{serie armónica}
+    $\displaystyle\sum_{n=1}^{\infty}\frac1n$, que es \emph{divergente}
+    (es una $p$-serie con $p=1$).
+
+    \textbf{3. Criterio de comparación por límite.}
+    \[
+    L=\lim_{n\to\infty}
+    \frac{\operatorname{sen}\left(\frac1n\right)}{\frac1n} .
+    \]
+
+    Sustituyendo $x=\dfrac1n$, cuando $n\to\infty$ se tiene $x\to 0^{+}$, por lo
+    que se trata del límite notable
+    \[
+    L=\lim_{x\to 0^{+}}\frac{\operatorname{sen}x}{x}=1 .
+    \]
+
+    \textbf{4. Conclusión.} El límite $L=1$ es finito y estrictamente positivo,
+    de modo que ambas series tienen el mismo carácter. Como
+    $\sum \frac1n$ diverge, la serie dada también diverge.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}\operatorname{sen}\left(\frac1n\right)
+    \text{ \textbf{diverge}}
+    }
+    \]
+
+				\newpage
+    \item $\displaystyle\sum_{n=1}^{\infty}\frac{\ln n}{n}$
+
+    \solucion
+
+    \textbf{1. Los términos son no negativos.} Para $n\ge 1$ se tiene
+    $\ln n\ge 0$, por lo que $\dfrac{\ln n}{n}\ge 0$ (el primer término, con
+    $n=1$, es nulo).
+
+    \textbf{2. Criterio de comparación directa.} Comparamos nuevamente con la
+    serie armónica. Para $n\ge 3$ se cumple $\ln n>\ln e=1$, y por lo tanto
+    \[
+    \frac{\ln n}{n}>\frac{1}{n}
+    \qquad\text{para todo }n\ge 3 .
+    \]
+
+    \textbf{3. Conclusión.} La serie $\displaystyle\sum_{n=3}^{\infty}\frac1n$
+    diverge (serie armónica). Al estar la serie dada \emph{minorada}, término a
+    término, por una serie divergente de términos positivos, por el criterio de
+    comparación directa también diverge. Agregar los dos primeros términos
+    (finitos) no altera esta conclusión.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}\frac{\ln n}{n}
+    \text{ \textbf{diverge}}
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 10 ========================
+
+\section{Criterio de la integral}
+
+Aplique el criterio de la integral para determinar si la serie es convergente o
+divergente.
+
+\vspace{0.5em}
+\textbf{Criterio de la integral.} Si $f$ es continua, positiva y decreciente en
+$[1,\infty)$ y $a_n=f(n)$, entonces la serie
+$\displaystyle\sum_{n=1}^{\infty}a_n$ y la integral impropia
+$\displaystyle\int_{1}^{\infty}f(x)\,dx$ tienen el mismo carácter: ambas
+convergen o ambas divergen.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{1} % comienza en b)
+
+    \item $\displaystyle\sum_{n=1}^{\infty}\frac{1}{(2n+1)^{3}}$
+
+    \solucion
+
+    \textbf{1. Verificación de las hipótesis.} Consideramos
+    \[
+    f(x)=\frac{1}{(2x+1)^{3}} .
+    \]
+
+    En $[1,\infty)$ se cumple $2x+1\ge 3>0$, de modo que $f$ es
+    \emph{continua} (no se anula el denominador) y \emph{positiva}. Además es
+    \emph{decreciente}, porque
+    \[
+    f'(x)=-3(2x+1)^{-4}\cdot 2=\frac{-6}{(2x+1)^{4}}<0 .
+    \]
+
+    Se cumplen las tres hipótesis del criterio.
+
+    \textbf{2. Cálculo de la integral impropia.} Usamos la sustitución
+    $u=2x+1$, $du=2\,dx$, es decir $dx=\frac{du}{2}$. Cuando $x=1$ resulta
+    $u=3$, y cuando $x\to\infty$, $u\to\infty$:
+    \[
+    \int_{1}^{\infty}\frac{dx}{(2x+1)^{3}}
+    =\frac12\int_{3}^{\infty}u^{-3}\,du
+    =\frac12\lim_{t\to\infty}\left[\frac{u^{-2}}{-2}\right]_{3}^{t}
+    =\frac12\lim_{t\to\infty}\left[-\frac{1}{2t^{2}}+\frac{1}{2\cdot 9}\right].
+    \]
+
+    Como $\dfrac{1}{2t^{2}}\to 0$:
+    \[
+    \int_{1}^{\infty}\frac{dx}{(2x+1)^{3}}
+    =\frac12\cdot\frac{1}{18}=\frac{1}{36}.
+    \]
+
+    \textbf{3. Conclusión.} La integral impropia converge (vale $\frac{1}{36}$),
+    por lo tanto la serie también converge.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}\frac{1}{(2n+1)^{3}}
+    \text{ \textbf{converge}}
+    }
+    \]
+
+    Obsérvese que el valor $\frac{1}{36}$ \emph{no} es la suma de la serie: el
+    criterio sólo informa sobre su carácter.
+
+    \item $\displaystyle\sum_{n=1}^{\infty}\frac{n}{n^{2}+1}$
+
+    \solucion
+
+    \textbf{1. Verificación de las hipótesis.} Consideramos
+    \[
+    f(x)=\frac{x}{x^{2}+1} .
+    \]
+
+    En $[1,\infty)$ es \emph{continua} (el denominador nunca se anula) y
+    \emph{positiva}. Para la monotonía derivamos con la regla del cociente:
+    \[
+    f'(x)=\frac{1\cdot(x^{2}+1)-x\cdot 2x}{(x^{2}+1)^{2}}
+    =\frac{1-x^{2}}{(x^{2}+1)^{2}} .
+    \]
+
+    Para $x>1$ se tiene $1-x^{2}<0$, de modo que $f'(x)<0$ y $f$ es
+    \emph{decreciente} en $[1,\infty)$.
+
+    \textbf{2. Cálculo de la integral impropia.} Usamos la sustitución
+    $u=x^{2}+1$, $du=2x\,dx$, es decir $x\,dx=\frac{du}{2}$:
+    \[
+    \int_{1}^{\infty}\frac{x}{x^{2}+1}\,dx
+    =\frac12\lim_{t\to\infty}\Big[\ln(x^{2}+1)\Big]_{1}^{t}
+    =\frac12\lim_{t\to\infty}\left[\ln(t^{2}+1)-\ln 2\right].
+    \]
+
+    Como $\ln(t^{2}+1)\to\infty$:
+    \[
+    \int_{1}^{\infty}\frac{x}{x^{2}+1}\,dx=\infty .
+    \]
+
+    \textbf{3. Conclusión.} La integral impropia diverge, por lo tanto la serie
+    también diverge.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}\frac{n}{n^{2}+1}
+    \text{ \textbf{diverge}}
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 11 ========================
+
+\section{Criterio de la razón}
+
+Aplique el criterio de la razón para determinar si la serie converge o diverge.
+
+\vspace{0.5em}
+\textbf{Criterio de la razón (o del cociente).} Sea
+$\displaystyle L=\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|$. Si $L<1$
+la serie converge absolutamente; si $L>1$ (o $L=\infty$) la serie diverge; y si
+$L=1$ el criterio no decide.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{2} % comienza en c)
+
+    \item $\displaystyle\sum_{n=1}^{\infty}\frac{n^{4}}{4^{n}}$
+
+    \solucion
+
+    El término general es $a_n=\dfrac{n^{4}}{4^{n}}$, de modo que
+    \[
+    a_{n+1}=\frac{(n+1)^{4}}{4^{\,n+1}} .
+    \]
+
+    Calculamos el cociente:
+    \[
+    \left|\frac{a_{n+1}}{a_n}\right|
+    =\frac{(n+1)^{4}}{4^{\,n+1}}\cdot\frac{4^{n}}{n^{4}}
+    =\frac{1}{4}\cdot\frac{(n+1)^{4}}{n^{4}}
+    =\frac14\left(1+\frac1n\right)^{4}.
+    \]
+
+    Tomando límite, y usando que $\left(1+\frac1n\right)\to 1$:
+    \[
+    L=\lim_{n\to\infty}\frac14\left(1+\frac1n\right)^{4}
+    =\frac14\cdot 1^{4}=\frac14 .
+    \]
+
+    Como $L=\dfrac14<1$, el criterio de la razón asegura la convergencia.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}\frac{n^{4}}{4^{n}}
+    \text{ \textbf{converge} }\;\left(L=\tfrac14<1\right)
+    }
+    \]
+
+    \item $\displaystyle\sum_{n=1}^{\infty}\frac{(n-1)!}{(n+1)^{2}}$
+
+    \solucion
+
+    El término general es $a_n=\dfrac{(n-1)!}{(n+1)^{2}}$, de modo que
+    \[
+    a_{n+1}=\frac{\big((n+1)-1\big)!}{\big((n+1)+1\big)^{2}}
+    =\frac{n!}{(n+2)^{2}} .
+    \]
+
+    Calculamos el cociente, usando que $n!=n\,(n-1)!$:
+    \[
+    \left|\frac{a_{n+1}}{a_n}\right|
+    =\frac{n!}{(n+2)^{2}}\cdot\frac{(n+1)^{2}}{(n-1)!}
+    =\frac{n\,(n+1)^{2}}{(n+2)^{2}} .
+    \]
+
+    Para tomar límite dividimos numerador y denominador por $n^{2}$:
+    \[
+    L=\lim_{n\to\infty}\frac{n\,(n+1)^{2}}{(n+2)^{2}}
+    =\lim_{n\to\infty} n\cdot\frac{\left(1+\frac1n\right)^{2}}
+                                   {\left(1+\frac2n\right)^{2}}
+    =\lim_{n\to\infty} n\cdot 1=\infty .
+    \]
+
+    Como $L=\infty>1$, la serie diverge. Esto era esperable: el factorial del
+    numerador crece mucho más rápido que el polinomio del denominador, por lo
+    que el término general ni siquiera tiende a cero.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}\frac{(n-1)!}{(n+1)^{2}}
+    \text{ \textbf{diverge} }\;\left(L=\infty>1\right)
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 12 ========================
+
+\section{Criterio de la raíz}
+
+Aplique el criterio de la raíz para determinar si la serie converge o diverge.
+
+\vspace{0.5em}
+\textbf{Criterio de la raíz.} Sea
+$\displaystyle L=\lim_{n\to\infty}\sqrt[n]{|a_n|}$. Si $L<1$ la serie converge
+absolutamente; si $L>1$ (o $L=\infty$) diverge; y si $L=1$ el criterio no
+decide. Es el criterio adecuado cuando el término general es una potencia
+$n$-ésima.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{1} % comienza en b)
+
+    \item $\displaystyle\sum_{n=1}^{\infty}
+    \left(\frac{n^{2}+1}{2n^{2}+1}\right)^{n}$
+
+    \solucion
+
+    El término general ya está escrito como potencia $n$-ésima, de modo que la
+    raíz se simplifica de inmediato:
+    \[
+    \sqrt[n]{|a_n|}
+    =\sqrt[n]{\left(\frac{n^{2}+1}{2n^{2}+1}\right)^{n}}
+    =\frac{n^{2}+1}{2n^{2}+1}
+    \]
+    (la base es positiva, por lo que no hace falta el valor absoluto).
+
+    Tomamos límite dividiendo numerador y denominador por $n^{2}$:
+    \[
+    L=\lim_{n\to\infty}\frac{n^{2}+1}{2n^{2}+1}
+    =\lim_{n\to\infty}\frac{1+\frac{1}{n^{2}}}{2+\frac{1}{n^{2}}}
+    =\frac{1+0}{2+0}=\frac12 .
+    \]
+
+    Como $L=\dfrac12<1$, la serie converge.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}\left(\frac{n^{2}+1}{2n^{2}+1}\right)^{n}
+    \text{ \textbf{converge} }\;\left(L=\tfrac12<1\right)
+    }
+    \]
+
+    \item $\displaystyle\sum_{n=1}^{\infty}\left(1-\frac1n\right)^{n^{2}}$
+
+    \solucion
+
+    Aplicamos la raíz $n$-ésima al término general, usando
+    $\left(x^{n^{2}}\right)^{1/n}=x^{n}$:
+    \[
+    \sqrt[n]{|a_n|}
+    =\left[\left(1-\frac1n\right)^{n^{2}}\right]^{1/n}
+    =\left(1-\frac1n\right)^{n}.
+    \]
+
+    Este es el límite notable
+    \[
+    \lim_{n\to\infty}\left(1+\frac{x}{n}\right)^{n}=e^{x}
+    \qquad\text{con } x=-1 .
+    \]
+
+    Lo justificamos tomando logaritmo. Si
+    $L=\lim\limits_{n\to\infty}\left(1-\frac1n\right)^{n}$, entonces
+    \[
+    \ln L
+    =\lim_{n\to\infty} n\ln\left(1-\frac1n\right)
+    =\lim_{n\to\infty}\frac{\ln\left(1-\frac1n\right)}{\frac1n},
+    \]
+    indeterminación $\frac00$. Por la regla de L'Hôpital respecto de $n$:
+    \[
+    \ln L
+    =\lim_{n\to\infty}
+    \frac{\dfrac{1}{1-\frac1n}\cdot\dfrac{1}{n^{2}}}
+         {-\dfrac{1}{n^{2}}}
+    =\lim_{n\to\infty}\frac{-1}{1-\frac1n}
+    =-1 .
+    \]
+
+    Por lo tanto
+    \[
+    L=e^{-1}=\frac1e\approx 0{,}3679 .
+    \]
+
+    Como $L=\dfrac1e<1$, la serie converge.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}\left(1-\frac1n\right)^{n^{2}}
+    \text{ \textbf{converge} }\;\left(L=\tfrac1e<1\right)
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 13 ========================
+
+\section{Series alternantes}
+
+Determine si la serie alternante es convergente o divergente.
+
+\vspace{0.5em}
+\textbf{Criterio de Leibniz (de la serie alternante).} Si la serie alternante
+$\displaystyle\sum(-1)^{n}b_n$ (con $b_n>0$) cumple
+
+\begin{enumerate}[label=\roman*.-, leftmargin=2.5em]
+    \item $b_{n+1}\le b_n$ a partir de algún índice (sucesión decreciente), y
+    \item $\displaystyle\lim_{n\to\infty}b_n=0$,
+\end{enumerate}
+
+entonces la serie converge. Si falla la segunda condición, la serie diverge por
+el criterio del término $n$-ésimo.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \item $\displaystyle\sum_{n=1}^{\infty}\frac{(-1)^{\,n-1}}{2n+1}$
+
+    \solucion
+
+    Aquí $b_n=\dfrac{1}{2n+1}>0$ para todo $n\ge 1$.
+
+    \textbf{Condición 1: $\{b_n\}$ es decreciente.} Como $2n+1<2(n+1)+1=2n+3$,
+    al invertir se cambia el sentido de la desigualdad:
+    \[
+    b_{n+1}=\frac{1}{2n+3}<\frac{1}{2n+1}=b_n .
+    \]
+    La sucesión es estrictamente decreciente.
+
+    \textbf{Condición 2: $b_n\to 0$.}
+    \[
+    \lim_{n\to\infty}\frac{1}{2n+1}=0 .
+    \]
+
+    \textbf{Conclusión.} Se cumplen ambas condiciones, de modo que por el
+    criterio de Leibniz la serie converge.
+
+    Cabe agregar que la convergencia es \emph{condicional}: la serie de los
+    valores absolutos $\displaystyle\sum_{n=1}^{\infty}\frac{1}{2n+1}$ diverge,
+    ya que por comparación por límite con la serie armónica
+    \[
+    \lim_{n\to\infty}\frac{\frac{1}{2n+1}}{\frac1n}
+    =\lim_{n\to\infty}\frac{n}{2n+1}=\frac12>0 ,
+    \]
+    y $\sum\frac1n$ diverge.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}\frac{(-1)^{\,n-1}}{2n+1}
+    \text{ \textbf{converge} (condicionalmente), por el criterio de Leibniz}
+    }
+    \]
+
+    \item $\displaystyle\sum_{n=1}^{\infty}(-1)^{n}\,\frac{3n-1}{2n+1}$
+
+    \solucion
+
+    Aquí $b_n=\dfrac{3n-1}{2n+1}>0$ para todo $n\ge 1$.
+
+    \textbf{Condición 2: estudiamos primero el límite de $b_n$.} Dividiendo
+    numerador y denominador por $n$:
+    \[
+    \lim_{n\to\infty}\frac{3n-1}{2n+1}
+    =\lim_{n\to\infty}\frac{3-\frac1n}{2+\frac1n}
+    =\frac{3}{2}\neq 0 .
+    \]
+
+    La segunda condición del criterio de Leibniz \textbf{no} se cumple, de modo
+    que el criterio no permite concluir la convergencia. Más aún, podemos
+    decidir directamente:
+
+    \textbf{Criterio del término $n$-ésimo.} El término general de la serie es
+    \[
+    a_n=(-1)^{n}\,\frac{3n-1}{2n+1},
+    \]
+    cuyos valores se acercan alternadamente a $+\frac32$ y $-\frac32$. Por lo
+    tanto $\lim\limits_{n\to\infty}a_n$ \emph{no existe} y, en particular, no es
+    cero. Dado que una condición necesaria para la convergencia de cualquier
+    serie es que su término general tienda a cero, la serie diverge.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}(-1)^{n}\,\frac{3n-1}{2n+1}
+    \text{ \textbf{diverge}, porque } a_n\not\to 0
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+% ======================== EJERCICIO 14 ========================
+
+\section{Convergencia absoluta y condicional}
+
+Determine si la serie es absolutamente convergente, condicionalmente
+convergente o divergente. Justifique su respuesta.
+
+\vspace{0.5em}
+\textbf{Definiciones.} La serie $\sum a_n$ es \textbf{absolutamente
+convergente} si converge $\sum|a_n|$; es \textbf{condicionalmente convergente}
+si $\sum a_n$ converge pero $\sum|a_n|$ diverge. Toda serie absolutamente
+convergente es convergente.
+
+\begin{enumerate}[label=\alph*.-]
+
+    \setcounter{enumi}{1} % comienza en b)
+
+    \item $\displaystyle\sum_{n=0}^{\infty}\frac{(-3)^{n}}{(2n+1)!}$
+
+    \solucion
+
+    \textbf{1. Serie de valores absolutos.} Como $|(-3)^{n}|=3^{n}$:
+    \[
+    \sum_{n=0}^{\infty}\left|\frac{(-3)^{n}}{(2n+1)!}\right|
+    =\sum_{n=0}^{\infty}\frac{3^{n}}{(2n+1)!} .
+    \]
+
+    \textbf{2. Criterio de la razón sobre los valores absolutos.} Con
+    $c_n=\dfrac{3^{n}}{(2n+1)!}$ se tiene
+    \[
+    c_{n+1}=\frac{3^{\,n+1}}{\big(2(n+1)+1\big)!}=\frac{3^{\,n+1}}{(2n+3)!} .
+    \]
+
+    Usando que $(2n+3)!=(2n+3)(2n+2)\,(2n+1)!$:
+    \[
+    \frac{c_{n+1}}{c_n}
+    =\frac{3^{\,n+1}}{(2n+3)!}\cdot\frac{(2n+1)!}{3^{n}}
+    =\frac{3}{(2n+2)(2n+3)} .
+    \]
+
+    Tomando límite:
+    \[
+    L=\lim_{n\to\infty}\frac{3}{(2n+2)(2n+3)}=0 .
+    \]
+
+    \textbf{3. Conclusión.} Como $L=0<1$, la serie de valores absolutos
+    converge, y por lo tanto la serie original converge absolutamente.
+
+    \[
+    \boxed{
+    \sum_{n=0}^{\infty}\frac{(-3)^{n}}{(2n+1)!}
+    \text{ es \textbf{absolutamente convergente}}
+    }
+    \]
+
+    Como dato adicional, a partir del desarrollo
+    $\operatorname{sen}x=\sum_{n=0}^{\infty}\frac{(-1)^{n}x^{2n+1}}{(2n+1)!}$ se
+    deduce que el valor de esta serie es
+    $\dfrac{\operatorname{sen}\sqrt3}{\sqrt3}\approx 0{,}5699$.
+
+    \item $\displaystyle\sum_{n=1}^{\infty}(-1)^{\,n+1}\,\frac{n}{n^{2}+4}$
+
+    \solucion
+
+    \textbf{1. ¿Converge absolutamente?} La serie de valores absolutos es
+    \[
+    \sum_{n=1}^{\infty}\frac{n}{n^{2}+4},
+    \]
+    de términos positivos. La comparamos por límite con la serie armónica
+    $\sum\frac1n$:
+    \[
+    \lim_{n\to\infty}\frac{\dfrac{n}{n^{2}+4}}{\dfrac1n}
+    =\lim_{n\to\infty}\frac{n^{2}}{n^{2}+4}
+    =\lim_{n\to\infty}\frac{1}{1+\frac{4}{n^{2}}}
+    =1 .
+    \]
+
+    El límite es finito y positivo, de modo que ambas series tienen el mismo
+    carácter. Como $\sum\frac1n$ diverge, la serie de valores absolutos
+    \textbf{diverge}. Por lo tanto la serie dada \emph{no} es absolutamente
+    convergente.
+
+    \textbf{2. ¿Converge la serie alternante?} Aplicamos el criterio de Leibniz
+    con $b_n=\dfrac{n}{n^{2}+4}>0$.
+
+    \emph{Decrecimiento.} Estudiamos la función auxiliar
+    $f(x)=\dfrac{x}{x^{2}+4}$:
+    \[
+    f'(x)=\frac{1\cdot(x^{2}+4)-x\cdot 2x}{(x^{2}+4)^{2}}
+    =\frac{4-x^{2}}{(x^{2}+4)^{2}} .
+    \]
+    Para $x>2$ se tiene $4-x^{2}<0$, luego $f'(x)<0$ y $\{b_n\}$ es decreciente
+    a partir de $n=2$. Esto es suficiente, porque el carácter de la serie no
+    depende de una cantidad finita de términos.
+
+    \emph{Límite nulo.} Dividiendo por $n^{2}$:
+    \[
+    \lim_{n\to\infty}\frac{n}{n^{2}+4}
+    =\lim_{n\to\infty}\frac{\frac1n}{1+\frac{4}{n^{2}}}
+    =\frac{0}{1}=0 .
+    \]
+
+    Se cumplen ambas condiciones, de modo que la serie alternante converge.
+
+    \textbf{3. Conclusión.} La serie converge, pero la serie de valores
+    absolutos diverge.
+
+    \[
+    \boxed{
+    \sum_{n=1}^{\infty}(-1)^{\,n+1}\,\frac{n}{n^{2}+4}
+    \text{ es \textbf{condicionalmente convergente}}
+    }
+    \]
+
+\end{enumerate}
+
+\volverindice
+\newpage
+
+\end{document}
